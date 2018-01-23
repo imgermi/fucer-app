@@ -1,11 +1,9 @@
 <template>
-  <div class="index">
+  <div class="confirme-su-email">
     <SecondaryTop/>
     <section>
       <div class="container">
-        <h1>Consulte el contenido de la normativa registral</h1>
-        <nuxt-link to="/registro">Regístrese</nuxt-link>
-        <p>¿Ya tiene una cuenta? <nuxt-link to="/login">Ingrese aquí</nuxt-link></p>
+        <h1>Gracias por registrarse. Hemos enviado un correo de confirmación a su cuenta de email.</h1>
       </div>
     </section>
   </div>

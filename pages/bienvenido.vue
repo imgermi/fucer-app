@@ -1,11 +1,11 @@
 <template>
-  <div class="index">
+  <div class="bienvenido">
     <SecondaryTop/>
     <section>
       <div class="container">
-        <h1>Consulte el contenido de la normativa registral</h1>
-        <nuxt-link to="/registro">Regístrese</nuxt-link>
-        <p>¿Ya tiene una cuenta? <nuxt-link to="/login">Ingrese aquí</nuxt-link></p>
+        <h1>¡Bienvenido Pedro!</h1>
+        <p>Su email ha sido confirmado. Ya puede comenzar a utilizar la aplicación.</p>
+        <p><nuxt-link to="/inicio">Comenzar</nuxt-link></p>
       </div>
     </section>
   </div>
