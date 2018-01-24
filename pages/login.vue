@@ -1,10 +1,10 @@
 <template>
   <div class="registro">
     <SecondaryTop/>
-    <section>
+    <section class="band">
       <div class="container">
         <!-- action provisorio para probar el flujo de la app -->
-        <form action="/inicio">
+        <form action="/inicio" method="post" class="main__form">
           <fieldset>
             <label for="email">¿Cúal es su email?</label>
             <input type="email" name="email" id="email" placeholder="Email">
@@ -13,7 +13,7 @@
             <label for="password">¿Cúal es su contraseña?</label>
             <input type="password" name="password" id="password" placeholder="contraseña">
           </fieldset>
-          <input type="submit" value="Ingresar">
+          <input type="submit" class="rounded__btn--full" value="Ingresar">
         </form>
       </div>
     </section>

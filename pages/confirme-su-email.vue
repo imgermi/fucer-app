@@ -1,9 +1,9 @@
 <template>
   <div class="confirme-su-email">
     <SecondaryTop/>
-    <section>
+    <section class="band">
       <div class="container">
-        <h1>Gracias por registrarse. Hemos enviado un correo de confirmación a su cuenta de email.</h1>
+        <h1 class="intro__heading">Gracias por registrarse. Hemos enviado un correo de confirmación a su cuenta de email.</h1>
       </div>
     </section>
   </div>

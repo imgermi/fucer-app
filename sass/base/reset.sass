@@ -4,5 +4,33 @@
 	padding: 0
 	list-style-type: none
 
+a
+	text-decoration: none
+	color: #424242
+	transition: all 200ms ease-in-out
+
 .container
 	padding: 0 15px
+
+.band
+	padding: 50px 0
+
+.rounded__btn--full
+	border-radius: 18px
+	border: 1px solid #424242
+	font-size: 16px
+	display: block
+	width: 100%
+	background: transparent
+	padding: 8px 35px
+	text-align: center
+	transition: all 250ms ease-in-out
+	&:hover
+		transform: translateY(-2px)
+		box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
+	&:active
+		transform: translateY(2px)
+
+form
+	fieldset
+		border: 0

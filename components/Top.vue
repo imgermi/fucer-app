@@ -1,5 +1,8 @@
 <template>
  <div>
+ 	<div class="alerta-plan">
+ 		<p>Está utilizando el plan básico. Acceda a normativas ilimitadas</p>
+ 	</div>
 	  <header>
 	    <div class="container">
 	      <button class="hamburger" type="button">
