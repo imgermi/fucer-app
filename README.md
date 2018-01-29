@@ -1,6 +1,6 @@
-# fucer-app
+# Fucer App
 
-> Fucer App
+> by Weland Agency
 
 ## Build Setup
 
@@ -20,3 +20,5 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+
+[Weland Agency](https://weland.com.ar/en/).
