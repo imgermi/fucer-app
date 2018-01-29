@@ -1,8 +1,76 @@
 // main: ../main.sass
 
+.alerta-plan
+	background: #424242
+	color: #eee
+	padding: 14px 0
+	text-align: center
+	font-size: 12px
+	display: block
+	width: 100%
+
 .logo
 	width: 60px
 	display: block
 	img
 		display: block
 		width: 100%
+
+.main__header
+	padding: 10px 0
+	&:after
+		content: ''
+		display: block
+		clear: both
+	.buscar
+		float: right
+
+.main__nav
+	padding: 15px
+
+// Hamburger
+.hamburger
+  padding-top: 6px
+  display: inline-block
+  cursor: pointer
+  transition-property: opacity, filter
+  transition-duration: 0.15s
+  transition-timing-function: linear
+  font: inherit
+  color: inherit
+  text-transform: none
+  background-color: transparent
+  border: 0
+  margin: 0
+  overflow: visible
+  &:hover
+    opacity: 0.7
+
+.hamburger-box
+  width: 40px
+  height: 24px
+  display: inline-block
+  position: relative
+
+.hamburger-inner
+  display: block
+  top: 50%
+  margin-top: -2px
+
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after
+	width: 40px
+	height: 4px
+	background-color: #000
+	border-radius: 4px
+	position: absolute
+	transition-property: transform
+	transition-duration: 0.15s
+	transition-timing-function: ease
+
+.hamburger-inner::before, .hamburger-inner::after
+	content: ""
+	display: block
+.hamburger-inner::before
+	top: -10px
+.hamburger-inner::after
+	bottom: -10px
