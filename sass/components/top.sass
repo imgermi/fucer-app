@@ -27,10 +27,16 @@
 
 .main__nav
 	padding: 15px
+	ul
+		li
+			a
+				color: #919191
+			.nuxt-link-active
+				color: #1D1D1D
 
 // Hamburger
 .hamburger
-  padding-top: 6px
+  padding-top: 7.5px
   display: inline-block
   cursor: pointer
   transition-property: opacity, filter
@@ -45,11 +51,18 @@
   overflow: visible
   &:hover
     opacity: 0.7
+  label
+  	display: inline-block
+  	vertical-align: middle
+  	padding-left: 10px
+  	color: #767676
+  	font-weight: 300
 
 .hamburger-box
   width: 40px
   height: 24px
   display: inline-block
+  vertical-align: middle
   position: relative
 
 .hamburger-inner
@@ -59,8 +72,8 @@
 
 .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after
 	width: 40px
-	height: 4px
-	background-color: #000
+	height: 2px
+	background-color: #424242
 	border-radius: 4px
 	position: absolute
 	transition-property: transform

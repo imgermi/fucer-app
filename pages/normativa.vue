@@ -1,5 +1,7 @@
 <template>
-  <div class="inicio">
+  <div class="normativa">
+    <Alerta/>
+    <InternalTop/>
     <section>
       <div class="container">
         <h1>Resolución MJ y DH Nº 238/2003 (Concursos)</h1>
@@ -10,3 +12,28 @@
     </section>
   </div>
 </template>
+
+<script>
+import InternalTop from '~/components/InternalTop.vue'
+import Alerta from '~/components/Alerta.vue'
+
+export default {
+  components: {
+    InternalTop,
+    Alerta
+  },
+  data () {
+    return {
+      title: 'Normativa'
+    }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: '' }
+      ]
+    }
+  }
+}
+</script>

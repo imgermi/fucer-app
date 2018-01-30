@@ -1,13 +1,15 @@
 <template>
   <div class="inicio">
-  	<Top/>
-    <section>
+    <Alerta/>
+  	<Top :title="title" />
+    <section class="band">
       <div class="container">
-        <h1>Home</h1>
-        <nuxt-link to="/normativa">
-        	<h3>Resolución MJ y DH Nº 238/2003 (Concursos)</h3>
+        <h1>Normativa Registral</h1>
+        <nuxt-link to="/normativa" class="normativa-module">
+        	<h4>Resolución MJ y DH Nº 238/2003 (Concursos)</h4>
         	<p>The entire starfleet couldn’t destroy the whole planet. Not for long…</p>
         	<small>2001</small>
+          <img src="~/assets/img/star.svg" class="star-icon">
         </nuxt-link>
       </div>
     </section>
@@ -16,10 +18,25 @@
 
 <script>
 import Top from '~/components/Top.vue'
+import Alerta from '~/components/Alerta.vue'
 
 export default {
   components: {
-    Top
+    Top,
+    Alerta
+  },
+  data () {
+    return {
+      title: 'Inicio'
+    }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: '' }
+      ]
+    }
   }
 }
 </script>
