@@ -1,7 +1,7 @@
 <template>
   <div class="inicio">
   	<Top :title="title" />
-    <section>
+    <section class="band">
       <div class="container">
         <h1>Configuracion</h1>
       </div>
