@@ -51,7 +51,6 @@
 			left: 0
 
 .main__nav
-	padding: 15px
 	height: 100%
 	background: #F5F5F5
 	width: 80%
@@ -59,12 +58,33 @@
 	left: -100%
 	top: 0
 	transition: all 200ms ease-in-out
+	.user__info
+		background: #fff
+		width: 100%
+		padding: 30px
+		span, small
+			display: block
+		span
+			color: #5F5F5F
+			font-size: 16px
+			font-weight: 600
+		small
+			font-size: 12px
+			color: #A5A5A5
+			font-weight: 300
 	ul
+		padding: 30px
 		li
+			margin-bottom: 20px
 			a
 				color: #919191
+				font-size: 16px
 			.nuxt-link-active
 				color: #1D1D1D
+	.logo
+		position: absolute
+		left: 30px
+		bottom: 30px
 
 // Hamburger
 .hamburger

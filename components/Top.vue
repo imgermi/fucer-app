@@ -18,6 +18,10 @@
 	  <div class="main__nav--container">
 	  	 <div class="overlay" v-on:click="closeMenu"></div>
 		  <nav class="main__nav">
+		  	<div class="user__info">
+		  		<span>Pedro Touzas</span>
+		  		<small>pedrotouzas@gmail.com</small>
+		  	</div>
 		  	<ul>
 		  		<li><nuxt-link to="/inicio">Inicio</nuxt-link></li>
 		  		<li><nuxt-link to="/buscar">Buscar</nuxt-link></li>
@@ -25,6 +29,7 @@
 		  		<li><nuxt-link to="/configuracion">Configuración</nuxt-link></li>
 		  		<li><nuxt-link to="/" exact>Cerrar Sesión</nuxt-link></li>
 		  	</ul>
+		  	<img src="~/assets/img/logo-blanco-y-negro.svg" class="logo">
 		  </nav>
 	  </div>
   </div>
