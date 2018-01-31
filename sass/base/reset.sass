@@ -46,7 +46,28 @@ form
 		line-height: 20px
 		margin-bottom: 5px
 	.star-icon
-		display: block
-		width: 25px
 		float: right
-		pointer-events: none
+
+.goBack__header
+	padding: 15px 0
+	width: 100%
+	&:after
+		content: ''
+		display: block
+		clear: both
+	.arrow-left
+		display: block
+		width: 20px
+
+.star-icon
+	display: block
+	width: 25px
+	cursor: pointer
+	.star
+		fill: none
+		stroke: #434343
+		stroke-width: 0.5px
+	&.active
+		.star
+			fill: #424242
+			stroke: #424242
