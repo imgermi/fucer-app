@@ -11,6 +11,7 @@
         	<small><nuxt-link to="/normativa">2001</nuxt-link></small>
           <FavoriteStar/>
         </article>
+        <cargarMas/>
       </div>
     </section>
     <Foot/>
@@ -22,13 +23,15 @@ import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
 import Foot from '~/components/Foot.vue'
 import FavoriteStar from '~/components/FavoriteStar.vue'
+import cargarMas from '~/components/cargarMas.vue'
 
 export default {
   components: {
     Top,
     Alerta,
     Foot,
-    FavoriteStar
+    FavoriteStar,
+    cargarMas
   },
   data () {
     return {

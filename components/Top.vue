@@ -9,6 +9,10 @@
 	        <label>{{ title }}</label>
 	      </button>
 	      <button class="buscar"><nuxt-link to="/buscar" class="rounded__btn--full">Buscar</nuxt-link></button>
+	      <form class="form__buscar">
+			<label for="buscar" class="form__buscar--icon"></label>
+	      	<input type="text" name="buscar" id="buscar" placeholder="Buscar en Fucer">
+	      </form>
 	    </div>
 	  </header>
 	  <nav class="main__nav">

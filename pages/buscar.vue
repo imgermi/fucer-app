@@ -1,10 +1,17 @@
 <template>
-  <div class="inicio">
+  <div class="buscar">
     <Alerta/>
-  	<Top :title="title" />
-    <section>
+  	<Top />
+    <section class="band">
       <div class="container">
-        <h1>Buscar</h1>
+        <p class="center search-alert">Busque por <br> nombre, palabra <br> o año</p>
+        <p class="center search-alert">No se <br> encontraron <br> resultados</p>
+        <article class="normativa-module">
+          <h4><nuxt-link to="/normativa">Resolución MJ y DH Nº 238/2003 (Concursos)</nuxt-link></h4>
+          <p><nuxt-link to="/normativa">The entire starfleet couldn’t destroy the whole planet. Not for long…</nuxt-link></p>
+          <small><nuxt-link to="/normativa">2001</nuxt-link></small>
+          <FavoriteStar/>
+        </article>
       </div>
     </section>
   </div>
@@ -13,11 +20,13 @@
 <script>
 import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
+import FavoriteStar from '~/components/FavoriteStar.vue'
 
 export default {
   components: {
     Top,
-    Alerta
+    Alerta,
+    FavoriteStar
   },
   data () {
     return {

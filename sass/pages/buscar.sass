@@ -1,0 +1,31 @@
+// main: ../main.sass
+
+.buscar
+	.main__header
+		.buscar
+			display: none
+		.form__buscar
+			display: block
+			float: right
+			width: calc(100% - 60px)
+			position: relative
+			input[type="text"]
+				background: #F3F3F3
+				border: 0
+				padding: 10px 35px
+				width: 100%
+				border-radius: 25px
+				font-size: 14px
+			&--icon
+				width: 20px
+				height: 20px
+				background: url('~/assets/img/search.svg')
+				background-size: contain
+				background-position: center center
+				background-repeat: no-repeat
+				display: block
+				position: absolute
+				left: 10px
+				top: calc(50% - 12px)
+	.search-alert
+		margin-bottom: 15px

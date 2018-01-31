@@ -9,11 +9,25 @@ a
 	color: #424242
 	transition: all 200ms ease-in-out
 
+button
+	border: 0
+	background: transparent
+	&:after
+		content: ''
+		display: block
+		clear: both
+
+input
+	border-radius: 0
+
 .container
 	padding: 0 15px
 
 .band
-	padding: 50px 0
+	padding: 30px 0
+
+.center
+	text-align: center
 
 .rounded__btn--full
 	border-radius: 18px
@@ -31,6 +45,20 @@ a
 	&:active
 		transform: translateY(2px)
 
+.rounded__btn--medium
+	border-radius: 18px
+	font-size: 16px
+	display: inline-block
+	background: #F3F3F3
+	padding: 8px 35px
+	transition: all 250ms ease-in-out
+	color: #767676
+	&:hover
+		transform: translateY(-2px)
+		box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
+	&:active
+		transform: translateY(2px)
+
 form
 	fieldset
 		border: 0
@@ -40,6 +68,7 @@ form
 	box-shadow: 0 1px 10px rgba(0,0,0,0.15)
 	display: block
 	padding: 20px
+	margin-bottom: 20px
 	p
 		color: #ADADAD
 		font-size: 14px
