@@ -23,9 +23,6 @@ module.exports = {
   /*
   ** Build configuration
   */
-  router: {
-    base: '/fucer-app/'
-  },
   build: {
     /*
     ** Run ESLint on save
