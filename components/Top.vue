@@ -15,7 +15,7 @@
 	      </form>
 	    </div>
 	  </header>
-	  <div class="main__nav--container">
+	  <div :class="'main__nav--container' + (menuActivo ? 'active' : '')">
 	  	 <div class="overlay" v-on:click="closeMenu"></div>
 		  <nav class="main__nav">
 		  	<div class="user__info">
@@ -40,12 +40,15 @@
 
 export default {
   props: ['title'],
+  data () {
+    this.menuActivo = false
+  },
   methods: {
-    openMenu: function (event) {
-      document.querySelector('.main__nav--container').classList.toggle('active');
+    openMenu: function () {
+      this.menuActivo = !this.menuActivo
     },
     closeMenu: function (event) {
-      document.querySelector('.main__nav--container').classList.remove('active');
+      this.menuActivo = false
     }
   }
 }
