@@ -2,20 +2,28 @@
   <div class="inicio">
     <Alerta/>
   	<Top :title="title" />
-    <carousel>
-      <slide>
-        Slide 1 Content
-      </slide>
-      <slide>
-        Slide 2 Content
-      </slide>
-      <slide>
-        Slide 2 Content
-      </slide>
-      <slide>
-        Slide 2 Content
-      </slide>
-    </carousel>
+    <section class="carousel__container">
+      <div class="container">
+        <h2>Novedades</h2>
+        <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
+          <slide>
+            <h4><nuxt-link :to="{ name: 'normativa' }">Resolución MJ y DH Nº 238/2003 (Concursos)</nuxt-link></h4>
+            <small><nuxt-link :to="{ name: 'normativa' }">30/12/12</nuxt-link></small>
+            <button><nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link></button>
+          </slide>
+          <slide>
+            <h4><nuxt-link :to="{ name: 'normativa' }">Resolución Slide 2 238/2003 (Concursos)</nuxt-link></h4>
+            <small><nuxt-link :to="{ name: 'normativa' }">30/12/12</nuxt-link></small>
+            <button><nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link></button>
+          </slide>
+          <slide>
+            <h4><nuxt-link :to="{ name: 'normativa' }">Resolución MJ Slide 3(Concursos)</nuxt-link></h4>
+            <small><nuxt-link :to="{ name: 'normativa' }">30/12/12</nuxt-link></small>
+            <button><nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link></button>
+          </slide>
+        </carousel>
+      </div>
+    </section>
     <section class="band">
       <div class="container">
         <h1>Normativa Registral</h1>

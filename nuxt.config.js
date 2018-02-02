@@ -19,7 +19,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#224B8E', height: '4px' },
   /*
   ** VueRouter
   */
@@ -35,6 +35,8 @@ module.exports = {
       { path: '/registro', name: 'registro' },
       { path: '/bienvenido', name: 'bienvenido' },
       { path: '/normativa', name: 'normativa' },
+      { path: '/modificar-datos', name: 'modificar-datos' },
+      { path: '/modificar-plan', name: 'modificar-plan' },
     ]
   },
   /*
