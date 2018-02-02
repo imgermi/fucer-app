@@ -4,7 +4,7 @@
     <section class="band">
       <div class="container">
         <!-- action provisorio para probar el flujo de la app -->
-        <form :action="{ name: 'confirme-su-email' }" method="post" class="main__form">
+        <form action="/inicio" method="post" class="main__form">
           <fieldset>
             <label for="email">¿Cúal es su email?</label>
             <input type="email" name="email" id="email" placeholder="Email">
