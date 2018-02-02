@@ -46,7 +46,7 @@ export default {
     }
   },
   methods: {
-    openMenu: function (event) {
+    openMenu: function () {
       this.menuActivo = !this.menuActivo
     },
     closeMenu: function (event) {
