@@ -5,12 +5,7 @@
     <section class="band">
       <div class="container">
         <h1>Normativa Registral</h1>
-        <article class="normativa-module">
-        	<h4><nuxt-link to="/normativa">Resolución MJ y DH Nº 238/2003 (Concursos)</nuxt-link></h4>
-        	<p><nuxt-link to="/normativa">The entire starfleet couldn’t destroy the whole planet. Not for long…</nuxt-link></p>
-        	<small><nuxt-link to="/normativa">2001</nuxt-link></small>
-          <FavoriteStar/>
-        </article>
+        <ModuloNormativa/>
         <cargarMas/>
       </div>
     </section>
@@ -22,7 +17,7 @@
 import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
 import Foot from '~/components/Foot.vue'
-import FavoriteStar from '~/components/FavoriteStar.vue'
+import ModuloNormativa from '~/components/ModuloNormativa.vue'
 import cargarMas from '~/components/cargarMas.vue'
 
 export default {
@@ -30,8 +25,8 @@ export default {
     Top,
     Alerta,
     Foot,
-    FavoriteStar,
-    cargarMas
+    cargarMas,
+    ModuloNormativa,
   },
   data () {
     return {

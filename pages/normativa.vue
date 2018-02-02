@@ -3,7 +3,7 @@
     <Alerta/>
     <header class="goBack__header">
       <div class="container">
-        <nuxt-link to="/inicio"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
+        <a href="javascript:history.go(-1)"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></a>
         <FavoriteStar/>
       </div>
     </header>
@@ -19,7 +19,10 @@
         <span>Por Javier Cornejo</span>
         <p>The entire starfleet couldn’t destroy the whole planet. It’d take a thousand ships with more fire power than I’ve… There’s another ship coming in. Maybe they know what happened. It’s an Imperial fighter. It followed us! No. It’s a short range fighter. There aren’t any bases around here. Where did it come from? It sure is leaving in a big hurry. If they identify us, we’re in big trouble. Not if I can help it. Chewie…jam it’s transmissions. It’d be as well to let it go. It’s too far out of range. Not for long…</p>
         <p>The entire starfleet couldn’t destroy the whole planet. It’d take a thousand ships with more fire power than I’ve… There’s another ship coming in. Maybe they know what happened. It’s an Imperial fighter. It followed us! No. It’s a short range fighter. There aren’t any bases around here. Where did it come from? It sure is leaving in a big hurry. If they identify us, we’re in big trouble. Not if I can help it. Chewie…jam it’s transmissions. It’d be as well to let it go. It’s too far out of range. Not for long…</p>
-        <button><nuxt-link to="" class="rounded__btn--full">Leer normativa</nuxt-link></button>
+        <button class="rounded__btn--full">Leer normativa</button>
+        <div class="cuerpo__principal">
+          <p>cuerpo normativa</p>
+        </div>
       </div>
     </section>
     <Foot/>

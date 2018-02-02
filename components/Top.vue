@@ -15,7 +15,7 @@
 	      </form>
 	    </div>
 	  </header>
-	  <div class="main__nav--container">
+	  <div :class="'main__nav--container' + (menuActivo ? ' active' : '')">
 	  	 <div class="overlay" v-on:click="closeMenu"></div>
 		  <nav class="main__nav">
 		  	<div class="user__info">
@@ -23,11 +23,11 @@
 		  		<small>pedrotouzas@gmail.com</small>
 		  	</div>
 		  	<ul>
-		  		<li><nuxt-link to="/inicio">Inicio</nuxt-link></li>
-		  		<li><nuxt-link to="/buscar">Buscar</nuxt-link></li>
-		  		<li><nuxt-link to="/favoritas">Favoritas</nuxt-link></li>
-		  		<li><nuxt-link to="/configuracion">Configuración</nuxt-link></li>
-		  		<li><nuxt-link to="/" exact>Cerrar Sesión</nuxt-link></li>
+		  		<li><nuxt-link :to="{ name: 'inicio' }">Inicio</nuxt-link></li>
+		  		<li><nuxt-link :to="{ name: 'buscar' }">Buscar</nuxt-link></li>
+		  		<li><nuxt-link :to="{ name: 'favoritas' }">Favoritas</nuxt-link></li>
+		  		<li><nuxt-link :to="{ name: 'configuracion' }">Configuración</nuxt-link></li>
+		  		<li><nuxt-link :to="{ name: 'index' }" exact>Cerrar Sesión</nuxt-link></li>
 		  	</ul>
 		  	<img src="~/assets/img/logo-blanco-y-negro.svg" class="logo">
 		  </nav>
@@ -40,12 +40,17 @@
 
 export default {
   props: ['title'],
+  data () {
+  	return {
+    	menuActivo: false
+    }
+  },
   methods: {
     openMenu: function (event) {
-      document.querySelector('.main__nav--container').classList.toggle('active');
+      this.menuActivo = !this.menuActivo
     },
     closeMenu: function (event) {
-      document.querySelector('.main__nav--container').classList.remove('active');
+      this.menuActivo = false
     }
   }
 }

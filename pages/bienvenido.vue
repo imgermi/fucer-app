@@ -5,7 +5,7 @@
       <div class="container">
         <h1>¡Bienvenido Pedro!</h1>
         <p>Su email ha sido confirmado. Ya puede comenzar a utilizar la aplicación.</p>
-        <p><nuxt-link to="/inicio">Comenzar</nuxt-link></p>
+        <p><nuxt-link :to="{ name: 'inicio' }">Comenzar</nuxt-link></p>
       </div>
     </section>
   </div>

@@ -1,14 +1,19 @@
 <template>
 	<div class="center" v-on:click="cargarMas">
-	  <button class="rounded__btn--medium" id="cargarMas">Cargar mas</button>
+	  <button class="rounded__btn--medium"><span v-html="mensaje"></span></button>
 	</div>
 </template>
 
 <script>
 export default {
+  data: function () {
+    return {
+      mensaje: 'Cargar mas'
+    }
+  },
   methods: {
     cargarMas: function (event) {
-      document.querySelector('#cargarMas').innerHTML = "Usted está utilizando la versión básica. <a href=''>Actualice su plan</a> para acceder a todas las normativas.";
+      this.mensaje = 'Usted está utilizando la versión básica. <a href="">Actualice su plan</a> para acceder a todas las normativas.'
     }
   }
 }
