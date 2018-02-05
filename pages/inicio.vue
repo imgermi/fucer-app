@@ -6,20 +6,10 @@
       <div class="container">
         <h2>Novedades</h2>
         <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
-          <slide>
-            <h4><nuxt-link :to="{ name: 'normativa' }">Resolución MJ y DH Nº 238/2003 (Concursos)</nuxt-link></h4>
-            <small><nuxt-link :to="{ name: 'normativa' }">30/12/12</nuxt-link></small>
-            <button><nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link></button>
-          </slide>
-          <slide>
-            <h4><nuxt-link :to="{ name: 'normativa' }">Resolución Slide 2 238/2003 (Concursos)</nuxt-link></h4>
-            <small><nuxt-link :to="{ name: 'normativa' }">30/12/12</nuxt-link></small>
-            <button><nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link></button>
-          </slide>
-          <slide>
-            <h4><nuxt-link :to="{ name: 'normativa' }">Resolución MJ Slide 3(Concursos)</nuxt-link></h4>
-            <small><nuxt-link :to="{ name: 'normativa' }">30/12/12</nuxt-link></small>
-            <button><nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link></button>
+          <slide v-for="normativa in normativas" :key="normativa.id">
+            <h4><nuxt-link :to="{ name: 'normativa' }">{{ normativa.titulo }}</nuxt-link></h4>
+            <small><nuxt-link :to="{ name: 'normativa' }">{{ normativa.fecha }}</nuxt-link></small>
+            <nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link>
           </slide>
         </carousel>
       </div>
@@ -56,6 +46,10 @@ export default {
   data () {
     return {
       title: 'Inicio',
+      normativas: [
+        {titulo: 'Normativa Titulo 1', fecha: '22/12/07'},
+        {titulo: 'Titulo Dos de Normativa', fecha: '22/1/02'}
+      ]
     }
   },
   head () {
@@ -65,6 +59,7 @@ export default {
         { hid: 'description', name: 'description', content: '' }
       ]
     }
-  }
+  },
 }
+
 </script>

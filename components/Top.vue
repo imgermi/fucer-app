@@ -8,7 +8,7 @@
 	        </span>
 	        <label>{{ title }}</label>
 	      </button>
-	      <button class="buscar"><nuxt-link to="/buscar" class="rounded__btn--full">Buscar</nuxt-link></button>
+	      <nuxt-link :to="{ name: 'buscar' }" class="rounded__btn--full buscar">Buscar</nuxt-link>
 	      <form class="form__buscar">
 			<label for="buscar" class="form__buscar--icon"></label>
 	      	<input type="text" name="buscar" id="buscar" placeholder="Buscar en Fucer">

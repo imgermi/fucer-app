@@ -21,25 +21,6 @@ module.exports = {
   */
   loading: { color: '#224B8E', height: '4px' },
   /*
-  ** VueRouter
-  */
-  router: {
-    routes: [
-      { path: '/inicio', name: 'inicio' },
-      { path: '/buscar', name: 'buscar' },
-      { path: '/favoritas', name: 'favoritas' },
-      { path: '/configuracion', name: 'configuracion' },
-      { path: '/', name: 'index' },
-      { path: '/confirme-su-email', name: 'confirme-su-email' },
-      { path: '/login', name: 'login' },
-      { path: '/registro', name: 'registro' },
-      { path: '/bienvenido', name: 'bienvenido' },
-      { path: '/normativa', name: 'normativa' },
-      { path: '/modificar-datos', name: 'modificar-datos' },
-      { path: '/modificar-plan', name: 'modificar-plan' },
-    ]
-  },
-  /*
   ** Build configuration
   */
   build: {
