@@ -7,3 +7,4 @@
 	</footer>
 </template>
 
+<style lang="sass">@import 'sass/components/foot.sass'</style>

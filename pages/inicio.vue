@@ -63,3 +63,5 @@ export default {
 }
 
 </script>
+
+<style lang="sass">@import 'sass/components/vue-carousel.sass'</style>

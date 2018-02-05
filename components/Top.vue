@@ -55,3 +55,5 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">@import 'sass/components/top.sass'</style>

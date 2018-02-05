@@ -8,3 +8,5 @@
     </div>
   </header>
 </template>
+
+<style lang="sass">@import 'sass/components/secondary-top.sass'</style>

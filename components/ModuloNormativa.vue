@@ -16,3 +16,5 @@
 		}
 	}
 </script>
+
+<style lang="sass">@import 'sass/components/modulo-normativa.sass'</style>

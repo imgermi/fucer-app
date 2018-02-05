@@ -5,3 +5,5 @@
   	</nuxt-link>
   </header>
 </template>
+
+<style lang="sass">@import 'sass/components/alerta.sass'</style>
