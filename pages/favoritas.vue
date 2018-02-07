@@ -37,3 +37,5 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">@import 'sass/pages/favoritas.sass'</style>

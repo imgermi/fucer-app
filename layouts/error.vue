@@ -36,3 +36,4 @@ export default {
 }
 </script>
 
+<style lang="sass">@import 'sass/layouts/error.sass'</style>

@@ -38,3 +38,5 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">@import 'sass/pages/buscar.sass'</style>

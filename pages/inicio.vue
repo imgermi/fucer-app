@@ -5,13 +5,15 @@
     <section class="carousel__container">
       <div class="container">
         <h2>Novedades</h2>
-        <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
-          <slide v-for="normativa in normativas" :key="normativa.id">
-            <h4><nuxt-link :to="{ name: 'normativa' }">{{ normativa.titulo }}</nuxt-link></h4>
-            <small><nuxt-link :to="{ name: 'normativa' }">{{ normativa.fecha }}</nuxt-link></small>
-            <nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link>
-          </slide>
-        </carousel>
+        <no-ssr>
+          <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
+            <slide v-for="normativa in normativas" :key="normativa.id">
+              <h4><nuxt-link :to="{ name: 'normativa' }">{{ normativa.titulo }}</nuxt-link></h4>
+              <small><nuxt-link :to="{ name: 'normativa' }">{{ normativa.fecha }}</nuxt-link></small>
+              <nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link>
+            </slide>
+          </carousel>
+        </no-ssr>
       </div>
     </section>
     <section class="band">

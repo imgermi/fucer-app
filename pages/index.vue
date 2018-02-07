@@ -21,3 +21,4 @@ export default {
 }
 </script>
 
+<style lang="sass">@import 'sass/pages/index.sass'</style>
