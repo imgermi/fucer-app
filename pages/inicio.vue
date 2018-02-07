@@ -8,8 +8,9 @@
         <no-ssr>
           <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
             <slide v-for="normativa in normativas" :key="normativa.id">
-              <h4><nuxt-link :to="{ name: 'normativa' }">{{ normativa.titulo }}</nuxt-link></h4>
               <small><nuxt-link :to="{ name: 'normativa' }">{{ normativa.fecha }}</nuxt-link></small>
+              <h4><nuxt-link :to="{ name: 'normativa' }">{{ normativa.titulo }}</nuxt-link></h4>
+              <span><nuxt-link :to="{ name: 'normativa' }">{{ normativa.bajada }}</nuxt-link></span>
               <nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link>
             </slide>
           </carousel>
@@ -49,8 +50,8 @@ export default {
     return {
       title: 'Inicio',
       normativas: [
-        {titulo: 'Normativa Titulo 1', fecha: '22/12/07'},
-        {titulo: 'Titulo Dos de Normativa', fecha: '22/1/02'}
+        {titulo: 'Circular DN Nº 30/2016', bajada: 'Transferencia de automotores del Estado Nacional al GCBA', fecha: '22/12/07'},
+        {titulo: 'Titulo Dos de Normativa', bajada: 'Auto sin LCM. Criterio interpretativo', fecha: '22/1/02'}
       ]
     }
   },
