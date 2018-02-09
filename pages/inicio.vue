@@ -7,7 +7,7 @@
         <h2>Novedades</h2>
         <no-ssr>
           <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
-            <slide v-for="normativa in normativasDestacadas" :key="normativa.id">
+            <slide v-for="normativa in normativasDestacadas" :key="normativa.id + '-destacada'">
               <small><nuxt-link :to="normativa.url">{{ normativa.fecha | fecha('DD/MM/YY')}}</nuxt-link></small>
               <h4><nuxt-link :to="normativa.url">{{ normativa.titulo }}</nuxt-link></h4>
               <span><nuxt-link :to="normativa.url">{{ normativa.bajada }}</nuxt-link></span>
@@ -20,7 +20,14 @@
     <section class="band">
       <div class="container">
         <h1>Normativa Registral</h1>
-        <ModuloNormativa/>
+        <ModuloNormativa
+          v-for="normativa in normativasMasNuevas"
+          :key="normativa.id + '-ultima'"
+          :titulo="normativa.titulo"
+          :bajada="normativa.bajada"
+          :fecha="normativa.fecha"
+          :url="normativa.url"
+        />
         <cargarMas/>
       </div>
     </section>
@@ -54,15 +61,18 @@ export default {
   },
   created () {
     this.getNormativasDestacadas()
+    this.getNormativasMasNuevas(1)
   },
   methods: {
     ...mapActions('inicio',[
-      'getNormativasDestacadas'
+      'getNormativasDestacadas',
+      'getNormativasMasNuevas'
     ])
   },
   computed: {
     ...mapState('inicio',[
-      'normativasDestacadas'
+      'normativasDestacadas',
+      'normativasMasNuevas'
     ])
   },
   head () {
