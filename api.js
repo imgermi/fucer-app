@@ -29,6 +29,22 @@ export default {
       return item
     })
   },
+  async buscarNormativas(palabra = '') {
+    if (!palabra) {
+      return []
+    }
+    const response = await axios.get(BASE_URL + 'normativas/buscar/' + palabra)
+    return response.data.map(item => {
+      item.url = {
+        name: 'normativa',
+        params: {
+          id: item.id,
+          slug: decodeURIComponent(item.uri)
+        }
+      }
+      return item
+    })
+  },
   async getNormativa(id) {
     const response = await axios.get(BASE_URL + 'normativas/id/' + id)
     return response.data

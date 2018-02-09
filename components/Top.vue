@@ -9,9 +9,9 @@
 	        <label>{{ title }}</label>
 	      </button>
 	      <nuxt-link :to="{ name: 'buscar' }" class="rounded__btn--full buscar">Buscar</nuxt-link>
-	      <form class="form__buscar">
+	      <form  @submit.prevent="buscar" class="form__buscar">
 			<label for="buscar" class="form__buscar--icon"></label>
-	      	<input type="text" name="buscar" id="buscar" placeholder="Buscar en Fucer">
+	      	<input v-model="busqueda" type="text" name="buscar" id="buscar" placeholder="Buscar en Fucer">
 	      </form>
 	    </div>
 	  </header>
@@ -37,15 +37,29 @@
 
 
 <script>
+import { mapActions } from 'vuex';
 
 export default {
   props: ['title'],
   data () {
   	return {
+  		busqueda: '',
     	menuActivo: false
     }
   },
   methods: {
+  	...mapActions([
+      'cargando'
+    ]),
+    ...mapActions('buscar',[
+      'buscarNormativas'
+    ]),
+    async buscar () {
+    	this.cargando(true)
+    	this.$route.query.busqueda = this.busqueda
+    	await this.buscarNormativas(this.busqueda)
+    	this.cargando(false)
+    },
     openMenu: function () {
       this.menuActivo = !this.menuActivo
     },

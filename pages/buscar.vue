@@ -4,9 +4,20 @@
   	<Top />
     <section class="band">
       <div class="container">
-        <p class="center search-alert">Busque por <br> nombre, palabra <br> o año</p>
-        <p class="center search-alert">No se <br> encontraron <br> resultados</p>
-        <ModuloNormativa/>
+        <div v-if="!cargando && !normativas.length">
+          <p v-if="!$route.query.busqueda" class="center search-alert">Busque por <br> nombre, palabra <br> o año</p>
+          <p v-else class="center search-alert">No se <br> encontraron <br> resultados</p>
+        </div>
+        <div v-else>
+          <ModuloNormativa
+            v-for="normativa in normativas"
+            :key="normativa.id + '-ultima'"
+            :titulo="normativa.titulo"
+            :bajada="normativa.bajada"
+            :fecha="normativa.fecha"
+            :url="normativa.url"
+          />
+        </div>
       </div>
     </section>
   </div>
@@ -16,6 +27,7 @@
 import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
 import ModuloNormativa from '~/components/ModuloNormativa.vue'
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -27,6 +39,14 @@ export default {
     return {
       title: 'Buscar'
     }
+  },
+  computed: {
+    ...mapState([
+      'cargando'
+    ]),
+    ...mapState('buscar',[
+      'normativas'
+    ])
   },
   head () {
     return {
