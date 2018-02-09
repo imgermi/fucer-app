@@ -4,7 +4,7 @@
     <section class="band">
       <div class="container">
         <!-- action provisorio para probar el flujo de la app -->
-        <form action="/confirme-su-email" method="post" class="main__form">
+        <form method="post" class="main__form">
           <fieldset>
             <label for="name">¿Cúal es su nombre?</label>
             <input type="text" name="name" id="name" placeholder="Nombre completo">
@@ -21,7 +21,7 @@
             <label for="password-repeat">Repita la contraseña</label>
             <input type="password" name="password-repeat" id="password-repeat" placeholder="Contraseña">
           </fieldset>
-          <input type="submit" class="rounded__btn--full" value="Siguiente">
+          <nuxt-link :to="{name: 'confirme-su-email'}" class="rounded__btn--full">Siguiente</nuxt-link>
         </form>
       </div>
     </section>

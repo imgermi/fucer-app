@@ -1,4 +1,7 @@
 module.exports = {
+
+  mode: 'spa',
+
   /*
   ** Headers of the page
   */
@@ -20,6 +23,11 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: { color: '#224B8E', height: '4px' },
+
+  router: {
+     base: '/app/'
+  },
+
   /*
   ** Build configuration
   */
