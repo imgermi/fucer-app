@@ -25,7 +25,14 @@ module.exports = {
   loading: { color: '#224B8E', height: '4px' },
 
   router: {
-     base: '/app/'
+    base: '/app/',
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'normativa',
+        path: '/normativa/:id/:slug?',
+        component: resolve(__dirname, 'pages/normativa/_id.vue')
+      })
+    }
   },
 
   modules: [
