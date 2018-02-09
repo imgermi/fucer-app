@@ -7,8 +7,8 @@
         <h2>Novedades</h2>
         <no-ssr>
           <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
-            <slide v-for="normativa in normativas" :key="normativa.id">
-              <small><nuxt-link :to="{ name: 'normativa' }">{{ normativa.fecha }}</nuxt-link></small>
+            <slide v-for="normativa in normativasDestacadas" :key="normativa.id">
+              <small><nuxt-link :to="{ name: 'normativa' }">{{ normativa.fecha | fecha('DD/MM/YY')}}</nuxt-link></small>
               <h4><nuxt-link :to="{ name: 'normativa' }">{{ normativa.titulo }}</nuxt-link></h4>
               <span><nuxt-link :to="{ name: 'normativa' }">{{ normativa.bajada }}</nuxt-link></span>
               <nuxt-link :to="{ name: 'normativa' }" class="rounded__btn--medium">Ver más</nuxt-link>
@@ -35,6 +35,7 @@ import Foot from '~/components/Foot.vue'
 import ModuloNormativa from '~/components/ModuloNormativa.vue'
 import cargarMas from '~/components/cargarMas.vue'
 import { Carousel, Slide } from 'vue-carousel';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -48,12 +49,21 @@ export default {
   },
   data () {
     return {
-      title: 'Inicio',
-      normativas: [
-        {titulo: 'Circular DN Nº 30/2016', bajada: 'Transferencia de automotores del Estado Nacional al GCBA', fecha: '22/12/07'},
-        {titulo: 'Titulo Dos de Normativa', bajada: 'Auto sin LCM. Criterio interpretativo', fecha: '22/1/02'}
-      ]
+      title: 'Inicio'
     }
+  },
+  created () {
+    this.getNormativasDestacadas()
+  },
+  methods: {
+    ...mapActions('inicio',[
+      'getNormativasDestacadas'
+    ])
+  },
+  computed: {
+    ...mapState('inicio',[
+      'normativasDestacadas'
+    ])
   },
   head () {
     return {

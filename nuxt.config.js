@@ -28,6 +28,14 @@ module.exports = {
      base: '/app/'
   },
 
+  modules: [
+    '@nuxtjs/axios'
+  ],
+
+  plugins: [
+    '~/plugins/filtros'
+  ],
+
   /*
   ** Build configuration
   */
