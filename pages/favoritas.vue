@@ -5,7 +5,12 @@
     <section class="band">
       <div class="container">
         <span class="small__heading">Aquí verás las normativas que marcaste <br> como favoritas</span>
-        <ModuloNormativa/>
+        <ModuloNormativa
+          titulo="Circular DTR Nº 6/2016"
+          bajada="Aclaraciones normativas referentes al Certificado Dominial para Cam..."
+          fecha="06/12/16"
+          url="normativa/4/circular-dtr-n%C2%BA-62016"
+        />
       </div>
     </section>
   </div>
