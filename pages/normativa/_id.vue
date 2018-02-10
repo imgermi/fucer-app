@@ -18,9 +18,9 @@
         <h6>Introducción</h6>
         <span v-if="autor">Por {{ autor }}</span>
         <div v-if="intro" v-html="intro"></div>
-        <button class="rounded__btn--full" v-on:click="LeerNormativa">Leer normativa</button>
+        <button class="rounded__btn--full" @click="leerNormativa">Leer normativa</button>
         <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
-          {{ cuerpo }}
+          <div v-html="cuerpo"></div>
         </div>
       </div>
     </section>
@@ -71,8 +71,8 @@ export default {
     }
   },
   methods: {
-    LeerNormativa: function(event) {
-      this.cuerpoActivo = !this.cuerpoActivo
+    leerNormativa () {
+      this.mostrarCuerpo = !this.mostrarCuerpo
     }
   }
 }
