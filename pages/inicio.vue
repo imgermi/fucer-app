@@ -6,29 +6,41 @@
       <div class="container">
         <h2>Novedades</h2>
         <no-ssr>
-          <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
-            <slide v-for="normativa in normativasDestacadas" :key="normativa.id + '-destacada'">
-              <small><nuxt-link :to="normativa.url">{{ normativa.fecha | fecha('DD/MM/YY')}}</nuxt-link></small>
-              <h4><nuxt-link :to="normativa.url">{{ normativa.titulo }}</nuxt-link></h4>
-              <span><nuxt-link :to="normativa.url">{{ normativa.bajada }}</nuxt-link></span>
-              <nuxt-link :to="normativa.url" class="rounded__btn--medium">Ver más</nuxt-link>
-            </slide>
-          </carousel>
+          <div>
+            <div v-if="!cargandoCarousel">
+              <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
+                <slide v-for="normativa in normativasDestacadas" :key="normativa.id + '-destacada'">
+                  <small><nuxt-link :to="normativa.url">{{ normativa.fecha | fecha('DD/MM/YY')}}</nuxt-link></small>
+                  <h4><nuxt-link :to="normativa.url">{{ normativa.titulo }}</nuxt-link></h4>
+                  <span><nuxt-link :to="normativa.url">{{ normativa.bajada }}</nuxt-link></span>
+                  <nuxt-link :to="normativa.url" class="rounded__btn--medium">Ver más</nuxt-link>
+                </slide>
+              </carousel>
+            </div>
+            <div v-else>
+              Cargando...
+            </div>
+          </div>
         </no-ssr>
       </div>
     </section>
     <section class="band">
       <div class="container">
         <h1>Normativa Registral</h1>
-        <ModuloNormativa
-          v-for="normativa in normativasMasNuevas"
-          :key="normativa.id + '-ultima'"
-          :titulo="normativa.titulo"
-          :bajada="normativa.bajada"
-          :fecha="normativa.fecha"
-          :url="normativa.url"
-        />
-        <cargarMas/>
+        <div v-if="!cargandoNormativas">
+          <ModuloNormativa
+            v-for="normativa in normativasMasNuevas"
+            :key="normativa.id + '-ultima'"
+            :titulo="normativa.titulo"
+            :bajada="normativa.bajada"
+            :fecha="normativa.fecha"
+            :url="normativa.url"
+          />
+          <cargarMas/>
+        </div>
+        <div v-else>
+          Cargando...
+        </div>
       </div>
     </section>
     <Foot/>
@@ -56,12 +68,17 @@ export default {
   },
   data () {
     return {
-      title: 'Inicio'
+      title: 'Inicio',
+      cargandoCarousel: true,
+      cargandoNormativas: true
     }
   },
-  created () {
-    this.getNormativasDestacadas()
-    this.getNormativasMasNuevas(1)
+  async created () {
+    await this.getNormativasDestacadas()
+    this.cargandoCarousel = false
+
+    await this.getNormativasMasNuevas(1)
+    this.cargandoNormativas = false
   },
   methods: {
     ...mapActions('inicio',[

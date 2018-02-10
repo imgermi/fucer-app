@@ -1,15 +1,17 @@
 export const state = () => ({
-  cargando: false
+  pagina: {
+  	cargando: false
+  }
 })
 
 export const mutations = {
-  'CARGANDO' (state, payload) {
-    state.cargando = payload
+  'SET_PAGINA_CARGANDO' (state, payload) {
+    state.pagina.cargando = payload
   }
 }
 
 export const actions = {
-  cargando ({ commit }, cargando) {
-    commit('CARGANDO', cargando)
+setPaginaCargando ({ commit }, cargando) {
+    commit('SET_PAGINA_CARGANDO', cargando)
   }
 }

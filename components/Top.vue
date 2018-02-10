@@ -37,7 +37,7 @@
 
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   props: ['title'],
@@ -47,18 +47,21 @@ export default {
     	menuActivo: false
     }
   },
+  computed: {
+  	...mapState(['pagina'])
+  },
   methods: {
   	...mapActions([
-      'cargando'
+      'setPaginaCargando'
     ]),
     ...mapActions('buscar',[
       'buscarNormativas'
     ]),
     async buscar () {
-    	this.cargando(true)
+    	this.setPaginaCargando(true)
     	this.$route.query.busqueda = this.busqueda
     	await this.buscarNormativas(this.busqueda)
-    	this.cargando(false)
+    	this.setPaginaCargando(false)
     },
     openMenu: function () {
       this.menuActivo = !this.menuActivo

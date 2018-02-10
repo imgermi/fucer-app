@@ -15,12 +15,17 @@
     </section>
     <section class="band cuerpo">
       <div class="container">
-        <h6>Introducción</h6>
-        <span v-if="autor">Por {{ autor }}</span>
-        <div v-if="intro" v-html="intro"></div>
-        <button class="rounded__btn--full" @click="leerNormativa">Leer normativa</button>
-        <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
-          <div v-html="cuerpo"></div>
+        <div v-if="!pagina.cargando">
+          <h6>Introducción</h6>
+          <span v-if="autor">Por {{ autor }}</span>
+          <div v-if="intro" v-html="intro"></div>
+          <button class="rounded__btn--full" @click="leerNormativa">Leer normativa</button>
+          <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
+            <div v-html="cuerpo"></div>
+          </div>
+        </div>
+        <div v-else>
+          Cargando...
         </div>
       </div>
     </section>
@@ -33,6 +38,7 @@ import Alerta from '~/components/Alerta.vue'
 import FavoriteStar from '~/components/FavoriteStar.vue'
 import Foot from '~/components/Foot.vue'
 import api from '~/api'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -50,7 +56,11 @@ export default {
       mostrarCuerpo: false
     }
   },
+  computed: {
+    ...mapState(['pagina'])
+  },
   async created () {
+    this.setPaginaCargando(true)
     try {
       let normativa = await api.getNormativa(this.$route.params.id)
       this.titulo = normativa.titulo
@@ -58,6 +68,7 @@ export default {
       this.autor = normativa.autor
       this.intro = normativa.intro
       this.cuerpo = normativa.cuerpo
+      this.setPaginaCargando(false)
     } catch (e) {
       this.$router.push({name: '404'})
     }
@@ -71,6 +82,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setPaginaCargando']),
     leerNormativa () {
       this.mostrarCuerpo = !this.mostrarCuerpo
     }
