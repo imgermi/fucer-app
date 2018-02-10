@@ -31,6 +31,7 @@
           <ModuloNormativa
             v-for="normativa in normativasMasNuevas"
             :key="normativa.id + '-ultima'"
+            :id="normativa.id"
             :titulo="normativa.titulo"
             :bajada="normativa.bajada"
             :fecha="normativa.fecha"

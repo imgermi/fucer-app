@@ -4,7 +4,7 @@
     <header class="goBack__header">
       <div class="container">
         <a @click="$router.go(-1)"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></a>
-        <FavoriteStar/>
+        <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
       </div>
     </header>
     <section class="top">
@@ -48,6 +48,7 @@ export default {
   },
   data () {
     return {
+      id: 0,
       titulo: '',
       autor: '',
       fecha: '',
@@ -57,7 +58,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['pagina'])
+    ...mapState(['pagina']),
+    enFavoritos () {
+      let indiceFavorito = this.$store.state.favoritos.normativas.findIndex(
+        favorito => this.id == favorito.id
+      )
+      return indiceFavorito >= 0 ? true : false
+    }
   },
   async created () {
     this.setPaginaCargando(true)
@@ -85,8 +92,24 @@ export default {
     ...mapActions(['setPaginaCargando']),
     leerNormativa () {
       this.mostrarCuerpo = !this.mostrarCuerpo
+    },
+    ...mapActions('favoritos', [
+      'agregarFavorito',
+      'quitarFavorito'
+    ]),
+    async cambiarFavorito () {
+      if( this.enFavoritos ){
+        await this.quitarFavorito(this.id)
+      } else {
+        await this.agregarFavorito({
+          id: this.id,
+          titulo: this.titulo,
+          bajada: this.bajada,
+          fecha: this.fecha
+        })
+      }
     }
-  }
+  },
 }
 </script>
 

@@ -6,10 +6,13 @@
       <div class="container">
         <span class="small__heading">Aquí verás las normativas que marcaste <br> como favoritas</span>
         <ModuloNormativa
-          titulo="Circular DTR Nº 6/2016"
-          bajada="Aclaraciones normativas referentes al Certificado Dominial para Cam..."
-          fecha="06/12/16"
-          url="normativa/4/circular-dtr-n%C2%BA-62016"
+          v-for="normativa in normativas"
+          :key="normativa.id + '-ultima'"
+          :id="normativa.id"
+          :titulo="normativa.titulo"
+          :bajada="normativa.bajada"
+          :fecha="normativa.fecha"
+          :url="normativa.url"
         />
       </div>
     </section>
@@ -20,6 +23,7 @@
 import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
 import ModuloNormativa from '~/components/ModuloNormativa.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -31,6 +35,9 @@ export default {
     return {
       title: 'Favoritas'
     }
+  },
+  computed: {
+    ...mapState('favoritos', ['normativas'])
   },
   head () {
     return {
