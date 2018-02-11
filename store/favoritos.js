@@ -5,6 +5,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  'CARGAR_FAVORITOS' (state, normativas) {
+    state.normativas = normativas
+  },
   'AGREGAR_FAVORITO' (state, normativa) {
     state.normativas.push(normativa)
   },
@@ -19,10 +22,15 @@ export const mutations = {
 }
 
 export const actions = {
-  async agregarFavorito ({ commit }, normativa) {
+  async agregarFavorito ({ commit, rootState }, normativa) {
+    await api.agregarFavorito(rootState.usuario.id, normativa.id)
     commit('AGREGAR_FAVORITO', normativa)
   },
-  async quitarFavorito ({ commit }, idNormativa) {
+  async quitarFavorito ({ commit, rootState }, idNormativa) {
+    await api.quitarFavorito(rootState.usuario.id, idNormativa)
     commit('QUITAR_FAVORITO', idNormativa)
   },
+  async cargarFavoritos ({ commit }, normativas) {
+    commit('CARGAR_FAVORITOS', normativas)
+  }
 }

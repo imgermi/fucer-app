@@ -55,5 +55,42 @@ export default {
       }
     }
     return response.data
+  },
+
+  /// Favoritos ///
+  async getFavoritos(idUsuario) {
+    const response = await axios.get(
+      BASE_URL + 'favoritos', {
+        params: {
+          usuario: idUsuario
+        }
+      })
+    let normativas = response.data.map(item => {
+      item.url = {
+        name: 'normativa',
+        params: {
+          id: item.id,
+          slug: decodeURIComponent(item.uri)
+        }
+      }
+      return item
+    })
+    return normativas
+  },
+  async agregarFavorito(idUsuario, idNormativa) {
+    return await axios.post(
+      BASE_URL + 'favoritos', {
+        usuario: idUsuario,
+        normativa: idNormativa
+      })
+  },
+  async quitarFavorito(idUsuario, idNormativa) {
+    return await axios.delete(
+      BASE_URL + 'favoritos?usuario='+idUsuario+'&normativa='+idNormativa, {
+        params: {
+          usuario: idUsuario,
+          normativa: idNormativa
+        }
+      })
   }
 }

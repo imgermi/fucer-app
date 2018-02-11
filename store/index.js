@@ -1,6 +1,11 @@
+import api from '~/api'
+
 export const state = () => ({
+  usuario: {
+    id: 1
+  },
   pagina: {
-  	cargando: false
+    cargando: false
   }
 })
 
@@ -11,7 +16,7 @@ export const mutations = {
 }
 
 export const actions = {
-setPaginaCargando ({ commit }, cargando) {
+  setPaginaCargando ({ commit }, cargando) {
     commit('SET_PAGINA_CARGANDO', cargando)
   }
 }

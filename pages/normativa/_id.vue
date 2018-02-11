@@ -62,6 +62,9 @@ export default {
   computed: {
     ...mapState(['pagina']),
     enFavoritos () {
+      if (!this.$store.state.favoritos.normativas.length) {
+        return false
+      }
       let indiceFavorito = this.$store.state.favoritos.normativas.findIndex(
         favorito => this.id == favorito.id
       )
