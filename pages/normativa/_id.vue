@@ -50,10 +50,12 @@ export default {
     return {
       id: 0,
       titulo: '',
+      bajada: '',
       autor: '',
       fecha: '',
       intro: '',
       cuerpo: '',
+      url: '',
       mostrarCuerpo: false
     }
   },
@@ -70,11 +72,14 @@ export default {
     this.setPaginaCargando(true)
     try {
       let normativa = await api.getNormativa(this.$route.params.id)
+      this.id = normativa.id
       this.titulo = normativa.titulo
+      this.bajada = normativa.bajada
       this.fecha = normativa.fecha
       this.autor = normativa.autor
       this.intro = normativa.intro
       this.cuerpo = normativa.cuerpo
+      this.url = normativa.url
       this.setPaginaCargando(false)
     } catch (e) {
       this.$router.push({name: '404'})
@@ -105,7 +110,8 @@ export default {
           id: this.id,
           titulo: this.titulo,
           bajada: this.bajada,
-          fecha: this.fecha
+          fecha: this.fecha,
+          url: this.url
         })
       }
     }

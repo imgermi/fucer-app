@@ -47,6 +47,13 @@ export default {
   },
   async getNormativa(id) {
     const response = await axios.get(BASE_URL + 'normativas/id/' + id)
+    response.data.url = {
+      name: 'normativa',
+      params: {
+        id: response.data.id,
+        slug: decodeURIComponent(response.data.uri)
+      }
+    }
     return response.data
   }
 }
