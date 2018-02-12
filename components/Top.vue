@@ -18,16 +18,18 @@
 	  <div :class="'main__nav--container' + (menuActivo ? ' active' : '')">
 	  	 <div class="overlay" v-on:click="closeMenu"></div>
 		  <nav class="main__nav">
-		  	<div class="user__info">
-		  		<span>Pedro Touzas</span>
-		  		<small>pedrotouzas@gmail.com</small>
-		  	</div>
+	  		<div v-if="$auth.state.loggedIn" class="user__info">
+	  			<span>{{ $auth.state.user.nombre }}</span>
+	  			<small>{{ $auth.state.user.email }}</small>
+	  		</div>
 		  	<ul>
 		  		<li><nuxt-link :to="{ name: 'inicio' }">Inicio</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'buscar' }">Buscar</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'favoritas' }">Favoritas</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'configuracion' }">Configuración</nuxt-link></li>
-		  		<li><nuxt-link :to="{ name: 'index' }" exact>Cerrar Sesión</nuxt-link></li>
+		  		<li v-if="$auth.state.loggedIn">
+		  			<a @click="logout()">Cerrar Sesión</a>
+		  		</li>
 		  	</ul>
 		  	<img src="~/assets/img/logo-blanco-y-negro.svg" class="logo">
 		  </nav>
@@ -68,6 +70,10 @@ export default {
     },
     closeMenu: function (event) {
       this.menuActivo = false
+    },
+    async logout () {
+    	await this.$auth.logout()
+    	this.$router.push("/")
     }
   }
 }

@@ -17,7 +17,8 @@ import SecondaryTop from '~/components/SecondaryTop.vue'
 export default {
   components: {
     SecondaryTop
-  }
+  },
+  auth: false
 }
 </script>
 
