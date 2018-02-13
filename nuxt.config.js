@@ -26,7 +26,7 @@ module.exports = {
 
   router: {
     base: '/app/',
-    middleware: ['auth'],
+    middleware: ['init'],
     extendRoutes (routes, resolve) {
       routes.push({
         name: 'normativa',

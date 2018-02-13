@@ -1,7 +1,4 @@
 export const state = () => ({
-  usuario: {
-    id: 1
-  },
   pagina: {
     cargando: false
   }

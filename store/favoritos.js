@@ -20,17 +20,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async agregarFavorito ({ commit, rootState }, normativa) {
+  async agregarFavorito ({ commit }, normativa) {
     await this.$axios.post('favoritos', {
-      usuario: rootState.usuario.id,
+      usuario: this.$auth.state.user.id,
       normativa: normativa.id
     })
     commit('AGREGAR_FAVORITO', normativa)
   },
-  async quitarFavorito ({ commit, rootState }, idNormativa) {
+  async quitarFavorito ({ commit }, idNormativa) {
     await this.$axios.delete('favoritos', {
       params: {
-        usuario: rootState.usuario.id,
+        usuario: this.$auth.state.user.id,
         normativa: idNormativa
       }
     })
