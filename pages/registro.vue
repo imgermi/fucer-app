@@ -119,6 +119,10 @@ export default {
       'setPaginaCargando'
     ]),
     async register() {
+      let valida = await this.$validator.validateAll()
+      if (!valida) {
+        return
+      }
       this.setPaginaCargando(true)
       try {
         await this.$axios.$post('auth/register', {

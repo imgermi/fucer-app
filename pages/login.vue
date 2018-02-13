@@ -30,6 +30,7 @@
             <label for="password">¿Cúal es su contraseña?</label>
             <input
               type="password"
+              name="password"
               v-model="password"
               id="password"
               v-validate="'required'"
@@ -81,6 +82,10 @@ export default {
       'setPaginaCargando'
     ]),
     async login() {
+      let valida = await this.$validator.validateAll()
+      if (!valida) {
+        return
+      }
       this.setPaginaCargando(true)
       let response = this.$auth.login({
         data: {
