@@ -50,11 +50,12 @@ module.exports = {
     redirect: {
       login: '/login',
       home: '/inicio'
-    },
+    }
   },
 
   plugins: [
-    '~/plugins/filtros'
+    '~/plugins/filtros',
+    '~/plugins/vue-validate'
   ],
 
   /*

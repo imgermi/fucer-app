@@ -92,5 +92,15 @@ export default {
           normativa: idNormativa
         }
       })
+  },
+
+  // Registro
+  async registrarUsuario(nombre, email, password) {
+    return await axios.post(
+      BASE_URL + 'auth/register', {
+        nombre: nombre,
+        email: email,
+        password: password
+    })
   }
 }

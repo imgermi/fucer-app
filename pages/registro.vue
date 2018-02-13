@@ -3,25 +3,82 @@
     <SecondaryTop/>
     <section class="band">
       <div class="container">
-        <!-- action provisorio para probar el flujo de la app -->
-        <form method="post" class="main__form">
+
+        <div class="msj-error" v-if="error">
+          {{ error }}
+        </div>
+
+        <form @submit.prevent="register" class="main__form">
           <fieldset>
-            <label for="name">¿Cúal es su nombre?</label>
-            <input type="text" name="name" id="name" placeholder="Nombre completo">
+            <label for="nombre">¿Cúal es su nombre?</label>
+            <input
+              type="text"
+              v-model="nombre"
+              name="nombre"
+              v-validate="'required'"
+              id="nombre"
+              ref="nombre"
+              :class="{'error': errors.has('nombre') }"
+              placeholder="Nombre completo"
+            />
+            <span class="error" v-show="errors.has('nombre')">
+              {{ errors.first('nombre') }}
+            </span>
           </fieldset>
+
           <fieldset>
             <label for="email">¿Cúal es su email?</label>
-            <input type="email" name="email" id="email" placeholder="Email">
+            <input
+              type="email"
+              name="email"
+              v-model="email"
+              v-validate="'required|email'"
+              id="email"
+              :class="{'error': errors.has('email') }"
+              placeholder="Email"
+            />
+            <span class="error" v-show="errors.has('email')">
+              {{ errors.first('email') }}
+            </span>
           </fieldset>
+
           <fieldset>
             <label for="password">Ingrese una contraseña</label>
-            <input type="password" name="password" id="password" placeholder="Contraseña">
+            <input
+              type="password"
+              v-model="password"
+              name="password"
+              v-validate="'required'"
+              id="password"
+              data-vv-as="contraseña"
+              :class="{'error': errors.has('password') }"
+              placeholder="Contraseña"
+            />
+            <span class="error" v-show="errors.has('password')">
+              {{ errors.first('password') }}
+            </span>
           </fieldset>
+
           <fieldset>
             <label for="password-repeat">Repita la contraseña</label>
-            <input type="password" name="password-repeat" id="password-repeat" placeholder="Contraseña">
+            <input
+              type="password"
+              name="passwordRepeat"
+              v-model="passwordRepeat"
+              v-validate="'required|confirmed:password'"
+              id="password-repeat"
+              data-vv-as="contraseña repetida"
+              :class="{'error': errors.has('password') }"
+              placeholder="Contraseña"
+            />
+            <span class="error" v-show="errors.has('passwordRepeat')">
+              {{ errors.first('passwordRepeat') }}
+            </span>
           </fieldset>
-          <nuxt-link :to="{name: 'confirme-su-email'}" class="rounded__btn--full">Siguiente</nuxt-link>
+
+          <button type="submit" class="rounded__btn--full">
+            {{ txtBtnSubmit}}
+          </button>
         </form>
       </div>
     </section>
@@ -30,11 +87,64 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
+import { mapState, mapActions } from 'vuex'
+import api from '~/api'
 
 export default {
   components: {
     SecondaryTop
   },
-  auth: false
+  auth: false,
+  data() {
+    return {
+      nombre: '',
+      email: '',
+      password: '',
+      passwordRepeat: '',
+      error: false
+    }
+  },
+  computed: {
+    ...mapState([
+      'pagina'
+    ]),
+    txtBtnSubmit () {
+      return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
+    }
+  },
+  mounted() {
+    this.$refs.nombre.focus()
+  },
+  methods: {
+    ...mapActions([
+      'setPaginaCargando'
+    ]),
+    async register() {
+      this.setPaginaCargando(true)
+      try {
+        await api.registrarUsuario(
+          this.nombre,
+          this.email,
+          this.password
+        )
+
+        await this.$auth.login({
+          data: {
+            username: this.email,
+            password: this.password
+          }
+        }).catch(e => {
+          this.error = e.response.data.error.message.replace('Bad Request:', '')
+        })
+        // Esto no debería hacer falta, tal vez ya lo hayan arreglado
+        // https://github.com/nuxt-community/auth-module/issues/23
+        this.$router.push({name: 'inicio'})
+      } catch(e) {
+        this.error = e.response.data.error.message.replace('Bad Request:', '')
+      }
+
+      this.setPaginaCargando(false)
+    }
+  }
 }
 </script>

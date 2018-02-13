@@ -4,18 +4,42 @@
     <section class="band">
       <div class="container">
 
-        <div class="msj-error" v-if="hasError">
-          Revise sus credenciales por favor, algún dato no es correcto.
+        <div class="msj-error" v-if="error">
+          {{ error }}
         </div>
 
         <form @submit.prevent="login" class="main__form">
           <fieldset>
             <label for="email">¿Cúal es su email?</label>
-            <input type="email" v-model="email" id="email" ref="email" placeholder="Email">
+            <input
+              type="email"
+              name="email"
+              v-model="email"
+              id="email"
+              ref="email"
+              v-validate="'required'"
+              :class="{'error': errors.has('email') }"
+              placeholder="Email"
+            />
+            <span class="error" v-show="errors.has('email')">
+              {{ errors.first('email') }}
+            </span>
+
           </fieldset>
           <fieldset>
             <label for="password">¿Cúal es su contraseña?</label>
-            <input type="password"  v-model="password" id="password" placeholder="contraseña">
+            <input
+              type="password"
+              v-model="password"
+              id="password"
+              v-validate="'required'"
+              :class="{'error': errors.has('password') }"
+              data-vv-as="contraseña"
+              placeholder="contraseña"
+            />
+            <span class="error" v-show="errors.has('password')">
+              {{ errors.first('password') }}
+            </span>
           </fieldset>
           <button type="submit" class="rounded__btn--full">
             {{ txtBtnIngresar}}
@@ -28,7 +52,7 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -37,8 +61,8 @@ export default {
   data() {
     return {
       email: '',
-      password: '123',
-      hasError: false
+      password: '',
+      error: false
     }
   },
   computed: {
@@ -53,15 +77,21 @@ export default {
     this.$refs.email.focus()
   },
   methods: {
+     ...mapActions([
+      'setPaginaCargando'
+    ]),
     async login() {
-      return this.$auth.login({
+      this.setPaginaCargando(true)
+      let response = this.$auth.login({
         data: {
           username: this.email,
           password: this.password
         }
       }).catch(e => {
-        this.hasError = true
+        this.error = 'Revise sus credenciales por favor. Algún dato no es correcto o el usuario todavía no está activo.'
       })
+      this.setPaginaCargando(false)
+      return response
     }
   }
 }
