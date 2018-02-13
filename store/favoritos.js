@@ -1,5 +1,3 @@
-import api from '~/api'
-
 export const state = () => ({
   normativas: [],
 })
@@ -23,11 +21,19 @@ export const mutations = {
 
 export const actions = {
   async agregarFavorito ({ commit, rootState }, normativa) {
-    await api.agregarFavorito(rootState.usuario.id, normativa.id)
+    await this.$axios.post('favoritos', {
+      usuario: rootState.usuario.id,
+      normativa: normativa.id
+    })
     commit('AGREGAR_FAVORITO', normativa)
   },
   async quitarFavorito ({ commit, rootState }, idNormativa) {
-    await api.quitarFavorito(rootState.usuario.id, idNormativa)
+    await this.$axios.delete('favoritos', {
+      params: {
+        usuario: rootState.usuario.id,
+        normativa: idNormativa
+      }
+    })
     commit('QUITAR_FAVORITO', idNormativa)
   },
   async cargarFavoritos ({ commit }, normativas) {

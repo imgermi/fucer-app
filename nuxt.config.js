@@ -41,6 +41,10 @@ module.exports = {
     '@nuxtjs/auth'
   ],
 
+  axios: {
+    baseURL: 'https://fucer.com.ar/app/api/'
+  },
+
   auth: {
     endpoints: {
       login: { url: 'http://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
@@ -55,7 +59,8 @@ module.exports = {
 
   plugins: [
     '~/plugins/filtros',
-    '~/plugins/vue-validate'
+    '~/plugins/vue-validate',
+    '~/plugins/axios'
   ],
 
   /*

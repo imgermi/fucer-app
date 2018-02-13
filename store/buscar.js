@@ -1,5 +1,3 @@
-import api from '~/api'
-
 export const state = () => ({
   normativas: [],
 })
@@ -12,7 +10,20 @@ export const mutations = {
 
 export const actions = {
   async buscarNormativas ({ commit }, busqueda) {
-    const normativas = await api.buscarNormativas(busqueda)
+    if (!busqueda) {
+      return
+    }
+    const normativas = await this.$axios.$get('normativas/buscar/' + busqueda)
+    normativas.map(item => {
+      item.url = {
+        name: 'normativa',
+        params: {
+          id: item.id,
+          slug: decodeURIComponent(item.uri)
+        }
+      }
+      return item
+    })
     commit('SET_NORMATIVAS', normativas)
   }
 }

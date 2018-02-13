@@ -88,7 +88,6 @@
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
 import { mapState, mapActions } from 'vuex'
-import api from '~/api'
 
 export default {
   components: {
@@ -122,11 +121,11 @@ export default {
     async register() {
       this.setPaginaCargando(true)
       try {
-        await api.registrarUsuario(
-          this.nombre,
-          this.email,
-          this.password
-        )
+        await this.$axios.$post('auth/register', {
+          nombre: this.nombre,
+          email: this.email,
+          password: this.password
+        })
 
         await this.$auth.login({
           data: {

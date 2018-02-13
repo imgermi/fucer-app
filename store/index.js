@@ -1,5 +1,3 @@
-import api from '~/api'
-
 export const state = () => ({
   usuario: {
     id: 1

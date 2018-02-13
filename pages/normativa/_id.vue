@@ -37,7 +37,6 @@
 import Alerta from '~/components/Alerta.vue'
 import FavoriteStar from '~/components/FavoriteStar.vue'
 import Foot from '~/components/Foot.vue'
-import api from '~/api'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -74,7 +73,7 @@ export default {
   async created () {
     this.setPaginaCargando(true)
     try {
-      let normativa = await api.getNormativa(this.$route.params.id)
+      let normativa = await this.$axios.$get('normativas/id/' + this.$route.params.id)
       this.id = normativa.id
       this.titulo = normativa.titulo
       this.bajada = normativa.bajada
@@ -82,7 +81,13 @@ export default {
       this.autor = normativa.autor
       this.intro = normativa.intro
       this.cuerpo = normativa.cuerpo
-      this.url = normativa.url
+      this.url = {
+        name: 'normativa',
+        params: {
+          id: normativa.id,
+          slug: decodeURIComponent(normativa.uri)
+        }
+      }
       this.setPaginaCargando(false)
     } catch (e) {
       this.$router.push({name: '404'})
