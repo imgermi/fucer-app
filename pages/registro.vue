@@ -1,7 +1,7 @@
 <template>
   <div class="registro">
     <SecondaryTop/>
-    <section class="band">
+    <section class="band form__container">
       <div class="container">
 
         <div class="msj-error" v-if="error">
@@ -76,7 +76,7 @@
             </span>
           </fieldset>
 
-          <button type="submit" class="rounded__btn--full">
+          <button type="submit" class="rounded__btn--full white">
             {{ txtBtnSubmit}}
           </button>
         </form>
@@ -100,7 +100,8 @@ export default {
       email: '',
       password: '',
       passwordRepeat: '',
-      error: false
+      error: false,
+      title: 'Registrarse'
     }
   },
   computed: {
@@ -148,6 +149,17 @@ export default {
 
       this.setPaginaCargando(false)
     }
-  }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: '' }
+      ],
+      bodyAttrs: {
+          class: 'bg__gradient'
+      }
+    }
+  },
 }
 </script>

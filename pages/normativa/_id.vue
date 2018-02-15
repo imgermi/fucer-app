@@ -19,7 +19,7 @@
           <h6>Introducción</h6>
           <span v-if="autor">Por {{ autor }}</span>
           <div v-if="intro" v-html="intro"></div>
-          <button class="rounded__btn--full" @click="leerNormativa">Leer normativa</button>
+          <button class="rounded__btn--medium blue" @click="leerNormativa">Leer normativa</button>
           <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
             <div v-html="cuerpo"></div>
           </div>

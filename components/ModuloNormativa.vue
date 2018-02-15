@@ -1,9 +1,13 @@
 <template>
   <article class="normativa-module">
-  	<h4><nuxt-link :to="url">{{ titulo }}</nuxt-link></h4>
-  	<p><nuxt-link :to="url">{{ bajada }}</nuxt-link></p>
-  	<small><nuxt-link :to="url">{{ fecha | fecha('YYYY') }}</nuxt-link></small>
-    <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
+    <div class="main">
+    	<h4><nuxt-link :to="url">{{ titulo }}</nuxt-link></h4>
+    	<p><nuxt-link :to="url">{{ bajada }}</nuxt-link></p>
+    </div>
+    <div class="extra">
+    	<small><nuxt-link :to="url">{{ fecha | fecha('YYYY') }}</nuxt-link></small>
+      <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
+    </div>
   </article>
 </template>
 

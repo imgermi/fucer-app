@@ -15,7 +15,24 @@ import SecondaryTop from '~/components/SecondaryTop.vue'
 export default {
   components: {
     SecondaryTop
+  },
+  data() {
+    return {
+      title: 'Confirme su email'
+    }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: '' }
+      ],
+      bodyAttrs: {
+          class: 'bg__gradient'
+      }
+    }
   }
 }
 </script>
 
+<style lang="sass">@import 'sass/pages/confirme-su-email.sass'</style>

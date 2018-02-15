@@ -10,10 +10,12 @@
 .page-enter, .page-leave-to
   opacity: 0
 
+.bg__gradient
+	background: -webkit-gradient(linear, left top, left bottom, from($fucerBlue), to($lightBlue)) fixed
 
 a
 	text-decoration: none
-	color: #424242
+	color: $black
 	transition: all 200ms ease-in-out
 
 button
@@ -53,29 +55,44 @@ input
 	border: 1px solid #424242
 	font-size: 16px
 	display: block
+	width: 100%
 	background: transparent
 	padding: 8px 35px
 	text-align: center
 	transition: all 250ms ease-in-out
+	box-shadow: 0 3px 9px rgba(95, 95, 95, 0.4)
+	font-family: 'Lato', sans-serif
 	&:hover
 		transform: translateY(-2px)
 		box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
 	&:active
 		transform: translateY(2px)
+	&.white
+		background: #fff
+		border: 0
+		color: #0D1B2A
 
 .rounded__btn--medium
-	border-radius: 18px
+	border-radius: 30px
 	font-size: 16px
 	display: inline-block
 	background: #F3F3F3
-	padding: 8px 35px
+	padding: 8px 45px
 	transition: all 250ms ease-in-out
-	color: #767676
+	box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
+	color: $black
+	font-family: 'Lato', sans-serif
 	&:hover
 		transform: translateY(-2px)
 		box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
 	&:active
 		transform: translateY(2px)
+	&.blue
+		background: $fucerBlue
+		color: #eee
+		span a
+			color: #eee
+			font-weight: 900
 
 form
 	fieldset

@@ -13,7 +13,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Fucer App' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,900' }
     ]
   },
   css: [
@@ -22,7 +23,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#224B8E', height: '4px' },
+  loading: { color: '#4ECDC4', height: '4px' },
 
   router: {
     base: '/app/',

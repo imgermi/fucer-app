@@ -2,7 +2,7 @@
   <div class="inicio">
     <Alerta/>
   	<Top :title="title" />
-    <section class="carousel__container">
+    <section class="carousel__container bg__gradient">
       <div class="container">
         <h2>Novedades</h2>
         <no-ssr>

@@ -1,7 +1,7 @@
 <template>
   <div class="registro">
     <SecondaryTop/>
-    <section class="band">
+    <section class="band form__container">
       <div class="container">
 
         <div class="msj-error" v-if="error">
@@ -36,13 +36,13 @@
               v-validate="'required'"
               :class="{'error': errors.has('password') }"
               data-vv-as="contraseña"
-              placeholder="contraseña"
+              placeholder="Contraseña"
             />
             <span class="error" v-show="errors.has('password')">
               {{ errors.first('password') }}
             </span>
           </fieldset>
-          <button type="submit" class="rounded__btn--full">
+          <button type="submit" class="rounded__btn--full white">
             {{ txtBtnIngresar}}
           </button>
         </form>
@@ -63,7 +63,8 @@ export default {
     return {
       email: '',
       password: '',
-      error: false
+      error: false,
+      title: 'Ingresar'
     }
   },
   computed: {
@@ -98,6 +99,17 @@ export default {
       this.setPaginaCargando(false)
       return response
     }
-  }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: '' }
+      ],
+      bodyAttrs: {
+          class: 'bg__gradient'
+      }
+    }
+  },
 }
 </script>
