@@ -7,11 +7,11 @@
           <h2>Datos personales</h2>
           <div class="datos__personales--dato">
             <p>Nombre</p>
-            <span>Pedro Touzas</span>
+            <span>{{ $auth.state.user.nombre }}</span>
           </div>
           <div class="datos__personales--dato">
             <p>Email</p>
-            <span>pedrotouzas@gmail.com</span>
+            <span>{{ $auth.state.user.email }}</span>
           </div>
           <div class="datos__personales--dato">
             <p>Contraseña</p>
