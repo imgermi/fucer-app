@@ -4,20 +4,45 @@
     	<div class="container">
     		<nuxt-link :to="{ name: 'configuracion' }">Volver</nuxt-link>
     		<h1>Modificar datos personales</h1>
-    		<form>
+
+    		<div class="msj-error" v-if="error">
+    		  {{ error }}
+    		</div>
+
+    		<div class="msj-info" v-if="info">
+    		  {{ info }}
+    		</div>
+
+    		<form @submit.prevent="actualizarDatos" >
     			<fieldset>
-	    			<label for="name">Nombre</label>
-	    			<input type="text" name="name" id="name" value="Pedro Touzas" placeholder="Ingrese su nombre">
+	    			<label for="nombre">Nombre</label>
+	    			<input
+	    				type="text"
+	    				v-model="nombre"
+	    				name="nombre"
+	    				id="nombre"
+	    			/>
     			</fieldset>
     			<fieldset>
 	    			<label for="email">Email</label>
-	    			<input type="email" name="email" id="email" value="pedrotouzas@gmail.com" placeholder="Ingrese su email">
+	    			<input
+	    				type="email"
+	    				v-model="email"
+	    				name="email"
+	    				id="email"
+	    			/>
     			</fieldset>
     			<fieldset>
-	    			<label for="pass">Contraseña</label>
-	    			<input type="pass" name="pass" id="pass" value="******" placeholder="Ingrese una contraseña">
+	    			<label for="password">Contraseña</label>
+	    			<input
+	    				type="password"
+	    				v-model="password"
+	    				name="pass"
+	    				id="pass"
+	    				placeholder="********"
+	    			/>
     			</fieldset>
-    			<button type="submit">Guardar cambios</button>
+    			<button type="submit">{{ pagina.cargando ? 'Cargando..' : 'Guardar cambios' }}</button>
     		</form>
     	</div>
     </section>
@@ -25,12 +50,50 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
+
 export default {
 	data () {
 	  return {
-	    title: 'Modificar Datos Personales'
+	    title: 'Modificar Datos Personales',
+	    nombre: this.$auth.state.user.nombre,
+	    email: this.$auth.state.user.email,
+	    password: '',
+	    error: '',
+	    info: '',
 	  }
 	},
+	computed: {
+		...mapState(['pagina'])
+	},
+	methods: {
+    ...mapActions([
+      'setPaginaCargando'
+    ]),
+    async actualizarDatos() {
+      this.setPaginaCargando(true)
+      try {
+      	let datos = {
+      		nombre: this.nombre,
+      		email: this.email
+      	}
+      	if (this.password) {
+      		datos.password = this.password
+      	}
+        let {data} = await this.$axios.$post('auth/updateUser', datos)
+
+        // Actualizo el token de seguridad
+        this.$auth.setToken(data.token)
+        await this.$auth.fetchUser()
+
+        this.error = false
+        this.info = 'Los datos fueron actualizados'
+      } catch(e) {
+        this.error = e.response.data.error.message.replace('Bad Request:', '')
+      }
+      this.setPaginaCargando(false)
+    }
+  },
 	head () {
 	  return {
 	    title: this.title,
