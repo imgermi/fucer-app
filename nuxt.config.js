@@ -48,9 +48,9 @@ module.exports = {
 
   auth: {
     endpoints: {
-      login: { url: 'http://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
-      logout: { url: 'http://www.fucer.com.ar/app/api/auth/logout', method: 'post' },
-      user: { url: 'http://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' }
+      login: { url: 'https://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
+      logout: { url: 'https://www.fucer.com.ar/app/api/auth/logout', method: 'post' },
+      user: { url: 'https://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' }
     },
     redirect: {
       login: '/login',
