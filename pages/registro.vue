@@ -131,18 +131,13 @@ export default {
           email: this.email,
           password: this.password
         })
-
-        await this.$auth.login({
-          data: {
-            username: this.email,
-            password: this.password
-          }
-        }).catch(e => {
+        .then(() => {
+          this.$router.push({name: 'confirme-su-email'})
+        })
+        .catch(e => {
           this.error = e.response.data.error.message.replace('Bad Request:', '')
         })
-        // Esto no debería hacer falta, tal vez ya lo hayan arreglado
-        // https://github.com/nuxt-community/auth-module/issues/23
-        this.$router.push({name: 'inicio'})
+
       } catch(e) {
         this.error = e.response.data.error.message.replace('Bad Request:', '')
       }
