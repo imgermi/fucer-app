@@ -43,16 +43,15 @@ export default {
         let {data} = await this.$axios.$post('auth/activateAccount', {
           token: this.$route.params.token,
         })
-
-        this.mensaje = 'Su usuario fue activado con éxito. En breve lo redirigimos.'
+        try {
+          this.$auth.setToken(data.token)
+          await this.$auth.fetchUser()
+        } catch(e) {
+          this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
+        }
+        this.mensaje = '¡Bienvenido ' + this.$auth.state.user.nombre + '!<br><br> Su email ha sido confirmado. En breve lo redirigimos para comenzar a utilizar la aplicación.'
         setTimeout(async () => {
-          try {
-            this.$auth.setToken(data.token)
-            await this.$auth.fetchUser()
-            this.$router.push({name: 'inicio'})
-          } catch(e) {
-            this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
-          }
+          this.$router.push({name: 'inicio'})
         }, 3000)
 
       } catch(e) {
