@@ -22,8 +22,8 @@
         <div class="datos__plan">
           <h2>Mi plan</h2>
           <div class="datos__plan--dato">
-            <span>Plan básico</span>
-            <small>$0</small>
+            <span>Plan {{ $auth.state.user.pago==1 ? 'premium' : 'básico' }}</span>
+            <small v-if="precioPlan">${{ $auth.state.user.pago==1 ? precioPlan : 0 }}</small>
           </div>
           <button class="rounded__btn--medium"><nuxt-link :to="{ name: 'modificar-plan' }">Modificar plan</nuxt-link></button>
         </div>
@@ -35,6 +35,7 @@
 
 <script>
 import Top from '~/components/Top.vue'
+import {mapActions, mapState} from 'vuex'
 
 export default {
   components: {
@@ -42,7 +43,29 @@ export default {
   },
   data () {
     return {
-      title: 'Configuración'
+      title: 'Configuración',
+      precioPlan: false
+    }
+  },
+  async created () {
+    await this.obtenerConfigs()
+  },
+  computed: {
+    ...mapState(['pagina'])
+  },
+  methods: {
+    ...mapActions([
+      'setPaginaCargando'
+    ]),
+    async obtenerConfigs() {
+      this.setPaginaCargando(true)
+      try {
+        let data = await this.$axios.$get('configuraciones')
+        this.precioPlan = data.precio_regular
+      } catch(e) {
+        this.error = e.response.data.error.message.replace('Bad Request:', '')
+      }
+      this.setPaginaCargando(false)
     }
   },
   head () {
