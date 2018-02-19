@@ -75,10 +75,14 @@ export default {
     }
   },
   async created () {
-    await this.getNormativasDestacadas()
+    if (this.normativasDestacadas.length < 1) {
+      await this.getNormativasDestacadas()
+    }
     this.cargandoCarousel = false
 
-    await this.getNormativasMasNuevas(1)
+    if (this.normativasMasNuevas.length < 1) {
+      await this.getNormativasMasNuevas(1)
+    }
     this.cargandoNormativas = false
   },
   methods: {

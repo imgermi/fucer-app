@@ -2,7 +2,8 @@ const BASE_URL = 'https://fucer.com.ar/app/api/'
 
 export const state = () => ({
   normativasDestacadas: [],
-  normativasMasNuevas: []
+  normativasMasNuevas: [],
+  normativasTodas: false
 })
 
 export const mutations = {
@@ -10,7 +11,10 @@ export const mutations = {
     state.normativasDestacadas = payload
   },
   'SET_NORMATIVAS_MAS_NUEVAS' (state, payload) {
-    state.normativasMasNuevas = payload
+    state.normativasMasNuevas.push(...payload)
+  },
+  'SET_NORMATIVAS_TODAS' (state, payload) {
+    state.normativasTodas = payload
   }
 }
 
@@ -29,8 +33,9 @@ export const actions = {
     })
     commit('SET_NORMATIVAS_DESTACADAS', normativas)
   },
-  async getNormativasMasNuevas ({ commit }, limit = 3) {
-    const normativas = await this.$axios.$get('normativas/ultimas/' + limit)
+  async getNormativasMasNuevas ({ commit, state }, pagina = 1) {
+    let total = state.normativasMasNuevas.length
+    const normativas = await this.$axios.$get('normativas/ultimas/' + pagina)
     normativas.map(item => {
       item.url = {
         name: 'normativa',
@@ -42,5 +47,8 @@ export const actions = {
       return item
     })
     commit('SET_NORMATIVAS_MAS_NUEVAS', normativas)
+    if (total === state.normativasMasNuevas.length) {
+      commit('SET_NORMATIVAS_TODAS', true)
+    }
   }
 }
