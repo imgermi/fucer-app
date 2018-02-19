@@ -1,6 +1,6 @@
 <template>
   <div class="buscar">
-    <Alerta/>
+    <Alerta v-if="$auth.state.user.pago==0"/>
   	<Top />
     <section class="band">
       <div class="container">

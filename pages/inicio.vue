@@ -1,6 +1,6 @@
 <template>
   <div class="inicio">
-    <Alerta/>
+    <Alerta v-if="$auth.state.user.pago==0"/>
   	<Top :title="title" />
     <section class="carousel__container bg__gradient">
       <div class="container">

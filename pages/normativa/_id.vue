@@ -1,6 +1,6 @@
 <template>
   <div class="normativa">
-    <Alerta/>
+    <Alerta v-if="$auth.state.user.pago==0"/>
     <header class="goBack__header">
       <div class="container">
         <a @click="$router.go(-1)"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></a>
