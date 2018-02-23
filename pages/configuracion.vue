@@ -17,7 +17,7 @@
             <p>Contraseña</p>
             <span>*******</span>
           </div>
-          <button class="rounded__btn--medium"><nuxt-link :to="{ name: 'modificar-datos' }">Modificar</nuxt-link></button>
+          <nuxt-link :to="{ name: 'modificar-datos' }"><button class="rounded__btn--medium">Modificar</button></nuxt-link>
         </div>
         <div class="datos__plan">
           <h2>Mi plan</h2>
@@ -25,7 +25,7 @@
             <span>Plan {{ $auth.state.user.pago==1 ? 'premium' : 'básico' }}</span>
             <small v-if="precioPlan">${{ $auth.state.user.pago==1 ? precioPlan : 0 }}</small>
           </div>
-          <button class="rounded__btn--medium"><nuxt-link :to="{ name: 'modificar-plan' }">Modificar plan</nuxt-link></button>
+          <nuxt-link :to="{ name: 'modificar-plan' }"><button class="rounded__btn--medium">Modificar plan</button></nuxt-link>
         </div>
 
       </div>
