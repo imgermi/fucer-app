@@ -71,7 +71,8 @@ module.exports = {
   plugins: [
     '~/plugins/filtros',
     '~/plugins/vue-validate',
-    '~/plugins/axios'
+    '~/plugins/axios',
+    { src: '~plugins/actualizar-datos-usuario', ssr: false }
   ],
 
   /*
