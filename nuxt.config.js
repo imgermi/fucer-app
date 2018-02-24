@@ -39,6 +39,11 @@ module.exports = {
         path: '/activar-cuenta/:token',
         component: resolve(__dirname, 'pages/activar-cuenta.vue')
       })
+      routes.push({
+        name: 'trial-vencido',
+        path: '/trial-vencido',
+        component: resolve(__dirname, 'pages/trial-vencido.vue')
+      })
     }
   },
 

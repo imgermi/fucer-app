@@ -12,10 +12,9 @@ import moment from 'moment'
 export default {
 	computed: {
 		dias () {
-			let fechaPago = moment(this.$auth.state.user.pago_fecha)
+			let fechaActivacion = moment(this.$auth.state.user.activo_fecha)
 			let hoy = moment()
-			console.log(hoy.diff(fechaPago, 'days'))
-			return 7 - hoy.diff(fechaPago, 'days')
+			return 7 - hoy.diff(fechaActivacion, 'days')
 		},
 		mensajeDias () {
 			if (this.dias > 0) {
