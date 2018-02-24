@@ -2,8 +2,8 @@
   <div class="modificar-datos">
     <section class="band">
     	<div class="container">
-    		<nuxt-link :to="{ name: 'configuracion' }">Volver</nuxt-link>
-    		<h1>Modificar datos personales</h1>
+    		<nuxt-link :to="{ name: 'configuracion' }"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
+    		<h2>Modificar datos personales</h2>
 
     		<div class="msj-error" v-if="error">
     		  {{ error }}
@@ -13,7 +13,7 @@
     		  {{ info }}
     		</div>
 
-    		<form @submit.prevent="actualizarDatos" >
+    		<form @submit.prevent="actualizarDatos" class="main__form">
     			<fieldset>
 	    			<label for="nombre">Nombre</label>
 	    			<input
@@ -42,7 +42,7 @@
 	    				placeholder="********"
 	    			/>
     			</fieldset>
-    			<button type="submit">{{ pagina.cargando ? 'Cargando..' : 'Guardar cambios' }}</button>
+    			<button type="submit" class="rounded__btn--medium">{{ pagina.cargando ? 'Cargando..' : 'Guardar cambios' }}</button>
     		</form>
     	</div>
     </section>
@@ -104,3 +104,5 @@ export default {
 	}
 }
 </script>
+
+<style lang="sass">@import 'sass/pages/modificar-datos.sass'</style>
