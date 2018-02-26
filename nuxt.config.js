@@ -43,6 +43,11 @@ module.exports = {
         name: 'trial-vencido',
         path: '/trial-vencido',
         component: resolve(__dirname, 'pages/trial-vencido.vue')
+      }),
+      routes.push({
+        name: 'pago-procesado',
+        path: '/pago-procesado/:status',
+        component: resolve(__dirname, 'pages/pago-procesado.vue')
       })
     }
   },
