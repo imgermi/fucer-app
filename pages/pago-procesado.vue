@@ -91,6 +91,8 @@ export default {
         })
         this.status = data.status
         if (data.status === 'authorized') {
+          // Actualizo el token de seguridad
+          this.$auth.setToken(data.token)
           await this.$auth.fetchUser()
         }
         this.error = false
