@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header v-if="!$store.getters.usuarioPremium">
   	<nuxt-link :to="{ name: 'modificar-plan' }" class="alerta-plan">
   		<p>Está utilizando el plan básico. <span v-html="mensajeDias"></span>. <strong>Acceda a normativas ilimitadas</strong></p>
   	</nuxt-link>
