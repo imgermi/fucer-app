@@ -27,47 +27,47 @@ export default {
   },
   data () {
     return {
-      error: '',
-      verificandoPago: false
+      error: false,
+      verificandoPago: true,
+      status: ''
     }
   },
   computed: {
     title () {
-      switch(this.$route.params.status){
-        case 'success':
+      switch(this.status){
+        case 'authorized':
           return 'Pago aprobado'
+
         case 'pending':
           return 'Pago pendiente'
-        case 'failure':
+
+        case 'cancelled':
           return 'Hubo un problema'
+
+        default:
+          return 'Verificando el pago'
       }
     },
     message () {
-      if(this.$route.params.status == 'success' && this.verificandoPago && !this.error){
-        if (! this.error){
-          return 'Estamos verificando su pago. Aguarde unos instantes.'
-        } else {
-          return this.error
-        }
+      if (this.error){
+        return this.error
       }
+      if(this.verificandoPago){
+        return 'Estamos verificando su pago. Aguarde unos instantes.'
+      }
+      switch(this.status){
+        case 'authorized':
+          return '¡El pago fue aprobado y acreditado! Ya es un usuario premium.'
 
-      switch(this.$route.query.collection_status){
-        case 'approved':
-          return '¡El pago fue aprobado y acreditado! Recibirá un email con la información pertinente.'
         case 'pending':
-          return 'Operación exitosa, queda pendiente completar el proceso de pago.'
-        case 'in_process':
-          return 'El pago está siendo revisado.'
-        case 'rejected':
-          return 'El pago fue rechazado. el usuario puede intentar nuevamente.'
-        case 'refunded':
-          return 'El pago fue devuelto al usuario.'
+          return 'Se registró la suscripción pero queda pendiente autorizar el pago para completar el proceso. Contacte al administrador para activar el plan cuando MercadoPago le confirme la suscripción.'
+
+        case 'paused':
+          return 'La suscripción fue pausada. No se van a seguir registrando consumos.'
+
         case 'cancelled':
-          break
-        case 'in_mediation':
-          return 'Se inició una disputa para el pago.'
-        case 'charged_back':
-          return 'Se realizó un contracargo en la tarjeta de crédito.'
+          return 'El pago no fue autorizado.'
+
         default:
           return 'El pago no se completó, no se genero ningún cargo en la tarjeta. Por favor, intente nuevamente.'
       }
@@ -78,15 +78,21 @@ export default {
   },
   methods: {
     async verificarPago () {
-      this.verificandoPago = true
+      if (!this.$route.query.preapproval_id) {
+        this.status = 'cancelled'
+        this.verificandoPago = false
+        return
+      }
       try {
-        let {data} = await this.$axios.get('mercadopago/validar-pago', {
+        let {data} = await this.$axios.$get('mercadopago/validar-pago', {
           params: {
-            external_reference: this.$route.query.external_reference,
-            collection_status: this.$route.query.collection_status
+            preapproval_id: this.$route.query.preapproval_id
           }
         })
-        await this.$auth.fetchUser()
+        this.status = data.status
+        if (data.status === 'authorized') {
+          await this.$auth.fetchUser()
+        }
         this.error = false
       } catch (e) {
         console.log(e)
