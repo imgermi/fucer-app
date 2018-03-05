@@ -11,8 +11,8 @@
   			<div class="datos__plan">
   			  <h2>Mi plan</h2>
   			  <div class="datos__plan--dato">
-  			    <span>Plan {{ usuarioPremium ? 'premium' : 'básico' }}</span>
-  			    <small v-if="precioPlan">${{ usuarioPremium ? precioPlan : 0 }}</small>
+  			    <span>Plan {{ usuarioPago ? 'premium' : 'básico' }}</span>
+  			    <small v-if="precioPlan">${{ usuarioPago ? precioPlan : 0 }}</small>
   			  </div>
   			</div>
   		</div>
@@ -25,13 +25,18 @@
           <div v-html="mensaje"></div>
         </div>
   			<div class="datos__plan--dato seleccionar">
-  			  <span>Plan {{ usuarioPremium ? 'básico' : 'premium' }}</span>
-  			  <small v-if="precioPlan">${{ usuarioPremium ? 0 : precioPlan }} mensuales</small>
+  			  <span>Plan {{ usuarioPago ? 'básico' : 'premium' }}</span>
+  			  <small v-if="precioPlan">${{ usuarioPago ? 0 : precioPlan }} mensuales</small>
   			  <button class="rounded__btn--medium" @click="cambiarPlan">
             {{ actualizandoPlan ? 'Cargando...' : 'Seleccionar plan'}}
           </button>
   			  <i v-if="precioPlan">
-            {{ usuarioPremium ? 'Vas a cancelar tu suscripción' : 'Serás redirigido a Mercado Pago' }}
+            <template v-if="usuarioPago">
+              Vas a cancelar tu suscripción
+            </template>
+            <template v-else>
+              {{ $store.getters.usuarioPremium ? 'Su suscripción ya fue cancelada pero le quedan '+ $store.getters.usuarioPremiumDias + ' días premium' : 'Serás redirigido a Mercado Pago' }}
+            </template>
           </i>
   			</div>
   		</div>
@@ -56,7 +61,7 @@ export default {
   },
   computed: {
     ...mapState(['pagina']),
-    usuarioPremium () {
+    usuarioPago () {
       return this.$auth.state.user.pago === 1
     }
   },
@@ -76,7 +81,7 @@ export default {
     },
     async cambiarPlan () {
       this.actualizandoPlan = true
-      if(this.usuarioPremium) {
+      if(this.usuarioPago) {
         await this.desuscribirme()
       } else {
         await this.suscribirme()

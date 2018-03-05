@@ -34,5 +34,14 @@ export const getters = {
       }
     }
     return usuarioPremium
+  },
+
+  usuarioPremiumDias (state, getters, rootState) {
+    if(! getters.usuarioPremium){
+      return 0;
+    }
+    let premiumHasta = moment(rootState.auth.user.pago_fecha).add(1, 'month')
+    let hoy = moment()
+    return premiumHasta.diff(hoy, 'days')
   }
 }
