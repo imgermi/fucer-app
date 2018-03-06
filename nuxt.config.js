@@ -26,7 +26,7 @@ module.exports = {
   loading: { color: '#4ECDC4', height: '4px' },
 
   router: {
-    base: '/app/',
+    // base: '/app/',
     middleware: ['auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
