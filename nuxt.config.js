@@ -39,6 +39,16 @@ module.exports = {
         path: '/activar-cuenta/:token',
         component: resolve(__dirname, 'pages/activar-cuenta.vue')
       })
+      routes.push({
+        name: 'trial-vencido',
+        path: '/trial-vencido',
+        component: resolve(__dirname, 'pages/trial-vencido.vue')
+      }),
+      routes.push({
+        name: 'pago-procesado',
+        path: '/pago-procesado/:status',
+        component: resolve(__dirname, 'pages/pago-procesado.vue')
+      })
     }
   },
 
@@ -66,7 +76,8 @@ module.exports = {
   plugins: [
     '~/plugins/filtros',
     '~/plugins/vue-validate',
-    '~/plugins/axios'
+    '~/plugins/axios',
+    { src: '~plugins/actualizar-datos-usuario', ssr: false }
   ],
 
   /*

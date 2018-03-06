@@ -1,6 +1,6 @@
 <template>
   <div class="inicio">
-    <Alerta v-if="$auth.state.user.pago==0"/>
+    <Alerta />
   	<Top :title="title" />
     <section class="carousel__container bg__gradient">
       <div class="container">
@@ -28,16 +28,21 @@
       <div class="container">
         <h1>Normativa Registral</h1>
         <div v-if="!cargandoNormativas">
-          <ModuloNormativa
-            v-for="normativa in normativasMasNuevas"
-            :key="normativa.id + '-ultima'"
-            :id="normativa.id"
-            :titulo="normativa.titulo"
-            :bajada="normativa.bajada"
-            :fecha="normativa.fecha"
-            :url="normativa.url"
-          />
-          <cargarMas/>
+          <template v-if="normativasMasNuevas.length > 0">
+            <ModuloNormativa
+              v-for="normativa in normativasMasNuevas"
+              :key="normativa.id + '-ultima'"
+              :id="normativa.id"
+              :titulo="normativa.titulo"
+              :bajada="normativa.bajada"
+              :fecha="normativa.fecha"
+              :url="normativa.url"
+            />
+            <cargarMas/>
+          </template>
+          <template v-else>
+            No hay normativas disponibles para el plan básico, lo sentimos.
+          </template>
         </div>
         <div v-else>
           Cargando...
@@ -67,6 +72,7 @@ export default {
     Carousel,
     Slide
   },
+  middleware: 'trial',
   data () {
     return {
       title: 'Inicio',

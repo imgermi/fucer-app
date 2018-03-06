@@ -31,6 +31,7 @@ export default {
     Alerta,
     ModuloNormativa
   },
+  middleware: 'trial',
   data () {
     return {
       title: 'Favoritas'

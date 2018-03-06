@@ -74,6 +74,12 @@ export default {
     this.setPaginaCargando(true)
     try {
       let normativa = await this.$axios.$get('normativas/id/' + this.$route.params.id)
+
+      if (!normativa.gratuita && !this.$auth.state.user.pago) {
+        this.$router.push({name: 'contenido-no-disponible'})
+        return
+      }
+
       this.id = normativa.id
       this.titulo = normativa.titulo
       this.bajada = normativa.bajada

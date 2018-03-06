@@ -1,6 +1,6 @@
 <template>
   <div class="buscar">
-    <Alerta v-if="$auth.state.user.pago==0"/>
+    <Alerta />
   	<Top />
     <section class="band">
       <div class="container">
@@ -47,6 +47,7 @@ export default {
     Alerta,
     ModuloNormativa
   },
+  middleware: 'trial',
   data () {
     return {
       title: 'Buscar'

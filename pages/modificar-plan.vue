@@ -5,25 +5,39 @@
   			<nuxt-link :to="{ name: 'configuracion' }">Cancelar</nuxt-link>
   		</div>
   	</header>
+
   	<section class="band">
   		<div class="container">
   			<div class="datos__plan">
   			  <h2>Mi plan</h2>
   			  <div class="datos__plan--dato">
-  			    <span>Plan {{ $auth.state.user.pago==1 ? 'premium' : 'básico' }}</span>
-  			    <small v-if="precioPlan">${{ $auth.state.user.pago==1 ? precioPlan : 0 }}</small>
+  			    <span>Plan {{ usuarioPago ? 'premium' : 'básico' }}</span>
+  			    <small v-if="precioPlan">${{ usuarioPago ? precioPlan : 0 }}</small>
   			  </div>
   			</div>
   		</div>
   	</section>
+
   	<section class="band">
   		<div class="container">
   			<h2>Modifique su plan</h2>
+        <div class="msj" v-if="mensaje">
+          <div v-html="mensaje"></div>
+        </div>
   			<div class="datos__plan--dato seleccionar">
-  			  <span>Plan {{ $auth.state.user.pago==1 ? 'básico' : 'premium' }}</span>
-  			  <small v-if="precioPlan">${{ $auth.state.user.pago==1 ? 0 : precioPlan }} mensuales</small>
-  			  <nuxt-link :to="{ name: 'modificar-plan' }"><button class="rounded__btn--medium">Seleccionar plan</button></nuxt-link>
-  			  <i v-if="precioPlan">{{ $auth.state.user.pago==1 ? 'Vas a cancelar tu suscripción' : 'Serás redirigido a Mercado Pago' }}</i>
+  			  <span>Plan {{ usuarioPago ? 'básico' : 'premium' }}</span>
+  			  <small v-if="precioPlan">${{ usuarioPago ? 0 : precioPlan }} mensuales</small>
+  			  <button class="rounded__btn--medium" @click="cambiarPlan">
+            {{ actualizandoPlan ? 'Cargando...' : 'Seleccionar plan'}}
+          </button>
+  			  <i v-if="precioPlan">
+            <template v-if="usuarioPago">
+              Vas a cancelar tu suscripción
+            </template>
+            <template v-else>
+              {{ $store.getters.usuarioPremium ? 'Su suscripción ya fue cancelada pero le quedan '+ $store.getters.usuarioPremiumDias + ' días premium' : 'Serás redirigido a Mercado Pago' }}
+            </template>
+          </i>
   			</div>
   		</div>
   	</section>
@@ -37,14 +51,19 @@ export default {
   data () {
     return {
       title: 'Modificar Plan',
-      precioPlan: false
+      precioPlan: false,
+      actualizandoPlan: false,
+      mensaje: false
     }
   },
   async created () {
     await this.obtenerConfigs()
   },
   computed: {
-    ...mapState(['pagina'])
+    ...mapState(['pagina']),
+    usuarioPago () {
+      return this.$auth.state.user.pago === 1
+    }
   },
   methods: {
     ...mapActions([
@@ -56,9 +75,44 @@ export default {
         let data = await this.$axios.$get('configuraciones')
         this.precioPlan = data.precio_regular
       } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
+        this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
       }
       this.setPaginaCargando(false)
+    },
+    async cambiarPlan () {
+      this.actualizandoPlan = true
+      if(this.usuarioPago) {
+        await this.desuscribirme()
+      } else {
+        await this.suscribirme()
+      }
+      this.actualizandoPlan = false
+    },
+    async suscribirme () {
+      try {
+        let urlMercadopago = await this.$axios.$post('mercadopago/suscripcion')
+        window.location = urlMercadopago
+      } catch (e) {
+        console.log(e)
+        this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
+      }
+    },
+    async desuscribirme () {
+      try {
+        let resultado = await this.$axios.$delete('mercadopago/suscripcion')
+        console.log(resultado)
+        if (!resultado.data.token) {
+          this.mensaje = 'Hubo un problema. VUelva a intentarlo por favor.'
+          return
+        }
+        // Actualizo el token de seguridad
+        this.$auth.setToken(resultado.data.token)
+        await this.$auth.fetchUser()
+        this.mensaje = resultado.message
+      } catch (e) {
+        console.log(e)
+        this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
+      }
     }
   },
   head () {
