@@ -18,11 +18,19 @@
 		width: 100%
 		padding: 200px 0 50px
 		h1
-			margin-bottom: 10px
+			margin-bottom: 5px
+		h2
+			font-size: 20px
+			font-weight: 400
+			line-height: 28px
+			margin-bottom: 15px
+			color: #767676
 		small
 			font-size: 16px
 			font-weight: 300
 	.cuerpo
+		.container
+			position: static
 		span
 			font-size: 14px
 			font-weight: 300
@@ -34,6 +42,36 @@
 			&:last-of-type
 				margin-bottom: 25px
 	.cuerpo__principal
-		display: none
+		position: fixed
+		top: 500%
+		left: 0
+		width: 100%
+		background: #fff
+		padding: 15px
+		color: #0D1B2A
+		z-index: 50
+		min-height: 100%
+		transition: all 400ms ease-in
 		&.active
+			top: 0
+			position: absolute
+		.cerrar
+			font-size: 16px
+			margin-bottom: 30px
 			display: block
+			border-bottom: 1px solid #ccc
+			width: 100%
+			text-align: left
+			padding-bottom: 10px
+		h1
+			margin-bottom: 5px
+		h2
+			font-size: 20px
+			font-weight: 400
+			line-height: 28px
+			margin-bottom: 15px
+			color: #767676
+		img
+			width: 100%
+			display: block
+			margin: 0

@@ -49,14 +49,12 @@
         </div>
       </div>
     </section>
-    <Foot/>
   </div>
 </template>
 
 <script>
 import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
-import Foot from '~/components/Foot.vue'
 import ModuloNormativa from '~/components/ModuloNormativa.vue'
 import cargarMas from '~/components/cargarMas.vue'
 import { Carousel, Slide } from 'vue-carousel';
@@ -66,7 +64,6 @@ export default {
   components: {
     Top,
     Alerta,
-    Foot,
     cargarMas,
     ModuloNormativa,
     Carousel,
