@@ -84,7 +84,7 @@ export default {
         return
       }
       try {
-        let {data} = await this.$axios.$get('mercadopago/validar-pago', {
+        let data = await this.$axios.$get('mercadopago/validar-pago', {
           params: {
             preapproval_id: this.$route.query.preapproval_id
           }
