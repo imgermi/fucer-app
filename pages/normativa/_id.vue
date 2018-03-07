@@ -10,7 +10,8 @@
     <section class="top">
       <div class="container">
         <h1>{{ titulo }}</h1>
-        <small v-if="fecha">{{ fecha | fecha('YYYY') }}</small>
+        <h2>{{ bajada }}</h2>
+        <small v-if="fecha">{{ fecha | fecha('DD/MM/YY') }}</small>
       </div>
     </section>
     <section class="band cuerpo">
@@ -21,6 +22,9 @@
           <div v-if="intro" v-html="intro"></div>
           <button class="rounded__btn--medium blue" @click="leerNormativa">Leer normativa</button>
           <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
+            <button class="cerrar" @click="cerrarNormativa">Cerrar</button>
+            <h1>{{ titulo }}</h1>
+            <h2>{{ bajada }}</h2>
             <div v-html="cuerpo"></div>
           </div>
         </div>
@@ -29,21 +33,18 @@
         </div>
       </div>
     </section>
-    <Foot/>
   </div>
 </template>
 
 <script>
 import Alerta from '~/components/Alerta.vue'
 import FavoriteStar from '~/components/FavoriteStar.vue'
-import Foot from '~/components/Foot.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
     Alerta,
-    FavoriteStar,
-    Foot
+    FavoriteStar
   },
   data () {
     return {
@@ -110,6 +111,9 @@ export default {
   methods: {
     ...mapActions(['setPaginaCargando']),
     leerNormativa () {
+      this.mostrarCuerpo = !this.mostrarCuerpo
+    },
+    cerrarNormativa () {
       this.mostrarCuerpo = !this.mostrarCuerpo
     },
     ...mapActions('favoritos', [

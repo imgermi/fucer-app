@@ -5,7 +5,7 @@
     	<p><nuxt-link :to="url">{{ bajada }}</nuxt-link></p>
     </div>
     <div class="extra">
-    	<small><nuxt-link :to="url">{{ fecha | fecha('YYYY') }}</nuxt-link></small>
+    	<small><nuxt-link :to="url">{{ fecha | fecha('DD/MM/YY') }}</nuxt-link></small>
       <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
     </div>
   </article>
