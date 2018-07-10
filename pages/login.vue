@@ -1,6 +1,6 @@
 <template>
-  <div class="registro">
-    <SecondaryTop/>
+  <div class="login">
+    <SecondaryTop :tituloPaso="tituloPaso"/>
     <section class="band form__container">
       <div class="container">
 
@@ -42,7 +42,7 @@
               {{ errors.first('password') }}
             </span>
           </fieldset>
-          <button type="submit" class="rounded__btn--full white">
+          <button type="submit" class="rounded__btn--full blue">
             {{ txtBtnIngresar}}
           </button>
         </form>
@@ -64,7 +64,8 @@ export default {
       email: '',
       password: '',
       error: false,
-      title: 'Ingresar'
+      title: 'Ingresar',
+      tituloPaso: 'Ingrese a Fucer con su email'
     }
   },
   computed: {
@@ -106,9 +107,6 @@ export default {
       meta: [
         { hid: 'description', name: 'description', content: '' }
       ],
-      bodyAttrs: {
-          class: 'bg__gradient'
-      }
     }
   },
 }
