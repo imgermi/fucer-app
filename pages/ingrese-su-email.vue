@@ -2,7 +2,7 @@
 	<div class="ingresar-mail">
 		<section class="band">
 			<div class="container form__container">
-				
+
 				<h1 class="intro__heading">¿No recibiste el mail de confirmación?</h1>
 				<h2 class="sub__heading">Ingresá tu mail nuevamente</h2>
 
@@ -40,7 +40,6 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-	auth: false,
 	data() {
 		return {
 			email: '',
