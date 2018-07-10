@@ -7,31 +7,36 @@
 
 .main__form
 	fieldset
-		margin-bottom: 25px
+		padding-bottom: 30px
+		position: relative
 		&:last-of-type
-			margin-bottom: 50px
-	.error
+			margin-bottom: 10px
+	span.error
 		display: block
-		padding: 5px 5px
+		padding: 5px 5px 5px 0
 		font-size: 14px
 		color: #d87e96
+		position: absolute
+		left: 0
+		bottom: 3px
 	label
 		display: block
 		width: 100%
-		margin-bottom: 15px
-		font-size: 20px
+		margin-bottom: 0
+		font-size: 18px
 		font-weight: 700
 	input:not([type=submit])
 		display: block
 		width: 100%
 		border: 0
 		border-bottom: 1px solid #CCCCCC
-		padding: 5px
+		padding: 5px 5px 5px 0
 		font-size: 16px
-		color: #eee
+		color: #0D1B2A
 		background: transparent
 		&:focus
 			border-bottom-color: #000
+			outline: 0
 	::-webkit-input-placeholder /* Chrome/Opera/Safari */
 	  color: #ccc
 	::-moz-placeholder  /* Firefox 19+ */

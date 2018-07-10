@@ -1,21 +1,39 @@
 // main: ../main.sass
 
-.index, .confirme-su-email, .bienvenido, .error
+.index, .confirme-su-email, .bienvenido, .error, .mail-confirmado
 	.secondary-top
 		.cancelar__btn
 			display: none
 
+.confirme-su-email, .mail-confirmado
+	.secondary-top
+		.container
+			padding-top: 64px
+
 .secondary-top
-	padding-top: 40px
+	padding-top: 15px
 	&:after
 		content: ''
 		display: block
 		clear: both
-	.logo
-		float: left
-		.logo__stroke
-			fill: #fff
 	.cancelar__btn
-		float: right
-		padding-top: 23px
-		color: #e5e5e5
+		float: left
+		padding: 15px
+		margin-left: -15px
+		svg
+			display: block
+	.paso
+		width: 100%
+		position: absolute
+		left: 50%
+		top: 50%
+		transform: translate(-50%, -50%)
+		text-align: center
+		pointer-events: none
+		.paso__nro
+			text-transform: uppercase
+			color: #95989A
+		.paso__titulo
+			color: #0D1B2A
+			font-size: 18px
+			font-weight: 700

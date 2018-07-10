@@ -1,11 +1,10 @@
 <template>
-  <div class="confirme-su-email">
+  <div class="mail-confirmado">
     <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
     <section class="band">
       <div class="container">
-        <h1 class="intro__heading">Confirme su email</h1>
-        <h2 class="sub__heading">¡Gracias por registrarse! Hemos enviado un correo de confirmación a su cuenta de email.</h2>
-        <p class="signup__agregados">¿No ha recibido el mail? <nuxt-link :to="{ name: 'ingrese-su-email' }">Ingréselo de nuevo</nuxt-link></p>
+        <h1>Pedro, su email fue confirmado</h1>
+        <nuxt-link :to="{ name: 'medio-de-pago' }" class="rounded__btn--full blue">Siguiente</nuxt-link>
       </div>
     </section>
   </div>
@@ -21,7 +20,7 @@ export default {
   auth: false,
   data() {
     return {
-      title: 'Confirme su email',
+      title: 'Mail Confirmado',
       nroPaso: '2',
       tituloPaso: 'Cree su cuenta'
     }
@@ -37,4 +36,4 @@ export default {
 }
 </script>
 
-<style lang="sass">@import 'sass/pages/confirme-su-email.sass'</style>
+<style lang="sass">@import 'sass/pages/bienvenido.sass'</style>

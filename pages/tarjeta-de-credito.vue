@@ -10,7 +10,55 @@
 
         <form @submit.prevent="register" class="main__form">
           <fieldset>
-            <label for="nombre">¿Cúal es su nombre?</label>
+            <label for="nombre">Número de la tarjeta</label>
+            <input
+              type="number"
+              v-model="nroTarjeta"
+              name="nroTarjeta"
+              v-validate="'required'"
+              id="nroTarjeta"
+              ref="nroTarjeta"
+              :class="{'error': errors.has('nroTarjeta') }"
+              placeholder="0000 0000 0000 0000"
+            />
+            <span class="error" v-show="errors.has('nroTarjeta')">
+              {{ errors.first('nroTarjeta') }}
+            </span>
+          </fieldset>
+          <fieldset>
+            <label for="nombre">Fecha de vencimiento</label>
+            <input
+              type="date"
+              v-model="vencimiento"
+              name="vencimiento"
+              v-validate="'required'"
+              id="vencimiento"
+              ref="vencimiento"
+              :class="{'error': errors.has('vencimiento') }"
+              placeholder="02/18"
+            />
+            <span class="error" v-show="errors.has('vencimiento')">
+              {{ errors.first('vencimiento') }}
+            </span>
+          </fieldset>
+          <fieldset>
+            <label for="nombre">Código de seguridad</label>
+            <input
+              type="number"
+              v-model="codigo"
+              name="codigo"
+              v-validate="'required'"
+              id="codigo"
+              ref="codigo"
+              :class="{'error': errors.has('codigo') }"
+              placeholder="123"
+            />
+            <span class="error" v-show="errors.has('codigo')">
+              {{ errors.first('codigo') }}
+            </span>
+          </fieldset>
+          <fieldset>
+            <label for="nombre">Nombre impreso en tarjeta</label>
             <input
               type="text"
               v-model="nombre"
@@ -19,60 +67,26 @@
               id="nombre"
               ref="nombre"
               :class="{'error': errors.has('nombre') }"
-              placeholder="Nombre completo"
+              placeholder="Juan Miguel Fernandez"
             />
             <span class="error" v-show="errors.has('nombre')">
               {{ errors.first('nombre') }}
             </span>
           </fieldset>
-
           <fieldset>
-            <label for="email">¿Cúal es su email?</label>
+            <label for="nombre">DNI</label>
             <input
-              type="email"
-              name="email"
-              v-model="email"
-              v-validate="'required|email'"
-              id="email"
-              :class="{'error': errors.has('email') }"
-              placeholder="Email"
-            />
-            <span class="error" v-show="errors.has('email')">
-              {{ errors.first('email') }}
-            </span>
-          </fieldset>
-
-          <fieldset>
-            <label for="password">Ingrese una contraseña</label>
-            <input
-              type="password"
-              v-model="password"
-              name="password"
+              type="number"
+              v-model="dni"
+              name="dni"
               v-validate="'required'"
-              id="password"
-              data-vv-as="contraseña"
-              :class="{'error': errors.has('password') }"
-              placeholder="Contraseña"
+              id="dni"
+              ref="dni"
+              :class="{'error': errors.has('dni') }"
+              placeholder="39917586"
             />
-            <span class="error" v-show="errors.has('password')">
-              {{ errors.first('password') }}
-            </span>
-          </fieldset>
-
-          <fieldset>
-            <label for="password-repeat">Repita la contraseña</label>
-            <input
-              type="password"
-              name="passwordRepeat"
-              v-model="passwordRepeat"
-              v-validate="'required|confirmed:password'"
-              id="password-repeat"
-              data-vv-as="contraseña repetida"
-              :class="{'error': errors.has('password') }"
-              placeholder="Contraseña"
-            />
-            <span class="error" v-show="errors.has('passwordRepeat')">
-              {{ errors.first('passwordRepeat') }}
+            <span class="error" v-show="errors.has('dni')">
+              {{ errors.first('dni') }}
             </span>
           </fieldset>
 
@@ -93,7 +107,6 @@ export default {
   components: {
     SecondaryTop
   },
-  auth: false,
   data() {
     return {
       nombre: '',
@@ -101,9 +114,9 @@ export default {
       password: '',
       passwordRepeat: '',
       error: false,
-      title: 'Registrarse',
-      nroPaso: '2',
-      tituloPaso: 'Cree su cuenta'
+      title: 'Paso 3 - Tarjeta de Crédito',
+      nroPaso: '3',
+      tituloPaso: 'Configure su tarjeta de crédito'
     }
   },
   computed: {

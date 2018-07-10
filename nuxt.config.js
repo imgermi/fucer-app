@@ -14,7 +14,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,900' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,700,900' }
     ]
   },
   css: [
@@ -26,7 +26,7 @@ module.exports = {
   loading: { color: '#4ECDC4', height: '4px' },
 
   router: {
-    base: '/app/',
+    // base: '/app/',
     middleware: ['auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
