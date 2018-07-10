@@ -18,7 +18,6 @@ export default {
   components: {
     SecondaryTop
   },
-  auth: false,
   data() {
     return {
       title: 'Confirme su email',
