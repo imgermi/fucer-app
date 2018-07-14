@@ -4,7 +4,12 @@
     <section class="band">
       <div class="container">
         <div class="plan__titulo"><span>Básico</span></div>
-        <small class="plan__precio">$200 mensuales</small>
+        <small
+          v-if="precioPlan"
+          class="plan__precio"
+        >
+          ${{ precioPlan }} mensuales
+        </small>
         <ul class="plan__specs">
           <li>Acceso ilimitado a Normativas</li>
           <li>Recopilación de material</li>
@@ -17,6 +22,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
@@ -28,7 +34,8 @@ export default {
     return {
       title: 'Paso 1 - Seleccione su plan',
       nroPaso: '1',
-      tituloPaso: 'Seleccione su plan'
+      tituloPaso: 'Seleccione su plan',
+      precioPlan: false
     }
   },
   head () {
@@ -37,6 +44,24 @@ export default {
       meta: [
         { hid: 'description', name: 'description', content: '' }
       ],
+    }
+  },
+  async created () {
+    await this.obtenerConfigs()
+  },
+  methods: {
+    ...mapActions([
+      'setPaginaCargando'
+    ]),
+    async obtenerConfigs() {
+      this.setPaginaCargando(true)
+      try {
+        let data = await this.$axios.$get('configuraciones')
+        this.precioPlan = data.precio_regular
+      } catch(e) {
+        console.log(e)
+      }
+      this.setPaginaCargando(false)
     }
   }
 }
