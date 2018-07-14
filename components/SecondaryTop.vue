@@ -7,7 +7,7 @@
         </svg>
       </a>
       <div class="paso">
-        <p class="paso__nro">Paso {{ nroPaso }}/3</p>
+        <p v-if="nroPaso" class="paso__nro">Paso {{ nroPaso }}/3</p>
         <span class="paso__titulo">{{ tituloPaso }}</span>
       </div>
     </div>
