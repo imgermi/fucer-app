@@ -53,9 +53,14 @@ module.exports = {
   },
 
   modules: [
+   '~/modules/mercadopago',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
+
+  mercadopago: {
+    public_key: 'TEST-3683240c-494f-4a4b-b6d4-6f82b73c1952'
+  },
 
   axios: {
     baseURL: 'https://fucer.com.ar/app/api/'
