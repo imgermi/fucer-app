@@ -14,8 +14,9 @@
             <input type="text"
               v-model.lazy="cardNumber"
               v-validate="'required'"
+              data-vv-as="número de la tarjeta"
               :class="{'error': errors.has('cardNumber') }"
-              name="'cardNumber'"
+              name="cardNumber"
               ref="cardNumber"
               id="cardNumber"
               placeholder="0000 0000 0000 0000"
@@ -40,6 +41,7 @@
               id="cardExpirationMonth"
               name="cardExpirationMonth"
               v-validate="'required'"
+              data-vv-as="mes de vencimiento"
               data-checkout="cardExpirationMonth"
               :class="{'error': errors.has('cardExpirationMonth') }"
               placeholder="12"
@@ -63,6 +65,7 @@
               id="cardExpirationYear"
               name="cardExpirationYear"
               v-validate="'required'"
+              data-vv-as="año de vencimiento"
               data-checkout="cardExpirationYear"
               :class="{'error': errors.has('cardExpirationYear') }"
               placeholder="2020"
@@ -87,7 +90,8 @@
               id="securityCode"
               data-checkout="securityCode"
               :class="{'error': errors.has('codigo') }"
-              v-validate="'required'"
+              v-validate="isSecurityCodeRequired ? 'required' : ''"
+              data-vv-as="código de seguridad"
               placeholder="123"
               onselectstart="return false"
               onpaste="return false"
@@ -109,10 +113,11 @@
               v-model="cardholderName"
               name="cardholderName"
               v-validate="'required'"
+              data-vv-as="nombre impreso en tarjeta"
               id="cardholderName"
               ref="cardholderName"
               :class="{'error': errors.has('cardholderName') }"
-              placeholder="Juan Miguel Fernandez"
+              placeholder="Juan Miguel Fernández"
               data-checkout="cardholderName"
             />
             <span class="error" v-show="errors.has('cardholderName')">
@@ -127,8 +132,10 @@
               name="docType"
               data-checkout="docType"
               v-validate="'required'"
+              data-vv-as="tipo de documento"
               :class="{'error': errors.has('docType') }"
             >
+              <option value="">Seleccione una opción</option>
               <option v-for="docType in documentTypes" :key="docType.id">
                 {{ docType.name }}
               </option>
@@ -144,6 +151,7 @@
               type="text"
               name="docNumber"
               v-validate="'required'"
+              data-vv-as="número de documento"
               id="docNumber"
               ref="docNumber"
               data-checkout="docNumber"
@@ -288,8 +296,13 @@ export default {
     },
 
     async generateCardToken (event) {
-      let form = event.target
+      let valida = await this.$validator.validateAll()
+      if (!valida) {
+        return
+      }
+
       try {
+        let form = event.target
         this.cardToken = await this.createToken(form)
         alert('The card is valid! Save this token to retrieve the card data later: ' + this.cardToken)
       } catch(error) {
