@@ -67,7 +67,7 @@ export default {
         await this.$auth.fetchUser()
 
         this.title = 'E-mail confirmado'
-        this.mensaje = '¡Bienvenido ' + this.$auth.state.user.nombre + '!<br><br> Su email ha sido confirmado. En breve lo redirigimos para comenzar a utilizar la aplicación.'
+        this.mensaje = '¡Bienvenido ' + this.$auth.state.user.nombre + '!<br><br> Su email ha sido confirmado. En breve lo redirigimos activar su trial.'
         setTimeout(async () => {
           this.$router.push({name: 'medio-de-pago'})
         }, 3000)

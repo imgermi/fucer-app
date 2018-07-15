@@ -304,6 +304,16 @@ export default {
       try {
         let form = event.target
         this.cardToken = await this.createToken(form)
+        if (!this.cardToken) {
+          throw new Error('Hubo un problema, por favor vuelva a intentalo.')
+        }
+        this.$router.push({
+          name: 'registrar-suscripcion',
+          query: {
+            token: this.cardToken,
+            paymentMethodId: this.paymentMethodInfo.id,
+          }
+        })
       } catch(error) {
         this.error = error.message || error.response ? error.response.data.error.message : error
       }
