@@ -6,7 +6,7 @@ let getErrorCauseFromResponse = function (response) {
 }
 
 export default {
-  getMessage (actionName, response, lang = 'en') {
+  getMessage (actionName, response, lang = 'es') {
 
     let errorCause = getErrorCauseFromResponse(response)
     if (statusMessajes[actionName] === undefined) {
