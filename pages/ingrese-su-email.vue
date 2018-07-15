@@ -1,16 +1,17 @@
 <template>
 	<div class="ingresar-mail">
+		<SecondaryTop />
 		<section class="band">
 			<div class="container form__container">
 
 				<h1 class="intro__heading">¿No recibiste el mail de confirmación?</h1>
-				<h2 class="sub__heading">Ingresá tu mail nuevamente</h2>
+				<h2 class="sub__heading">Ingresá tu email nuevamente</h2>
 
 				<div class="msj-error" v-if="error">
 				  {{ error }}
 				</div>
 
-				<form class="main__form">
+				<form @submit.prevent="resendActivationEmail" class="main__form">
 					<fieldset>
 					  <label for="email">Ingrese su email</label>
 					  <input
@@ -38,8 +39,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
+	components: {
+		SecondaryTop
+	},
 	data() {
 		return {
 			email: '',
@@ -54,6 +59,27 @@ export default {
 	  txtBtnSubmit () {
 	    return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
 	  }
+	},
+	methods: {
+		...mapActions([
+	      'setPaginaCargando'
+	    ]),
+		async resendActivationEmail() {
+		  let valida = await this.$validator.validateAll()
+		  if (!valida) {
+		    return
+		  }
+		  this.setPaginaCargando(true)
+		  try {
+		    await this.$axios.$post('auth/register/resend-activation-email', {
+		      email: this.email
+		    })
+		  	this.$router.push({name: 'confirme-su-email'})
+		  } catch(e) {
+		    this.error = e.response.data.error.message.replace('Bad Request:', '')
+		  }
+		  this.setPaginaCargando(false)
+		}
 	},
 	head () {
 	  return {
