@@ -169,7 +169,7 @@
             {{ txtBtnSubmit}}
           </button>
 
-          <div v-if="!cardToken">
+          <div>
             <p style="margin-top: 20px;">
               ¿Estás teniendo problemas? <a href="javascript:location.reload()">Recargá esta vista</a> y probá de nuevo.
             </p>
@@ -272,11 +272,11 @@ export default {
             if (status === 200) {
               resolve(response[0])
             } else {
-              reject('An error ocurred when trying to get the payment method info.')
+              reject('No se pudo obtener la información del método de pago.')
             }
           })
         }else{
-          reject('The bin is not valid.', bin)
+          reject('El bin no es válido.', bin)
         }
       })
     },
@@ -304,9 +304,8 @@ export default {
       try {
         let form = event.target
         this.cardToken = await this.createToken(form)
-        alert('The card is valid! Save this token to retrieve the card data later: ' + this.cardToken)
       } catch(error) {
-        alert(error)
+        this.error = error.message || error.response ? error.response.data.error.message : error
       }
     }
   },

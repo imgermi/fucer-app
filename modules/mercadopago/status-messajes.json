@@ -41,7 +41,7 @@
       "description": "The parameter cardholder.document.subtype can not be null or empty",
       "message": {
         "en": "Enter your identification subtype.",
-        "es": "Ingresa tu documento."
+        "es": "Ingresa tu tipo de documento."
       }
 
   	},
@@ -113,7 +113,7 @@
       "description": "invalid parameter docType",
       "message": {
         "en": "Check your identification type.",
-        "es": "Revisa tu documento."
+        "es": "Revisa tu tipo de documento."
       }
 
   	},
