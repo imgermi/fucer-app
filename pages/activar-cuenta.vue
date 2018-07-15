@@ -6,6 +6,14 @@
         <h1 class="intro__heading">
           <span v-html="mensaje"></span>
         </h1>
+        <div class="navegacion" v-show="navegacion">
+          <nuxt-link
+            :to="{ name: 'login' }"
+            class="rounded__btn--full white"
+          >
+            Iniciar sesión
+          </nuxt-link>
+        </div>
       </div>
     </section>
   </div>
@@ -23,7 +31,8 @@ export default {
   data() {
     return {
       title: 'Activar cuenta',
-      mensaje: 'Procesando...'
+      mensaje: 'Procesando...',
+      navegacion: false
     }
   },
   // Reviso que esté el token en la URL
@@ -43,18 +52,17 @@ export default {
         let {data} = await this.$axios.$post('auth/activateAccount', {
           token: this.$route.params.token,
         })
-        try {
-          this.$auth.setToken(data.token)
-          await this.$auth.fetchUser()
-        } catch(e) {
-          this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
-        }
+
+        this.$auth.setToken(data.token)
+        await this.$auth.fetchUser()
+
         this.mensaje = '¡Bienvenido ' + this.$auth.state.user.nombre + '!<br><br> Su email ha sido confirmado. En breve lo redirigimos para comenzar a utilizar la aplicación.'
         setTimeout(async () => {
           this.$router.push({name: 'inicio'})
         }, 3000)
 
       } catch(e) {
+        this.navegacion = true
         this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
       }
       this.setPaginaCargando(false)
