@@ -1,17 +1,25 @@
 <template>
-  <div class="confirme-su-email">
-    <SecondaryTop/>
+  <div class="mail-confirmado">
+    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
     <section class="band">
       <div class="container">
-        <h1 class="intro__heading">
+        <h1>
           <span v-html="mensaje"></span>
         </h1>
-        <div class="navegacion" v-show="navegacion">
+        <div v-if="confirmado">
           <nuxt-link
-            :to="{ name: 'login' }"
-            class="rounded__btn--full white"
+            class="rounded__btn--full blue"
+            :to="{ name: 'medio-de-pago' }"
           >
-            Iniciar sesión
+            Siguiente
+          </nuxt-link>
+        </div>
+        <div v-else>
+          <nuxt-link
+            :to="{ name: 'login', query: {redirect: '/medio-de-pago'} }"
+            class="rounded__btn--full blue"
+          >
+            Probar iniciar sesión
           </nuxt-link>
         </div>
       </div>
@@ -31,8 +39,10 @@ export default {
   data() {
     return {
       title: 'Activar cuenta',
+      nroPaso: '2',
+      tituloPaso: 'Cree su cuenta',
       mensaje: 'Procesando...',
-      navegacion: false
+      confirmado: true
     }
   },
   // Reviso que esté el token en la URL
@@ -56,13 +66,14 @@ export default {
         this.$auth.setToken(data.token)
         await this.$auth.fetchUser()
 
+        this.title = 'E-mail confirmado'
         this.mensaje = '¡Bienvenido ' + this.$auth.state.user.nombre + '!<br><br> Su email ha sido confirmado. En breve lo redirigimos para comenzar a utilizar la aplicación.'
         setTimeout(async () => {
-          this.$router.push({name: 'inicio'})
+          this.$router.push({name: 'medio-de-pago'})
         }, 3000)
 
       } catch(e) {
-        this.navegacion = true
+        this.confirmado = false
         this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
       }
       this.setPaginaCargando(false)
@@ -73,13 +84,10 @@ export default {
       title: this.title,
       meta: [
         { hid: 'description', name: 'description', content: '' }
-      ],
-      bodyAttrs: {
-          class: 'bg__gradient'
-      }
+      ]
     }
   }
 }
 </script>
 
-<style lang="sass">@import 'sass/pages/confirme-su-email.sass'</style>
+<style lang="sass">@import 'sass/pages/bienvenido.sass'</style>
