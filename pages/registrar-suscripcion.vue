@@ -50,6 +50,10 @@ export default {
       cardToken: this.$route.query.token || '',
       payment: null,
 
+      customer: null,
+      subscription: null,
+      planId: '234b789bdb9f4164b297d2c336f529e3',
+
       mensaje: '',
       error: false,
       title: 'Paso 3 - Tarjeta de Crédito',
@@ -64,6 +68,9 @@ export default {
     ]),
     paymentId () {
       return (this.payment && this.payment.id) ? this.payment.id : 0
+    },
+    email () {
+      return this.$auth.state.user.email
     }
   },
 
@@ -77,14 +84,9 @@ export default {
     ]),
     async processCardAndCreateCustomer () {
       try {
-        this.mensaje = 'Verificando tarjeta...'
-        await this.authorizePayment()
-        // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/webhooks/payment-status/
-        if (this.payment.status !== 'approved') {
-          this.error = 'No se pudo verificar que la tarjeta sea apta para hacer suscripciones, aún así puede activar su trial. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.'
-        }else{
-          await this.cancelPayment()
-        }
+        await this.verifyCard()
+        await this.createNewCustomer()
+        await this.subscribe()
         this.mensaje = '¡Su suscripción fue registrada! Ya puede empezar a disfrutar de su trial.'
       } catch(error) {
         this.mensaje = 'Hubo un problema '
@@ -93,6 +95,28 @@ export default {
             ? error.response.data.error.message
             : error
       }
+    },
+
+    async verifyCard () {
+      this.mensaje = 'Verificando tarjeta...'
+      await this.authorizePayment()
+      // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/webhooks/payment-status/
+      if (this.payment.status !== 'approved') {
+        this.error = 'No se pudo verificar que la tarjeta sea apta para hacer suscripciones, aún así puede acceder al trial. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.'
+      }else{
+        await this.cancelPayment()
+      }
+    },
+
+    async authorizePayment () {
+      let minAllowedAmount = await this.getMinAllowedAmount(this.paymentMethodId)
+      this.payment = await this.$axios.$post(
+        'mercadopago/create-payment-authorization', {
+          transaction_amount: minAllowedAmount,
+          card_token: this.cardToken,
+          payment_method_id: this.paymentMethodId,
+          email: this.email
+      })
     },
 
     // Obtiene el monto mínimo para hacer una autorización
@@ -130,23 +154,30 @@ export default {
       })
     },
 
-    async authorizePayment () {
-      let minAllowedAmount = await this.getMinAllowedAmount(this.paymentMethodId)
-      this.payment = await this.$axios.$post(
-        'mercadopago/create-payment-authorization', {
-          transaction_amount: minAllowedAmount,
-          card_token: this.cardToken,
-          payment_method_id: this.paymentMethodId,
-          email: this.$auth.state.user.email
-      })
-    },
-
     async cancelPayment () {
       await this.$axios.$put(
         'mercadopago/cancel-payment-authorization', {
           payment_id: this.paymentId,
       })
       this.payment.status = 'cancelled'
+    },
+
+    async createNewCustomer () {
+      this.mensaje = 'Guardando tarjeta...'
+      this.customer = await this.$axios.$post('mercadopago/create-customer', {
+        email: this.email,
+        token: this.cardToken
+      })
+    },
+
+    async subscribe () {
+      this.mensaje = 'Creando nueva suscripción...'
+      this.subscription = await this.$axios.$post(
+        'mercadopago/subscribe-customer', {
+          plan_id: this.planId,
+          customer_id: this.customer.id
+        }
+      )
     }
   },
 
