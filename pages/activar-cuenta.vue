@@ -19,7 +19,7 @@
             :to="{ name: 'login', query: {redirect: '/medio-de-pago'} }"
             class="rounded__btn--full blue"
           >
-            Probar iniciar sesión
+            Iniciar sesión
           </nuxt-link>
         </div>
       </div>

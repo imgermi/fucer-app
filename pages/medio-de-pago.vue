@@ -4,7 +4,7 @@
     <section class="band">
       <div class="container">
         <p>Para acceder a sus 15 días gratis, tendrá que suscribirse al plan seleccionado.</p>
-        <p>No se preocupe. Cancele antes del 31/7/18 y <strong>no se le cobrará ningún cargo.</strong></p>
+        <p>No se preocupe. Cancele antes del {{ moment().add(15, 'days').format('D/M/Y') }} y <strong>no se le cobrará ningún cargo.</strong></p>
         <nuxt-link :to="{ name: 'tarjeta-de-credito' }" class="rounded__btn--full blue">Tarjeta de crédito</nuxt-link>
       </div>
     </section>
@@ -13,6 +13,7 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
+import moment from 'moment'
 
 export default {
   components: {
@@ -20,6 +21,7 @@ export default {
   },
   data() {
     return {
+      moment: moment,
       title: 'Paso 3 - Medio de Pago',
       nroPaso: '3',
       tituloPaso: 'Seleccione su medio de pago'
