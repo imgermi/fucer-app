@@ -61,6 +61,8 @@
       <div class="container">
         <h1 class="intro__heading"><span v-html="titulo"></span></h1>
         <p v-if="mensaje">{{ mensaje }}</p>
+        <br>
+
         <div v-if="payment">
           <nuxt-link
             class="rounded__btn--full blue"
@@ -94,8 +96,6 @@ export default {
       cardToken: this.$route.query.token || '',
       payment: null,
 
-      customer: null,
-      subscription: null,
       planId: '234b789bdb9f4164b297d2c336f529e3',
 
       titulo: '',
@@ -136,14 +136,18 @@ export default {
         await this.verifyCard()
         await this.createNewCustomer()
         await this.subscribe()
-        this.titulo = '¡Bienvenido, ' + this.$auth.user.nombre + '!'
+
+        this.titulo = '¡Bienvenido, ' + this.$auth.state.user.nombre + '!'
         this.mensaje = 'Su pago fue acreditado. A partir de ahora forma parte de Fucer.'
       } catch(error) {
-        this.titulo = 'Hubo un problema '
-        this.error = error.message
-          || error.response != undefined
+        this.titulo = 'Hubo un problema'
+        this.error = error.response != undefined
             ? error.response.data.error.message
-            : error
+            : (error.message || error)
+        // TODO: Mover esto al backend
+        if (this.error.indexOf('Invalid card_token_id')!==-1) {
+          this.error = 'Por seguridad necesitamos que vuelva a cargar los datos de su tarjeta.'
+        }
       }
     },
 
@@ -151,7 +155,7 @@ export default {
       this.titulo = 'Verificando tarjeta...'
       await this.authorizePayment()
       // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/webhooks/payment-status/
-      if (this.payment.status !== 'approved') {
+      if (this.payment.status !== 'authorized') {
         this.error = 'No se pudo verificar que la tarjeta sea apta para hacer suscripciones, aún así puede acceder al trial. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.'
       }else{
         await this.cancelPayment()
@@ -214,20 +218,27 @@ export default {
 
     async createNewCustomer () {
       this.titulo = 'Guardando tarjeta...'
-      this.customer = await this.$axios.$post('mercadopago/create-customer', {
+      let token = await this.$axios.$post('mercadopago/create-customer', {
         email: this.email,
         token: this.cardToken
       })
+
+      // Actualizo el token de seguridad
+      this.$auth.setToken(token)
+      await this.$auth.fetchUser()
     },
 
     async subscribe () {
       this.titulo = 'Creando nueva suscripción...'
-      this.subscription = await this.$axios.$post(
+      let token = await this.$axios.$post(
         'mercadopago/subscribe-customer', {
           plan_id: this.planId,
-          customer_id: this.customer.id
+          customer_id: this.$auth.state.user.customer_id
         }
       )
+      // Actualizo el token de seguridad
+      this.$auth.setToken(token)
+      await this.$auth.fetchUser()
     }
   },
 

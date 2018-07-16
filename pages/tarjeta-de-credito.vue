@@ -283,6 +283,9 @@ export default {
 
     // Creates a card_token, which is the secure representation of the card
     async createToken (form) {
+
+      this.$mercadopago.clearSession()
+
       return new Promise((resolve, reject) => {
         this.$mercadopago.createToken(form, (status, response) => {
           if (status === 200 || status === 201) {

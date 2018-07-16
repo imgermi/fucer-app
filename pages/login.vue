@@ -99,11 +99,18 @@ export default {
           username: this.email,
           password: this.password
         }
-      }).catch(e => {
+      })
+      .then(() => {
+        if (this.$store.getters.usuarioPremium) {
+          this.$router.push({name: 'inicio'})
+        } else {
+          this.$router.push({name: 'medio-de-pago'})
+        }
+      })
+      .catch(e => {
         this.error = 'Revise sus credenciales por favor. Algún dato no es correcto o el usuario todavía no está activo.'
       })
       this.setPaginaCargando(false)
-      return response
     }
   },
   head () {
