@@ -25,11 +25,7 @@ export default {
       'getNormativasMasNuevas'
     ]),
     async cargarMas () {
-      if (this.$store.state.auth.user.pago == 0) {
-        this.mensaje = 'Usted está utilizando la versión básica. <a href="">Actualice su plan</a> para acceder a todas las normativas.'
-      } else {
-        await this.obtenerMasNormativas()
-      }
+      await this.obtenerMasNormativas()
     },
     async obtenerMasNormativas () {
       this.pagina ++

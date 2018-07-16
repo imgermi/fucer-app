@@ -19,29 +19,39 @@ export const actions = {
 }
 
 export const getters = {
-  usuarioPremium (state, getters, rootState) {
-    let usuarioPremium = false
-    if(!rootState.auth.user){
-    	return false
-    }
-    if(rootState.auth.user.pago==1){
-      usuarioPremium = true
-    }else{
-      let premiumHasta = moment(rootState.auth.user.pago_fecha).add(1, 'month')
-      let hoy = moment()
-      if (premiumHasta.diff(hoy, 'days') >= 0) {
-        usuarioPremium = true
-      }
-    }
-    return usuarioPremium
-  },
-
-  usuarioPremiumDias (state, getters, rootState) {
-    if(! getters.usuarioPremium){
-      return 0;
-    }
-    let premiumHasta = moment(rootState.auth.user.pago_fecha).add(1, 'month')
+  diasFinSuscripcion (state, getters, rootState) {
+    let premiumHasta = moment('7/15/2018').add(1, 'month')
     let hoy = moment()
     return premiumHasta.diff(hoy, 'days')
+  },
+
+  diasFinTrial (state, getters, rootState) {
+    let fechaSuscripcion = moment('7/15/2018')
+    let hoy = moment()
+    return 15 - hoy.diff(fechaSuscripcion, 'days')
+  },
+
+  mensajeDiasFinTrial (state, getters) {
+    if (getters.diasFinTrial > 0) {
+      return 'En <b>'
+        + getters.diasFinTrial
+        + ' '
+        + (getters.diasFinTrial > 1 ? 'dias' : 'día')
+        + ' se termina</b> su versión de trial.'
+    } else if (getters.diasFinTrial == 0) {
+      return '<b>Hoy se termina</b> su versión de trial.'
+    } else {
+      return 'Su versión de trial <b>ha caducado</b>.'
+    }
+  },
+
+  esTrial (state, getters) {
+    return getters.diasFinTrial > 0
+  },
+
+  estaSuscripto (state, getters, rootState) {
+    return rootState.auth.user && rootState.auth.user.esta_suscrito == 1
+      ? getters.diasFinSuscripcion > 0
+      : false
   }
 }

@@ -10,34 +10,46 @@
   		<div class="container">
   			<div class="datos__plan">
   			  <h2>Mi plan</h2>
-  			  <div class="datos__plan--dato">
-  			    <span>Plan {{ usuarioPago ? 'premium' : 'básico' }}</span>
-  			    <small v-if="precioPlan">${{ usuarioPago ? precioPlan : 0 }}</small>
-  			  </div>
+  			  <div
+            v-if="estaSuscripto || !estaSuscripto && esTrial"
+            class="datos__plan--dato"
+          >
+  			    <span>{{ esTrial ? 'Trial' : 'Plan premium'  }}</span>
+  			    <small>${{ esTrial ? 0 : planPrecio }}</small>
+          </div>
+          <p v-html="mensajePlan"></p>
   			</div>
   		</div>
   	</section>
 
   	<section class="band">
   		<div class="container">
-  			<h2>Modifique su plan</h2>
-        <div class="msj" v-if="mensaje">
-          <div v-html="mensaje"></div>
+
+        <h2>Suscripción</h2>
+        <div class="msj">
+          {{ estaSuscripto
+            ? 'Su suscripción está activa. En '
+              + diasFinSuscripcion
+              + ' '
+              + (diasFinSuscripcion > 1 ? 'días' : 'dia')
+              +' va debitarse un nuevo pago.'
+            : 'Su suscripción fue cancelada. No va a recibir nuevos cargos en su tarjeta.'
+          }}
         </div>
+        <br>
+
   			<div class="datos__plan--dato seleccionar">
-  			  <span>Plan {{ usuarioPago ? 'básico' : 'premium' }}</span>
-  			  <small v-if="precioPlan">${{ usuarioPago ? 0 : precioPlan }} mensuales</small>
+  			  <span>Plan premium</span>
+  			  <small>${{ planPrecio }} mensuales</small>
   			  <button class="rounded__btn--medium" @click="cambiarPlan">
-            {{ actualizandoPlan ? 'Cargando...' : 'Seleccionar plan'}}
+            {{ actualizandoPlan
+              ? 'Cargando...'
+              : (estaSuscripto
+                  ? 'Cancelar suscripción'
+                  : 'Suscríbase'
+              )
+            }}
           </button>
-  			  <i v-if="precioPlan">
-            <template v-if="usuarioPago">
-              Vas a cancelar tu suscripción
-            </template>
-            <template v-else>
-              {{ $store.getters.usuarioPremium ? 'Su suscripción ya fue cancelada pero le quedan '+ $store.getters.usuarioPremiumDias + ' días premium' : 'Serás redirigido a Mercado Pago' }}
-            </template>
-          </i>
   			</div>
   		</div>
   	</section>
@@ -45,13 +57,12 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapState, mapGetters} from 'vuex'
 
 export default {
   data () {
     return {
       title: 'Modificar Plan',
-      precioPlan: false,
       actualizandoPlan: false,
       mensaje: false
     }
@@ -61,8 +72,27 @@ export default {
   },
   computed: {
     ...mapState(['pagina']),
-    usuarioPago () {
-      return this.$auth.state.user.pago === 1
+    ...mapGetters([
+      'estaSuscripto',
+      'esTrial',
+      'mensajeDiasFinTrial',
+      'diasFinSuscripcion',
+      'usuarioPremium'
+    ]),
+    mensajePlan () {
+      if (this.estaSuscrito) {
+        return 'En ' + this.diasFinSuscripcion +
+          ' días se debitará el próximo pago.'
+      } else {
+        if (this.esTrial) {
+          return this.mensajeDiasFinTrial
+        }
+        return this.usuarioPremium
+          ? 'Su suscripción ya fue cancelada pero le quedan ' +
+            this.diasFinSuscripcion +
+            ' días premium.'
+          : 'La versión de trial ha caducado.'
+      }
     }
   },
   methods: {
@@ -73,7 +103,7 @@ export default {
       this.setPaginaCargando(true)
       try {
         let data = await this.$axios.$get('configuraciones')
-        this.precioPlan = data.precio_regular
+        this.planPrecio = data.precio_regular
       } catch(e) {
         this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
       }
@@ -81,7 +111,7 @@ export default {
     },
     async cambiarPlan () {
       this.actualizandoPlan = true
-      if(this.usuarioPago) {
+      if(this.estaSuscrito) {
         await this.desuscribirme()
       } else {
         await this.suscribirme()
@@ -102,7 +132,7 @@ export default {
         let resultado = await this.$axios.$delete('mercadopago/suscripcion')
         console.log(resultado)
         if (!resultado.data.token) {
-          this.mensaje = 'Hubo un problema. VUelva a intentarlo por favor.'
+          this.mensaje = 'Hubo un problema. Vuelva a intentarlo por favor.'
           return
         }
         // Actualizo el token de seguridad

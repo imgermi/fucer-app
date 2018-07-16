@@ -4,7 +4,7 @@
     <section class="band">
       <div class="container">
         <h1>Versión de trial terminada</h1>
-        <p>Su trial ha terminado. Actualice su plan para seguir disfrutando de nuestro servicio.</p>
+        <p>Su trial ha terminado. Actualice sus plan para seguir disfrutando de nuestro servicio.</p>
         <nuxt-link :to="{ name: 'modificar-plan' }" class="rounded__btn--full white">Actualizar plan</nuxt-link>
       </div>
     </section>
