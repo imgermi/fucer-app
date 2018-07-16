@@ -6,20 +6,12 @@
         <h1>
           <span v-html="mensaje"></span>
         </h1>
-        <div v-if="confirmado">
+        <div v-if="!pagina.cargando">
           <nuxt-link
             class="rounded__btn--full blue"
             :to="{ name: 'medio-de-pago' }"
           >
             Siguiente
-          </nuxt-link>
-        </div>
-        <div v-else>
-          <nuxt-link
-            :to="{ name: 'login', query: {redirect: '/medio-de-pago'} }"
-            class="rounded__btn--full blue"
-          >
-            Iniciar sesión
           </nuxt-link>
         </div>
       </div>
@@ -29,7 +21,7 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -41,10 +33,15 @@ export default {
       title: 'Activar cuenta',
       nroPaso: '2',
       tituloPaso: 'Cree su cuenta',
-      mensaje: 'Procesando...',
-      confirmado: true
+      mensaje: 'Procesando...'
     }
   },
+  computed: {
+    ...mapState([
+      'pagina'
+    ])
+  },
+
   // Reviso que esté el token en la URL
   validate ({ params }) {
     return /^[0-9a-z]{32}$/.test(params.token)
@@ -53,7 +50,7 @@ export default {
     this.activarCuenta()
   },
   methods: {
-     ...mapActions([
+    ...mapActions([
       'setPaginaCargando'
     ]),
     async activarCuenta() {
@@ -67,13 +64,9 @@ export default {
         await this.$auth.fetchUser()
 
         this.title = 'E-mail confirmado'
-        this.mensaje = '¡Bienvenido, ' + this.$auth.state.user.nombre + '!<br><br> Su email ha sido confirmado. En breve lo redirigimos activar su trial.'
-        setTimeout(async () => {
-          this.$router.push({name: 'medio-de-pago'})
-        }, 3000)
+        this.mensaje = '¡Bienvenido, ' + this.$auth.state.user.nombre + '!<br><br> Su email ha sido confirmado.'
 
       } catch(e) {
-        this.confirmado = false
         this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
       }
       this.setPaginaCargando(false)
