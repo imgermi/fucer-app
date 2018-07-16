@@ -318,7 +318,9 @@ export default {
           }
         })
       } catch(error) {
-        this.error = error.message || error.response ? error.response.data.error.message : error
+        this.error = error.response != undefined
+            ? error.response.data.error.message
+            : (error.message || error)
       }
     }
   },
