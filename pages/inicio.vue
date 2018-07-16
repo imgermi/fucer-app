@@ -69,7 +69,7 @@ export default {
     Carousel,
     Slide
   },
-  middleware: 'trial',
+  middleware: 'premium',
   data () {
     return {
       title: 'Inicio',

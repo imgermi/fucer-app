@@ -47,7 +47,7 @@ export default {
     Alerta,
     ModuloNormativa
   },
-  middleware: 'trial',
+  middleware: 'premium',
   data () {
     return {
       title: 'Buscar'

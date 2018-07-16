@@ -49,8 +49,12 @@ export const getters = {
     return getters.diasFinTrial > 0
   },
 
+  usuarioPremium (state, getters) {
+    return getters.diasFinSuscripcion > 0
+  },
+
   estaSuscripto (state, getters, rootState) {
-    return rootState.auth.user && rootState.auth.user.esta_suscrito == 1
+    return rootState.auth && rootState.auth.user && rootState.auth.user.esta_suscrito == 1
       ? getters.diasFinSuscripcion > 0
       : false
   },

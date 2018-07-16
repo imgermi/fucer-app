@@ -4,7 +4,7 @@
     <section class="band">
       <div class="container">
         <h1>Contenido no disponible</h1>
-        <p>Lo sentimos, este contenido ahora está disponible solo para los usuarios premium.</p>
+        <p>Lo sentimos, este contenido solo está disponible para los usuarios premium.</p>
         <nuxt-link :to="{ name: 'modificar-plan' }" class="rounded__btn--full white">Actualizar plan</nuxt-link>
         <br>
         <nuxt-link :to="{ name: 'inicio' }" class="rounded__btn--full white">Volver al inicio</nuxt-link>

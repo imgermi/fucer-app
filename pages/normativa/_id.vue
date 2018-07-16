@@ -1,6 +1,6 @@
 <template>
   <div class="normativa">
-    <Alerta v-if="$auth.state.user.pago==0"/>
+    <Alerta />
     <header class="goBack__header">
       <div class="container">
         <a @click="$router.go(-1)"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></a>
@@ -46,6 +46,7 @@ export default {
     Alerta,
     FavoriteStar
   },
+  middleware: 'premium',
   data () {
     return {
       id: 0,
@@ -75,12 +76,6 @@ export default {
     this.setPaginaCargando(true)
     try {
       let normativa = await this.$axios.$get('normativas/id/' + this.$route.params.id)
-
-      if (!normativa.gratuita && !this.$auth.state.user.pago) {
-        this.$router.push({name: 'contenido-no-disponible'})
-        return
-      }
-
       this.id = normativa.id
       this.titulo = normativa.titulo
       this.bajada = normativa.bajada
