@@ -69,7 +69,7 @@ module.exports = {
     },
     redirect: {
       login: '/login',
-      home: '/inicio'
+      home: '/'
     }
   },
 

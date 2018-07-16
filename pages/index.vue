@@ -75,7 +75,6 @@ export default {
     SecondaryTop
   },
   auth: false,
-  middleware: 'guest',
   data () {
     return {
       title: 'Index',
