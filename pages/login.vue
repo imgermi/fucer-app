@@ -46,6 +46,9 @@
             {{ txtBtnIngresar}}
           </button>
         </form>
+        <br>
+
+        <p>¿Registró su usuario pero no recibió el mail para activarlo? <nuxt-link :to="{ name: 'ingrese-su-email' }">Envíelo de nuevo</nuxt-link>.</p>
       </div>
     </section>
   </div>
