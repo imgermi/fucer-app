@@ -41,7 +41,7 @@
   			<div class="datos__plan--dato seleccionar">
   			  <span>Plan premium</span>
   			  <small>${{ planPrecio }} mensuales</small>
-  			  <button class="rounded__btn--medium" @click="cambiarPlan">
+  			  <button class="rounded__btn--medium" @click="changeSubscriptionStatus">
             {{ actualizandoPlan
               ? 'Cargando...'
               : (estaSuscripto
@@ -65,7 +65,8 @@ export default {
       title: 'Modificar Plan',
       actualizandoPlan: false,
       planPrecio: false,
-      mensaje: false
+      mensaje: false,
+      subscription: null
     }
   },
   async created () {
@@ -96,39 +97,81 @@ export default {
       }
       this.setPaginaCargando(false)
     },
-    async cambiarPlan () {
+    async changeSubscriptionStatus () {
       this.actualizandoPlan = true
-      if(this.estaSuscrito) {
-        await this.desuscribirme()
-      } else {
-        await this.suscribirme()
+      try {
+        // TODO: Puede haber más estados
+        let token = ''
+        await this.getSubscription()
+        if(this.subscription.status === 'authorized') {
+          token = await this.pauseSubscription()
+
+        } else if(this.subscription.status === 'paused') {
+          token = await this.reactivateSubscription()
+        }
+
+        if (!token) {
+          this.mensaje = 'Hubo un problema. Vuelva a intentarlo por favor.'
+          this.actualizandoPlan = false
+          return
+        }
+
+        // Actualizo el token de seguridad
+        this.$auth.setToken(token)
+        await this.$auth.fetchUser()
+      } catch (error) {
+        this.mensaje = error.response != undefined
+            ? error.response.data.error.message.replace('Bad Request:', '')
+            : (error.message || error)
       }
       this.actualizandoPlan = false
     },
-    async suscribirme () {
+    async getSubscription () {
       try {
-        let urlMercadopago = await this.$axios.$post('mercadopago/suscripcion')
-        window.location = urlMercadopago
-      } catch (e) {
-        console.log(e)
-        this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
+        this.subscription = await this.$axios.$get(
+          'mercadopago/get-subscription', {
+            params: {
+              subscription_id: this.$auth.state.user.suscription_id
+            }
+          }
+        )
+        if (!this.subscription) {
+          this.mensaje = 'No se pudo encontrar la suscripción registrada en Mercado Pago.'
+        }
+      } catch(error) {
+        this.mensaje = error.response.data.error.message || error
       }
     },
-    async desuscribirme () {
+    async pauseSubscription () {
       try {
-        let resultado = await this.$axios.$delete('mercadopago/suscripcion')
-        console.log(resultado)
-        if (!resultado.data.token) {
-          this.mensaje = 'Hubo un problema. Vuelva a intentarlo por favor.'
-          return
+        let token = await this.$axios.$put(
+          'mercadopago/pause-subscription', {
+            subscription_id: this.$auth.state.user.suscription_id
+          }
+        )
+        if (!this.subscription) {
+          this.mensaje = 'No se pudo encontrar la suscripción registrada en Mercado Pago.'
         }
-        // Actualizo el token de seguridad
-        this.$auth.setToken(resultado.data.token)
-        await this.$auth.fetchUser()
-        this.mensaje = resultado.message
-      } catch (e) {
-        console.log(e)
-        this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
+        this.mensaje = 'La suscripción fue cancelada.'
+        return token
+      } catch(error) {
+        this.mensaje = error.response.data.error.message || error
+      }
+    },
+    async reactivateSubscription () {
+      try {
+        let token = await this.$axios.$put(
+          'mercadopago/reactivate-subscription', {
+            subscription_id: this.$auth.state.user.suscription_id
+          }
+        )
+        if (!this.subscription) {
+          this.mensaje = 'No se pudo encontrar la suscripción registrada en Mercado Pago.'
+        }
+        this.mensaje = '¡La suscripción fue reactivada!'
+        return token
+      } catch(error) {
+        this.mensaje = error.response.data.error.message || error
       }
     }
   },
