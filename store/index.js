@@ -20,13 +20,19 @@ export const actions = {
 
 export const getters = {
   diasFinSuscripcion (state, getters, rootState) {
-    let premiumHasta = moment('7/15/2018').add(1, 'month')
+    if (!rootState.auth || !rootState.auth.user) {
+      return 0
+    }
+    let premiumHasta = moment(rootState.auth.user.suscripcion_fecha).add(1, 'month')
     let hoy = moment()
     return premiumHasta.diff(hoy, 'days')
   },
 
   diasFinTrial (state, getters, rootState) {
-    let fechaSuscripcion = moment('7/15/2018')
+    if (!rootState.auth || !rootState.auth.user) {
+      return 0
+    }
+    let fechaSuscripcion = moment(rootState.auth.user.suscripcion_fecha)
     let hoy = moment()
     return 15 - hoy.diff(fechaSuscripcion, 'days')
   },

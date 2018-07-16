@@ -59,6 +59,8 @@ export default {
   components: {
     SecondaryTop
   },
+  auth: false,
+  middleware: 'guest',
   data() {
     return {
       email: '',

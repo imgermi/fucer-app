@@ -30,6 +30,7 @@ export default {
     SecondaryTop
   },
   auth: false,
+  middleware: 'guest',
   data() {
     return {
       title: 'Paso 1 - Seleccione su plan',

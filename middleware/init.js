@@ -1,9 +1,5 @@
 export default function ({store, app, route}) {
   if (app.$auth.state.loggedIn) {
-    if (route.name == 'login') {
-      app.router.push({name: 'inicio'})
-    }
-
     app.$axios.$get('favoritos', {
       params: {
         usuario: store.state.auth.user.id
