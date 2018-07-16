@@ -17,25 +17,36 @@
             <p>Contraseña</p>
             <span>*******</span>
           </div>
-          <nuxt-link :to="{ name: 'modificar-datos' }"><button class="rounded__btn--medium">Modificar</button></nuxt-link>
-        </div>
-        <div class="datos__plan">
-          <h2>Mi plan</h2>
-          <div class="datos__plan--dato">
-            <span>Plan {{ $auth.state.user.pago==1 ? 'premium' : 'básico' }}</span>
-            <small v-if="precioPlan">${{ $auth.state.user.pago==1 ? precioPlan : 0 }}</small>
-          </div>
-          <nuxt-link :to="{ name: 'modificar-plan' }"><button class="rounded__btn--medium">Modificar plan</button></nuxt-link>
+          <nuxt-link :to="{ name: 'modificar-datos' }">
+            <button class="rounded__btn--medium">
+              Modificar
+            </button>
+          </nuxt-link>
         </div>
 
+        <div class="datos__plan">
+          <h2>Mi plan</h2>
+          <div
+            v-if="estaSuscripto || !estaSuscripto && esTrial"
+            class="datos__plan--dato"
+          >
+            <span>{{ esTrial ? 'Trial' : 'Plan premium'  }}</span>
+            <small>${{ esTrial ? 0 : planPrecio }}</small>
+          </div>
+          <p v-html="mensajePlan"></p>
+        </div>
+        <br>
+
+        <nuxt-link :to="{ name: 'modificar-plan' }"><button class="rounded__btn--medium">Modificar plan</button></nuxt-link>
       </div>
+
     </section>
   </div>
 </template>
 
 <script>
 import Top from '~/components/Top.vue'
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapState, mapGetters} from 'vuex'
 
 export default {
   components: {
@@ -51,7 +62,12 @@ export default {
     await this.obtenerConfigs()
   },
   computed: {
-    ...mapState(['pagina'])
+    ...mapState(['pagina']),
+    ...mapGetters([
+      'esTrial',
+      'estaSuscripto',
+      'mensajePlan'
+    ])
   },
   methods: {
     ...mapActions([

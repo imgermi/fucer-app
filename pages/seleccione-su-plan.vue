@@ -3,7 +3,7 @@
     <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
     <section class="band">
       <div class="container">
-        <div class="plan__titulo"><span>Básico</span></div>
+        <div class="plan__titulo"><span>Premium</span></div>
         <small
           v-if="precioPlan"
           class="plan__precio"

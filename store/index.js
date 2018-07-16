@@ -53,5 +53,21 @@ export const getters = {
     return rootState.auth.user && rootState.auth.user.esta_suscrito == 1
       ? getters.diasFinSuscripcion > 0
       : false
+  },
+
+  mensajePlan (state, getters) {
+    if (getters.estaSuscrito) {
+      return 'En ' + getters.diasFinSuscripcion +
+        ' días se debitará el próximo pago.'
+    } else {
+      if (getters.esTrial) {
+        return getters.mensajeDiasFinTrial
+      }
+      return getters.usuarioPremium
+        ? 'Su suscripción ya fue cancelada pero le quedan ' +
+          getters.diasFinSuscripcion +
+          ' días premium.'
+        : 'La versión de trial ha caducado.'
+    }
   }
 }

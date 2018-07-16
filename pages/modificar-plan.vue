@@ -64,6 +64,7 @@ export default {
     return {
       title: 'Modificar Plan',
       actualizandoPlan: false,
+      planPrecio: false,
       mensaje: false
     }
   },
@@ -77,23 +78,9 @@ export default {
       'esTrial',
       'mensajeDiasFinTrial',
       'diasFinSuscripcion',
-      'usuarioPremium'
-    ]),
-    mensajePlan () {
-      if (this.estaSuscrito) {
-        return 'En ' + this.diasFinSuscripcion +
-          ' días se debitará el próximo pago.'
-      } else {
-        if (this.esTrial) {
-          return this.mensajeDiasFinTrial
-        }
-        return this.usuarioPremium
-          ? 'Su suscripción ya fue cancelada pero le quedan ' +
-            this.diasFinSuscripcion +
-            ' días premium.'
-          : 'La versión de trial ha caducado.'
-      }
-    }
+      'usuarioPremium',
+      'mensajePlan'
+    ])
   },
   methods: {
     ...mapActions([
