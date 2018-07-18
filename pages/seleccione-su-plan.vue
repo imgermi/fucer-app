@@ -4,12 +4,13 @@
     <section class="band">
       <div class="container">
         <div class="plan__titulo"><span>Premium</span></div>
-        <small
+        <span
           v-if="precioPlan"
           class="plan__precio"
         >
           ${{ precioPlan }} mensuales
-        </small>
+        </span>
+        <small class="plan__recordatorio">Antes de abonar, usted contará con 15 días gratuitos para probar la app</small>
         <ul class="plan__specs">
           <li>Acceso ilimitado a Normativas</li>
           <li>Recopilación de material</li>
