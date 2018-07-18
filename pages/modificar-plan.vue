@@ -14,7 +14,7 @@
             v-if="estaSuscripto || !estaSuscripto && esTrial"
             class="datos__plan--dato"
           >
-  			    <span>{{ esTrial ? 'Trial' : 'Plan premium'  }}</span>
+  			    <span>{{ esTrial ? 'Versión de prueba' : 'Plan premium'  }}</span>
   			    <small>${{ esTrial ? 0 : planPrecio }}</small>
           </div>
           <p v-html="mensajePlan"></p>
@@ -39,7 +39,7 @@
         <br>
 
   			<div class="datos__plan--dato seleccionar">
-  			  <span>Plan premium</span>
+  			  <span>Plan Básico</span>
   			  <small>${{ planPrecio }} mensuales</small>
   			  <button class="rounded__btn--medium" @click="changeSubscriptionStatus">
             {{ actualizandoPlan
