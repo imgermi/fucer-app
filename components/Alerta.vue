@@ -1,8 +1,8 @@
 <template>
   <header v-if="$store.getters.esTrial">
-  	<nuxt-link :to="{ name: 'modificar-plan' }" class="alerta-plan">
+  	<div class="alerta-plan">
   		<p v-html="$store.getters.mensajeDiasFinTrial"></p>
-  	</nuxt-link>
+  	</div>
   </header>
 </template>
 
