@@ -43,11 +43,11 @@ export const getters = {
         + getters.diasFinTrial
         + ' '
         + (getters.diasFinTrial > 1 ? 'dias' : 'día')
-        + ' se termina</b> su versión de trial.'
+        + ' se termina</b> su versión de prueba.'
     } else if (getters.diasFinTrial == 0) {
-      return '<b>Hoy se termina</b> su versión de trial.'
+      return '<b>Hoy se termina</b> su versión de prueba.'
     } else {
-      return 'Su versión de trial <b>ha caducado</b>.'
+      return 'Su versión de prueba <b>ha caducado</b>.'
     }
   },
 
@@ -77,7 +77,7 @@ export const getters = {
         ? 'Su suscripción ya fue cancelada pero le quedan ' +
           getters.diasFinSuscripcion +
           ' días premium.'
-        : 'La versión de trial ha caducado.'
+        : 'La versión de prueba ha caducado.'
     }
   }
 }
