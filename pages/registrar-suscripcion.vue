@@ -90,6 +90,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
+  layout: 'signup',
   data() {
     return {
       paymentMethodId: this.$route.query.paymentMethodId || '',

@@ -1,11 +1,22 @@
 // main: ../main.sass
 
+.normativas-container
+	@media(min-width: 768px)
+		margin: -10px
+		.center
+			margin-top: 20px
+
 .normativa-module
 	border-radius: 5px
 	box-shadow: 0 1px 10px rgba(0,0,0,0.15)
 	display: block
 	margin-bottom: 20px
 	position: relative
+	@media(min-width: 768px)
+		display: inline-block
+		width: calc(50% - 20px)
+		vertical-align: top
+		margin: 10px
 	.main
 		padding: 20px 20px 15px
 	h4 a, p a, small a

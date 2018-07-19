@@ -5,15 +5,17 @@
     <section class="band">
       <div class="container">
         <span class="small__heading">Aquí verás las normativas que marcaste <br> como favoritas</span>
-        <ModuloNormativa
-          v-for="normativa in normativas"
-          :key="normativa.id + '-ultima'"
-          :id="normativa.id"
-          :titulo="normativa.titulo"
-          :bajada="normativa.bajada"
-          :fecha="normativa.fecha"
-          :url="normativa.url"
-        />
+        <div class="normativas-container">
+          <ModuloNormativa
+            v-for="normativa in normativas"
+            :key="normativa.id + '-ultima'"
+            :id="normativa.id"
+            :titulo="normativa.titulo"
+            :bajada="normativa.bajada"
+            :fecha="normativa.fecha"
+            :url="normativa.url"
+          />
+        </div>
       </div>
     </section>
   </div>
@@ -26,6 +28,7 @@ import ModuloNormativa from '~/components/ModuloNormativa.vue'
 import { mapState } from 'vuex'
 
 export default {
+  layout: 'app',
   components: {
     Top,
     Alerta,

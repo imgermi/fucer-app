@@ -27,7 +27,7 @@
     <section class="band">
       <div class="container">
         <h1>Normativa Registral</h1>
-        <div v-if="!cargandoNormativas">
+        <div v-if="!cargandoNormativas" class="normativas-container">
           <template v-if="normativasMasNuevas.length > 0">
             <ModuloNormativa
               v-for="normativa in normativasMasNuevas"
@@ -61,6 +61,7 @@ import { Carousel, Slide } from 'vue-carousel';
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  layout: 'app',
   components: {
     Top,
     Alerta,

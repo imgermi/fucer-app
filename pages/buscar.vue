@@ -42,6 +42,7 @@ import ModuloNormativa from '~/components/ModuloNormativa.vue'
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  layout: 'app',
   components: {
     Top,
     Alerta,

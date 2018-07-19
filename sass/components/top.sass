@@ -7,6 +7,9 @@
 		content: ''
 		display: block
 		clear: both
+	@media(min-width: 992px)
+		padding: 55px 0 15px
+		box-shadow: none
 	.buscar
 		float: right
 		background: transparent
@@ -25,6 +28,8 @@
 	left: 0
 	transition: all 200ms ease-in-out
 	z-index: 20
+	@media(min-width: 992px)
+		opacity: 1
 	.overlay
 		background: rgba(0,0,0,0.5)
 		width: 100%
@@ -32,6 +37,8 @@
 		position: absolute
 		left: 0
 		top: 0
+		@media(min-width: 992px)
+			display: none
 	&.active
 		opacity: 1
 		pointer-events: initial
@@ -46,10 +53,20 @@
 	left: -100%
 	top: 0
 	transition: all 200ms ease-in-out
+	@media(min-width: 768px)
+		width: 45%
+		max-width: 350px
+	@media(min-width: 992px)
+		left: 0
+		max-width: 250px
+		background: #fff
+		pointer-events: all
 	.user__info
 		background: #fff
 		width: 100%
 		padding: 30px
+		@media(min-width: 992px)
+			padding: 160px 20px 0
 		span, small
 			display: block
 		span
@@ -67,12 +84,18 @@
 				font-size: 16px
 				display: block
 				padding: 10px 30px
+				@media(min-width: 992px)
+					padding: 10px 20px
 			.nuxt-link-active
 				color: #002460
 	.logo
 		position: absolute
 		left: 30px
 		bottom: 30px
+		@media(min-width: 992px)
+			bottom: auto
+			top: 45px
+			left: 20px
 		.logo__stroke
 			fill: #224B8E
 
@@ -98,6 +121,8 @@
   	vertical-align: middle
   	padding-left: 10px
   	color: #0D1B2A
+  	@media(min-width: 992px)
+  		padding-left: 0
 
 .hamburger-box
   width: 40px
@@ -105,6 +130,8 @@
   display: inline-block
   vertical-align: middle
   position: relative
+  @media(min-width: 992px)
+  	display: none
 
 .hamburger-inner
   display: block

@@ -59,6 +59,7 @@ import SecondaryTop from '~/components/SecondaryTop.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
+  layout: 'signup',
   components: {
     SecondaryTop
   },

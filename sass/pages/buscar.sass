@@ -2,6 +2,9 @@
 
 .buscar
 	.main__header
+		@media(min-width: 992px)
+			.hamburger
+				display: none
 		.buscar
 			display: none
 		.form__buscar
@@ -9,6 +12,9 @@
 			float: right
 			width: calc(100% - 60px)
 			position: relative
+			@media(min-width: 992px)
+				float: none
+				width: 100%
 			input[type="text"]
 				background: #F3F3F3
 				border: 0

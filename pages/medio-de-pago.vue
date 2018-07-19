@@ -24,6 +24,7 @@ import SecondaryTop from '~/components/SecondaryTop.vue'
 import moment from 'moment'
 
 export default {
+  layout: 'signup',
   components: {
     SecondaryTop
   },

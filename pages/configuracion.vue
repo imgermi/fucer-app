@@ -49,6 +49,7 @@ import Top from '~/components/Top.vue'
 import {mapActions, mapState, mapGetters} from 'vuex'
 
 export default {
+  layout: 'app',
   components: {
     Top
   },
