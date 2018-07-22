@@ -153,7 +153,7 @@ export default {
       await this.authorizePayment()
       // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/webhooks/payment-status/
       if (this.payment.status !== 'authorized') {
-        this.error = 'No se pudo verificar que la tarjeta sea apta para hacer suscripciones, aún así puede acceder al trial. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.'
+        this.error = 'No se pudo verificar que la tarjeta sea apta para hacer suscripciones. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.'
       }else{
         await this.cancelPayment()
       }
@@ -227,6 +227,16 @@ export default {
 
     async subscribe () {
       this.titulo = 'Creando nueva suscripción...'
+      if(this.$auth.state.user && this.$auth.state.user.suscripcion.id){
+        let subscription = await this.$axios.$get('mercadopago/get-subscription', {
+          params: {
+            subscription_id: this.$auth.state.user.suscripcion.id
+          }
+        })
+        if(subscription){
+          return
+        }
+      }
       let token = await this.$axios.$post(
         'mercadopago/subscribe-customer', {
           plan_id: this.planId,
