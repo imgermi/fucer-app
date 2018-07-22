@@ -61,6 +61,7 @@
       <div class="container">
         <h1 class="intro__heading"><span v-html="titulo"></span></h1>
         <p v-if="mensaje">{{ mensaje }}</p>
+        <p v-if="error" style="color: red;">{{ error }}</p>
         <br>
 
         <div v-if="payment">
@@ -118,12 +119,6 @@ export default {
     }
   },
 
-  watch: {
-    error (newError) {
-      this.mensaje = newError
-    }
-  },
-
   async created () {
     this.processCardAndCreateCustomer()
   },
@@ -139,7 +134,7 @@ export default {
         await this.subscribe()
 
         this.titulo = '¡Bienvenido/a, ' + this.$auth.state.user.nombre + '!'
-        this.mensaje = 'Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. A partir de ahora forma parte de Fucer. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.'
+        this.mensaje += 'Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. A partir de ahora forma parte de Fucer. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.'
       } catch(error) {
         this.titulo = 'Hubo un problema'
         this.error = error.response != undefined
