@@ -33,16 +33,11 @@ module.exports = {
         name: 'normativa',
         path: '/normativa/:id/:slug?',
         component: resolve(__dirname, 'pages/normativa/_id.vue')
-      })
+      }),
       routes.push({
         name: 'activar-cuenta',
         path: '/activar-cuenta/:token',
         component: resolve(__dirname, 'pages/activar-cuenta.vue')
-      })
-      routes.push({
-        name: 'pago-procesado',
-        path: '/pago-procesado/:status',
-        component: resolve(__dirname, 'pages/pago-procesado.vue')
       })
     }
   },
