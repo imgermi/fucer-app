@@ -131,7 +131,7 @@ export default {
         this.subscription = await this.$axios.$get(
           'mercadopago/get-subscription', {
             params: {
-              subscription_id: this.$auth.state.user.suscription_id
+              subscription_id: this.$auth.state.user.suscripcion.id
             }
           }
         )
@@ -139,14 +139,16 @@ export default {
           this.mensaje = 'No se pudo encontrar la suscripción registrada en Mercado Pago.'
         }
       } catch(error) {
-        this.mensaje = error.response.data.error.message || error
+        this.mensaje = error.response != undefined
+          ? error.response.data.error.message.replace('Bad Request:', '')
+          : (error.message || error)
       }
     },
     async pauseSubscription () {
       try {
         let token = await this.$axios.$put(
           'mercadopago/pause-subscription', {
-            subscription_id: this.$auth.state.user.suscription_id
+            subscription_id: this.subscription.id
           }
         )
         if (!this.subscription) {
@@ -155,14 +157,16 @@ export default {
         this.mensaje = 'La suscripción fue cancelada.'
         return token
       } catch(error) {
-        this.mensaje = error.response.data.error.message || error
+        this.mensaje = error.response != undefined
+          ? error.response.data.error.message.replace('Bad Request:', '')
+          : (error.message || error)
       }
     },
     async reactivateSubscription () {
       try {
         let token = await this.$axios.$put(
           'mercadopago/reactivate-subscription', {
-            subscription_id: this.$auth.state.user.suscription_id
+            subscription_id: this.subscription.id
           }
         )
         if (!this.subscription) {
@@ -171,7 +175,9 @@ export default {
         this.mensaje = '¡La suscripción fue reactivada!'
         return token
       } catch(error) {
-        this.mensaje = error.response.data.error.message || error
+        this.mensaje = error.response != undefined
+          ? error.response.data.error.message.replace('Bad Request:', '')
+          : (error.message || error)
       }
     }
   },

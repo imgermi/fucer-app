@@ -26,10 +26,7 @@ export const getters = {
     if (getters.esTrial) {
       return getters.diasFinTrial
     }
-    // Trial > TODO: Si el día que se hace el primer pago se actualiza la fecha no haría falta sumar 15
-    let premiumHasta = moment(rootState.auth.user.suscripcion_fecha)
-      .add(15, 'days')
-      .add(1, 'month')
+    let premiumHasta = moment(rootState.auth.user.suscripcion.fecha_proximo_pago)
     let hoy = moment()
     return premiumHasta.diff(hoy, 'days')
   },
@@ -38,9 +35,9 @@ export const getters = {
     if (!rootState.auth || !rootState.auth.user) {
       return 0
     }
-    let fechaSuscripcion = moment(rootState.auth.user.suscripcion_fecha)
+    let fechaFinTrial = moment(rootState.auth.user.suscripcion.fecha_fin_trial)
     let hoy = moment()
-    return 15 - hoy.diff(fechaSuscripcion, 'days')
+    return fechaFinTrial.diff(hoy, 'days')
   },
 
   mensajeDiasFinTrial (state, getters) {
@@ -61,14 +58,16 @@ export const getters = {
     return getters.diasFinTrial > 0
   },
 
-  usuarioPremium (state, getters) {
-    return getters.diasFinSuscripcion > 0
+  usuarioPremium (state, getters, rootState) {
+    return rootState.auth
+      && rootState.auth.user
+      && rootState.auth.user.es_premium
   },
 
   estaSuscripto (state, getters, rootState) {
-    return rootState.auth && rootState.auth.user && rootState.auth.user.esta_suscrito == 1
-      ? getters.diasFinSuscripcion > 0
-      : false
+    return rootState.auth
+      && rootState.auth.user
+      && rootState.auth.user.suscripcion.activa
   },
 
   mensajePlan (state, getters) {

@@ -98,6 +98,7 @@ export default {
       cardToken: this.$route.query.token || '',
       payment: null,
 
+      // TODO: Traerlo del backend
       planId: '234b789bdb9f4164b297d2c336f529e3',
 
       titulo: '',
