@@ -40,6 +40,7 @@
               type="text"
               id="cardExpirationMonth"
               name="cardExpirationMonth"
+              ref="cardExpirationMonth"
               v-validate="'required'"
               data-vv-as="mes de vencimiento"
               data-checkout="cardExpirationMonth"
@@ -64,6 +65,7 @@
               type="text"
               id="cardExpirationYear"
               name="cardExpirationYear"
+              ref="cardExpirationYear"
               v-validate="'required'"
               data-vv-as="año de vencimiento"
               data-checkout="cardExpirationYear"
@@ -130,6 +132,7 @@
             <select
               id="docType"
               name="docType"
+              ref="docType"
               data-checkout="docType"
               v-validate="'required'"
               data-vv-as="tipo de documento"
@@ -150,10 +153,10 @@
             <input
               type="text"
               name="docNumber"
+              ref="docNumber"
               v-validate="'required'"
               data-vv-as="número de documento"
               id="docNumber"
-              ref="docNumber"
               data-checkout="docNumber"
               :class="{'error': errors.has('docNumber') }"
             />
@@ -241,13 +244,38 @@ export default {
 
   async created () {
     this.documentTypes = await this.getDocumentTypes()
+    if (this.$auth.state.user && this.$auth.state.user.customer_id) {
+      await this.precargarDatos()
+    }
   },
 
   methods: {
     ...mapActions([
       'setPaginaCargando'
     ]),
-     // https://www.mercadopago.com.ar/developers/en/tools/sdk/client/javascript#get-doc-types
+    async precargarDatos () {
+      let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
+        params: {
+          id: this.$auth.state.user.customer_id
+        }
+      })
+      if(!customer.default_card){
+        return
+      }
+
+      let card = customer.cards.find(card => card.id === customer.default_card)
+      if(! card){
+        return
+      }
+
+      this.$refs.cardExpirationMonth.value = card.expiration_month
+      this.$refs.cardExpirationYear.value = card.expiration_year
+      this.$refs.docNumber.value = card.cardholder.identification.number
+      this.$refs.docType.value = card.cardholder.identification.type
+      this.cardholderName = card.cardholder.name
+    },
+
+    // https://www.mercadopago.com.ar/developers/en/tools/sdk/client/javascript#get-doc-types
     async getDocumentTypes () {
       if (!process.browser) {
         return []
