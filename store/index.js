@@ -23,7 +23,13 @@ export const getters = {
     if (!rootState.auth || !rootState.auth.user) {
       return 0
     }
-    let premiumHasta = moment(rootState.auth.user.suscripcion_fecha).add(1, 'month')
+    if (getters.esTrial) {
+      return getters.diasFinTrial
+    }
+    // Trial > TODO: Si el día que se hace el primer pago se actualiza la fecha no haría falta sumar 15
+    let premiumHasta = moment(rootState.auth.user.suscripcion_fecha)
+      .add(15, 'days')
+      .add(1, 'month')
     let hoy = moment()
     return premiumHasta.diff(hoy, 'days')
   },

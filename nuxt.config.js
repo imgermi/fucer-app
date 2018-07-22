@@ -33,7 +33,7 @@ module.exports = {
         name: 'normativa',
         path: '/normativa/:id/:slug?',
         component: resolve(__dirname, 'pages/normativa/_id.vue')
-      }),
+      })
       routes.push({
         name: 'activar-cuenta',
         path: '/activar-cuenta/:token',
