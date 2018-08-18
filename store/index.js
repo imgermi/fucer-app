@@ -28,7 +28,8 @@ export const getters = {
     }
     let premiumHasta = moment(rootState.auth.user.suscripcion.fecha_proximo_pago)
     let hoy = moment()
-    return premiumHasta.diff(hoy, 'days')
+    let fecha = premiumHasta.diff(hoy, 'days')
+    return fecha > 0 ? fecha : 0
   },
 
   diasFinTrial (state, getters, rootState) {
@@ -37,7 +38,8 @@ export const getters = {
     }
     let fechaFinTrial = moment(rootState.auth.user.suscripcion.fecha_fin_trial)
     let hoy = moment()
-    return fechaFinTrial.diff(hoy, 'days')
+    let fecha = fechaFinTrial.diff(hoy, 'days')
+    return fecha > 0 ? fecha : 0
   },
 
   mensajeDiasFinTrial (state, getters) {
