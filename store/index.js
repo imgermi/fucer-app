@@ -38,7 +38,7 @@ export const getters = {
     }
     let fechaFinTrial = moment(rootState.auth.user.suscripcion.fecha_fin_trial)
     let hoy = moment()
-    let fecha = fechaFinTrial.diff(hoy, 'days')
+    let fecha = fechaFinTrial.diff(hoy, 'days') + 1
     return fecha > 0 ? fecha : 0
   },
 
