@@ -16,7 +16,7 @@
               v-validate="'required'"
               data-vv-as="número de la tarjeta"
               :class="{'error': errors.has('cardNumber') }"
-              name="cardNumber"
+              data-vv-name="cardNumber"
               ref="cardNumber"
               id="cardNumber"
               placeholder="0000 0000 0000 0000"
@@ -39,7 +39,7 @@
             <input
               type="text"
               id="cardExpirationMonth"
-              name="cardExpirationMonth"
+              data-vv-name="cardExpirationMonth"
               ref="cardExpirationMonth"
               v-validate="'required'"
               data-vv-as="mes de vencimiento"
@@ -64,7 +64,7 @@
             <input
               type="text"
               id="cardExpirationYear"
-              name="cardExpirationYear"
+              data-vv-name="cardExpirationYear"
               ref="cardExpirationYear"
               v-validate="'required'"
               data-vv-as="año de vencimiento"
@@ -88,7 +88,7 @@
             <label for="securityCode">Código de seguridad</label>
             <input
               type="text"
-              name="securityCode"
+              data-vv-name="securityCode"
               id="securityCode"
               data-checkout="securityCode"
               :class="{'error': errors.has('codigo') }"
@@ -113,7 +113,7 @@
             <input
               type="text"
               v-model="cardholderName"
-              name="cardholderName"
+              data-vv-name="cardholderName"
               v-validate="'required'"
               data-vv-as="nombre impreso en tarjeta"
               id="cardholderName"
@@ -131,7 +131,7 @@
             <label for="nombre">Tipo de documento</label>
             <select
               id="docType"
-              name="docType"
+              data-vv-name="docType"
               ref="docType"
               data-checkout="docType"
               v-validate="'required'"
@@ -152,7 +152,7 @@
             <label for="docNumber">Número de documento</label>
             <input
               type="text"
-              name="docNumber"
+              data-vv-name="docNumber"
               ref="docNumber"
               v-validate="'required'"
               data-vv-as="número de documento"
