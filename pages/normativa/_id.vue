@@ -3,7 +3,9 @@
     <Alerta />
     <header class="goBack__header">
       <div class="container">
-        <a @click="$router.go(-1)"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></a>
+        <a @click="$router.go(-1)" class="volver-btn"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left">
+          <span>Volver</span>
+        </a>
         <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
       </div>
     </header>
