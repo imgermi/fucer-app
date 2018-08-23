@@ -24,6 +24,19 @@
           </nuxt-link>
         </div>
 
+        <div class="datos__personales">
+          <h2>Tarjeta de crédito</h2>
+          <div class="datos__personales--dato">
+            <p>Número</p>
+            <span>4509 9535 6623 3704</span>
+          </div>
+          <nuxt-link :to="{ name: 'modificar-tarjeta' }">
+            <button class="rounded__btn--medium">
+              Modificar
+            </button>
+          </nuxt-link>
+        </div>
+
         <div class="datos__plan">
           <h2>Mi plan</h2>
           <div
