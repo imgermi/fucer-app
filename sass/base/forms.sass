@@ -5,6 +5,12 @@
 	.msj-error
 		margin-bottom: 30px
 
+.alert-mercadopago
+	display: block
+	font-size: 14px
+	text-align: center
+	padding: 10px 0
+
 .main__form
 	fieldset
 		padding-bottom: 30px
@@ -19,6 +25,8 @@
 		position: absolute
 		left: 0
 		bottom: 3px
+		@media(max-width: 360px)
+			font-size: 12px
 	label
 		display: block
 		width: 100%
@@ -48,3 +56,35 @@
 	  color: #ccc
 	input[type=submit]
 		cursor: pointer
+
+.styled-select
+	position: relative
+	&:after
+		position: absolute
+		top: 50%
+		right: 10px
+		width: 0
+		height: 0
+		padding: 0
+		content: ''
+		border-left: 6px solid transparent
+		border-right: 6px solid transparent
+		border-top: 6px solid rgba(0, 0, 0, 0.12)
+		pointer-events: none
+	select
+		display: block
+		width: 100%
+		font-family: inherit
+		background-color: transparent
+		padding: 10px 10px 10px 0
+		font-size: 18px
+		border-radius: 0
+		-webkit-border-radius: 0 !important
+		border: none
+		border-bottom: 1px solid #CCCCCC
+		box-shadow: none
+		appearance: none
+		-webkit-appearance: none
+		&:focus
+			outline: none
+			border-bottom: 1px solid #CCCCCC
