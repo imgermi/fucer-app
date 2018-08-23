@@ -47,7 +47,7 @@
           </button>
         </form>
         <br>
-        <p class="signup__agregados">¿Olvidó su clave? <nuxt-link :to="{ name: 'ingrese-su-email' }">Haga click aquí</nuxt-link>.</p>
+        <p class="signup__agregados">¿Olvidó su clave? <nuxt-link :to="{ name: 'restaurar-clave' }">Haga click aquí</nuxt-link>.</p>
         <p class="signup__agregados">¿Registró su usuario pero no recibió el mail para activarlo? <nuxt-link :to="{ name: 'ingrese-su-email' }">Envíelo de nuevo</nuxt-link>.</p>
       </div>
     </section>
