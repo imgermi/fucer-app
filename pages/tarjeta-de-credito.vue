@@ -129,20 +129,22 @@
 
           <fieldset>
             <label for="nombre">Tipo de documento</label>
-            <select
-              id="docType"
-              data-vv-name="docType"
-              ref="docType"
-              data-checkout="docType"
-              v-validate="'required'"
-              data-vv-as="tipo de documento"
-              :class="{'error': errors.has('docType') }"
-            >
-              <option value="">Seleccione una opción</option>
-              <option v-for="docType in documentTypes" :key="docType.id">
-                {{ docType.name }}
-              </option>
-            </select>
+            <div class="styled-select">
+              <select
+                id="docType"
+                data-vv-name="docType"
+                ref="docType"
+                data-checkout="docType"
+                v-validate="'required'"
+                data-vv-as="tipo de documento"
+                :class="{'error': errors.has('docType') }"
+              >
+                <option value="">Seleccione una opción</option>
+                <option v-for="docType in documentTypes" :key="docType.id">
+                  {{ docType.name }}
+                </option>
+              </select>
+            </div>
             <span class="error" v-show="errors.has('docType')">
               {{ errors.first('docType') }}
             </span>
@@ -159,6 +161,7 @@
               id="docNumber"
               data-checkout="docNumber"
               :class="{'error': errors.has('docNumber') }"
+              placeholder="39917586"
             />
             <span class="error" v-show="errors.has('docNumber')">
               {{ errors.first('docNumber') }}
@@ -172,9 +175,14 @@
             {{ txtBtnSubmit}}
           </button>
 
+          <span class="alert-mercadopago">El pago lo va a procesar Mercado Pago</span>
+
           <div>
-            <p style="margin-top: 20px;">
+            <p style="margin-top: 20px;font-size: 14px">
               ¿Estás teniendo problemas? <a href="javascript:location.reload()">Recargá esta vista</a> y probá de nuevo.
+            </p>
+            <p style="margin-top: 20px;font-size: 14px">
+              Antes de cobrar el plan, vamos a verificar que tu tarjeta funcione. Por eso, cobraremos un monto mínimo que será reintegrado al instante. 
             </p>
           </div>
         </form>
