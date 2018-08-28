@@ -39,6 +39,11 @@ module.exports = {
         path: '/activar-cuenta/:token',
         component: resolve(__dirname, 'pages/activar-cuenta.vue')
       })
+      routes.push({
+        name: 'nueva-clave',
+        path: '/nueva-clave/:token',
+        component: resolve(__dirname, 'pages/nueva-clave.vue')
+      })
     }
   },
 

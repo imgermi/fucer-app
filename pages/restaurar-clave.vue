@@ -11,7 +11,11 @@
 				  {{ error }}
 				</div>
 
-				<form @submit.prevent="resendActivationEmail" class="main__form">
+				<div class="msj-info" v-if="info">
+	    		  {{ info }}
+	    		</div>
+
+				<form @submit.prevent="sendResetPasswordEmail" class="main__form">
 					<fieldset>
 					  <label for="email">Ingrese su email</label>
 					  <input
@@ -51,6 +55,7 @@ export default {
 		return {
 			email: '',
 			error: false,
+			info: false,
 			title: 'Ingrese su email',
 		}
 	},
@@ -59,26 +64,28 @@ export default {
 		  'pagina'
 		]),
 	  txtBtnSubmit () {
-	    return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
+	    return this.pagina.cargando ? 'Cargando...' : 'Confirmar'
 	  }
 	},
 	methods: {
 		...mapActions([
 	      'setPaginaCargando'
 	    ]),
-		async resendActivationEmail() {
+		async sendResetPasswordEmail() {
 		  let valida = await this.$validator.validateAll()
 		  if (!valida) {
 		    return
 		  }
 		  this.setPaginaCargando(true)
 		  try {
-		    await this.$axios.$post('auth/register/resend-activation-email', {
+		    await this.$axios.$post('auth/send-reset-password-email', {
 		      email: this.email
 		    })
-		  	this.$router.push({name: 'confirme-su-email'})
+		    this.error = false
+		  	this.info = 'Hemos enviado un mail a su cuenta de correo electrónico para que pueda recuperar su clave.'
 		  } catch(e) {
 		    this.error = e.response.data.error.message.replace('Bad Request:', '')
+		    this.info = false
 		  }
 		  this.setPaginaCargando(false)
 		}
