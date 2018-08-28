@@ -13,8 +13,8 @@
     		  {{ info }}
     		</div>
 
-    		<form @submit.prevent="actualizarDatos" class="main__form">
-    			<fieldset>
+    		<form method="post" @submit.prevent="generateCardToken" class="main__form">
+          <fieldset>
             <label for="cardNumber">Número de la tarjeta</label>
             <input type="text"
               v-model.lazy="cardNumber"
@@ -166,8 +166,23 @@
               {{ errors.first('docNumber') }}
             </span>
           </fieldset>
-    			<button type="submit" class="rounded__btn--medium">{{ pagina.cargando ? 'Cargando..' : 'Guardar cambios' }}</button>
-    		</form>
+
+          <input v-model="paymentMethodInfo.id" type="hidden" name="paymentMethodId" />
+          <input v-model="cardToken" type="hidden" name="token" />
+
+          <button type="submit" class="rounded__btn--full blue">
+            {{ txtBtnSubmit}}
+          </button>
+
+          <div>
+            <p style="margin-top: 20px;font-size: 14px">
+              ¿Estás teniendo problemas? <a href="javascript:location.reload()">Recargá esta vista</a> y probá de nuevo.
+            </p>
+            <p style="margin-top: 20px;font-size: 14px">
+              Antes de guardar la nueva tarjeta vamos a verificar que funcione. Por eso, cobraremos un monto mínimo que será reintegrado al instante.
+            </p>
+          </div>
+        </form>
     	</div>
     </section>
   </div>
@@ -177,45 +192,167 @@
 import {mapActions, mapState} from 'vuex'
 
 export default {
-	data () {
-	  return {
-	    title: 'Modificar Datos Personales',
-	    nombre: this.$auth.state.user.nombre,
-	    email: this.$auth.state.user.email,
-	    password: '',
-	    error: '',
-	    info: '',
-	  }
-	},
-	computed: {
-		...mapState(['pagina'])
-	},
-	methods: {
+  data() {
+    return {
+      documentTypes: [],
+      paymentMethodInfo: {
+        id: '',
+        settings: []
+      },
+      cardNumber:'',
+      cardholderName:'',
+      cardToken:'',
+      error: false,
+      info: false,
+      title: 'Modificar datos personales'
+    }
+  },
+
+  computed: {
+    ...mapState([
+      'pagina'
+    ]),
+    txtBtnSubmit () {
+      return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
+    },
+    bin () {
+      // First six digits of the card
+      return this.cardNumber.replace(/[ .-]/g, '').slice(0, 6)
+    },
+    isSecurityCodeRequired () {
+      let founded = this.paymentMethodInfo.settings.find(config => {
+        return this.bin.match(config.bin.pattern) != null && config.security_code.length == 0
+      })
+      return founded === undefined ? true : false
+    }
+  },
+
+  watch: {
+    bin: {
+      immediate: true,
+      handler: async function (newBin, oldBin) {
+        if(!newBin){
+          return
+        }
+        this.paymentMethodInfo = await this.guessingPaymentMethod(newBin)
+      }
+    }
+  },
+
+  mounted() {
+    this.$refs.cardNumber.focus()
+  },
+
+  async created () {
+    this.documentTypes = await this.getDocumentTypes()
+    if (this.$auth.state.user && this.$auth.state.user.customer_id) {
+      await this.precargarDatos()
+    }
+  },
+
+  methods: {
     ...mapActions([
       'setPaginaCargando'
     ]),
-    async actualizarDatos() {
-      this.setPaginaCargando(true)
-      try {
-      	let datos = {
-      		nombre: this.nombre,
-      		email: this.email
-      	}
-      	if (this.password) {
-      		datos.password = this.password
-      	}
-        let {data} = await this.$axios.$post('auth/updateUser', datos)
-
-        // Actualizo el token de seguridad
-        this.$auth.setToken(data.token)
-        await this.$auth.fetchUser()
-
-        this.error = false
-        this.info = 'Los datos fueron actualizados'
-      } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
+    async precargarDatos () {
+      let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
+        params: {
+          id: this.$auth.state.user.customer_id
+        }
+      })
+      if(!customer.default_card){
+        return
       }
-      this.setPaginaCargando(false)
+
+      let card = customer.cards.find(card => card.id === customer.default_card)
+      if(! card){
+        return
+      }
+
+      this.$refs.cardNumber.placeholder = '**** **** **** ' + card.last_four_digits
+      this.$refs.cardExpirationMonth.value = card.expiration_month
+      this.$refs.cardExpirationYear.value = card.expiration_year
+      this.$refs.docNumber.value = card.cardholder.identification.number
+      this.$refs.docType.value = card.cardholder.identification.type
+      this.cardholderName = card.cardholder.name
+    },
+
+    // https://www.mercadopago.com.ar/developers/en/tools/sdk/client/javascript#get-doc-types
+    async getDocumentTypes () {
+      if (!process.browser) {
+        return []
+      }
+      return new Promise((resolve, reject) => {
+        this.$mercadopago.getIdentificationTypes((status, response) => {
+          if (status === 200) {
+            resolve(response)
+          } else {
+            reject('An error ocurred when trying to get the identification types.')
+          }
+        })
+      })
+    },
+
+    // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/payment-methods/
+    async guessingPaymentMethod (bin) {
+      return new Promise((resolve, reject) => {
+        if (bin.length >= 6) {
+          this.$mercadopago.getPaymentMethod({
+            "bin": bin
+          },(status, response) => {
+            if (status === 200) {
+              resolve(response[0])
+            } else {
+              reject('No se pudo obtener la información del método de pago.')
+            }
+          })
+        }else{
+          reject('El bin no es válido.', bin)
+        }
+      })
+    },
+
+    // Creates a card_token, which is the secure representation of the card
+    async createToken (form) {
+
+      this.$mercadopago.clearSession()
+
+      return new Promise((resolve, reject) => {
+        this.$mercadopago.createToken(form, (status, response) => {
+          if (status === 200 || status === 201) {
+            resolve(response.id)
+          } else {
+            let message = this.$mercadopago.helpers.getMessage('card-token-creation', response)
+            reject(message)
+          }
+        })
+      })
+    },
+
+    async generateCardToken (event) {
+      let valida = await this.$validator.validateAll()
+      if (!valida) {
+        return
+      }
+
+      try {
+        let form = event.target
+        this.cardToken = await this.createToken(form)
+        if (!this.cardToken) {
+          throw new Error('Hubo un problema, por favor vuelva a intentalo.')
+        }
+        this.$router.push({
+          name: 'guardar-tarjeta',
+          query: {
+            token: this.cardToken,
+            paymentMethodId: this.paymentMethodInfo.id,
+          }
+        })
+      } catch(error) {
+        this.error = error.response != undefined
+            ? error.response.data.error.message
+            : (error.message || error)
+      }
     }
   },
 	head () {
