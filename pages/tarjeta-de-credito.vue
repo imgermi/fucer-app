@@ -241,6 +241,9 @@ export default {
     bin: {
       immediate: true,
       handler: async function (newBin, oldBin) {
+        if(!newBin){
+          return
+        }
         this.paymentMethodInfo = await this.guessingPaymentMethod(newBin)
       }
     }
