@@ -64,7 +64,7 @@ export default {
         await this.$auth.fetchUser()
 
         this.title = 'E-mail confirmado'
-        this.mensaje = '¡Bienvenido, ' + this.$auth.state.user.nombre + '!<br><br> Su email ha sido confirmado.'
+        this.mensaje = '¡Bienvenido, ' + this.$auth.user.nombre + '!<br><br> Su email ha sido confirmado.'
 
       } catch(e) {
         this.mensaje = e.response.data.error.message.replace('Bad Request:', '')

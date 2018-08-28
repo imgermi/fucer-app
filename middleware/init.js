@@ -1,8 +1,8 @@
 export default function ({store, app, route}) {
-  if (app.$auth.state.loggedIn) {
+  if (app.$auth.loggedIn) {
     app.$axios.$get('favoritos', {
       params: {
-        usuario: store.state.auth.user.id
+        usuario: app.$auth.user.id
       }
     })
     .then((normativas) => {

@@ -7,11 +7,11 @@
           <h2>Datos personales</h2>
           <div class="datos__personales--dato">
             <p>Nombre</p>
-            <span>{{ $auth.state.user.nombre }}</span>
+            <span>{{ $auth.user.nombre }}</span>
           </div>
           <div class="datos__personales--dato">
             <p>Email</p>
-            <span>{{ $auth.state.user.email }}</span>
+            <span>{{ $auth.user.email }}</span>
           </div>
           <div class="datos__personales--dato">
             <p>Contraseña</p>
@@ -99,7 +99,7 @@ export default {
 
       let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
         params: {
-          id: this.$auth.state.user.customer_id
+          id: this.$auth.user.customer_id
         }
       })
       if(!customer.default_card){

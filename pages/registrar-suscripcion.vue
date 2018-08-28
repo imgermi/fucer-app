@@ -116,7 +116,7 @@ export default {
       return (this.payment && this.payment.id) ? this.payment.id : 0
     },
     email () {
-      return this.$auth.state.user.email
+      return this.$auth.user.email
     }
   },
 
@@ -134,7 +134,7 @@ export default {
         await this.createNewCustomer()
         await this.subscribe()
 
-        this.titulo = '¡Bienvenido/a, ' + this.$auth.state.user.nombre + '!'
+        this.titulo = '¡Bienvenido/a, ' + this.$auth.user.nombre + '!'
         this.mensaje += 'Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. A partir de ahora forma parte de Fucer. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.'
       } catch(error) {
         this.titulo = 'Hubo un problema'
@@ -227,10 +227,10 @@ export default {
 
     async subscribe () {
       this.titulo = 'Creando nueva suscripción...'
-      if(this.$auth.state.user && this.$auth.state.user.suscripcion.id){
+      if(this.$auth.user && this.$auth.user.suscripcion.id){
         let subscription = await this.$axios.$get('mercadopago/get-subscription', {
           params: {
-            subscription_id: this.$auth.state.user.suscripcion.id
+            subscription_id: this.$auth.user.suscripcion.id
           }
         })
         if(subscription){
@@ -240,7 +240,7 @@ export default {
       let token = await this.$axios.$post(
         'mercadopago/subscribe-customer', {
           plan_id: this.planId,
-          customer_id: this.$auth.state.user.customer_id
+          customer_id: this.$auth.user.customer_id
         }
       )
       // Actualizo el token de seguridad

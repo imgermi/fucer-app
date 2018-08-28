@@ -131,7 +131,7 @@ export default {
         this.subscription = await this.$axios.$get(
           'mercadopago/get-subscription', {
             params: {
-              subscription_id: this.$auth.state.user.suscripcion.id
+              subscription_id: this.$auth.user.suscripcion.id
             }
           }
         )

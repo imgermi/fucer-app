@@ -18,16 +18,16 @@
 	  <div :class="'main__nav--container' + (menuActivo ? ' active' : '')">
 	  	 <div class="overlay" v-on:click="closeMenu"></div>
 		  <nav class="main__nav">
-	  		<div v-if="$auth.state.loggedIn" class="user__info">
-	  			<span>{{ $auth.state.user.nombre }}</span>
-	  			<small>{{ $auth.state.user.email }}</small>
+	  		<div v-if="$auth.loggedIn" class="user__info">
+	  			<span>{{ $auth.user.nombre }}</span>
+	  			<small>{{ $auth.user.email }}</small>
 	  		</div>
 		  	<ul>
 		  		<li><nuxt-link :to="{ name: 'inicio' }">Inicio</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'buscar' }">Buscar</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'favoritas' }">Favoritas</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'configuracion' }">Configuración</nuxt-link></li>
-		  		<li v-if="$auth.state.loggedIn">
+		  		<li v-if="$auth.loggedIn">
 		  			<a @click="logout()">Cerrar Sesión</a>
 		  		</li>
 		  	</ul>

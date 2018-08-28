@@ -62,21 +62,26 @@ module.exports = {
   },
 
   auth: {
-    endpoints: {
-      login: { url: 'https://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
-      logout: { url: 'https://www.fucer.com.ar/app/api/auth/logout', method: 'post' },
-      user: { url: 'https://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' }
-    },
-    redirect: {
-      login: '/login',
-      home: '/'
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'https://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: 'https://www.fucer.com.ar/app/api/auth/logout', method: 'post' },
+          user: { url: 'https://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' }
+        },
+        redirect: {
+          login: '/login',
+          logout: '/',
+          callback: '/login',
+          user: '/'
+        }
+      }
     }
   },
 
   plugins: [
     '~/plugins/filtros',
     '~/plugins/vue-validate',
-    '~/plugins/axios',
     { src: '~plugins/actualizar-datos-usuario', ssr: false }
   ],
 

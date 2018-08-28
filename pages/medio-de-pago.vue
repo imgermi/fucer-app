@@ -3,15 +3,15 @@
     <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
     <section class="band">
       <div class="container">
-        <div v-if="$auth.state.loggedIn" class="user">
+        <div v-if="$auth.loggedIn" class="user">
           <span>Tus datos personales</span>
-          <small>{{ $auth.state.user.nombre }}</small>
-          <small>{{ $auth.state.user.email }}</small>
+          <small>{{ $auth.user.nombre }}</small>
+          <small>{{ $auth.user.email }}</small>
         </div>
         <p>Para acceder a sus 15 días gratis, tendrá que suscribirse al plan seleccionado.</p>
         <p>No se preocupe. Cancele antes del {{ moment().add(15, 'days').format('D/M/Y') }} y <strong>no se le cobrará ningún cargo.</strong></p>
         <nuxt-link :to="{ name: 'tarjeta-de-credito' }" class="rounded__btn--full blue">Agregar tarjeta de crédito</nuxt-link>
-        <div v-if="$auth.state.loggedIn">
+        <div v-if="$auth.loggedIn">
           <span class="signup__agregados">¿Quiere iniciar con otra cuenta? <a @click="logout()">Cerrar Sesión</a></span>
         </div>
       </div>

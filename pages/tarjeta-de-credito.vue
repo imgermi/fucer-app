@@ -255,7 +255,7 @@ export default {
 
   async created () {
     this.documentTypes = await this.getDocumentTypes()
-    if (this.$auth.state.user && this.$auth.state.user.customer_id) {
+    if (this.$auth.user && this.$auth.user.customer_id) {
       await this.precargarDatos()
     }
   },
@@ -267,7 +267,7 @@ export default {
     async precargarDatos () {
       let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
         params: {
-          id: this.$auth.state.user.customer_id
+          id: this.$auth.user.customer_id
         }
       })
       if(!customer.default_card){

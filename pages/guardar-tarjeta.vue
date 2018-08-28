@@ -112,7 +112,7 @@ export default {
       return (this.payment && this.payment.id) ? this.payment.id : 0
     },
     email () {
-      return this.$auth.state.user.email
+      return this.$auth.user.email
     }
   },
 

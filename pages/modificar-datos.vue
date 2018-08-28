@@ -56,8 +56,8 @@ export default {
 	data () {
 	  return {
 	    title: 'Modificar Datos Personales',
-	    nombre: this.$auth.state.user.nombre,
-	    email: this.$auth.state.user.email,
+	    nombre: this.$auth.user.nombre,
+	    email: this.$auth.user.email,
 	    password: '',
 	    error: '',
 	    info: '',

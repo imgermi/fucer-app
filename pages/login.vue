@@ -95,7 +95,7 @@ export default {
         return
       }
       this.setPaginaCargando(true)
-      let response = this.$auth.login({
+      let response = this.$auth.loginWith('local', {
         data: {
           username: this.email,
           password: this.password
