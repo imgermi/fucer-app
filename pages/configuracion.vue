@@ -28,7 +28,7 @@
           <h2>Tarjeta de crédito</h2>
           <div class="datos__personales--dato">
             <p>Número</p>
-            <span>4509 9535 6623 3704</span>
+            <span>{{ tarjeta }}</span>
           </div>
           <nuxt-link :to="{ name: 'modificar-tarjeta' }">
             <button class="rounded__btn--medium">
@@ -69,6 +69,7 @@ export default {
   data () {
     return {
       title: 'Configuración',
+      tarjeta: '**** **** **** ****',
       precioPlan: false
     }
   },
@@ -95,6 +96,20 @@ export default {
       } catch(e) {
         this.error = e.response.data.error.message.replace('Bad Request:', '')
       }
+
+      let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
+        params: {
+          id: this.$auth.state.user.customer_id
+        }
+      })
+      if(!customer.default_card){
+        return
+      }
+      let card = customer.cards.find(card => card.id === customer.default_card)
+      if(! card){
+        return
+      }
+      this.tarjeta = '**** **** **** ' + card.last_four_digits
       this.setPaginaCargando(false)
     }
   },
