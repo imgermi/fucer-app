@@ -40,6 +40,11 @@ module.exports = {
         path: '/activar-cuenta/:token',
         component: resolve(__dirname, 'pages/activar-cuenta.vue')
       })
+      routes.push({
+        name: 'nueva-clave',
+        path: '/nueva-clave/:token',
+        component: resolve(__dirname, 'pages/nueva-clave.vue')
+      })
     }
   },
 
@@ -50,7 +55,7 @@ module.exports = {
   ],
 
   mercadopago: {
-    public_key: 'TEST-3683240c-494f-4a4b-b6d4-6f82b73c1952'
+    public_key: 'TEST-3fbb4c1c-0fc8-4e26-8519-043ab9bcd868'
   },
 
   axios: {
@@ -58,21 +63,27 @@ module.exports = {
   },
 
   auth: {
-    endpoints: {
-      login: { url: 'https://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
-      logout: { url: 'https://www.fucer.com.ar/app/api/auth/logout', method: 'post' },
-      user: { url: 'https://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' }
-    },
-    redirect: {
-      login: '/login',
-      home: '/'
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'https://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: 'https://www.fucer.com.ar/app/api/auth/logout', method: 'post' },
+          user: { url: 'https://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' }
+        },
+        redirect: {
+          login: '/login',
+          logout: '/',
+          callback: '/login',
+          user: '/'
+        },
+        refresh_token_key: 'refresh_token'
+      }
     }
   },
 
   plugins: [
     '~/plugins/filtros',
     '~/plugins/vue-validate',
-    '~/plugins/axios',
     { src: '~plugins/actualizar-datos-usuario', ssr: false }
   ],
 
