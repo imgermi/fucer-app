@@ -27,7 +27,7 @@ module.exports = {
 
   router: {
     base: '/app/',
-    middleware: ['auth', 'init'],
+    middleware: ['sesiones-simultaneas','auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
         name: 'normativa',
@@ -67,14 +67,16 @@ module.exports = {
         endpoints: {
           login: { url: 'https://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
           logout: { url: 'https://www.fucer.com.ar/app/api/auth/logout', method: 'post' },
-          user: { url: 'https://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' }
+          user: { url: 'https://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' },
+          refreshToken: { url: 'https://www.fucer.com.ar/app/api/auth/refresh-token', method: 'get', propertyName: 'token' }
         },
         redirect: {
           login: '/login',
           logout: '/',
           callback: '/login',
           user: '/'
-        }
+        },
+        refresh_token_key: 'refresh_token'
       }
     }
   },

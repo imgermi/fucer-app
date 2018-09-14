@@ -15,6 +15,9 @@ $ npm run dev
 $ npm run build
 $ npm start
 
+# build for cordova
+$ npm run cordova
+
 ```
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
