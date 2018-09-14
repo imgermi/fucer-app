@@ -20,6 +20,10 @@
 			position: absolute
 			right: 0
 			top: -11px
+		@media(min-width: 992px)
+			.container
+				max-width: 1000px
+				margin: auto
 	.top
 		background: #EAEAEA
 		z-index: 10
@@ -36,9 +40,16 @@
 		small
 			font-size: 14px
 			font-weight: 300
+		@media(min-width: 992px)
+			.container
+				max-width: 1000px
+				margin: auto
 	.cuerpo
 		.container
 			position: static
+			@media(min-width: 992px)
+				max-width: 1000px
+				margin: auto
 		span
 			font-size: 14px
 			font-weight: 300
@@ -58,12 +69,12 @@
 		padding: 15px
 		color: #0D1B2A
 		z-index: 50
-		min-height: 100%
-		transition: all 300ms ease-in
+		min-height: 100vh
+		transition: all 500ms ease-in
 		&.active
+			position: absolute
 			top: 0
 			bottom: 0
-			position: fixed
 			overflow-y: scroll
 			overflow-x: hidden
 		.cerrar
@@ -74,6 +85,10 @@
 			width: 100%
 			text-align: left
 			padding-bottom: 10px
+			@media(min-width: 992px)
+				max-width: 1000px
+				margin-left: auto
+				margin-right: auto
 		h1
 			margin-bottom: 5px
 		h2
@@ -82,7 +97,16 @@
 			line-height: 28px
 			margin-bottom: 15px
 			color: #767676
+		h1, h2
+			@media(min-width: 992px)
+				max-width: 1000px
+				margin-left: auto
+				margin-right: auto
 		img
 			width: 100%
 			display: block
 			margin: 0
+		> div
+			@media(min-width: 992px)
+				max-width: 1000px
+				margin: auto
