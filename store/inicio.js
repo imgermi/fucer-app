@@ -47,7 +47,7 @@ export const actions = {
       return item
     })
     commit('SET_NORMATIVAS_MAS_NUEVAS', normativas)
-    if (total === state.normativasMasNuevas.length) {
+    if (total && total === state.normativasMasNuevas.length) {
       commit('SET_NORMATIVAS_TODAS', true)
     }
   }
