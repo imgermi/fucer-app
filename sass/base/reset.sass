@@ -48,16 +48,25 @@ input
 	text-align: center
 
 .logo
-	width: 60px
 	display: block
-	img
-		display: block
-		width: 100%
+	svg
+		width: 40px
+	svg, p
+		display: inline-block
+		vertical-align: middle
+		margin: 0
+	p
+		padding-left: 7px
+		font-weight: 700
+		font-size: 18px
 	&.logotop
-		width: 75px
 		padding: 30px 0 10px
+		svg
+			width: 45px
 		.logo__stroke
 			fill: #224B8E
+		p
+			font-size: 24px
 
 .rounded__btn--full
 	border-radius: 18px
