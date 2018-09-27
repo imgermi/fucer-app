@@ -56,12 +56,13 @@
                   </g>
                 </g>
               </svg>
+              <p>Legister</p>
             </nuxt-link>
           </div>
         </section>
         <section class="band">
           <div class="container">
-            <h1 class="intro__heading">Consulte el <br> contenido de la <br> normativa registral</h1>
+            <h1 class="intro__heading">Consulte el <br> contenido de la <br> normativa aplicable a la <br> registración de automotores</h1>
             <nuxt-link :to="{ name: 'seleccione-su-plan' }" class="rounded__btn--full blue">Iniciar 15 días gratis</nuxt-link>
             <p class="signup__agregados">¿Ya tiene una cuenta? <nuxt-link :to="{ name: 'login' }">Ingrese aquí</nuxt-link></p>
           </div>
