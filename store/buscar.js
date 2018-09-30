@@ -13,7 +13,11 @@ export const actions = {
     if (!busqueda) {
       return
     }
-    const normativas = await this.$axios.$get('normativas/buscar/' + busqueda)
+    const normativas = await this.$axios.$get('normativas/buscar', {
+      params: {
+        busqueda: busqueda
+      }
+    })
     normativas.map(item => {
       item.url = {
         name: 'normativa',
