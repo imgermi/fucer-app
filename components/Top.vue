@@ -98,12 +98,12 @@ export default {
   props: ['title'],
   data () {
   	return {
-  		busqueda: '',
+  		busqueda: this.$store.state.buscar.busqueda,
     	menuActivo: false
     }
   },
   computed: {
-  	...mapState(['pagina'])
+		...mapState(['pagina'])
   },
   methods: {
   	...mapActions([

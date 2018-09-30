@@ -5,7 +5,7 @@
     <section class="band">
       <div class="container">
         <div v-if="!pagina.cargando">
-          <p v-if="!$route.query.busqueda" class="center search-alert">
+          <p v-if="!$route.query.busqueda && !busqueda" class="center search-alert">
             Busque por <br> nombre, palabra <br> o año
           </p>
           <div v-else>
@@ -59,7 +59,8 @@ export default {
       'pagina'
     ]),
     ...mapState('buscar',[
-      'normativas'
+      'normativas',
+      'busqueda'
     ])
   },
   head () {

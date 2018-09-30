@@ -1,10 +1,12 @@
 export const state = () => ({
   normativas: [],
+  busqueda: ''
 })
 
 export const mutations = {
-  'SET_NORMATIVAS' (state, payload) {
-    state.normativas = payload
+  'SET_NORMATIVAS' (state, {normativas, busqueda}) {
+    state.normativas = normativas
+    state.busqueda = busqueda
   }
 }
 
@@ -28,6 +30,6 @@ export const actions = {
       }
       return item
     })
-    commit('SET_NORMATIVAS', normativas)
+    commit('SET_NORMATIVAS', {normativas, busqueda})
   }
 }
