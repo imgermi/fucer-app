@@ -64,16 +64,18 @@ export const getters = {
     return rootState.auth
       && rootState.auth.user
       && rootState.auth.user.es_premium
+      && getters.diasFinSuscripcion > 0
   },
 
   estaSuscripto (state, getters, rootState) {
     return rootState.auth
       && rootState.auth.user
       && rootState.auth.user.suscripcion.activa
+      && getters.diasFinSuscripcion
   },
 
   mensajePlan (state, getters) {
-    if (getters.estaSuscrito) {
+    if (getters.estaSuscripto) {
       return 'En ' + getters.diasFinSuscripcion +
         ' días se debitará el próximo pago.'
     } else {

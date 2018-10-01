@@ -44,7 +44,7 @@
             class="datos__plan--dato"
           >
             <span>{{ esTrial ? 'Versión de prueba' : 'Plan mensual'  }}</span>
-            <small>${{ esTrial ? 0 : planPrecio }}</small>
+            <small>${{ esTrial ? 0 : precioPlan }}</small>
           </div>
           <p v-html="mensajePlan"></p>
         </div>

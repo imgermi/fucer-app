@@ -39,7 +39,7 @@
         <br>
 
   			<div class="datos__plan--dato seleccionar">
-  			  <span>Plan Básico</span>
+  			  <span>Plan Premium</span>
   			  <small>${{ planPrecio }} mensuales</small>
   			  <button class="rounded__btn--medium" @click="changeSubscriptionStatus">
             {{ actualizandoPlan
