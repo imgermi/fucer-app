@@ -64,7 +64,7 @@
         <p v-if="error" style="color: red;">{{ error }}</p>
         <br>
 
-        <div v-if="subscription">
+        <div v-if="$auth.user && $auth.user.suscripcion && $auth.user.suscripcion.id">
           <nuxt-link
             class="rounded__btn--full blue"
             :to="{ name: 'inicio' }"
@@ -221,7 +221,7 @@ export default {
       })
 
       // Actualizo el token de seguridad
-      this.$auth.setToken(token)
+      this.$auth.setToken('local', 'Bearer ' + token)
       await this.$auth.fetchUser()
     },
 
@@ -244,7 +244,7 @@ export default {
         }
       )
       // Actualizo el token de seguridad
-      this.$auth.setToken(token)
+      this.$auth.setToken('local', 'Bearer ' + token)
       await this.$auth.fetchUser()
     }
   },

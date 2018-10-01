@@ -117,7 +117,7 @@ export default {
         }
 
         // Actualizo el token de seguridad
-        this.$auth.setToken(token)
+        this.$auth.setToken('local', 'Bearer ' + token)
         await this.$auth.fetchUser()
       } catch (error) {
         this.mensaje = error.response != undefined

@@ -60,14 +60,22 @@ export default {
           token: this.$route.params.token,
         })
 
-        this.$auth.setToken(data.token)
+        this.$auth.setToken('local', 'Bearer ' + data.token)
         await this.$auth.fetchUser()
-
+        
         this.title = 'E-mail confirmado'
         this.mensaje = '¡Bienvenido, ' + this.$auth.user.nombre + '!<br><br> Su email ha sido confirmado.'
 
       } catch(e) {
-        this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
+        if(e.request){
+          console.log(e.request)
+          this.mensaje = JSON.parse(e.request.response).error.message.replace('Bad Request:', '')
+        }else if(e.response){
+          console.log(e.response)
+          this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
+        }else{
+          console.log(e)
+        }
       }
       this.setPaginaCargando(false)
     }

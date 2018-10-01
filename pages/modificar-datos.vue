@@ -83,7 +83,7 @@ export default {
         let {data} = await this.$axios.$post('auth/updateUser', datos)
 
         // Actualizo el token de seguridad
-        this.$auth.setToken(data.token)
+        this.$auth.setToken('local', 'Bearer ' + data.token)
         await this.$auth.fetchUser()
 
         this.error = false
