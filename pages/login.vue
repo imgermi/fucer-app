@@ -71,7 +71,7 @@ export default {
       password: '',
       error: false,
       title: 'Ingresar',
-      tituloPaso: 'Ingrese a Fucer con su email'
+      tituloPaso: 'Ingrese a Legister con su email'
     }
   },
   computed: {
