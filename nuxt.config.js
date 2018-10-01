@@ -6,11 +6,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s | Fucer app',
+    titleTemplate: '%s | Legister',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Fucer App' }
+      { hid: 'description', name: 'description', content: 'Consulte el contenido de la normativa aplicable a la registración de automotores - Legislación Técnico Registral' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
