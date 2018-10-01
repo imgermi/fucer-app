@@ -64,7 +64,7 @@
         <p v-if="error" style="color: red;">{{ error }}</p>
         <br>
 
-        <div v-if="payment">
+        <div v-if="subscription">
           <nuxt-link
             class="rounded__btn--full blue"
             :to="{ name: 'inicio' }"
@@ -228,12 +228,12 @@ export default {
     async subscribe () {
       this.titulo = 'Creando nueva suscripción...'
       if(this.$auth.user && this.$auth.user.suscripcion.id){
-        let subscription = await this.$axios.$get('mercadopago/get-subscription', {
+        this.subscription = await this.$axios.$get('mercadopago/get-subscription', {
           params: {
             subscription_id: this.$auth.user.suscripcion.id
           }
         })
-        if(subscription){
+        if(this.subscription){
           return
         }
       }
