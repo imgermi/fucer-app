@@ -1,0 +1,26 @@
+// main: ../main.sass
+
+.mensaje-bienvenida
+	padding: 20px 30px
+	border-top: 1px solid #ccc
+	border-bottom: 1px solid #ccc
+	margin-top: 10px
+	margin-bottom: 25px
+	max-width: 650px
+	margin-left: auto
+	margin-right: auto
+	text-align: center
+	@media(max-width: 991px)
+		max-width: 60%
+		padding: 20px 0
+		margin-top: 25px
+	@media(max-width: 767px)
+		max-width: 90%
+	p, small
+		display: block
+		font-size: 14px
+		line-height: 20px
+	p
+		margin-bottom: 10px
+	small
+		color: transparentize(#0D1B2A , 0.3)
