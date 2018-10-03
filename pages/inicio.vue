@@ -2,6 +2,10 @@
   <div class="inicio">
     <Alerta />
   	<Top :title="title" />
+    <section class="mensaje-bienvenida">
+      <p>Además del Digesto de Normas Técnico Registrales, encontrará el texto completo de sus principales Disposiciones complementarias y Circulares aclaratorias, con un breve resumen del contenido de las mismas, a las que podrá acceder mediante diferentes motores de búsqueda.</p>
+      <small>Dr. Javier Antonio Cornejo (Director de LEGISTER) y equipo de colaboradores</small>
+    </section>
     <section class="carousel__container bg__gradient">
       <div class="container">
         <h2>Novedades</h2>
@@ -109,8 +113,11 @@ export default {
       ]
     }
   },
-}
+};
 
 </script>
 
-<style lang="sass">@import 'sass/components/vue-carousel.sass'</style>
+<style lang="sass">
+  @import 'sass/components/vue-carousel.sass'
+  @import 'sass/pages/inicio.sass'
+</style>
