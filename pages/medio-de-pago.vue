@@ -4,7 +4,7 @@
     <section class="band">
       <div class="container">
         <div v-if="$auth.loggedIn" class="user">
-          <span>Tus datos personales</span>
+          <span>Sus datos personales</span>
           <small>{{ $auth.user.nombre }}</small>
           <small>{{ $auth.user.email }}</small>
         </div>
