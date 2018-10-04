@@ -135,7 +135,7 @@ export default {
         await this.subscribe()
 
         this.titulo = '¡Bienvenido/a, ' + this.$auth.user.nombre + '!'
-        this.mensaje += 'Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. A partir de ahora forma parte de Fucer. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.'
+        this.mensaje += 'Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. A partir de ahora forma parte de Legister. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.'
       } catch(error) {
         this.titulo = 'Hubo un problema'
         this.error = error.response != undefined
