@@ -13,7 +13,7 @@
 
 				<div class="msj-info" v-if="info">
 	    		  {{ info }}
-	    		</div>
+    		</div>
 
 				<form @submit.prevent="sendResetPasswordEmail" class="main__form">
 					<fieldset>
@@ -100,3 +100,5 @@ export default {
 	},
 }
 </script>
+
+<style lang="sass">@import 'sass/pages/restaurar-clave.sass'</style>
