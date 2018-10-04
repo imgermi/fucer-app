@@ -177,12 +177,12 @@
 
           <span class="alert-mercadopago">El pago lo va a procesar Mercado Pago</span>
 
-          <div>
-            <p style="margin-top: 20px;font-size: 14px">
-              ¿Estás teniendo problemas? <a href="javascript:location.reload()">Recargá esta vista</a> y probá de nuevo.
+          <div class="signup__agregados">
+            <p style="margin-top: 10px;font-size: 14px">
+              ¿Está teniendo problemas? <a href="javascript:location.reload()">Recargue esta vista</a> y pruebe de nuevo.
             </p>
-            <p style="margin-top: 20px;font-size: 14px">
-              Antes de cobrar el plan, vamos a verificar que tu tarjeta funcione. Por eso, cobraremos un monto mínimo que será reintegrado al instante. 
+            <p style="margin-top: 10px;font-size: 14px">
+              Antes de cobrar el plan, vamos a verificar que su tarjeta funcione. Por eso, cobraremos un monto mínimo que será reintegrado al instante. 
             </p>
           </div>
         </form>
