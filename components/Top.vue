@@ -11,7 +11,7 @@
 	      <nuxt-link :to="{ name: 'buscar' }" class="rounded__btn--medium buscar">Buscar</nuxt-link>
 	      <form  @submit.prevent="buscar" class="form__buscar">
 			<label for="buscar" class="form__buscar--icon"></label>
-	      	<input v-model="busqueda" type="text" name="buscar" id="buscar" placeholder="Buscar en Fucer">
+	      	<input v-model="busqueda" type="text" name="buscar" id="buscar" placeholder="Buscar en Legister">
 	      </form>
 	    </div>
 	  </header>
