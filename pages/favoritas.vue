@@ -4,7 +4,7 @@
   	<Top :title="title" />
     <section class="band">
       <div class="container">
-        <span class="small__heading">Aquí verás las normativas que marcaste <br> como favoritas</span>
+        <span class="small__heading">Aquí verá las normativas que marcó como favoritas</span>
         <div class="normativas-container">
           <ModuloNormativa
             v-for="normativa in normativas"
