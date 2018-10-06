@@ -30,8 +30,64 @@
     </section>
     <section class="band">
       <div class="container">
-        <h1>Normativa Registral</h1>
-        <div v-if="!cargandoNormativas" class="normativas-container">
+        <h1>Enlaces Útiles</h1>
+        <div class="normativas-container">
+          <article class="normativa-module">
+            <div class="main">
+              <h4><a href="http://www.dnrpa.gov.ar/digesto-web2/digesto.php" target="_blank">Digesto de Normas Técnico Registrales</a></h4>
+              <!-- <p><a href="">bajada</a></p> -->
+            </div>
+            <div class="extra">
+              <small><a>Enlace externo</a></small>
+            </div>
+          </article>
+          <article class="normativa-module">
+            <div class="main">
+              <h4><a href="http://www.dnrpa.gov.ar/portal_dnrpa/regimen_juridico/informacion/rja.pdf" target="_blank">Régimen Jurídico del Automotor</a></h4>
+              <!-- <p><a href="">bajada</a></p> -->
+            </div>
+            <div class="extra">
+              <small><a>Enlace externo</a></small>
+            </div>
+          </article>
+          <article class="normativa-module">
+            <div class="main">
+              <h4><a href="http://www.saij.gob.ar/335-nacional-decreto-reglamentario-decreto-ley-6582-58-sobre-regimen-juridico-registrado-propiedad-automotor-dn19880000335-1988-03-03/123456789-0abc-533-0000-8891soterced" target="_blank">Decreto 335/88</a></h4>
+              <!-- <p><a href="">bajada</a></p> -->
+            </div>
+            <div class="extra">
+              <small><a>Enlace externo</a></small>
+            </div>
+          </article>
+          <article class="normativa-module">
+            <div class="main">
+              <h4><a href="http://www.dnrpa.gov.ar/portal_dnrpa/regimen_juridico/urinof2.php" target="_blank">Reglamento Interno de Normas Orgánico-Funcionales y Disposiciones Modificatorias (R.I.N.O.F.)</a></h4>
+              <!-- <p><a href="">bajada</a></p> -->
+            </div>
+            <div class="extra">
+              <small><a>Enlace externo</a></small>
+            </div>
+          </article>
+          <article class="normativa-module">
+            <div class="main">
+              <h4><a href="http://www.dnrpa.gov.ar/portal_dnrpa/regimen_juridico/informacion/decprenda.pdf" target="_blank">Decreto  Ley N° 15.348/46</a></h4>
+              <!-- <p><a href="">bajada</a></p> -->
+            </div>
+            <div class="extra">
+              <small><a>Enlace externo</a></small>
+            </div>
+          </article>
+          <article class="normativa-module">
+            <div class="main">
+              <h4><a href="http://www.infojus.gob.ar/644-nacional-registros-propiedad-automotor-creditos-prendarios-dn19891000644-1989-05-18/123456789-0abc-446-0001-9891soterced" target="_blank">Decreto 644/89</a></h4>
+              <!-- <p><a href="">bajada</a></p> -->
+            </div>
+            <div class="extra">
+              <small><a>Enlace externo</a></small>
+            </div>
+          </article>
+        </div>
+<!--         <div v-if="!cargandoNormativas" class="normativas-container">
           <template v-if="normativasMasNuevas.length > 0">
             <ModuloNormativa
               v-for="normativa in normativasMasNuevas"
@@ -50,7 +106,7 @@
         </div>
         <div v-else>
           Cargando...
-        </div>
+        </div> -->
       </div>
     </section>
   </div>
@@ -120,4 +176,5 @@ export default {
 <style lang="sass">
   @import 'sass/components/vue-carousel.sass'
   @import 'sass/pages/inicio.sass'
+  @import 'sass/components/modulo-normativa.sass'
 </style>
