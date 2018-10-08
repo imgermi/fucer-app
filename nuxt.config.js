@@ -54,7 +54,7 @@ module.exports = {
   ],
 
   mercadopago: {
-    public_key: 'TEST-3fbb4c1c-0fc8-4e26-8519-043ab9bcd868'
+    public_key: 'APP_USR-cc277696-d129-4246-9713-cedc9a6900fa'
   },
 
   axios: {
