@@ -98,8 +98,7 @@ export default {
       cardToken: this.$route.query.token || '',
       payment: null,
 
-      // TODO: Traerlo del backend
-      planId: '765c9f92e09b4c50935caaee67e78dbf',
+      planId: '',
 
       titulo: '',
       mensaje: '',
@@ -121,13 +120,24 @@ export default {
   },
 
   async created () {
-    this.processCardAndCreateCustomer()
+    await this.obtenerConfigs()
+    await this.processCardAndCreateCustomer()
   },
 
   methods: {
     ...mapActions([
       'setPaginaCargando'
     ]),
+    async obtenerConfigs() {
+      this.setPaginaCargando(true)
+      try {
+        let data = await this.$axios.$get('configuraciones')
+        this.planId = data.plan_regular_id
+      } catch(e) {
+        this.error = e.response.data.error.message.replace('Bad Request:', '')
+      }
+      this.setPaginaCargando(false)
+    },
     async processCardAndCreateCustomer () {
       try {
         await this.verifyCard()
