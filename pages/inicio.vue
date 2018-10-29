@@ -86,6 +86,15 @@
               <small><a>Enlace externo</a></small>
             </div>
           </article>
+          <article class="normativa-module">
+            <div class="main">
+              <h4><a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/235000-239999/235975/norma.htm" target="_blank">Código Civil y Comercial de la Nación</a></h4>
+              <!-- <p><a href="">bajada</a></p> -->
+            </div>
+            <div class="extra">
+              <small><a>Enlace externo</a></small>
+            </div>
+          </article>
         </div>
 <!--         <div v-if="!cargandoNormativas" class="normativas-container">
           <template v-if="normativasMasNuevas.length > 0">
