@@ -31,7 +31,7 @@ export const actions = {
       }
       return item
     })
-    commit('SET_NORMATIVAS_DESTACADAS', normativas)
+    commit('SET_NORMATIVAS_DESTACADAS', normativas.reverse())
   },
   async getNormativasMasNuevas ({ commit, state }, pagina = 1) {
     let total = state.normativasMasNuevas.length
