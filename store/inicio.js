@@ -20,7 +20,7 @@ export const mutations = {
 
 export const actions = {
   async getNormativasDestacadas ({ commit }) {
-    const normativas = await this.$axios.$get('normativas/destacadas')
+    const normativas = await this.$axios.$get('normativas/destacadas/5')
     normativas.map(item => {
       item.url = {
         name: 'normativa',
