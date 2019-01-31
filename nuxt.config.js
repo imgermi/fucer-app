@@ -11,13 +11,21 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
-      { hid: 'description', name: 'description', content: 'Consulte el contenido de la normativa aplicable a la registración de automotores - Legislación Técnico Registral' }
+      { hid: 'description', name: 'description', content: 'Consulte el contenido de la normativa aplicable a la registración de automotores - Legislación Técnico Registral' },
+      { name: 'apple-mobile-web-app-title', content: 'Legister' },
+      { name: 'application-name', content: 'Legister' },
+      { name: 'msapplication-TileColor', content: '#2b5797' },
+      { name: 'theme-color', content: '#224b8e' },
     ],
     link: [
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon.png' },
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicons/favicon-32x32.png' },
+      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicons/favicon-16x16.png' },
+      { rel: 'manifest', href: '/favicons/site.webmanifest' },
+      { rel: 'mask-icon', href: '/favicons/safari-pinned-tab.svg', color: '#5bbad5' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,700,900' },
-      { rel: 'manifest', href: '/manifest.json' },
-    ]
+    ],
   },
   css: [
     'sass/main.sass',
