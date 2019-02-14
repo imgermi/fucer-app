@@ -68,7 +68,7 @@ module.exports = {
   },
 
   axios: {
-    baseURL: 'https://fucer.com.ar/app/api/'
+    baseURL: 'https://fucer.com.ar/app/api/v2/'
   },
 
   auth: {

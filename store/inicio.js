@@ -1,4 +1,4 @@
-const BASE_URL = 'https://fucer.com.ar/app/api/'
+const BASE_URL = 'https://fucer.com.ar/app/api/v2/'
 
 export const state = () => ({
   normativasDestacadas: [],
