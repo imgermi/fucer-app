@@ -142,8 +142,8 @@
 <script>
 import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
-import ModuloNormativa from '~/components/ModuloNormativa.vue'
-import cargarMas from '~/components/cargarMas.vue'
+//import ModuloNormativa from '~/components/ModuloNormativa.vue'
+//import cargarMas from '~/components/cargarMas.vue'
 import { Carousel, Slide } from 'vue-carousel';
 import { mapState, mapActions } from 'vuex';
 
@@ -152,8 +152,8 @@ export default {
   components: {
     Top,
     Alerta,
-    cargarMas,
-    ModuloNormativa,
+    //cargarMas,
+    //ModuloNormativa,
     Carousel,
     Slide
   },
