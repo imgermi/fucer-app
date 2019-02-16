@@ -11,3 +11,6 @@ npm-debug.log
 dist
 
 sftp-config.json
+
+# PWA
+sw.*
