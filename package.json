@@ -21,7 +21,8 @@
     "moment": "~2.24.0",
     "nuxt": "~2.4.3",
     "vee-validate": "~2.1.7",
-    "vue-carousel": "~0.17.0"
+    "vue-carousel": "~0.17.0",
+    "vue-webp-plugin": "~1.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

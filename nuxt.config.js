@@ -99,6 +99,7 @@ module.exports = {
   plugins: [
     '~/plugins/filtros',
     '~/plugins/vue-validate',
+    '~/plugins/webp',
     { src: '~plugins/actualizar-datos-usuario', ssr: false }
   ],
 
