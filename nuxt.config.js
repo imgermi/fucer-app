@@ -36,7 +36,7 @@ module.exports = {
   loading: { color: '#4ECDC4', height: '4px' },
 
   router: {
-    base: '/app/',
+    base: '/',
     middleware: ['sesiones-simultaneas','auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
