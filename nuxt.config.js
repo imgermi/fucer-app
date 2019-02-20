@@ -8,20 +8,10 @@ module.exports = {
   head: {
     titleTemplate: '%s | Legister',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'apple-mobile-web-app-capable', content: 'yes' },
-      { hid: 'description', name: 'description', content: 'Consulte el contenido de la normativa aplicable a la registración de automotores - Legislación Técnico Registral' },
-      { name: 'apple-mobile-web-app-title', content: 'Legister' },
-      { name: 'application-name', content: 'Legister' },
       { name: 'msapplication-TileColor', content: '#2b5797' },
-      { name: 'theme-color', content: '#224b8e' },
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon.png' },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicons/favicon-32x32.png' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicons/favicon-16x16.png' },
-      { rel: 'manifest', href: '/favicons/site.webmanifest' },
       { rel: 'mask-icon', href: '/favicons/safari-pinned-tab.svg', color: '#5bbad5' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,700,900' },
@@ -30,10 +20,24 @@ module.exports = {
   css: [
     'sass/main.sass',
   ],
-  /*
-  ** Customize the progress bar color
-  */
+
   loading: { color: '#4ECDC4', height: '4px' },
+
+  // https://pwa.nuxtjs.org/modules/manifest.html
+  manifest: {
+    "name": "Legister",
+    "short_name": "Legister",
+    "description": "Consulte el  contenido de la  normativa aplicable a la  registración de automotores",
+    "display": "standalone",
+    "theme_color": "#224B8E",
+    "lang": "es"
+  },
+
+  // https://pwa.nuxtjs.org/modules/meta.html
+  meta: {
+    theme_color: '#224b8e',
+    lang: 'es'
+  },
 
   router: {
     base: '/',
@@ -58,7 +62,8 @@ module.exports = {
   },
 
   modules: [
-   '~/modules/mercadopago',
+    '~/modules/mercadopago',
+    '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
@@ -94,6 +99,7 @@ module.exports = {
   plugins: [
     '~/plugins/filtros',
     '~/plugins/vue-validate',
+    '~/plugins/webp',
     { src: '~plugins/actualizar-datos-usuario', ssr: false }
   ],
 

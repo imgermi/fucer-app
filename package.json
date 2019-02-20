@@ -1,7 +1,7 @@
 {
-  "name": "fucer-app",
+  "name": "legister",
   "version": "1.0.0",
-  "description": "Fucer App",
+  "description": "Consulte el contenido de la normativa aplicable a la registración de automotores",
   "author": "Juan Germano + Andres Dameson",
   "private": true,
   "scripts": {
@@ -17,10 +17,12 @@
   "dependencies": {
     "@nuxtjs/auth": "~4.5.3",
     "@nuxtjs/axios": "~5.3.6",
+    "@nuxtjs/pwa": "~3.0.0-beta.6",
     "moment": "~2.24.0",
     "nuxt": "~2.4.3",
     "vee-validate": "~2.1.7",
-    "vue-carousel": "~0.17.0"
+    "vue-carousel": "~0.17.0",
+    "vue-webp-plugin": "~1.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
