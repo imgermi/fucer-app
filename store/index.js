@@ -63,15 +63,17 @@ export const getters = {
   usuarioPremium (state, getters, rootState) {
     return rootState.auth
       && rootState.auth.user
-      && rootState.auth.user.es_premium
-      && getters.diasFinSuscripcion > 0
+      && ((rootState.auth.user.es_premium && getters.diasFinSuscripcion > 0)
+        || rootState.auth.user.condicion === 'premium-incondicional'
+      )
   },
 
   estaSuscripto (state, getters, rootState) {
     return rootState.auth
       && rootState.auth.user
-      && rootState.auth.user.suscripcion.activa
-      && getters.diasFinSuscripcion
+      && ((rootState.auth.user.suscripcion.activa && getters.diasFinSuscripcion)
+        || rootState.auth.user.condicion === 'premium-incondicional'
+      )
   },
 
   mensajePlan (state, getters) {
