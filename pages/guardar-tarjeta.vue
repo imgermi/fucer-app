@@ -92,6 +92,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   layout: 'signup',
+  middleware: 'plan-mercadopago',
   data() {
     return {
       paymentMethodId: this.$route.query.paymentMethodId || '',

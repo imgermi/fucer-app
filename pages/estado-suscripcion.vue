@@ -22,6 +22,7 @@ export default {
     SecondaryTop
   },
   auth: false,
+  middleware: 'plan-mercadopago',
   data() {
     return {
       title: 'Estado de suscripción',

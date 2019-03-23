@@ -192,6 +192,7 @@
 import {mapActions, mapState} from 'vuex'
 
 export default {
+  middleware: 'plan-mercadopago',
   data() {
     return {
       documentTypes: [],
