@@ -111,19 +111,21 @@ export default {
         this.error = e.response.data.error.message.replace('Bad Request:', '')
       }
 
-      let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
-        params: {
-          id: this.$auth.user.customer_id
+      if(this.$auth.user.condicion !== 'premium-incondicional'){
+        let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
+          params: {
+            id: this.$auth.user.customer_id
+          }
+        })
+        if(!customer.default_card){
+          return
         }
-      })
-      if(!customer.default_card){
-        return
+        let card = customer.cards.find(card => card.id === customer.default_card)
+        if(! card){
+          return
+        }
+        this.tarjeta = '**** **** **** ' + card.last_four_digits
       }
-      let card = customer.cards.find(card => card.id === customer.default_card)
-      if(! card){
-        return
-      }
-      this.tarjeta = '**** **** **** ' + card.last_four_digits
       this.setPaginaCargando(false)
     }
   },
