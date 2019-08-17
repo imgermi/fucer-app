@@ -20,6 +20,7 @@
 					  <input
 					    type="password"
 					    name="password"
+					    ref="password"
 					    v-model="password"
 					    v-validate="'required'"
 					    data-vv-as="nueva clave"
@@ -35,6 +36,7 @@
 					  <input
 					    type="password"
 					    name="passwordConfirm"
+					    ref="passwordConfirm"
 					    v-model="passwordConfirm"
 					    v-validate="'required|confirmed:password'"
 					    data-vv-as="confirmación de clave"

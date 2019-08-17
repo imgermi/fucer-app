@@ -200,6 +200,7 @@ export default {
   components: {
     SecondaryTop
   },
+  middleware: 'plan-mercadopago',
   data() {
     return {
       documentTypes: [],

@@ -60,6 +60,7 @@
 import {mapActions, mapState, mapGetters} from 'vuex'
 
 export default {
+  middleware: 'plan-mercadopago',
   data () {
     return {
       title: 'Modificar Plan',

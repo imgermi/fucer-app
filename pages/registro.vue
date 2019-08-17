@@ -47,6 +47,7 @@
             <input
               type="password"
               v-model="password"
+              ref="password"
               name="password"
               v-validate="'required'"
               id="password"
@@ -64,6 +65,7 @@
             <input
               type="password"
               name="passwordRepeat"
+              ref="password-repeat"
               v-model="passwordRepeat"
               v-validate="'required|confirmed:password'"
               id="password-repeat"
