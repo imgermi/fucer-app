@@ -108,7 +108,7 @@ export default {
         let data = await this.$axios.$get('configuraciones')
         this.precioPlan = data.precio_regular
       } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
+        this.error = e
       }
 
       if(this.$auth.user.condicion !== 'premium-incondicional'){

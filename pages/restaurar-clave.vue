@@ -83,8 +83,8 @@ export default {
 		    })
 		    this.error = false
 		  	this.info = 'Hemos enviado un mail a su cuenta de correo electrónico para que pueda recuperar su clave.'
-		  } catch(e) {
-		    this.error = e.response.data.error.message.replace('Bad Request:', '')
+		  } catch(error) {
+		    this.error = error
 		    this.info = false
 		  }
 		  this.setPaginaCargando(false)

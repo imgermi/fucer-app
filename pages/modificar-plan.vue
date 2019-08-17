@@ -94,7 +94,7 @@ export default {
         let data = await this.$axios.$get('configuraciones')
         this.planPrecio = data.precio_regular
       } catch(e) {
-        this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
+        this.mensaje = e
       }
       this.setPaginaCargando(false)
     },
