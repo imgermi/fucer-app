@@ -39,8 +39,13 @@ module.exports = {
     lang: 'es'
   },
 
+  // https://pwa.nuxtjs.org/modules/workbox.html
+  workbox: {
+    // dev: true,
+  },
+
   router: {
-    base: '/app/',
+    base: '/',
     middleware: ['sesiones-simultaneas','auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
