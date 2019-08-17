@@ -108,8 +108,8 @@ export default {
           this.$router.push({name: 'medio-de-pago'})
         }
       })
-      .catch(e => {
-        this.error = 'Revise sus credenciales por favor. Algún dato no es correcto o el usuario todavía no está activo.'
+      .catch(error => {
+        this.error = error
       })
       this.setPaginaCargando(false)
     }

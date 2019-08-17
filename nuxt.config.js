@@ -102,6 +102,7 @@ module.exports = {
   },
 
   plugins: [
+    '~/plugins/axios',
     '~/plugins/filtros',
     '~/plugins/vue-validate',
     '~/plugins/webp',
