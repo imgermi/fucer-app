@@ -95,7 +95,7 @@ export default {
 				this.info = 'Hemos enviado un mail a su cuenta de correo electrónico para que pueda recuperar su clave.'
 				this.$announcer.set(this.info)
 		  } catch(e) {
-		    this.error = e.response.data.error.message.replace('Bad Request:', '')
+		    this.error = e
 				this.info = false
 				this.$announcer.set(this.error)
 		  }

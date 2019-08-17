@@ -84,15 +84,7 @@ export default {
         this.mensaje = '¡Bienvenido, ' + this.$auth.user.nombre + '!<br><br> Su email ha sido confirmado.'
         this.$announcer.set(this.mensaje)
       } catch(e) {
-        if(e.request){
-          console.log(e.request)
-          this.mensaje = JSON.parse(e.request.response).error.message.replace('Bad Request:', '')
-        }else if(e.response){
-          console.log(e.response)
-          this.mensaje = e.response.data.error.message.replace('Bad Request:', '')
-        }else{
-          console.log(e)
-        }
+        this.mensaje = e
         this.$announcer.set(this.mensaje)
       }
       this.setPaginaCargando(false)

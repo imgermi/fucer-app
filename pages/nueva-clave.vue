@@ -116,7 +116,7 @@ export default {
 				this.$announcer.set(this.info)
 		  	setTimeout(() => this.$router.push({'name': 'inicio'}), 4000)
 		  } catch(e) {
-		    this.error = e.response.data.error.message.replace('Bad Request:', '')
+		    this.error = e
 				this.info = false
 				this.$announcer.set(this.error)
 		  }

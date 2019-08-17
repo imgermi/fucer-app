@@ -87,7 +87,7 @@ export default {
 		    })
 		  	this.$router.push({name: 'confirme-su-email'})
 		  } catch(e) {
-				this.error = e.response.data.error.message.replace('Bad Request:', '')
+				this.error = e
 				this.$announcer.set(this.error)
 		  }
 		  this.setPaginaCargando(false)

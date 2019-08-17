@@ -99,7 +99,7 @@ export default {
 				this.info = 'Los datos fueron actualizados'
 				this.$announcer.set(this.info)
       } catch(e) {
-				this.error = e.response.data.error.message.replace('Bad Request:', '')
+				this.error = e
 				this.$announcer.set(this.error)
       }
       this.setPaginaCargando(false)
