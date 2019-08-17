@@ -150,19 +150,10 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then(() => {
-          this.$router.push({name: 'confirme-su-email'})
-        })
-        .catch(e => {
-          this.error = e.response.data.error.message.replace('Bad Request:', '')
-          this.$announcer.set(this.error)
-        })
-
+        this.$router.push({name: 'confirme-su-email'})
       } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
-        this.$announcer.set(this.error)
+        this.error = e
       }
-
       this.setPaginaCargando(false)
     }
   },

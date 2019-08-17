@@ -79,7 +79,7 @@ export default {
 
         this.$auth.setToken('local', 'Bearer ' + data.token)
         await this.$auth.fetchUser()
-        
+
         this.title = 'E-mail confirmado'
         this.mensaje = '¡Bienvenido, ' + this.$auth.user.nombre + '!<br><br> Su email ha sido confirmado.'
         this.$announcer.set(this.mensaje)

@@ -20,6 +20,11 @@
           <li>Recopilación de material</li>
           <li>Resúmenes introductorios y explicativos sobre material</li>
         </ul>
+
+        <div class="msj-error" v-if="error">
+          {{ error }}
+        </div>
+
         <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full green">Siguiente</nuxt-link>
       </div>
     </div>
@@ -39,6 +44,7 @@ export default {
   middleware: 'guest',
   data() {
     return {
+      error: false,
       title: 'Paso 1 - Seleccione su plan',
       nroPaso: '1',
       tituloPaso: 'Seleccione su plan',
@@ -74,8 +80,9 @@ export default {
       try {
         let data = await this.$axios.$get('configuraciones')
         this.precioPlan = data.precio_regular
+        this.error = false
       } catch(e) {
-        console.log(e)
+        this.error
       }
       this.setPaginaCargando(false)
     }
