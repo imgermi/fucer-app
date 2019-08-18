@@ -112,7 +112,13 @@ module.exports = {
 
   // https://pwa.nuxtjs.org/modules/workbox.html
   workbox: {
-    // dev: true,
+    dev: true,
+    preCaching: [
+      'offline',
+    ],
+    offlineAssets: [
+      '_nuxt/pages/offline.js',
+    ]
   },
 
   router: {
