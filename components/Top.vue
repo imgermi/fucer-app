@@ -109,6 +109,7 @@ export default {
   },
   methods: {
   	...mapActions([
+      'setPaginaError',
       'setPaginaCargando'
     ]),
     ...mapActions('buscar',[
@@ -117,7 +118,12 @@ export default {
     async buscar () {
     	this.setPaginaCargando(true)
     	this.$route.query.busqueda = this.busqueda
-    	await this.buscarNormativas(this.busqueda)
+    	try {
+    		await this.buscarNormativas(this.busqueda)
+    		this.setPaginaError(false)
+    	} catch(e) {
+    		this.setPaginaError(e)
+    	}
     	this.setPaginaCargando(false)
     },
     openMenu: function () {
