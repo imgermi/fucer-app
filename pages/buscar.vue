@@ -9,20 +9,34 @@
             Busque por <br> nombre, palabra <br> o año
           </p>
           <div v-else>
-            <div v-if="normativas.length > 0">
-              <ModuloNormativa
-                v-for="normativa in normativas"
-                :key="normativa.id + '-ultima'"
-                :id="normativa.id"
-                :titulo="normativa.titulo"
-                :bajada="normativa.bajada"
-                :fecha="normativa.fecha"
-                :url="normativa.url"
-              />
-            </div>
-            <div v-else>
-              <p class="center search-alert">No se <br> encontraron <br> resultados</p>
-            </div>
+            <template v-if="$store.state.pagina.error">
+              <p class="center search-alert">
+                {{ $store.state.pagina.error }}
+              </p>
+            </template>
+            <template v-else>
+              <template v-if="normativas.length > 0">
+                <ModuloNormativa
+                  v-for="normativa in normativas"
+                  :key="normativa.id + '-ultima'"
+                  :id="normativa.id"
+                  :titulo="normativa.titulo"
+                  :bajada="normativa.bajada"
+                  :fecha="normativa.fecha"
+                  :url="normativa.url"
+                />
+              </template>
+              <template v-else>
+                <p class="center search-alert">
+                  <template v-if="$store.state.pagina.error">
+                    {{ $store.state.pagina.error }}
+                  </template>
+                  <template v-else>
+                    No se <br> encontraron <br> resultados
+                  </template>
+                </p>
+              </template>
+            </template>
           </div>
         </div>
         <div v-else>

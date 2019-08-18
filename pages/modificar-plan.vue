@@ -38,6 +38,10 @@
         </div>
         <br>
 
+        <div class="msj-error" v-if="mensaje">
+          {{ mensaje }}
+        </div>
+
   			<div class="datos__plan--dato seleccionar">
   			  <span>Plan Premium</span>
   			  <small>${{ planPrecio }} mensuales</small>
@@ -65,7 +69,7 @@ export default {
     return {
       title: 'Modificar Plan',
       actualizandoPlan: false,
-      planPrecio: false,
+      planPrecio: 0,
       mensaje: false,
       subscription: null
     }
@@ -104,6 +108,10 @@ export default {
         // TODO: Puede haber más estados
         let token = ''
         await this.getSubscription()
+        if (!this.subscription){
+          this.actualizandoPlan = false
+          return
+        }
         if(this.subscription.status === 'authorized') {
           token = await this.pauseSubscription()
 

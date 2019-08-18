@@ -88,7 +88,13 @@ export default {
     }
   },
   async created () {
-    await this.obtenerConfigs()
+    this.setPaginaCargando(true)
+    try {
+      await this.obtenerConfigs()
+    } catch(e) {
+      this.error = e
+    }
+    this.setPaginaCargando(false)
   },
   computed: {
     ...mapState(['pagina']),
@@ -103,13 +109,8 @@ export default {
       'setPaginaCargando'
     ]),
     async obtenerConfigs() {
-      this.setPaginaCargando(true)
-      try {
-        let data = await this.$axios.$get('configuraciones')
-        this.precioPlan = data.precio_regular
-      } catch(e) {
-        this.error = e
-      }
+      let data = await this.$axios.$get('configuraciones')
+      this.precioPlan = data.precio_regular
 
       if(this.$auth.user.condicion !== 'premium-incondicional'){
         let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
@@ -126,7 +127,6 @@ export default {
         }
         this.tarjeta = '**** **** **** ' + card.last_four_digits
       }
-      this.setPaginaCargando(false)
     }
   },
   head () {
