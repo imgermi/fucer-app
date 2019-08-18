@@ -86,6 +86,25 @@ export default {
     FavoriteStar
   },
   middleware: 'premium',
+  async asyncData ({app, params}) {
+    try {
+      var normativa = await app.$axios.$get('normativas/id/' + params.id)
+      normativa.url = {
+        name: 'normativa',
+        params: {
+          id: normativa.id,
+          slug: decodeURIComponent(normativa.uri)
+        }
+      }
+    } catch (e) {
+      if (!window.navigator.onLine){
+        app.router.push({name: 'offline'})
+      } else {
+        app.router.push({name: '404'})
+      }
+    }
+    return normativa
+  },
   data () {
     return {
       id: 0,
@@ -160,7 +179,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setPaginaCargando']),
     leerNormativa () {
       this.mostrarCuerpo = true
     },
