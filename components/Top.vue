@@ -25,7 +25,7 @@
 		  	<ul>
 		  		<li><nuxt-link :to="{ name: 'inicio' }">Inicio</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'buscar' }">Buscar</nuxt-link></li>
-		  		<li><a href="http://www.dnrpa.gov.ar/digesto-web2/digesto.php" target="_blank">Digesto</a></li>
+		  		<li><a href="https://www.dnrpa.gov.ar/digesto-automotor/digesto.php" target="_blank">Digesto</a></li>
 		  		<li><nuxt-link :to="{ name: 'favoritas' }">Favoritas</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'configuracion' }">Configuración</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'ayuda' }">Ayuda</nuxt-link></li>
