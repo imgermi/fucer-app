@@ -43,7 +43,7 @@
           </article>
           <article class="normativa-module">
             <div class="main">
-              <h4><a href="http://www.dnrpa.gov.ar/portal_dnrpa/regimen_juridico/informacion/rja.pdf" target="_blank">Régimen Jurídico del Automotor</a></h4>
+              <h4><a href="https://www.argentina.gob.ar/sites/default/files/regimen_juridico_del_automotor.pdf" target="_blank">Régimen Jurídico del Automotor</a></h4>
               <!-- <p><a href="">bajada</a></p> -->
             </div>
             <div class="extra">
@@ -79,7 +79,7 @@
           </article>
           <article class="normativa-module">
             <div class="main">
-              <h4><a href="http://www.dnrpa.gov.ar/portal_dnrpa/regimen_juridico/informacion/decprenda.pdf" target="_blank">Decreto  Ley N° 15.348/46 - Ley de Prenda con Registro</a></h4>
+              <h4><a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/40000-44999/44079/norma.htm" target="_blank">Decreto  Ley N° 15.348/46 - Ley de Prenda con Registro</a></h4>
               <!-- <p><a href="">bajada</a></p> -->
             </div>
             <div class="extra">
