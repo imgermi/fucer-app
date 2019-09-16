@@ -28,7 +28,7 @@ export default {
   components: {
     SecondaryTop
   },
-  middleware: 'plan-mercadopago',
+  middleware: 'guest',
   data() {
     return {
       moment: moment,
