@@ -45,7 +45,7 @@ module.exports = {
   },
 
   router: {
-    base: '/',
+    base: '/app/',
     middleware: ['sesiones-simultaneas','auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
@@ -68,7 +68,6 @@ module.exports = {
 
   modules: [
     '~/modules/mercadopago',
-    '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
