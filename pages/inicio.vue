@@ -34,7 +34,7 @@
         <div class="normativas-container">
           <article class="normativa-module">
             <div class="main">
-              <h4><a href="http://www.dnrpa.gov.ar/digesto-web2/digesto.php" target="_blank">Digesto de Normas Técnico Registrales</a></h4>
+              <h4><a href="https://www.dnrpa.gov.ar/Digesto-Automotor/digesto.php" target="_blank">Digesto de Normas Técnico Registrales</a></h4>
               <!-- <p><a href="">bajada</a></p> -->
             </div>
             <div class="extra">
