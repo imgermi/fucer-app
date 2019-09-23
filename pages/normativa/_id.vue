@@ -61,6 +61,10 @@ export default {
       }
     } catch (e) {
       if (!window.navigator.onLine){
+        let cache = await caches.match(`https://fucer.com.ar/app/api/normativas/id/${params.id}`)
+        if (cache) {
+          return cache.json()
+        }
         app.router.push({name: 'offline'})
       } else {
         app.router.push({name: '404'})
