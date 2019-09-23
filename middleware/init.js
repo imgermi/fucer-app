@@ -17,6 +17,20 @@ export default function ({store, app, route}) {
         return item
       })
       store.dispatch('favoritos/cargarFavoritos', normativas)
+
+      let urls = [
+        `https://fucer.com.ar/app/api/favoritos?usuario=${app.$auth.user.id}`
+      ]
+      normativas.map(item => {
+        urls.splice(urls.length, 0,
+          `https://fucer.com.ar/app/api/normativas/id/${item.url.params.id}`,
+          `http://local.fucer.com.ar:3000/normativa/${item.url.params.id}/${item.url.params.slug}`,
+          ...item.recursos
+        )
+      })
+      caches.open(`workbox-runtime-http://local.fucer.com.ar:3000/`)
+        .then(cache => cache.addAll(urls))
     })
+
   }
 }
