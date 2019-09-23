@@ -47,7 +47,37 @@ module.exports = {
     ],
     offlineAssets: [
       '_nuxt/pages/offline.js',
-    ]
+    ],
+    runtimeCaching: [
+      {
+        urlPattern: /https:\/\/fucer.com.ar\/app\/api\/.*/,
+        handler: 'networkFirst',
+        method: 'GET',
+        strategyOptions: {
+          cacheName: 'api-cache',
+          networkTimeoutSeconds: 3,
+          cacheExpiration: {
+            maxEntries: 50,
+            maxAgeSeconds: 7 * 24 * 60 * 60,
+          },
+          cacheableResponse: { statuses: [0, 200] }
+        }
+      },{
+        urlPattern: /https:\/\/(www\.)?fucer\.com\.ar\/app\/cms\/.*/,
+        handler: 'cacheFirst',
+        method: 'GET',
+        strategyOptions: {
+          cacheName: 'cms-cache',
+          networkTimeoutSeconds: 3,
+          cacheExpiration: {
+            maxEntries: 50,
+            maxAgeSeconds: 7 * 24 * 60 * 60,
+          },
+          cacheableResponse: { statuses: [0, 200] }
+        }
+      },
+    ],
+    // cachingExtensions: '@/plugins/workbox-custom.js'
   },
 
   router: {
@@ -104,7 +134,8 @@ module.exports = {
         },
         refresh_token_key: 'refresh_token'
       }
-    }
+    },
+    plugins: [ '~/plugins/auth.js' ]
   },
 
   plugins: [
