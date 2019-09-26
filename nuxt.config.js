@@ -116,25 +116,20 @@ module.exports = {
     preCaching: [
       'offline',
     ],
-    offlineAssets: [
-      '_nuxt/pages/offline.js',
-    ],
     runtimeCaching: [
       {
-        urlPattern: /https:\/\/fucer.com.ar\/app\/api\/.*/,
+        urlPattern: '^https:\/\/fucer\.com\.ar\/app\/api\/.*',
         handler: 'networkFirst',
-        method: 'GET',
         strategyOptions: {
           cacheName: 'api-cache',
-          networkTimeoutSeconds: 3,
           cacheExpiration: {
-            maxEntries: 50,
+            maxEntries: 200,
             maxAgeSeconds: 7 * 24 * 60 * 60,
           },
           cacheableResponse: { statuses: [0, 200] }
         }
       },{
-        urlPattern: /https:\/\/(www\.)?fucer\.com\.ar\/app\/cms\/.*/,
+        urlPattern: '^https:\/\/(www\.)?fucer\.com\.ar\/app\/cms\/.*',
         handler: 'cacheFirst',
         method: 'GET',
         strategyOptions: {
@@ -148,7 +143,7 @@ module.exports = {
         }
       },
     ],
-    // cachingExtensions: '@/plugins/workbox-custom.js'
+    routingExtensions: '@/plugins/workbox-custom.js'
   },
 
   router: {
