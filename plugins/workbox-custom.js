@@ -1,18 +1,11 @@
+// Este script se ejecuta una vez que workbox está disponible
 
-// workbox.routing.registerRoute(
-//   '^https://fucer\.com\.ar/app/api/normativas/id/(.*)',
-//   new workbox.strategies.CacheFirst({
-//       cacheName: 'stories',
-//       plugins: [
-//         new workbox.expiration.Plugin({
-//           maxEntries: 50,
-//           maxAgeSeconds: 5 * 60, // 5 minutes
-//         }),
-//         new workbox.cacheableResponse.Plugin({
-//           statuses: [0, 200],
-//         }),
-//       ],
-//   }),
-//   'GET'
-// );
-
+// This "catch" handler is triggered when any of the other routes fail to
+// generate a response.
+workbox.routing.setCatchHandler( async ({event}) => {
+	// Busca en una caché personalizada como último recurso
+	// Esta caché se crea fuera del WorkService (dentro de la app)
+	const cache = await caches.open('fucer-favoritos')
+	const cachedResponse = await cache.match(event.request)
+	return cachedResponse || Response.error()
+})
