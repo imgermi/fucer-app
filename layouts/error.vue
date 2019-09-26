@@ -25,6 +25,9 @@ export default {
       title: 'Error - 404',
     }
   },
+  created(){
+    console.log(this.error)
+  },
   head () {
     return {
       title: this.title,
