@@ -2,7 +2,7 @@
 
 workbox.addEventListener('installed', event => {
 	if (event.isUpdate) {
-	  if (confirm(`Hay una nueva versión de la aplicación disponible ¿querés descargarla?`)) {
+	  if (confirm(`Hay una nueva versión de la aplicación disponible ¿quiere descargarla?`)) {
 	    window.location.reload();
 	  }
 	}
