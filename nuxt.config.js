@@ -160,7 +160,8 @@ module.exports = {
         }
       },
     ],
-    routingExtensions: '@/plugins/workbox-custom.js'
+    routingExtensions: '@/plugins/workbox-custom.js',
+    cachingExtensions: '@/plugins/workbox-caching-extension.js'
   },
 
   router: {
