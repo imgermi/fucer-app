@@ -1,4 +1,4 @@
-// Este script se ejecuta una vez que workbox está disponible
+// Este script se ejecuta después de cargar workbox y antes de registrar el SW
 
 // This "catch" handler is triggered when any of the other routes fail to
 // generate a response.
