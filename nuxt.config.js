@@ -89,8 +89,7 @@ module.exports = {
         }
       },
     ],
-    routingExtensions: '@/plugins/workbox-custom.js',
-    cachingExtensions: '@/plugins/workbox-caching-extension.js'
+    routingExtensions: '@/plugins/workbox-routing-extension.js',
   },
 
   router: {
@@ -147,7 +146,10 @@ module.exports = {
         refresh_token_key: 'refresh_token'
       }
     },
-    plugins: [ '~/plugins/auth.js' ]
+    plugins: [
+      '~/plugins/auth.js',
+      '~/plugins/workbox.js',
+    ]
   },
 
   plugins: [
