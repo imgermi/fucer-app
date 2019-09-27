@@ -41,7 +41,7 @@ module.exports = {
 
   // https://pwa.nuxtjs.org/modules/workbox.html
   workbox: {
-    dev: true,
+    // dev: true,
     preCaching: [
       'offline',
     ],
@@ -51,22 +51,39 @@ module.exports = {
         handler: 'networkFirst',
         strategyOptions: {
           cacheName: 'api-cache',
+          networkTimeoutSeconds: 4,
           cacheExpiration: {
-            maxEntries: 200,
-            maxAgeSeconds: 7 * 24 * 60 * 60,
+            maxEntries: 250,
+            maxAgeSeconds: 60 * 60 * 24 * 30,
           },
           cacheableResponse: { statuses: [0, 200] }
         }
       },{
         urlPattern: '^https:\/\/(www\.)?fucer\.com\.ar\/app\/cms\/.*',
         handler: 'cacheFirst',
-        method: 'GET',
         strategyOptions: {
           cacheName: 'cms-cache',
-          networkTimeoutSeconds: 3,
           cacheExpiration: {
             maxEntries: 50,
-            maxAgeSeconds: 7 * 24 * 60 * 60,
+            maxAgeSeconds: 60 * 60 * 24 * 10,
+            purgeOnQuotaError: true,
+          },
+          cacheableResponse: { statuses: [0, 200] }
+        }
+      },{
+        urlPattern: '^https:\/\/fonts\.googleapis\.com',
+        handler: 'staleWhileRevalidate',
+        strategyOptions: {
+          cacheName: 'google-fonts-stylesheets',
+        }
+      },{
+        urlPattern: '^https:\/\/fonts\.gstatic\.com',
+        handler: 'cacheFirst',
+        strategyOptions: {
+          cacheName: 'google-fonts-webfonts',
+          cacheExpiration: {
+            maxEntries: 30,
+            maxAgeSeconds: 60 * 60 * 24 * 365,
           },
           cacheableResponse: { statuses: [0, 200] }
         }
