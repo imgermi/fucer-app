@@ -159,10 +159,6 @@ module.exports = {
       },
     ],
     routingExtensions: '@/plugins/workbox-routing-extension.js',
-    offlineAssets: [
-      '_nuxt/pages/offline.js',
-    ],
-    cachingExtensions: '@/plugins/workbox-caching-extension.js'
   },
 
   router: {
