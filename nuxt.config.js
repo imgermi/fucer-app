@@ -160,8 +160,7 @@ module.exports = {
         }
       },
     ],
-    routingExtensions: '@/plugins/workbox-custom.js',
-    cachingExtensions: '@/plugins/workbox-caching-extension.js'
+    routingExtensions: '@/plugins/workbox-routing-extension.js',
   },
 
   router: {
@@ -228,7 +227,11 @@ module.exports = {
         secure: process.env.NODE_ENV === 'production',
         samesite: process.env.NODE_ENV !== 'production' ? 'None' : 'Strict'
       }
-    }
+    },
+    plugins: [
+      '~/plugins/auth.js',
+      '~/plugins/workbox.js',
+    ]
   },
 
   plugins: [
