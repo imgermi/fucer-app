@@ -82,6 +82,10 @@ export default {
       this.menuActivo = false
     },
     async logout () {
+    	if ( !window.navigator.onLine &&
+    		!confirm('Está sin conexión a internet y no va a poder volver a acceder hasta que vuelva la conexión ¿quiere cerrar la sesión igualmente?'))
+    		return
+
     	await this.$auth.logout()
     	this.$router.push("/")
     }
