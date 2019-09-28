@@ -42,9 +42,7 @@ module.exports = {
   // https://pwa.nuxtjs.org/modules/workbox.html
   workbox: {
     // dev: true,
-    preCaching: [
-      'offline',
-    ],
+    pagesURLPattern: '/|offline',
     runtimeCaching: [
       {
         urlPattern: '^https:\/\/fucer\.com\.ar\/app\/api\/.*',
