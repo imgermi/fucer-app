@@ -45,7 +45,7 @@ module.exports = {
   },
 
   router: {
-    base: '/app/',
+    base: '/',
     middleware: ['sesiones-simultaneas','auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
@@ -77,17 +77,17 @@ module.exports = {
   },
 
   axios: {
-    baseURL: 'https://fucer.com.ar/app/api/'
+    baseURL: 'https://net.fucer.com.ar/api/'
   },
 
   auth: {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'https://www.fucer.com.ar/app/api/auth/login', method: 'post', propertyName: 'token' },
-          logout: { url: 'https://www.fucer.com.ar/app/api/auth/logout', method: 'post' },
-          user: { url: 'https://www.fucer.com.ar/app/api/auth/user', method: 'get', propertyName: 'user' },
-          refreshToken: { url: 'https://www.fucer.com.ar/app/api/auth/refresh-token', method: 'get', propertyName: 'token' }
+          login: { url: 'https://net.fucer.com.ar/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: 'https://net.fucer.com.ar/api/auth/logout', method: 'post' },
+          user: { url: 'https://net.fucer.com.ar/api/auth/user', method: 'get', propertyName: 'user' },
+          refreshToken: { url: 'https://net.fucer.com.ar/api/auth/refresh-token', method: 'get', propertyName: 'token' }
         },
         redirect: {
           login: '/login',
