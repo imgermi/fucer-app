@@ -200,7 +200,7 @@ export default {
   components: {
     SecondaryTop
   },
-  middleware: 'plan-mercadopago',
+  middleware: 'plan-no-ilimitado',
   data() {
     return {
       documentTypes: [],
@@ -256,7 +256,7 @@ export default {
 
   async created () {
     this.documentTypes = await this.getDocumentTypes()
-    if (this.$auth.user && this.$auth.user.customer_id) {
+    if (this.$auth.user && this.$auth.user.suscripcion.metadata.customer_id) {
       await this.precargarDatos()
     }
   },
@@ -268,7 +268,7 @@ export default {
     async precargarDatos () {
       let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
         params: {
-          id: this.$auth.user.customer_id
+          id: this.$auth.user.suscripcion.metadata.customer_id
         }
       })
       if(!customer.default_card){

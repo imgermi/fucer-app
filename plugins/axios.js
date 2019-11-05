@@ -10,7 +10,7 @@ export default function({ app, $axios }) {
       // http.ClientRequest in node.js
       console.log(error.request);
       return Promise.reject(
-        'We have not been able to connect with the server, please try again'
+        'No pudimos conectarnos con el servidor. Por favor, intente nuevamente.'
       )
     } else {
       // Something happened in setting up the request that triggered an Error
