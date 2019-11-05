@@ -22,7 +22,7 @@ export default {
     SecondaryTop
   },
   auth: false,
-  middleware: 'plan-mercadopago',
+  middleware: 'plan-no-ilimitado',
   data() {
     return {
       title: 'Estado de suscripción',
@@ -37,15 +37,7 @@ export default {
   },
   computed: {
     mensaje () {
-      return this.mensajes[this.$store.state.auth.user.suscripcion.estado_invoice]
-    }
-  },
-  head () {
-    return {
-      title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
+      return this.mensajes[this.$store.state.auth.user.suscripcion.metadata.estado_invoice]
     }
   }
 }
