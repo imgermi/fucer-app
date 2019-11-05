@@ -102,7 +102,7 @@ export default {
         }
       })
       .then(() => {
-        if (this.$store.getters.usuarioPremium) {
+        if (this.$auth.user.suscripcion.premium) {
           this.$router.push({name: 'inicio'})
         } else {
           this.$router.push({name: 'medio-de-pago'})

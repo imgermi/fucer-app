@@ -64,7 +64,7 @@
         <p v-if="error" style="color: red;">{{ error }}</p>
         <br>
 
-        <div v-if="$auth.user && $auth.user.suscripcion && $auth.user.suscripcion.id">
+        <div v-if="$auth.user.suscripcion.activa">
           <nuxt-link
             class="rounded__btn--full blue"
             :to="{ name: 'inicio' }"
@@ -92,14 +92,13 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   layout: 'signup',
-  middleware: 'plan-mercadopago',
+  middleware: 'plan-no-ilimitado',
   data() {
     return {
       paymentMethodId: this.$route.query.paymentMethodId || '',
       cardToken: this.$route.query.token || '',
       payment: null,
-
-      planId: '',
+      customer: null,
 
       titulo: '',
       mensaje: '',
@@ -121,7 +120,6 @@ export default {
   },
 
   async created () {
-    await this.obtenerConfigs()
     await this.processCardAndCreateCustomer()
   },
 
@@ -129,16 +127,6 @@ export default {
     ...mapActions([
       'setPaginaCargando'
     ]),
-    async obtenerConfigs() {
-      this.setPaginaCargando(true)
-      try {
-        let data = await this.$axios.$get('configuraciones')
-        this.planId = data.plan_regular_id
-      } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
-      }
-      this.setPaginaCargando(false)
-    },
     async processCardAndCreateCustomer () {
       try {
         await this.verifyCard()
@@ -207,7 +195,7 @@ export default {
             if (status === 200) {
               resolve(response[0])
             } else {
-              reject('Hubo un problema al intetar obtener la información del método de pago.')
+              reject('Hubo un problema al intentar obtener la información del método de pago.')
             }
           })
         }else{
@@ -226,14 +214,10 @@ export default {
 
     async createNewCustomer () {
       this.titulo = 'Guardando tarjeta...'
-      let token = await this.$axios.$post('mercadopago/create-customer', {
+      this.customer = await this.$axios.$post('mercadopago/create-customer', {
         email: this.email,
         token: this.cardToken
       })
-
-      // Actualizo el token de seguridad
-      this.$auth.setToken('local', 'Bearer ' + token)
-      await this.$auth.fetchUser()
     },
 
     async subscribe () {
@@ -250,8 +234,7 @@ export default {
       }
       let token = await this.$axios.$post(
         'mercadopago/subscribe-customer', {
-          plan_id: this.planId,
-          customer_id: this.$auth.user.customer_id
+          customer_id: this.customer.id
         }
       )
       // Actualizo el token de seguridad
@@ -259,13 +242,9 @@ export default {
       await this.$auth.fetchUser()
     }
   },
-
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ]
     }
   },
 }
