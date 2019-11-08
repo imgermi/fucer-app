@@ -16,9 +16,11 @@ module.exports = function nuxtMercadoPago (_moduleOptions) {
   // Add MercadoPago script to head
   this.options.head.script.push({
     src: ('https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'),
-    async: false
+    async: false,
+    integrity: 'sha384-QL3jPXyWi4YvkOONON1fRpieeXri6TKaPWEed5BQGOhGtg8SfaVLUjC+65zOP9ze',
+    crossorigin: 'anonymous'
   })
-
+  
   // Register plugin
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),
