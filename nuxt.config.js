@@ -17,11 +17,65 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,700,900' },
     ]
   },
+
   css: [
     'sass/main.sass',
   ],
 
   loading: { color: '#4ECDC4', height: '4px' },
+
+  render: {
+    csp: {
+      hashAlgorithm: 'sha256',
+      policies: {
+        'default-src': [
+          "'none'",
+        ],
+        'script-src': [
+          "'self'",
+          'https://secure.mlstatic.com',
+          'https://content.mercadopago.com',
+          'https://http2.mlstatic.com',
+        ],
+        'style-src': [
+          "'self'",
+          'https://fonts.googleapis.com',
+          'https://fonts.gstatic.com',
+        ],
+        'img-src': [
+          "'self'",
+        ],
+        'font-src': [
+          "https://fonts.gstatic.com"
+        ],
+        'connect-src': [
+          "'self'",
+          'https://events.mercadopago.com',
+          'https://api.mercadopago.com',
+          'https://content.mercadopago.com',
+        ],
+        'media-src': [
+          "'none'",
+        ],
+        'object-src': [
+          "'none'",
+        ],
+        'frame-src': [
+          'https://mldp.mercadopago.com',
+          'https://content.mercadopago.com',
+        ],
+        'frame-ancestors': [
+          "'none'",
+        ],
+        'form-action': [
+          "'self'",
+        ],
+        'base-uri': [
+          "'none'",
+        ],
+      }
+    }
+  },
 
   // https://pwa.nuxtjs.org/modules/manifest.html
   manifest: {
