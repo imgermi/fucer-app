@@ -97,6 +97,13 @@ module.exports = {
         },
         refresh_token_key: 'refresh_token'
       }
+    },
+    cookie: {
+      options: {
+        domain: 'net.fucer.com.ar',
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV !== 'production' ? 'None' : 'Strict'
+      }
     }
   },
 
