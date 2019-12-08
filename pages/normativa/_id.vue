@@ -9,6 +9,7 @@
         <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
       </div>
     </header>
+    <main>
     <section class="top">
       <div class="container">
         <h1>{{ titulo }}</h1>
@@ -30,11 +31,27 @@
             <div v-html="cuerpo"></div>
           </div>
         </div>
-        <div v-else>
-          Cargando...
+      </section>
+      <section class="band cuerpo">
+        <div class="container">
+          <div v-if="!pagina.cargando">
+            <h6>Introducción</h6>
+            <span v-if="autor">Por {{ autor }}</span>
+            <div v-if="intro" v-html="intro"></div>
+            <button class="rounded__btn--medium blue" @click="leerNormativa">Leer normativa</button>
+            <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
+              <button class="cerrar" @click="cerrarNormativa">Cerrar</button>
+              <h1>{{ titulo }}</h1>
+              <h2>{{ bajada }}</h2>
+              <div v-html="cuerpo"></div>
+            </div>
+          </div>
+          <div v-else>
+            Cargando...
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   </div>
 </template>
 

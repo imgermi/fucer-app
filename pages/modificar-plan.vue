@@ -6,45 +6,47 @@
   		</div>
   	</header>
 
-  	<section class="band">
-  		<div class="container">
-  			<div class="datos__plan">
-  			  <h2>Mi plan</h2>
-  			  <div
-            v-if="suscripcion.premium"
-            class="datos__plan--dato"
-          >
-  			    <span>{{ suscripcion.plan.descripcion }}</span>
-  			    <small>{{ suscripcion.activa ? '$'+suscripcion.plan.valor : '' }}</small>
+    <main>
+    	<section class="band">
+    		<div class="container">
+    			<div class="datos__plan">
+    			  <h2>Mi plan</h2>
+    			  <div
+              v-if="suscripcion.premium"
+              class="datos__plan--dato"
+            >
+    			    <span>{{ suscripcion.plan.descripcion }}</span>
+    			    <small>{{ suscripcion.activa ? '$'+suscripcion.plan.valor : '' }}</small>
+            </div>
+    			</div>
+    		</div>
+    	</section>
+
+    	<section class="band">
+    		<div class="container">
+
+          <h2>Suscripción</h2>
+          <div class="msj">
+            <p v-html="suscripcion.plan.estado"></p>
           </div>
-  			</div>
-  		</div>
-  	</section>
+          <br>
 
-  	<section class="band">
-  		<div class="container">
-
-        <h2>Suscripción</h2>
-        <div class="msj">
-          <p v-html="suscripcion.plan.estado"></p>
-        </div>
-        <br>
-
-  			<div class="datos__plan--dato seleccionar">
-  			  <span>Plan Premium</span>
-  			  <small>${{ suscripcion.plan.valor }} mensuales</small>
-  			  <button class="rounded__btn--medium" @click="modificarSuscripcion">
-            {{ actualizandoPlan
-              ? 'Cargando...'
-              : (suscripcion.activa
-                  ? 'Cancelar suscripción'
-                  : 'Suscríbase'
-              )
-            }}
-          </button>
-  			</div>
-  		</div>
-  	</section>
+    			<div class="datos__plan--dato seleccionar">
+    			  <span>Plan Premium</span>
+    			  <small>${{ suscripcion.plan.valor }} mensuales</small>
+    			  <button class="rounded__btn--medium" @click="modificarSuscripcion">
+              {{ actualizandoPlan
+                ? 'Cargando...'
+                : (suscripcion.activa
+                    ? 'Cancelar suscripción'
+                    : 'Suscríbase'
+                )
+              }}
+            </button>
+    			</div>
+    		</div>
+    	</section>
+    </main>
   </div>
 </template>
 

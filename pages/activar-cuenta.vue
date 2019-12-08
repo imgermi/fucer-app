@@ -1,7 +1,7 @@
 <template>
   <div class="mail-confirmado">
     <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
-    <section class="band">
+    <main class="band">
       <div class="container">
         <h1>
           <span v-html="mensaje"></span>
@@ -15,7 +15,7 @@
           </nuxt-link>
         </div>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 

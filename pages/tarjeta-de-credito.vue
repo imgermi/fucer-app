@@ -1,7 +1,7 @@
 <template>
   <div class="registro">
     <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
-    <section class="band form__container">
+    <main class="band form__container">
       <div class="container">
 
         <div class="msj-error" v-if="error">
@@ -187,7 +187,7 @@
           </div>
         </form>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 
