@@ -7,6 +7,9 @@ module.exports = {
   */
   head: {
     titleTemplate: '%s | Legister',
+    htmlAttrs: {
+      lang: 'es',
+    },
     meta: [
       { name: 'msapplication-TileColor', content: '#2b5797' },
     ],
