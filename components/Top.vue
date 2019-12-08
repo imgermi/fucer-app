@@ -2,7 +2,12 @@
  <div>
 	  <header class="main__header">
 	    <div class="container">
-	      <button class="hamburger" type="button" v-on:click="openMenu">
+	      <button
+	      	class="hamburger"
+	      	type="button"
+	      	v-on:click="openMenu"
+	      	aria-label="Menú"
+	      >
 	        <span class="hamburger-box">
 	          <span class="hamburger-inner"></span>
 	        </span>
@@ -10,8 +15,15 @@
 	      </button>
 	      <nuxt-link :to="{ name: 'buscar' }" class="rounded__btn--medium buscar">Buscar</nuxt-link>
 	      <form  @submit.prevent="buscar" class="form__buscar">
-			<label for="buscar" class="form__buscar--icon"></label>
-	      	<input v-model="busqueda" type="text" name="buscar" id="buscar" placeholder="Buscar en FucerNet">
+					<label for="buscar" class="form__buscar--icon"></label>
+	      	<input
+	      		v-model="busqueda"
+	      		type="text"
+	      		name="buscar"
+	      		id="buscar"
+	      		aria-label="Buscar en FucerNet"
+	      		placeholder="Buscar en FucerNet"
+	      	/>
 	      </form>
 	    </div>
 	  </header>
