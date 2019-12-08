@@ -2,7 +2,7 @@
   <div class="buscar">
     <Alerta />
   	<Top />
-    <section class="band">
+    <main class="band">
       <div class="container">
         <div v-if="!pagina.cargando">
           <p v-if="!$route.query.busqueda && !busqueda" class="center search-alert">
@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 

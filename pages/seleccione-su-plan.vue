@@ -1,7 +1,7 @@
 <template>
   <div class="seleccione-su-plan">
     <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
-    <section class="band">
+    <main class="band">
       <div class="container">
         <div class="plan__titulo"><span>Premium</span></div>
         <span
@@ -18,7 +18,7 @@
         </ul>
         <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full blue">Siguiente</nuxt-link>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 	<div class="restaurar-clave">
 		<SecondaryTop />
-		<section class="band">
+		<main class="band">
 			<div class="container form__container">
 
 				<h1 class="intro__heading">¿Olvidó su clave?</h1>
@@ -37,7 +37,7 @@
 				</form>
 
 			</div>
-		</section>
+		</main>
 	</div>
 </template>
 

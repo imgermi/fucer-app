@@ -1,6 +1,6 @@
 <template>
   <div class="modificar-datos">
-    <section class="band">
+    <main class="band">
     	<div class="container">
     		<nuxt-link :to="{ name: 'configuracion' }"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
     		<h2>Modificar tarjeta de crédito</h2>
@@ -184,7 +184,7 @@
           </div>
         </form>
     	</div>
-    </section>
+    </main>
   </div>
 </template>
 

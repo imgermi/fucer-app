@@ -1,7 +1,7 @@
 <template>
 	<div class="restaurar-clave">
 		<SecondaryTop />
-		<section class="band">
+		<main class="band">
 			<div class="container form__container">
 
 				<h1 class="intro__heading">Nueva clave</h1>
@@ -56,7 +56,7 @@
 				<p class="signup__agregados">¿Tiene problemas? <nuxt-link :to="{ name: 'restaurar-clave' }">Solicite nuevamente un cambio de clave</nuxt-link>.</p>
 
 			</div>
-		</section>
+		</main>
 	</div>
 </template>
 

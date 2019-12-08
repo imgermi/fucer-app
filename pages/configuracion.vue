@@ -1,7 +1,7 @@
 <template>
   <div class="configuracion">
   	<Top :title="title" />
-    <section class="band datos">
+    <main class="band datos">
       <div class="container">
         <div class="datos__personales">
           <h2>Datos personales</h2>
@@ -70,7 +70,7 @@
           </nuxt-link>
         </template>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 
