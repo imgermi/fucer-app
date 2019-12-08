@@ -15,9 +15,9 @@
 	      </form>
 	    </div>
 	  </header>
-	  <div :class="'main__nav--container' + (menuActivo ? ' active' : '')">
+	  <nav :class="'main__nav--container' + (menuActivo ? ' active' : '')">
 	  	 <div class="overlay" v-on:click="closeMenu"></div>
-		  <nav class="main__nav">
+		  <div class="main__nav">
 	  		<div v-if="$auth.loggedIn" class="user__info">
 	  			<span>{{ $auth.user.nombre }}</span>
 	  			<small>{{ $auth.user.email }}</small>
@@ -87,8 +87,8 @@
 	        </svg>
 	        <p>Legister</p> 		
 		  	</a>
-		  </nav>
-	  </div>
+		  </div>
+	  </nav>
   </div>
 </template>
 
