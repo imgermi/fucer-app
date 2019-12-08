@@ -169,6 +169,7 @@ module.exports = {
     '~/plugins/filtros',
     '~/plugins/vue-validate',
     '~/plugins/webp',
+    { src: '~/plugins/axe', ssr: false },
     { src: '~plugins/actualizar-datos-usuario', ssr: false }
   ],
 
