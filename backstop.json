@@ -1,0 +1,39 @@
+{
+  "misMatchThreshold": 1,
+  "delay": 1000,
+  "viewports": [
+    {
+      "label": "phone",
+      "width": 320,
+      "height": 480
+    },
+    {
+      "label": "tablet",
+      "width": 1024,
+      "height": 768
+    }
+  ],
+  "scenarios": [
+    {
+      "label": "Homepage",
+      "url": "http://127.0.0.1:3000",
+      "referenceUrl": "https://net.fucer.com.ar"
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "backstop_data/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": ["browser"],
+  "engine": "puppeteer",
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "engineOptions": {
+    "args": ["--no-sandbox"]
+  },
+  "dockerCommandTemplate": "docker run --rm -it --network=\"host\" --mount type=bind,source=\"{cwd}\",target=/src backstopjs/backstopjs:{version} {backstopCommand} {args}",
+  "debug": false
+}
