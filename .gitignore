@@ -14,3 +14,7 @@ sftp-config.json
 
 # PWA
 sw.*
+
+# Backstop
+backstop_data/html_report/
+bitmaps_test/
