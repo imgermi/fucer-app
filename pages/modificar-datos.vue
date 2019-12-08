@@ -1,6 +1,6 @@
 <template>
   <div class="modificar-datos">
-    <section class="band">
+    <main class="band">
     	<div class="container">
     		<nuxt-link :to="{ name: 'configuracion' }"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
     		<h2>Modificar datos personales</h2>
@@ -45,7 +45,7 @@
     			<button type="submit" class="rounded__btn--medium">{{ pagina.cargando ? 'Cargando..' : 'Guardar cambios' }}</button>
     		</form>
     	</div>
-    </section>
+    </main>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="confirme-su-email">
     <SecondaryTop/>
-    <section class="band">
+    <main class="band">
       <div class="container">
         <h1 class="intro__heading">Suscripción en revisión</h1>
         <h2 class="sub__heading">{{ mensaje }}</h2>
@@ -9,7 +9,7 @@
           Cambiar tarjeta
         </nuxt-link>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 

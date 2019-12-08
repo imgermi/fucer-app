@@ -2,7 +2,7 @@
 	<div class="ayuda">
 	  <Alerta />
 		<Top :title="title" />
-		<section class="band">
+		<main class="band">
 			<div class="container">
 				<h1>¿Necesita ayuda?</h1>
 				<h2>Comuníquese con nosotros</h2>
@@ -12,7 +12,7 @@
 					<small>soporte@fucer.com.ar</small>
 				</a>
 			</div>
-		</section>
+		</main>
 	</div>
 </template>
 

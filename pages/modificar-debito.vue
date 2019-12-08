@@ -1,5 +1,5 @@
 <template>
-  <div class="modificar-datos">
+  <main class="modificar-datos">
     <section class="band">
     	<div class="container">
     		<nuxt-link :to="{ name: 'configuracion' }"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
@@ -96,7 +96,7 @@
         </form>
     	</div>
     </section>
-  </div>
+  </main>
 </template>
 
 <script>
