@@ -12,7 +12,7 @@
 	        <span class="hamburger-box">
 	          <span class="hamburger-inner"></span>
 	        </span>
-	        <label>{{ title }}</label>
+	        <h1>{{ title }}</h1>
 	      </button>
 	      <nuxt-link :to="{ name: 'buscar' }" class="rounded__btn--medium buscar">Buscar</nuxt-link>
 	      <form  @submit.prevent="buscar" class="form__buscar">
