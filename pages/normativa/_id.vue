@@ -3,7 +3,11 @@
     <Alerta />
     <header class="goBack__header">
       <div class="container">
-        <a @click="$router.go(-1)" class="volver-btn"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left">
+        <a
+          @click="$router.go(-1)"
+          @keyup.enter="$router.go(-1)"
+          class="volver-btn"
+        ><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left">
           <span>Volver</span>
         </a>
         <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
@@ -38,9 +42,17 @@
             <h6>Introducción</h6>
             <span v-if="autor">Por {{ autor }}</span>
             <div v-if="intro" v-html="intro"></div>
-            <button class="rounded__btn--medium blue" @click="leerNormativa">Leer normativa</button>
+            <button
+              class="rounded__btn--medium blue"
+              @click="leerNormativa"
+              @keyup.enter="leerNormativa"
+            >Leer normativa</button>
             <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
-              <button class="cerrar" @click="cerrarNormativa">Cerrar</button>
+              <button
+                class="cerrar"
+                @click="cerrarNormativa"
+                @keyup.enter="cerrarNormativa"
+              >Cerrar</button>
               <h1>{{ titulo }}</h1>
               <h2>{{ bajada }}</h2>
               <div v-html="cuerpo"></div>

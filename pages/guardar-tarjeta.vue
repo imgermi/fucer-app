@@ -78,6 +78,7 @@
             href="#"
             class="rounded__btn--full green"
             @click.prevent="$router.go(-1)"
+            @keyup.enter.prevent="$router.go(-1)"
           >
             Volver
           </a>

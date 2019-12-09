@@ -14,7 +14,7 @@
 
         <nuxt-link :to="{ name: 'debito-automatico' }" class="rounded__btn--full green">Débito automático</nuxt-link>
         <div v-if="$auth.loggedIn">
-          <span class="signup__agregados">¿Quiere iniciar con otra cuenta? <a @click="logout()">Cerrar Sesión</a></span>
+          <span class="signup__agregados">¿Quiere iniciar con otra cuenta? <a @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a></span>
         </div>
       </div>
     </main>
