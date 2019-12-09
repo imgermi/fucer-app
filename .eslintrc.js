@@ -18,5 +18,14 @@ module.exports = {
     'vue',
     'vue-a11y',
   ],
-  rules: {}
+  rules: {
+    // https://github.com/maranran/eslint-plugin-vue-a11y/issues/15#issuecomment-507698383
+    "vue-a11y/label-has-for": [ 2, {
+      "components": [ "label" ],
+      "required": {
+        "some": [ "nesting", "id" ]
+      },
+      "allowChildren": false
+    }]
+  }
 }
