@@ -2,13 +2,13 @@
   <div class="index">
     <div class="columns">
       <div class="columns__text">
-        <section>
+        <header>
           <div class="container">
             <nuxt-link :to="{ name: 'index' }" class="logo logotop">
               <img src="~/assets/img/logo-fucernet.svg" alt="">
             </nuxt-link>
           </div>
-        </section>
+        </header>
         <main class="band">
           <div class="container">
             <h1 class="intro__heading">Consulte el <br> contenido de la <br> normativa aplicable a la <br> registración de automotores</h1>
