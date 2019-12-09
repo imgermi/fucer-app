@@ -34,7 +34,11 @@
     			<div class="datos__plan--dato seleccionar">
     			  <span>Plan Premium</span>
     			  <small>${{ suscripcion.plan.valor }} mensuales</small>
-    			  <button class="rounded__btn--medium" @click="modificarSuscripcion">
+    			  <button
+              class="rounded__btn--medium"
+              @click="modificarSuscripcion"
+              @keyup.enter="modificarSuscripcion"
+            >
               {{ actualizandoPlan
                 ? 'Cargando...'
                 : (suscripcion.activa
