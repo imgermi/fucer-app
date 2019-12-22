@@ -22,9 +22,9 @@
     "@nuxtjs/axios": "~5.3.6",
     "@nuxtjs/pwa": "~3.0.0-beta.16",
     "moment": "~2.24.0",
-    "nuxt": "~2.4.5",
+    "nuxt": "^2.11.0",
     "vee-validate": "~2.1.7",
-    "vue": "~2.6.10",
+    "vue": "^2.6.11",
     "vue-carousel": "~0.17.0",
     "vue-webp-plugin": "~1.0.2"
   },
