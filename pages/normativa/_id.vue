@@ -16,7 +16,7 @@
     <main>
     <section class="top">
       <div class="container">
-        <h1>{{ titulo }}</h1>
+        <h1 ref="pageFocusTarget">{{ titulo }}</h1>
         <h2>{{ bajada }}</h2>
         <small v-if="fecha">{{ fecha | fecha('DD/MM/YY') }}</small>
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="error">
+  <div class="error" ref="routerView">
     <SecondaryTop/>
     <section class="band">
       <div class="container">
@@ -14,6 +14,7 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
+import {moverFocoPagina} from '~/utils/a11y'
 
 export default {
   components: {
@@ -35,7 +36,12 @@ export default {
           class: 'bg__gradient'
       }
     }
-  }
+  },
+  watch: {
+    $route () {
+      moverFocoPagina(this)
+    }
+  },
 }
 </script>
 

@@ -4,7 +4,7 @@
 		<main class="band">
 			<div class="container form__container">
 
-				<h1 class="intro__heading">¿No recibió el mail de confirmación?</h1>
+				<h1 class="intro__heading" ref="pageFocusTarget">¿No recibió el mail de confirmación?</h1>
 				<h2 class="sub__heading">Ingrese su email nuevamente</h2>
 
 				<div class="msj-error" v-if="error">
