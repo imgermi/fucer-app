@@ -1,6 +1,10 @@
 <template>
   <div class="seleccione-su-plan">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
     <main class="band">
       <div class="container">
         <div class="plan__titulo"><span>Premium</span></div>

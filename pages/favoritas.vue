@@ -1,7 +1,10 @@
 <template>
   <div class="favoritas">
     <Alerta/>
-  	<Top :title="title" />
+  	<Top
+      :title="title"
+      ref="pageFocusTarget"
+    />
     <main class="band">
       <div class="container">
         <span class="small__heading">Aquí verá las normativas que marcó como favoritas</span>

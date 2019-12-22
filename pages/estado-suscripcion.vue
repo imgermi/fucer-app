@@ -3,7 +3,7 @@
     <SecondaryTop/>
     <main class="band">
       <div class="container">
-        <h1 class="intro__heading">Suscripción en revisión</h1>
+        <h1 class="intro__heading" ref="pageFocusTarget">Suscripción en revisión</h1>
         <h2 class="sub__heading">{{ mensaje }}</h2>
         <nuxt-link :to="{name: 'modificar-tarjeta'}" class="rounded__btn--medium blue">
           Cambiar tarjeta

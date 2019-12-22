@@ -59,7 +59,9 @@
     </section>
     <main class="band">
       <div class="container">
-        <h1 class="intro__heading"><span v-html="titulo"></span></h1>
+        <h1 class="intro__heading" ref="pageFocusTarget">
+          <span v-html="titulo"></span>
+        </h1>
         <p v-if="mensaje">{{ mensaje }}</p>
         <p v-if="error" style="color: red;">{{ error }}</p>
         <br>

@@ -1,7 +1,10 @@
 <template>
 	<div class="ayuda">
 	  <Alerta />
-		<Top :title="title" />
+		<Top
+			:title="title"
+			ref="pageFocusTarget"
+		/>
 		<main class="band">
 			<div class="container">
 				<h1>¿Necesita ayuda?</h1>

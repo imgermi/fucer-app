@@ -4,7 +4,7 @@
 		<main class="band">
 			<div class="container form__container">
 
-				<h1 class="intro__heading">Nueva clave</h1>
+				<h1 class="intro__heading" ref="pageFocusTarget">Nueva clave</h1>
 
 				<div class="msj-error" v-if="error">
 				  {{ error }}

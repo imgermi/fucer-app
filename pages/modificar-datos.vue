@@ -3,7 +3,7 @@
     <main class="band">
     	<div class="container">
     		<nuxt-link :to="{ name: 'configuracion' }"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
-    		<h2>Modificar datos personales</h2>
+    		<h2 ref="pageFocusTarget">Modificar datos personales</h2>
 
     		<div class="msj-error" v-if="error">
     		  {{ error }}

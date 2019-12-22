@@ -1,6 +1,10 @@
 <template>
   <div class="mail-confirmado">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
     <main class="band">
       <div class="container">
         <h1>
