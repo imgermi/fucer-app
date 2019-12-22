@@ -1,13 +1,16 @@
 <template>
  <div>
-	  <header class="main__header">
+	<header class="main__header">
 	    <div class="container">
 	      <button
 	      	class="hamburger"
 	      	type="button"
-	      	@click="openMenu"
-        	@keyup.enter="openMenu"
+	      	@click="toggleMenu"
+        	@keyup.enter="toggleMenu"
 	      	aria-label="Menú"
+	      	aria-expanded="menuId"
+	      	:aria-expanded="menuActivo.toString()"
+      		:aria-controls="menuId"
 	      >
 	        <span class="hamburger-box">
 	          <span class="hamburger-inner"></span>
@@ -28,7 +31,11 @@
 	      </form>
 	    </div>
 	  </header>
-	  <nav :class="'main__nav--container' + (menuActivo ? ' active' : '')">
+	  <nav
+	  	:id="menuId"
+	  	:hidden="!menuActivo"
+	  	:class="'main__nav--container' + (menuActivo ? ' active' : '')"
+	  >
 	  	 <div
 	  	 	class="overlay"
 	  	 	@click="closeMenu"
@@ -66,6 +73,7 @@ export default {
   props: ['title'],
   data () {
   	return {
+  		menuId: 'menu-principal',
   		busqueda: this.$store.state.buscar.busqueda,
     	menuActivo: false
     }
@@ -86,7 +94,7 @@ export default {
     	await this.buscarNormativas(this.busqueda)
     	this.setPaginaCargando(false)
     },
-    openMenu: function () {
+    toggleMenu: function () {
       this.menuActivo = !this.menuActivo
     },
     closeMenu: function (event) {
