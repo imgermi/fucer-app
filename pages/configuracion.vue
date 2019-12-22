@@ -1,6 +1,9 @@
 <template>
   <div class="configuracion">
-  	<Top :title="title" />
+  	<Top
+      :title="title"
+      ref="pageFocusTarget"
+    />
     <main class="band datos">
       <div class="container">
         <div class="datos__personales">

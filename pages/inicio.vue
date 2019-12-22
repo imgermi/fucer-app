@@ -5,7 +5,7 @@
     <main>
     <section class="carousel__container bg__gradient">
       <div class="container">
-        <h2>Novedades</h2>
+        <h2 ref="pageFocusTarget">Novedades</h2>
         <no-ssr>
           <div>
             <div v-if="!cargandoCarousel">

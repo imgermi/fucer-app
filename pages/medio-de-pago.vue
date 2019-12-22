@@ -1,6 +1,10 @@
 <template>
   <div class="medio-de-pago">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
     <main class="band">
       <div class="container">
         <div v-if="$auth.loggedIn" class="user">

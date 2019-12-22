@@ -1,6 +1,9 @@
 <template>
   <div class="login">
-    <SecondaryTop :tituloPaso="tituloPaso"/>
+    <SecondaryTop
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
     <main class="band form__container">
       <div class="container">
 

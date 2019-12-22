@@ -3,9 +3,12 @@
     <Alerta />
   	<Top />
     <main class="band">
-      <div class="container">
+      <div class="container" ref="pageFocusTarget">
         <div v-if="!pagina.cargando">
-          <p v-if="!$route.query.busqueda && !busqueda" class="center search-alert">
+          <p
+            v-if="!$route.query.busqueda && !busqueda"
+            class="center search-alert"
+          >
             Busque por <br> nombre, palabra <br> o año
           </p>
           <div v-else>

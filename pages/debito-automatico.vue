@@ -1,6 +1,10 @@
 <template>
   <div class="registro">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
     <main class="band form__container">
       <div class="container">
 
