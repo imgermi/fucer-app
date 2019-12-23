@@ -1,5 +1,6 @@
 <template>
   <div class="error" ref="routerView">
+    <vue-announcer />
     <SecondaryTop/>
     <section class="band">
       <div class="container">
