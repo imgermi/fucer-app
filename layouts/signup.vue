@@ -1,5 +1,6 @@
 <template>
   <div class="signup" ref="routerView">
+  	<vue-announcer />
     <nuxt/>
   </div>
 </template>
