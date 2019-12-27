@@ -27,13 +27,6 @@
               v-validate="'required'"
               data-vv-as="CBU"
               :class="{'error': errors.has('cbu') }"
-              onselectstart="return false"
-              onpaste="return false"
-              onCopy="return false"
-              onCut="return false"
-              onDrag="return false"
-              onDrop="return false"
-              autocomplete="off"
             />
             <span class="error" v-show="errors.has('cbu')">
               {{ errors.first('cbu') }}
@@ -54,6 +47,23 @@
             />
             <span class="error" v-show="errors.has('cuit')">
               {{ errors.first('cuit') }}
+            </span>
+          </fieldset>
+
+          <fieldset>
+            <label for="rs">Código RS</label>
+            <input
+              type="text"
+              v-model.lazy="rs"
+              id="rs"
+              ref="rs"
+              name="rs"
+              v-validate="'required'"
+              data-vv-as="Código RS"
+              :class="{'error': errors.has('rs') }"
+            />
+            <span class="error" v-show="errors.has('rs')">
+              {{ errors.first('rs') }}
             </span>
           </fieldset>
 
@@ -116,6 +126,7 @@ export default {
       nroPaso: '3',
       tituloPaso: 'Configure el débito automático',
       cuit: '',
+      rs: '',
       cbu: '',
       nombre: '',
       apellido: '',
@@ -147,6 +158,7 @@ export default {
           tipo: 'debito',
           datos: {
             cuit: this.cuit,
+            rs: this.rs,
             cbu: this.cbu,
             nombre: this.nombre,
             apellido: this.apellido,
