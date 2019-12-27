@@ -27,13 +27,6 @@
               v-validate="'required'"
               data-vv-as="CBU"
               :class="{'error': errors.has('cbu') }"
-              onselectstart="return false"
-              onpaste="return false"
-              onCopy="return false"
-              onCut="return false"
-              onDrag="return false"
-              onDrop="return false"
-              autocomplete="off"
             />
             <span class="error" v-show="errors.has('cbu')">
               {{ errors.first('cbu') }}
@@ -58,7 +51,7 @@
           </fieldset>
 
           <fieldset>
-            <label for="cuit">Código RS</label>
+            <label for="rs">Código RS</label>
             <input
               type="text"
               v-model.lazy="rs"
