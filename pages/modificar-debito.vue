@@ -56,6 +56,22 @@
           </fieldset>
 
           <fieldset>
+            <label for="cuit">Código RS</label>
+            <input
+              type="text"
+              v-model.lazy="rs"
+              id="rs"
+              ref="rs"
+              name="rs"
+              data-vv-as="Código RS"
+              :class="{'error': errors.has('rs') }"
+            />
+            <span class="error" v-show="errors.has('rs')">
+              {{ errors.first('rs') }}
+            </span>
+          </fieldset>
+
+          <fieldset>
             <label for="nombre">Nombre</label>
             <input
               type="text"
@@ -110,6 +126,7 @@ export default {
       info: false,
       title: 'Modificar débito automático',
       cuit: this.$auth.user.suscripcion.metadata.cuit,
+      rs: this.$auth.user.suscripcion.metadata.rs,
       cbu: this.$auth.user.suscripcion.metadata.cbu,
       nombre: this.$auth.user.suscripcion.metadata.nombre,
       apellido: this.$auth.user.suscripcion.metadata.apellido,
@@ -140,6 +157,7 @@ export default {
         await this.$axios.$patch('suscripciones/datos', {
           tipo: 'debito',
           datos: {
+            rs: this.rs,
             cuit: this.cuit,
             cbu: this.cbu,
             nombre: this.nombre,
