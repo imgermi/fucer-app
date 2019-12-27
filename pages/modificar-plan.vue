@@ -79,7 +79,7 @@ export default {
           await this.$axios.$delete('suscripciones')
           this.mensaje = 'La suscripción fue cancelada'
         } else {
-          await this.$axios.$patch('suscripciones')
+          await this.$axios.$patch('suscripciones', {})
           this.mensaje = '¡La suscripción fue reactivada!'
         }
         await this.$auth.fetchUser()
