@@ -9,7 +9,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "cordova": "nuxt generate -c cordova.nuxt.config.js && replace '/nuxt/' 'nuxt/' dist -r && cp -rvt ../app-cordova/app/www dist/* && cd ../app-cordova/app/www && cordova run android",
+    "cordova": "nuxt generate -c cordova.nuxt.config.js && replace '/nuxt/' 'nuxt/' dist -rv && mv dist ../app-cordova/app/www && cd ../app-cordova/app/www && cordova run android",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "heroku-postbuild": "npm run build"
@@ -38,7 +38,7 @@
     "eslint-plugin-promise": "~4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "~5.0.0-beta.5",
-    "node-sass": "~4.10.0",
+    "node-sass": "^4.12.0",
     "replace": "~1.1.0",
     "sass-loader": "~7.1.0",
     "scss-loader": " *"
