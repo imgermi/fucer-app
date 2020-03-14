@@ -66,7 +66,7 @@
 
         <div v-if="$auth.user && $auth.user.suscripcion && $auth.user.suscripcion.id">
           <nuxt-link
-            class="rounded__btn--full blue"
+            class="rounded__btn--full green"
             :to="{ name: 'inicio' }"
           >
             Comenzar
@@ -76,7 +76,7 @@
           <a
             v-if="error"
             href="#"
-            class="rounded__btn--full blue"
+            class="rounded__btn--full green"
             @click.prevent="$router.go(-1)"
           >
             Volver
