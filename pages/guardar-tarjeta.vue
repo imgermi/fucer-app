@@ -66,7 +66,7 @@
 
         <div v-if="payment">
           <nuxt-link
-            class="rounded__btn--full blue"
+            class="rounded__btn--full green"
             :to="{ name: 'configuracion' }"
           >
             Ir a configuración
@@ -76,7 +76,7 @@
           <a
             v-if="error"
             href="#"
-            class="rounded__btn--full blue"
+            class="rounded__btn--full green"
             @click.prevent="$router.go(-1)"
           >
             Volver
