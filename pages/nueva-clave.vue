@@ -47,7 +47,7 @@
 					    {{ errors.first('passwordConfirm') }}
 					  </span>
 					</fieldset>
-					<button type="submit" class="rounded__btn--full blue">
+					<button type="submit" class="rounded__btn--full green">
 					  {{ txtBtnSubmit}}
 					</button>
 				</form>
