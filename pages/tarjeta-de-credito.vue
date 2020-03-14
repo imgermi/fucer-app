@@ -171,7 +171,7 @@
           <input v-model="paymentMethodInfo.id" type="hidden" name="paymentMethodId" />
           <input v-model="cardToken" type="hidden" name="token" />
 
-          <button type="submit" class="rounded__btn--full blue">
+          <button type="submit" class="rounded__btn--full green">
             {{ txtBtnSubmit}}
           </button>
 
