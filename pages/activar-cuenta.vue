@@ -8,7 +8,7 @@
         </h1>
         <div v-if="!pagina.cargando">
           <nuxt-link
-            class="rounded__btn--full blue"
+            class="rounded__btn--full green"
             :to="{ name: 'medio-de-pago' }"
           >
             Siguiente
