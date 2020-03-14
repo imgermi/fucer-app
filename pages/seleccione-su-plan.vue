@@ -16,7 +16,7 @@
           <li>Recopilación de material</li>
           <li>Resúmenes introductorios y explicativos sobre material</li>
         </ul>
-        <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full blue">Siguiente</nuxt-link>
+        <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full green">Siguiente</nuxt-link>
       </div>
     </section>
   </div>
