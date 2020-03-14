@@ -1,6 +1,6 @@
 <template>
 	<div v-if="!normativasTodas" class="center" v-on:click="cargarMas">
-	  <button class="rounded__btn--medium blue"><span v-html="mensaje"></span></button>
+	  <button class="rounded__btn--medium green"><span v-html="mensaje"></span></button>
 	</div>
 </template>
 
