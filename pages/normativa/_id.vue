@@ -14,17 +14,17 @@
       </div>
     </header>
     <main>
-    <section class="top">
-      <div class="container">
-        <h1 ref="pageFocusTarget">
-          {{ titulo }}
-          <small v-if="categoria" :class="`tag ${categoriaUri}`">{{ categoria }}</small>
-        </h1>
-        <h2>{{ bajada }}</h2>
-        <small v-if="fecha">{{ fecha | fecha('DD/MM/YY') }}</small>
-      </div>
-    </section>
-    <section class="band cuerpo">
+      <section class="top">
+        <div class="container">
+          <h1 ref="pageFocusTarget">
+            {{ titulo }}
+            <small v-if="categoria" :class="`tag ${categoriaUri}`">{{ categoria }}</small>
+          </h1>
+          <h2>{{ bajada }}</h2>
+          <small v-if="fecha">{{ fecha | fecha('DD/MM/YY') }}</small>
+        </div>
+      </section>
+      <section class="band cuerpo">
         <div class="container">
           <div v-if="!pagina.cargando">
             <h6>Introducción</h6>
