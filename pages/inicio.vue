@@ -132,6 +132,8 @@
                 :id="normativa.id"
                 :titulo="normativa.titulo"
                 :bajada="normativa.bajada"
+                :categoria="normativa.categoria"
+                :categoriaUri="normativa.categoria_uri"
                 :fecha="normativa.fecha"
                 :url="normativa.url"
               />

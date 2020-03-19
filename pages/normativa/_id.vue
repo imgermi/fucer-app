@@ -16,7 +16,10 @@
     <main>
       <section class="top">
         <div class="container">
-          <h1 ref="pageFocusTarget">{{ titulo }}</h1>
+          <h1 ref="pageFocusTarget">
+            {{ titulo }}
+            <small v-if="categoria" :class="`tag ${categoriaUri}`">{{ categoria }}</small>
+          </h1>
           <h2>{{ bajada }}</h2>
           <small v-if="fecha">{{ fecha | fecha('DD/MM/YY') }}</small>
         </div>
@@ -69,6 +72,8 @@ export default {
       titulo: '',
       bajada: '',
       autor: '',
+      categoria: '',
+      categoriaUri: '',
       fecha: '',
       intro: '',
       cuerpo: '',
@@ -97,6 +102,8 @@ export default {
       this.bajada = normativa.bajada
       this.fecha = normativa.fecha
       this.autor = normativa.autor
+      this.categoria = normativa.categoria
+      this.categoriaUri = normativa.categoria_uri
       this.intro = normativa.intro
       this.cuerpo = normativa.cuerpo
       this.url = {
