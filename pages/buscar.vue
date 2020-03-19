@@ -18,6 +18,8 @@
                 :key="normativa.id + '-ultima'"
                 :id="normativa.id"
                 :titulo="normativa.titulo"
+                :categoria="normativa.categoria"
+                :categoriaUri="normativa.categoria_uri"
                 :bajada="normativa.bajada"
                 :fecha="normativa.fecha"
                 :url="normativa.url"
