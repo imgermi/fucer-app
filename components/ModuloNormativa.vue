@@ -1,7 +1,10 @@
 <template>
   <article class="normativa-module">
     <div class="main">
-    	<h4><nuxt-link :to="url">{{ titulo }}</nuxt-link></h4>
+    	<h4>
+        <nuxt-link :to="url">{{ titulo }}</nuxt-link>
+        <small v-if="categoria" :class="`tag ${categoriaUri}`">{{ categoria }}</small>
+      </h4>
     	<p><nuxt-link :to="url">{{ bajada }}</nuxt-link></p>
     </div>
     <div class="extra">
@@ -23,6 +26,8 @@
       'id',
       'titulo',
       'bajada',
+      'categoria',
+      'categoriaUri',
       'fecha',
       'url'
     ],
