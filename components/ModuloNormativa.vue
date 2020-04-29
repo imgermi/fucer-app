@@ -3,11 +3,11 @@
     <div class="main">
     	<h4>
         <nuxt-link :to="url">{{ titulo }}</nuxt-link>
-        <small v-if="categoria" :class="`tag ${categoriaUri}`">{{ categoria }}</small>
       </h4>
     	<p><nuxt-link :to="url">{{ bajada }}</nuxt-link></p>
     </div>
     <div class="extra">
+      <small v-if="categoria" :class="`tag normativa-module__tag ${categoriaUri}`">{{ categoria }}</small>
     	<small><nuxt-link :to="url">{{ fecha | fecha('DD/MM/YY') }}</nuxt-link></small>
       <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
     </div>

@@ -17,8 +17,8 @@
     <section class="top">
       <div class="container">
         <h1 ref="pageFocusTarget">
-          {{ titulo }}
-          <small v-if="categoria" :class="`tag ${categoriaUri}`">{{ categoria }}</small>
+          <small v-if="categoria" :class="`tag normativa__tag ${categoriaUri}`">{{ categoria }}</small>
+          <div>{{ titulo }}</div>
         </h1>
         <h2>{{ bajada }}</h2>
         <small v-if="fecha">{{ fecha | fecha('DD/MM/YY') }}</small>
