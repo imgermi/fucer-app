@@ -25,28 +25,13 @@
       </div>
     </section>
     <section class="band cuerpo">
-      <div class="container">
-        <div v-if="!pagina.cargando">
-          <h6>Introducción</h6>
-          <span v-if="autor">Por {{ autor }}</span>
-          <div v-if="intro" v-html="intro"></div>
-          <button class="rounded__btn--medium green" @click="leerNormativa">Leer normativa</button>
-          <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
-            <button class="cerrar" @click="cerrarNormativa">Cerrar</button>
-            <h1>{{ titulo }}</h1>
-            <h2>{{ bajada }}</h2>
-            <div v-html="cuerpo"></div>
-          </div>
-        </div>
-      </section>
-      <section class="band cuerpo">
         <div class="container">
           <div v-if="!pagina.cargando">
             <h6>Introducción</h6>
             <span v-if="autor">Por {{ autor }}</span>
             <div v-if="intro" v-html="intro"></div>
             <button
-              class="rounded__btn--medium blue"
+              class="rounded__btn--medium green"
               @click="leerNormativa"
               @keyup.enter="leerNormativa"
             >Leer normativa</button>
