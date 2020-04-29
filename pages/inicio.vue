@@ -11,6 +11,7 @@
             <div v-if="!cargandoCarousel">
               <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
                 <slide v-for="normativa in normativasDestacadas" :key="normativa.id + '-destacada'">
+                  <small v-if="normativa.categoria" :class="`tag ${normativa.categoria_uri}`">{{ normativa.categoria }}</small>
                   <small><nuxt-link :to="normativa.url">{{ normativa.fecha | fecha('DD/MM/YY')}}</nuxt-link></small>
                   <h4><nuxt-link :to="normativa.url">{{ normativa.titulo }}</nuxt-link></h4>
                   <span><nuxt-link :to="normativa.url">{{ normativa.bajada }}</nuxt-link></span>
