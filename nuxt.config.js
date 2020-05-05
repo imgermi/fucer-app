@@ -6,12 +6,13 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s | Legister',
+    titleTemplate: '%s | FucerNet',
     htmlAttrs: {
       lang: 'es',
     },
     meta: [
       { name: 'msapplication-TileColor', content: '#2b5797' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon.png' },
@@ -83,17 +84,17 @@ module.exports = {
 
   // https://pwa.nuxtjs.org/modules/manifest.html
   manifest: {
-    "name": "Legister",
-    "short_name": "Legister",
+    "name": "FucerNet",
+    "short_name": "FucerNet",
     "description": "Consulte el  contenido de la  normativa aplicable a la  registración de automotores",
     "display": "standalone",
-    "theme_color": "#224B8E",
+    "theme_color": "#204A42",
     "lang": "es"
   },
 
   // https://pwa.nuxtjs.org/modules/meta.html
   meta: {
-    theme_color: '#224b8e',
+    theme_color: '#204A42',
     lang: 'es'
   },
 

@@ -109,15 +109,6 @@
             </article>
             <article class="normativa-module">
               <div class="main">
-                <h4><a href="http://www.aaerpa.com/catalogo/" target="_blank">Revistas Ámbito Registral de la AAERPA: buscador por autor, publicacion y tema</a></h4>
-                <!-- <p><a href="">bajada</a></p> -->
-              </div>
-              <div class="extra">
-                <small><a>Enlace externo</a></small>
-              </div>
-            </article>
-            <article class="normativa-module">
-              <div class="main">
                 <h4><a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/70000-74999/74456/texact.htm" target="_blank">Resolución MJ y DH Nº 314/2002</a></h4>
                 <p><a href="">Resolución de aranceles vigente a partir del 01/06/2019, incluye Resol MJ y DH Nº 323/2019</a></p>
               </div>
