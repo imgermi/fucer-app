@@ -34,7 +34,7 @@
               class="rounded__btn--medium green"
               @click="leerNormativa"
               @keyup.enter="leerNormativa"
-            >Leer normativa</button>
+            >Leer</button>
             <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
               <button
                 class="cerrar"
