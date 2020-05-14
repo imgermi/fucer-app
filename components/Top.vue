@@ -33,7 +33,6 @@
 	  </header>
 	  <nav
 	  	:id="menuId"
-	  	:hidden="!menuActivo"
 	  	:class="'main__nav--container' + (menuActivo ? ' active' : '')"
 	  >
 	  	 <div
