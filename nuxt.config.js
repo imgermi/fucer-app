@@ -36,6 +36,7 @@ module.exports = {
         ],
         'script-src': [
           "'self'",
+          // 'https://763e54ccc380411ab56392337ce97f97@o392771.ingest.sentry.io',
           'https://secure.mlstatic.com',
           'https://content.mercadopago.com',
           'https://http2.mlstatic.com',
@@ -169,6 +170,7 @@ module.exports = {
     '~/plugins/filtros',
     '~/plugins/vue-validate',
     '~/plugins/webp',
+    '~/plugins/sentry',
     { src: '~/plugins/a11y', ssr: false },
     // { src: '~/plugins/axe', ssr: false },
     { src: '~plugins/actualizar-datos-usuario', ssr: false }
