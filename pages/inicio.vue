@@ -171,6 +171,11 @@ export default {
       cargandoNormativas: true
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
   async created () {
     if (this.normativasDestacadas.length < 1) {
       await this.getNormativasDestacadas()

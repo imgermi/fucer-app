@@ -71,6 +71,11 @@ export default {
       return this.$auth.user.suscripcion;
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
   methods: {
     async modificarSuscripcion () {
       this.actualizandoPlan = true
