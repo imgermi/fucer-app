@@ -53,12 +53,12 @@
 		  		<li><nuxt-link :to="{ name: 'configuracion' }">Configuración</nuxt-link></li>
 		  		<li><nuxt-link :to="{ name: 'ayuda' }">Ayuda</nuxt-link></li>
 		  		<li v-if="$auth.loggedIn">
-		  			<a @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a>
+		  			<a href="#" @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a>
 		  		</li>
 		  	</ul>
-		  	<a href="" class="logo">
+		  	<span class="logo">
 			  	<img src="~/assets/img/logo-fucernet.svg" alt="" width="100">		
-		  	</a>
+		  	</span>
 		  </div>
 	  </nav>
   </div>
