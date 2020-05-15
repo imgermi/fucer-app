@@ -33,6 +33,11 @@ export default {
       title: 'Index',
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
   head () {
     return {
       title: this.title,

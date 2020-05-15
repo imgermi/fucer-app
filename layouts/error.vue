@@ -1,10 +1,10 @@
 <template>
-  <div class="error" ref="routerView">
+  <div class="error">
     <vue-announcer />
     <SecondaryTop/>
     <section class="band">
       <div class="container">
-        <h1 class="intro__heading">Error - 404</h1>
+        <h1 ref="pageFocusTarget" class="intro__heading">Error - 404</h1>
         <p>La página que está buscando no existe</p>
         <nuxt-link :to="{ name: 'inicio' }" class="rounded__btn--full white">Volver a Inicio</nuxt-link>
       </div>
@@ -15,7 +15,6 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
-import {moverFocoPagina} from '~/utils/a11y'
 
 export default {
   components: {
@@ -27,6 +26,11 @@ export default {
       title: 'Error - 404',
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
   head () {
     return {
       title: this.title,
@@ -36,11 +40,6 @@ export default {
       bodyAttrs: {
           class: 'bg__gradient'
       }
-    }
-  },
-  watch: {
-    $route () {
-      moverFocoPagina(this)
     }
   },
 }

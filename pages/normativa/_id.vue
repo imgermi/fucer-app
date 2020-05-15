@@ -93,6 +93,11 @@ export default {
       return indiceFavorito >= 0 ? true : false
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
   async created () {
     this.setPaginaCargando(true)
     try {

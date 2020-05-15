@@ -62,6 +62,11 @@ export default {
 	    return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
 	  }
 	},
+	beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
 	methods: {
 		...mapActions([
 	      'setPaginaCargando'

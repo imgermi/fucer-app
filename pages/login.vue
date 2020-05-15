@@ -85,6 +85,11 @@ export default {
       return this.pagina.cargando ? 'Cargando...' : 'Ingresar'
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
   mounted() {
     this.$refs.email.focus()
   },

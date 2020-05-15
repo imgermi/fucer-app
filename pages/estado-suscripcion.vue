@@ -39,7 +39,12 @@ export default {
     mensaje () {
       return this.mensajes[this.$store.state.auth.user.suscripcion.metadata.estado_invoice]
     }
-  }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
 }
 </script>
 

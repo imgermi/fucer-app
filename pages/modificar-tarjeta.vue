@@ -240,6 +240,12 @@ export default {
     }
   },
 
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
+
   mounted() {
     this.$refs.cardNumber.focus()
   },

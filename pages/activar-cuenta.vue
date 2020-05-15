@@ -51,6 +51,13 @@ export default {
   validate ({ params }) {
     return /^[0-9a-z]{32}$/.test(params.token)
   },
+
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
+
   created () {
     this.activarCuenta()
   },

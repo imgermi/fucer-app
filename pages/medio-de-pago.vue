@@ -43,6 +43,11 @@ export default {
       tituloPaso: 'Seleccione su medio de pago'
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
   head () {
     return {
       title: this.title,

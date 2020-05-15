@@ -53,6 +53,11 @@ export default {
       ],
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
   async created () {
     await this.obtenerConfigs()
   },

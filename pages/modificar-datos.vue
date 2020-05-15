@@ -66,6 +66,11 @@ export default {
 	computed: {
 		...mapState(['pagina'])
 	},
+	beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
 	methods: {
     ...mapActions([
       'setPaginaCargando'

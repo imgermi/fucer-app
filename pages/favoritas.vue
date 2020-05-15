@@ -48,6 +48,11 @@ export default {
   computed: {
     ...mapState('favoritos', ['normativas'])
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
   head () {
     return {
       title: this.title,
