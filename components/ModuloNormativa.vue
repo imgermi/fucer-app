@@ -1,16 +1,16 @@
 <template>
   <article class="normativa-module">
-    <div class="main">
-    	<h4>
-        <nuxt-link :to="url">{{ titulo }}</nuxt-link>
-      </h4>
-    	<p><nuxt-link :to="url">{{ bajada }}</nuxt-link></p>
-    </div>
-    <div class="extra">
-      <small v-if="categoria" :class="`tag normativa-module__tag ${categoriaUri}`">{{ categoria }}</small>
-    	<small><nuxt-link :to="url">{{ fecha | fecha('DD/MM/YY') }}</nuxt-link></small>
-      <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
-    </div>
+    <nuxt-link :to="url">
+      <div class="main">
+        <h4>{{ titulo }}</h4>
+        <p>{{ bajada }}</p>
+      </div>
+      <div class="extra">
+        <small v-if="categoria" :class="`tag normativa-module__tag ${categoriaUri}`">{{ categoria }}</small>
+        <small>{{ fecha | fecha('DD/MM/YY') }}</small>
+        <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
+      </div>
+    </nuxt-link>
   </article>
 </template>
 
