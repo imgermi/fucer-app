@@ -10,7 +10,13 @@
         ><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left">
           <span>Volver</span>
         </a>
-        <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
+        <FavoriteStar
+          :aria-label="(enFavoritos ? 'Quitar de' : 'Agregar a')+ ' favoritos'"
+          tabindex="0"
+          @click.native="cambiarFavorito"
+          @keyup.native.enter="cambiarFavorito"
+          :activa="enFavoritos"
+        />
       </div>
     </header>
     <main>
