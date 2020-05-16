@@ -1,6 +1,6 @@
 <template>
- <div>
-	<header class="main__header">
+ 	<div>
+		<header class="main__header">
 	    <div class="container">
 	      <button
 	      	class="hamburger"
@@ -8,7 +8,6 @@
 	      	@click="toggleMenu"
         	@keyup.enter="toggleMenu"
 	      	aria-label="Menú"
-	      	aria-expanded="menuId"
 	      	:aria-expanded="menuActivo.toString()"
       		:aria-controls="menuId"
 	      >
@@ -17,8 +16,14 @@
 	        </span>
 	        <h1>{{ title }}</h1>
 	      </button>
-	      <nuxt-link :to="{ name: 'buscar' }" class="rounded__btn--medium buscar">Buscar</nuxt-link>
-	      <form  @submit.prevent="buscar" class="form__buscar">
+	      <nuxt-link
+					:to="{ name: 'buscar' }"
+					:tag="$route.name === 'buscar' ? 'span' : 'a'"
+					class="rounded__btn--medium buscar"
+				>
+					Buscar
+	      </nuxt-link>
+	      <form @submit.prevent="buscar" class="form__buscar">
 					<label for="buscar" class="form__buscar--icon"></label>
 	      	<input
 	      		v-model="busqueda"
@@ -32,6 +37,7 @@
 	    </div>
 	  </header>
 	  <nav
+			aria-label="Navegación principal"
 	  	:id="menuId"
 	  	:class="'main__nav--container' + (menuActivo ? ' active' : '')"
 	  >
@@ -46,12 +52,47 @@
 	  			<small>{{ $auth.user.email }}</small>
 	  		</div>
 		  	<ul>
-		  		<li><nuxt-link :to="{ name: 'inicio' }">Inicio</nuxt-link></li>
-		  		<li><nuxt-link :to="{ name: 'buscar' }">Buscar</nuxt-link></li>
+		  		<li>
+						<nuxt-link
+							:tag="$route.name === 'inicio' ? 'span' : 'a'"
+							:to="{ name: 'inicio' }"
+						>
+							Inicio
+						</nuxt-link>
+					</li>
+		  		<li>
+						<nuxt-link
+							:tag="$route.name === 'buscar' ? 'span' : 'a'"
+							:to="{ name: 'buscar' }"
+						>
+							Buscar
+						</nuxt-link>
+					</li>
 		  		<li><a href="https://www.dnrpa.gov.ar/Digesto-Automotor/digesto.php" target="_blank">Digesto</a></li>
-		  		<li><nuxt-link :to="{ name: 'favoritas' }">Favoritas</nuxt-link></li>
-		  		<li><nuxt-link :to="{ name: 'configuracion' }">Configuración</nuxt-link></li>
-		  		<li><nuxt-link :to="{ name: 'ayuda' }">Ayuda</nuxt-link></li>
+		  		<li>
+						<nuxt-link
+							:tag="$route.name === 'favoritas' ? 'span' : 'a'"
+							:to="{ name: 'favoritas' }"
+						>
+							Favoritas
+						</nuxt-link>
+					</li>
+		  		<li>
+						<nuxt-link
+							:tag="$route.name === 'configuracion' ? 'span' : 'a'"
+							:to="{ name: 'configuracion' }"
+						>
+							Configuración
+						</nuxt-link>
+					</li>
+		  		<li>
+						<nuxt-link
+							:tag="$route.name === 'ayuda' ? 'span' : 'a'"
+							:to="{ name: 'ayuda' }"
+						>
+							Ayuda
+						</nuxt-link>
+					</li>
 		  		<li v-if="$auth.loggedIn">
 		  			<a href="#" @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a>
 		  		</li>
