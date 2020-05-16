@@ -3,6 +3,7 @@
     <div class="container">
       <a
         href="#"
+        title="Volver"
         class="cancelar__btn"
         @click.prevent="$router.go(-1)"
         @keyup.enter.prevent="$router.go(-1)"
@@ -11,10 +12,10 @@
           <path d="M16 0L0 16L16 32" transform="translate(1 1)" stroke="#95989A"/>
         </svg>
       </a>
-      <div class="paso">
+      <h1 class="paso">
         <p v-if="nroPaso" class="paso__nro">Paso {{ nroPaso }}/3</p>
         <span class="paso__titulo">{{ tituloPaso }}</span>
-      </div>
+      </h1>
     </div>
   </header>
 </template>
