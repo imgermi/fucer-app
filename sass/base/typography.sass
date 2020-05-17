@@ -61,3 +61,19 @@ h6
 	font-size: 20px
 	font-weight: 700
 	line-height: 26px
+
+*:focus
+	/* Provide basic, default focus styles */
+	outline-color: $lightBlue
+	outline-width: 1px
+	outline-style: dotted
+
+.js-focus-visible :focus:not([data-focus-visible-added])
+	/* Remove default focus styles for mouse users ONLY if :focus-visible is supported on this platform. */
+	outline: none	
+
+.js-focus-visible [data-focus-visible-added]
+	/* Optionally: If :focus-visible is supported on this platform, provide enhanced focus styles for keyboard focus. */
+	outline-color: $amarillo
+	outline-width: 5px
+	outline-style: solid
