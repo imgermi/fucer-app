@@ -1,9 +1,37 @@
 <template>
   <ul class="skip-links">
-    <li><a href="#menu-principal" class="screen-reader-shortcut"> Saltar a navegación principal</a></li>
-    <li><a href="#contenido" class="screen-reader-shortcut">Saltar a contenido principal</a></li>
+    <li>
+      <a
+        href="#menu-principal"
+        @click="navegarAMenu"
+        @keyup.enter="navegarAMenu"
+        class="screen-reader-shortcut"
+      >
+        Saltar a navegación principal
+      </a>
+    </li>
+    <li>
+      <nuxt-link
+        :to="{hash: '#contenido'}"
+        class="screen-reader-shortcut"
+      >
+        Saltar a contenido principal
+      </nuxt-link>
+    </li>
   </ul>
 </template>
+
+<script>
+export default {
+  methods: {
+    navegarAMenu () {
+      // Para que el menú se abra y el foco se desplace automáticamente
+      // el menú tiene que estar visible antes de producirse la navegación.
+      this.$store.dispatch('setMenuActivo', true)
+    }
+  }
+}
+</script>
 
 <style lang="sass">
 .screen-reader-shortcut

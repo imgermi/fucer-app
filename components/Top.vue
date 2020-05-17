@@ -8,7 +8,7 @@
 	      	@click="toggleMenu"
         	@keyup.enter="toggleMenu"
 	      	aria-label="Menú"
-	      	:aria-expanded="menuActivo.toString()"
+	      	:aria-expanded="menu.activo.toString()"
       		:aria-controls="menuId"
 	      >
 	        <span class="hamburger-box">
@@ -37,10 +37,9 @@
 	    </div>
 	  </header>
 	  <nav
-			@blur="closeMenu"
 			aria-label="Navegación principal"
 	  	:id="menuId"
-	  	:class="'main__nav--container' + (menuActivo ? ' active' : '')"
+	  	:class="'main__nav--container' + (menu.activo ? ' active' : '')"
 	  >
 			<div
 			class="overlay"
@@ -48,8 +47,11 @@
 			@keyup.enter="closeMenu"
 			></div>
 			<focus-trap
-				:active="menuActivo"
-				:initial-focus="() => $refs.mainMenuInitialFocus"
+				:active="menu.activo"
+				:initial-focus="() => $refs.mainMenuInitialFocus.$el"
+				:returnFocusOnDeactivate="false"
+				v-on:activate="openMenu"
+				v-on:deactivate="closeMenu"
 			>
 		  	<div class="main__nav">
 					<div v-if="$auth.loggedIn" class="user__info">
@@ -126,16 +128,16 @@ export default {
   data () {
   	return {
   		menuId: 'menu-principal',
-  		busqueda: this.$store.state.buscar.busqueda,
-    	menuActivo: false
+  		busqueda: this.$store.state.buscar.busqueda
     }
   },
   computed: {
-		...mapState(['pagina'])
-  },
+		...mapState(['pagina','menu'])
+	},
   methods: {
   	...mapActions([
-      'setPaginaCargando'
+      'setPaginaCargando',
+      'setMenuActivo',
     ]),
     ...mapActions('buscar',[
       'buscarNormativas'
@@ -146,11 +148,22 @@ export default {
     	await this.buscarNormativas(this.busqueda)
     	this.setPaginaCargando(false)
     },
-    toggleMenu: function () {
-      this.menuActivo = !this.menuActivo
+    toggleMenu () {
+			if (this.menu.activo) {
+				this.closeMenu()
+			} else {
+				this.openMenu()
+			}
+		},
+		openMenu () {
+			this.setMenuActivo(true)
+			this.$refs.mainMenuInitialFocus.$el.focus()
     },
-    closeMenu: function (event) {
-      this.menuActivo = false
+    closeMenu () {
+			this.setMenuActivo(false)
+			if ('#menu-principal' === this.$route.hash) {
+				this.$router.push({ hash: '' })
+			}
     },
     async logout () {
     	await this.$auth.logout()

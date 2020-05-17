@@ -107,7 +107,11 @@ module.exports = {
 
   router: {
     base: '/',
-    middleware: ['sesiones-simultaneas','auth', 'init'],
+    middleware: [
+      'sesiones-simultaneas',
+      'auth',
+      'init',
+    ],
     extendRoutes (routes, resolve) {
       routes.push({
         name: 'normativa',

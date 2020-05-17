@@ -68,11 +68,11 @@ h6
 	outline-width: 1px
 	outline-style: dotted
 
-.js-focus-visible :focus:not([data-focus-visible-added])
+.js-focus-visible :focus:not(.focus-visible)
 	/* Remove default focus styles for mouse users ONLY if :focus-visible is supported on this platform. */
 	outline: none	
 
-.js-focus-visible [data-focus-visible-added]
+.js-focus-visible .focus-visible
 	/* Optionally: If :focus-visible is supported on this platform, provide enhanced focus styles for keyboard focus. */
 	outline-color: $amarillo
 	outline-width: 5px
