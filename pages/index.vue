@@ -9,7 +9,7 @@
             </nuxt-link>
           </div>
         </header>
-        <main class="band">
+        <main id="contenido" class="band">
           <div class="container">
             <h1 class="intro__heading" ref="pageFocusTarget">Consulte el <br> contenido de la <br> normativa aplicable a la <br> registración de automotores</h1>
             <nuxt-link :to="{ name: 'seleccione-su-plan' }" class="rounded__btn--full green">Iniciar 15 días gratis</nuxt-link>

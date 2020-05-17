@@ -5,7 +5,7 @@
       :title="title"
       ref="pageFocusTarget"
     />
-    <main class="band">
+    <main id="contenido" class="band">
       <div class="container">
         <span class="small__heading">Aquí verá las normativas que marcó como favoritas</span>
         <div class="normativas-container">

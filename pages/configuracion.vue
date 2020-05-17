@@ -4,7 +4,7 @@
       :title="title"
       ref="pageFocusTarget"
     />
-    <main class="band datos">
+    <main id="contenido" class="band datos">
       <div class="container">
         <div class="datos__personales">
           <h2>Datos personales</h2>

@@ -5,7 +5,7 @@
 			:title="title"
 			ref="pageFocusTarget"
 		/>
-		<main class="band">
+		<main id="contenido" class="band">
 			<div class="container">
 				<h1>¿Necesita ayuda?</h1>
 				<h2>Comuníquese con nosotros</h2>

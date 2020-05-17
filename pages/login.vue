@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div id="contenido" class="login">
     <SecondaryTop
       :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
