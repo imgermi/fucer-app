@@ -1,11 +1,11 @@
 <template>
-  <div id="contenido" class="mail-confirmado">
+  <main id="contenido" class="mail-confirmado">
     <SecondaryTop
       :nroPaso="nroPaso"
       :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
     />
-    <main class="band">
+    <div class="band">
       <div class="container">
         <h1>
           <span v-html="mensaje"></span>
@@ -19,8 +19,8 @@
           </nuxt-link>
         </div>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>

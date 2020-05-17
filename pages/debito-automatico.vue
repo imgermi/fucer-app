@@ -1,11 +1,11 @@
 <template>
-  <div id="contenido" class="registro">
+  <main id="contenido" class="registro">
     <SecondaryTop
       :nroPaso="nroPaso"
       :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
     />
-    <main class="band form__container">
+    <div class="band form__container">
       <div class="container">
 
         <div
@@ -106,8 +106,8 @@
           </button>
         </form>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>

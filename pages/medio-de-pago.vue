@@ -1,11 +1,11 @@
 <template>
-  <div id="contenido" class="medio-de-pago">
+  <main id="contenido" class="medio-de-pago">
     <SecondaryTop
       :nroPaso="nroPaso"
       :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
     />
-    <main class="band">
+    <div class="band">
       <div class="container">
         <div v-if="$auth.loggedIn" class="user">
           <span>Sus datos personales</span>
@@ -21,8 +21,8 @@
           <span class="signup__agregados">¿Quiere iniciar con otra cuenta? <a @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a></span>
         </div>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>

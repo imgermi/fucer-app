@@ -1,11 +1,11 @@
 <template>
-  <div id="contenido" class="seleccione-su-plan">
+  <main id="contenido" class="seleccione-su-plan">
     <SecondaryTop
       :nroPaso="nroPaso"
       :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
     />
-    <main class="band">
+    <div class="band">
       <div class="container">
         <div class="plan__titulo"><span>Premium</span></div>
         <span
@@ -22,8 +22,8 @@
         </ul>
         <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full green">Siguiente</nuxt-link>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
