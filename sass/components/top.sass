@@ -94,6 +94,21 @@
 					padding: 10px 20px
 			.nuxt-link-active
 				color: #204A42
+	.main__nav--cerrar
+		clip: rect(0,0,0,0)
+		height: 1px
+		width: 1px
+		overflow: hidden
+		word-wrap: normal
+		position: absolute
+		top: 0
+		right: 0
+		padding: 1.2em
+		transition: all .3s;
+		&:focus
+			height: auto
+			width: auto
+			clip: auto
 	.logo
 		position: absolute
 		left: 30px
