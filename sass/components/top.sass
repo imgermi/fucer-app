@@ -105,10 +105,11 @@
 		right: 0
 		padding: 1.2em
 		transition: all .3s;
-		&:focus
-			height: auto
-			width: auto
-			clip: auto
+		@media(max-width: 991px)
+			&:focus
+				height: auto
+				width: auto
+				clip: auto
 	.logo
 		position: absolute
 		left: 30px
