@@ -1,10 +1,10 @@
 <template>
-  <div id="contenido" class="login">
+  <main id="contenido" class="login">
     <SecondaryTop
       :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
     />
-    <main class="band form__container">
+    <div class="band form__container">
       <div class="container">
 
         <div class="msj-error" v-if="error">
@@ -53,8 +53,8 @@
         <p class="signup__agregados">¿Olvidó su clave? <nuxt-link :to="{ name: 'restaurar-clave' }">Haga click aquí</nuxt-link>.</p>
         <p class="signup__agregados">¿Registró su usuario pero no recibió el mail para activarlo? <nuxt-link :to="{ name: 'ingrese-su-email' }">Envíelo de nuevo</nuxt-link>.</p>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
