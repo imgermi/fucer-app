@@ -2,7 +2,7 @@
   <div class="inicio">
     <Alerta />
   	<Top :title="title" />
-    <main>
+    <main id="contenido">
     <section class="carousel__container bg__gradient">
       <div class="container">
         <h2 ref="pageFocusTarget">Novedades</h2>

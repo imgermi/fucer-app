@@ -1,5 +1,5 @@
 <template>
-  <div class="registro">
+  <div id="contenido" class="registro">
     <SecondaryTop
       :nroPaso="nroPaso"
       :tituloPaso="tituloPaso"

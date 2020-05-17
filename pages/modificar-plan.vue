@@ -6,7 +6,7 @@
   		</div>
   	</header>
 
-    <main>
+    <main id="contenido">
     	<section class="band">
     		<div class="container">
     			<div class="datos__plan">

@@ -1,5 +1,5 @@
 <template>
-  <div class="confirme-su-email">
+  <div id="contenido" class="confirme-su-email">
     <SecondaryTop
       :nroPaso="nroPaso"
       :tituloPaso="tituloPaso"

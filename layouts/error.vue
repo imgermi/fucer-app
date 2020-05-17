@@ -1,6 +1,7 @@
 <template>
   <div class="error">
     <vue-announcer />
+    <skip-links />
     <SecondaryTop/>
     <section class="band">
       <div class="container">
@@ -15,10 +16,12 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
+import SkipLinks from '~/components/SkipLinks.vue'
 
 export default {
   components: {
-  	SecondaryTop
+    SecondaryTop,
+    SkipLinks
   },
   props: ['error'],
   data () {

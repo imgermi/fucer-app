@@ -1,5 +1,5 @@
 <template>
-  <div class="seleccione-su-plan">
+  <div id="contenido" class="seleccione-su-plan">
     <SecondaryTop
       :nroPaso="nroPaso"
       :tituloPaso="tituloPaso"

@@ -1,7 +1,7 @@
 <template>
 	<div class="ingresar-mail">
 		<SecondaryTop />
-		<main class="band">
+		<main id="contenido" class="band">
 			<div class="container form__container">
 
 				<h1 class="intro__heading" ref="pageFocusTarget">¿No recibió el mail de confirmación?</h1>

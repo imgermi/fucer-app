@@ -1,5 +1,5 @@
 <template>
-  <div class="medio-de-pago">
+  <div id="contenido" class="medio-de-pago">
     <SecondaryTop
       :nroPaso="nroPaso"
       :tituloPaso="tituloPaso"

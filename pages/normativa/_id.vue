@@ -19,7 +19,7 @@
         />
       </div>
     </header>
-    <main>
+    <main id="contenido">
     <section class="top">
       <div class="container">
         <h1 ref="pageFocusTarget">

@@ -2,7 +2,7 @@
   <div class="buscar">
     <Alerta />
   	<Top />
-    <main class="band">
+    <main id="contenido" class="band">
       <div class="container" ref="pageFocusTarget">
         <div v-if="!pagina.cargando">
           <p

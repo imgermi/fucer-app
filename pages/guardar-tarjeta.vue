@@ -57,7 +57,7 @@
         </nuxt-link>
       </div>
     </section>
-    <main class="band">
+    <main id="contenido" class="band">
       <div class="container">
         <h1 class="intro__heading" ref="pageFocusTarget">
           <span v-html="titulo"></span>
