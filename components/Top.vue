@@ -37,70 +37,82 @@
 	    </div>
 	  </header>
 	  <nav
+			@blur="closeMenu"
 			aria-label="Navegación principal"
 	  	:id="menuId"
 	  	:class="'main__nav--container' + (menuActivo ? ' active' : '')"
 	  >
-	  	 <div
-	  	 	class="overlay"
-	  	 	@click="closeMenu"
-	  	 	@keyup.enter="closeMenu"
-	  	 ></div>
-		  <div class="main__nav">
-	  		<div v-if="$auth.loggedIn" class="user__info">
-	  			<span>{{ $auth.user.nombre }}</span>
-	  			<small>{{ $auth.user.email }}</small>
-	  		</div>
-		  	<ul>
-		  		<li>
-						<nuxt-link
-							:tag="$route.name === 'inicio' ? 'span' : 'a'"
-							:to="{ name: 'inicio' }"
-						>
-							Inicio
-						</nuxt-link>
-					</li>
-		  		<li>
-						<nuxt-link
-							:tag="$route.name === 'buscar' ? 'span' : 'a'"
-							:to="{ name: 'buscar' }"
-						>
-							Buscar
-						</nuxt-link>
-					</li>
-		  		<li><a href="https://www.dnrpa.gov.ar/Digesto-Automotor/digesto.php" target="_blank">Digesto</a></li>
-		  		<li>
-						<nuxt-link
-							:tag="$route.name === 'favoritas' ? 'span' : 'a'"
-							:to="{ name: 'favoritas' }"
-						>
-							Favoritas
-						</nuxt-link>
-					</li>
-		  		<li>
-						<nuxt-link
-							:tag="$route.name === 'configuracion' ? 'span' : 'a'"
-							:to="{ name: 'configuracion' }"
-						>
-							Configuración
-						</nuxt-link>
-					</li>
-		  		<li>
-						<nuxt-link
-							:tag="$route.name === 'ayuda' ? 'span' : 'a'"
-							:to="{ name: 'ayuda' }"
-						>
-							Ayuda
-						</nuxt-link>
-					</li>
-		  		<li v-if="$auth.loggedIn">
-		  			<a href="#" @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a>
-		  		</li>
-		  	</ul>
-		  	<span class="logo">
-			  	<img src="~/assets/img/logo-fucernet.svg" alt="" width="100">		
-		  	</span>
-		  </div>
+			<div
+			class="overlay"
+			@click="closeMenu"
+			@keyup.enter="closeMenu"
+			></div>
+			<focus-trap
+				:active="menuActivo"
+				:initial-focus="() => $refs.mainMenuInitialFocus"
+			>
+		  	<div class="main__nav">
+					<div v-if="$auth.loggedIn" class="user__info">
+						<span>{{ $auth.user.nombre }}</span>
+						<small>{{ $auth.user.email }}</small>
+					</div>
+					<ul>
+						<li>
+							<nuxt-link
+								ref="mainMenuInitialFocus"
+								:tag="$route.name === 'inicio' ? 'span' : 'a'"
+								:to="{ name: 'inicio' }"
+							>
+								Inicio
+							</nuxt-link>
+						</li>
+						<li>
+							<nuxt-link
+								:tag="$route.name === 'buscar' ? 'span' : 'a'"
+								:to="{ name: 'buscar' }"
+							>
+								Buscar
+							</nuxt-link>
+						</li>
+						<li><a href="https://www.dnrpa.gov.ar/Digesto-Automotor/digesto.php" target="_blank">Digesto</a></li>
+						<li>
+							<nuxt-link
+								:tag="$route.name === 'favoritas' ? 'span' : 'a'"
+								:to="{ name: 'favoritas' }"
+							>
+								Favoritas
+							</nuxt-link>
+						</li>
+						<li>
+							<nuxt-link
+								:tag="$route.name === 'configuracion' ? 'span' : 'a'"
+								:to="{ name: 'configuracion' }"
+							>
+								Configuración
+							</nuxt-link>
+						</li>
+						<li>
+							<nuxt-link
+								:tag="$route.name === 'ayuda' ? 'span' : 'a'"
+								:to="{ name: 'ayuda' }"
+							>
+								Ayuda
+							</nuxt-link>
+						</li>
+						<li v-if="$auth.loggedIn">
+							<a href="#" @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a>
+						</li>
+					</ul>
+					<button
+						class="main__nav--cerrar"
+						@click="closeMenu"
+						@keyup.enter="closeMenu"
+					>Cerrar menú</button>
+					<span class="logo">
+						<img src="~/assets/img/logo-fucernet.svg" alt="" width="100">		
+					</span>
+		  	</div>
+			</focus-trap>
 	  </nav>
   </div>
 </template>
