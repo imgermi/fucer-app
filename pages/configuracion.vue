@@ -20,10 +20,12 @@
             <p>Contraseña</p>
             <span>*******</span>
           </div>
-          <nuxt-link :to="{ name: 'modificar-datos' }">
-            <button class="rounded__btn--medium">
-              Modificar
-            </button>
+          <nuxt-link
+            :to="{ name: 'modificar-datos' }"
+            :tag="button"
+            class="rounded__btn--medium"
+          >
+            Modificar
           </nuxt-link>
         </div>
 
@@ -34,10 +36,12 @@
               <p>Número</p>
               <span>{{ metadata.tarjeta }}</span>
             </div>
-            <nuxt-link :to="{ name: 'modificar-tarjeta' }">
-              <button class="rounded__btn--medium">
-                Modificar
-              </button>
+            <nuxt-link
+              :to="{ name: 'modificar-tarjeta' }"
+              :tag="button"
+              class="rounded__btn--medium"
+            >
+              Modificar
             </nuxt-link>
           </template>
 
@@ -47,10 +51,12 @@
               <p>CBU</p>
               <span>{{ metadata.cbu }}</span>
             </div>
-            <nuxt-link :to="{ name: 'modificar-debito' }">
-              <button class="rounded__btn--medium">
-                Modificar
-              </button>
+            <nuxt-link
+              :to="{ name: 'modificar-debito' }"
+              :tag="button"
+              class="rounded__btn--medium"
+            >
+              Modificar
             </nuxt-link>
           </template>
         </div>
@@ -68,8 +74,10 @@
           <nuxt-link 
             v-if="$auth.user.suscripcion.tipo !== 'ilimitado'"
             :to="{ name: 'modificar-plan' }"
+            :tag="button"
+            class="rounded__btn--medium"
           >
-            <button class="rounded__btn--medium">Modificar plan</button>
+            Modificar plan
           </nuxt-link>
         </template>
       </div>
