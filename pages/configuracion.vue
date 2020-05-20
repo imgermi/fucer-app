@@ -2,12 +2,11 @@
   <div class="configuracion">
   	<Top
       :title="title"
-      ref="pageFocusTarget"
     />
     <main id="contenido" class="band datos">
       <div class="container">
         <div class="datos__personales">
-          <h2>Datos personales</h2>
+          <h2 ref="pageFocusTarget">Datos personales</h2>
           <div class="datos__personales--dato">
             <p>Nombre</p>
             <span>{{ $auth.user.nombre }}</span>
@@ -106,7 +105,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
     })
   },
 }

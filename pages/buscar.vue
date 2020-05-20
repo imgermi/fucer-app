@@ -1,9 +1,9 @@
 <template>
   <div class="buscar">
     <Alerta />
-  	<Top />
+  	<Top ref="pageFocusTarget" />
     <main id="contenido" class="band">
-      <div class="container" ref="pageFocusTarget">
+      <div class="container">
         <div v-if="!pagina.cargando">
           <p
             v-if="!$route.query.busqueda && !busqueda"
@@ -70,7 +70,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
     })
   },
   head () {

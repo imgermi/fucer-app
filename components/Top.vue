@@ -14,8 +14,8 @@
 	        <span class="hamburger-box">
 	          <span class="hamburger-inner"></span>
 	        </span>
-	        <h1>{{ title }}</h1>
 	      </button>
+	      <h1 v-if="title">{{ title }}</h1>
 	      <nuxt-link
 					:to="{ name: 'buscar' }"
 					:tag="$route.name === 'buscar' ? 'span' : 'a'"

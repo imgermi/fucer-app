@@ -1,7 +1,7 @@
 <template>
   <div class="normativa">
     <Alerta />
-    <header class="goBack__header">
+    <nav id="menu-principal" class="goBack__header">
       <div class="container">
         <a
           href="#"
@@ -19,19 +19,19 @@
           :activa="enFavoritos"
         />
       </div>
-    </header>
-    <main>
-      <section class="top">
-        <div class="container">
-          <h1 ref="pageFocusTarget">
-            {{ titulo }}
-            <small v-if="categoria" :class="`tag ${categoriaUri}`">{{ categoria }}</small>
-          </h1>
-          <h2>{{ bajada }}</h2>
-          <small v-if="fecha">{{ fecha | fecha('DD/MM/YY') }}</small>
-        </div>
-      </section>
-      <section class="band cuerpo">
+    </nav>
+    <main id="contenido">
+    <section class="top">
+      <div class="container">
+        <h1 ref="pageFocusTarget">
+          <small v-if="categoria" :class="`tag normativa__tag ${categoriaUri}`">{{ categoria }}</small>
+          <div>{{ titulo }}</div>
+        </h1>
+        <h2>{{ bajada }}</h2>
+        <time v-if="fecha" :datetime="fecha | fecha('YYYY-MM-DD')">{{ fecha | fecha('DD/MM/YY') }}</time>
+      </div>
+    </section>
+    <section class="band cuerpo">
         <div class="container">
           <div v-if="!pagina.cargando">
             <h6>Introducción</h6>
