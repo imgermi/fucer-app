@@ -3,11 +3,10 @@
 	  <Alerta />
 		<Top
 			:title="title"
-			ref="pageFocusTarget"
 		/>
 		<main id="contenido" class="band">
 			<div class="container">
-				<h1>¿Necesita ayuda?</h1>
+				<h1 ref="pageFocusTarget" tabindex="0">¿Necesita ayuda?</h1>
 				<h2>Comuníquese con nosotros</h2>
 				<p>Estamos trabajando permanentemente sobre la app para mejorarla. Si tiene algún comentario para hacernos sobre la misma, o desea recibir ayuda para resolver un problema, no deje de contactarnos.</p>
 				<a href="mailto:soporte@fucer.com.ar">
@@ -37,7 +36,7 @@
 
 		beforeRouteEnter (to, from, next) {
 			next(vm => {
-				vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+				vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
 			})
 		},
 

@@ -1,7 +1,7 @@
 <template>
   <div class="normativa">
     <Alerta />
-    <header class="goBack__header">
+    <nav id="menu-principal" class="goBack__header">
       <div class="container">
         <a
           href="#"
@@ -19,7 +19,7 @@
           :activa="enFavoritos"
         />
       </div>
-    </header>
+    </nav>
     <main id="contenido">
     <section class="top">
       <div class="container">

@@ -3,12 +3,11 @@
     <Alerta/>
   	<Top
       :title="title"
-      ref="pageFocusTarget"
     />
     <main id="contenido" class="band">
       <div class="container">
         <span class="small__heading">Aquí verá las normativas que marcó como favoritas</span>
-        <div class="normativas-container">
+        <div class="normativas-container" ref="pageFocusTarget">
           <ModuloNormativa
             v-for="normativa in normativas"
             :key="normativa.id + '-ultima'"
@@ -50,7 +49,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
     })
   },
   head () {
