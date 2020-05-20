@@ -4,8 +4,9 @@
     <header class="goBack__header">
       <div class="container">
         <a
-          @click="$router.go(-1)"
-          @keyup.enter="$router.go(-1)"
+          href="#"
+          @click.prevent="$router.go(-1)"
+          @keyup.enter.prevent="$router.go(-1)"
           class="volver-btn"
         ><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left">
           <span>Volver</span>
