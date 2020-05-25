@@ -37,20 +37,33 @@
             <h6>Introducción</h6>
             <span v-if="autor">Por {{ autor }}</span>
             <div v-if="intro" v-html="intro"></div>
-            <button
+            <a
+              href="#contenido-normativa"
               class="rounded__btn--medium green"
+              ref="btnLeer"
               @click="leerNormativa"
               @keyup.enter="leerNormativa"
-            >Leer</button>
-            <div :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
-              <button
-                class="cerrar"
-                @click="cerrarNormativa"
-                @keyup.enter="cerrarNormativa"
-              >Cerrar</button>
-              <h1>{{ titulo }}</h1>
-              <h2>{{ bajada }}</h2>
-              <div v-html="cuerpo"></div>
+            >Leer</a>
+            <div id="contenido-normativa" :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
+              <focus-trap
+                :active="mostrarCuerpo"
+                :initial-focus="() => $refs.btnCerrar"
+                :returnFocusOnDeactivate="false"
+                v-on:activate="leerNormativa"
+                v-on:deactivate="cerrarNormativa"
+              >
+                <div>
+                  <button
+                    ref="btnCerrar"
+                    class="cerrar"
+                    @click="cerrarNormativa"
+                    @keyup.enter="cerrarNormativa"
+                  >Cerrar</button>
+                  <h1>{{ titulo }}</h1>
+                  <h2>{{ bajada }}</h2>
+                  <div v-html="cuerpo"></div>
+                </div>
+              </focus-trap>
             </div>
           </div>
           <div v-else>
@@ -145,10 +158,12 @@ export default {
   methods: {
     ...mapActions(['setPaginaCargando']),
     leerNormativa () {
-      this.mostrarCuerpo = !this.mostrarCuerpo
+      this.mostrarCuerpo = true
     },
     cerrarNormativa () {
-      this.mostrarCuerpo = !this.mostrarCuerpo
+      this.mostrarCuerpo = false
+      this.$router.push({ hash: '' })
+      this.$refs.btnLeer.focus()
     },
     ...mapActions('favoritos', [
       'agregarFavorito',
@@ -157,6 +172,7 @@ export default {
     async cambiarFavorito () {
       if( this.enFavoritos ){
         await this.quitarFavorito(this.id)
+        this.$announcer.set(`Quitado de favoritos`)
       } else {
         await this.agregarFavorito({
           id: this.id,
@@ -165,6 +181,7 @@ export default {
           fecha: this.fecha,
           url: this.url
         })
+        this.$announcer.set(`Agregado a favoritos`)
       }
     }
   },
