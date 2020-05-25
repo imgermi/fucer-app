@@ -180,6 +180,7 @@ export default {
         })
       } catch(error) {
         this.error = error
+        this.$announcer.set(this.error)
       }
     }
   }

@@ -8,7 +8,7 @@
           @click.prevent="$router.go(-1)"
           @keyup.enter.prevent="$router.go(-1)"
           class="volver-btn"
-        ><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left">
+        ><img src="~/assets/img/arrow-left.svg" alt="" class="arrow-left">
           <span>Volver</span>
         </a>
         <FavoriteStar
@@ -89,6 +89,7 @@ export default {
   data () {
     return {
       id: 0,
+      title: '',
       titulo: '',
       bajada: '',
       autor: '',
@@ -141,8 +142,13 @@ export default {
         }
       }
       this.setPaginaCargando(false)
+      this.$announcer.set(
+        `${this.titulo} ${this.$announcer.options.complementRoute}`,
+        this.$announcer.options.politeness
+      )
     } catch (e) {
       this.$router.push({name: '404'})
+      console.log(e)
     }
   },
   head () {

@@ -155,10 +155,12 @@ export default {
         })
         .catch(e => {
           this.error = e.response.data.error.message.replace('Bad Request:', '')
+          this.$announcer.set(this.error)
         })
 
       } catch(e) {
         this.error = e.response.data.error.message.replace('Bad Request:', '')
+        this.$announcer.set(this.error)
       }
 
       this.setPaginaCargando(false)

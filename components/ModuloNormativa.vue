@@ -50,6 +50,7 @@
       async cambiarFavorito () {
         if( this.enFavoritos ){
           await this.quitarFavorito(this.id)
+          this.$announcer.set('Quitado de favoritos')
         } else {
           await this.agregarFavorito({
             id: this.id,
@@ -58,6 +59,7 @@
             fecha: this.fecha,
             url: this.url
           })
+          this.$announcer.set('Agregado a favoritos')
         }
       }
     }

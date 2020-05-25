@@ -26,7 +26,7 @@ export default {
   props: ['error'],
   data () {
     return {
-      title: 'Error - 404',
+      title: 'Error - Página no encontrada',
     }
   },
   beforeRouteEnter (to, from, next) {

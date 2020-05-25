@@ -31,8 +31,10 @@ export default {
       this.pagina ++
       let oldMensaje = this.mensaje
       this.mensaje = 'Cargando...'
+      this.$announcer.set(this.mensaje)
       await this.getNormativasMasNuevas(this.pagina)
       this.mensaje = oldMensaje
+      this.$announcer.set('Normativas cargadas')
     }
   }
 }

@@ -96,9 +96,11 @@ export default {
         await this.$auth.fetchUser()
 
         this.error = false
-        this.info = 'Los datos fueron actualizados'
+				this.info = 'Los datos fueron actualizados'
+				this.$announcer.set(this.info)
       } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
+				this.error = e.response.data.error.message.replace('Bad Request:', '')
+				this.$announcer.set(this.error)
       }
       this.setPaginaCargando(false)
     }
