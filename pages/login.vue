@@ -2,7 +2,6 @@
   <main id="contenido" class="login">
     <SecondaryTop
       :tituloPaso="tituloPaso"
-      ref="pageFocusTarget"
     />
     <div class="band form__container">
       <div class="container">
@@ -19,7 +18,7 @@
               name="email"
               v-model="email"
               id="email"
-              ref="email"
+              ref="pageFocusTarget"
               v-validate="'required'"
               :class="{'error': errors.has('email') }"
               placeholder="Email"
@@ -50,10 +49,10 @@
           </button>
         </form>
         <br>
-        <p class="signup__agregados">¿Olvidó su clave? <nuxt-link :to="{ name: 'restaurar-clave' }">Haga click aquí</nuxt-link>.</p>
-        <p class="signup__agregados">¿Registró su usuario pero no recibió el mail para activarlo? <nuxt-link :to="{ name: 'ingrese-su-email' }">Envíelo de nuevo</nuxt-link>.</p>
-      </div>
-    </div>
+        <p class="signup__agregados"><nuxt-link :to="{ name: 'restaurar-clave' }">¿Olvidó su clave? <b>Haga click aquí</b></nuxt-link>.</p>
+        <p class="signup__agregados"><nuxt-link :to="{ name: 'ingrese-su-email' }">¿Registró su usuario pero no recibió el mail para activarlo? <b>Envíelo de nuevo</b></nuxt-link>.</p>
+      </div></div>
+    
   </main>
 </template>
 
@@ -91,11 +90,11 @@ export default {
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
       )
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
     })
   },
   mounted() {
-    this.$refs.email.focus()
+    this.$refs.pageFocusTarget.focus()
   },
   methods: {
      ...mapActions([
