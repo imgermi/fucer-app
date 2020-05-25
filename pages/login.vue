@@ -121,6 +121,7 @@ export default {
       })
       .catch(e => {
         this.error = 'Revise sus credenciales por favor. Algún dato no es correcto o el usuario todavía no está activo.'
+        this.$announcer.set(this.error)
       })
       this.setPaginaCargando(false)
     }

@@ -112,11 +112,13 @@ export default {
 		      password: this.password,
 		    })
 		    this.error = false
-		  	this.info = 'Hemos actualizado su clave. Por favor inicie sesión con sus nuevas credenciales.'
+				this.info = 'Hemos actualizado su clave. Por favor inicie sesión con sus nuevas credenciales.'
+				this.$announcer.set(this.info)
 		  	setTimeout(() => this.$router.push({'name': 'inicio'}), 4000)
 		  } catch(e) {
 		    this.error = e.response.data.error.message.replace('Bad Request:', '')
-		    this.info = false
+				this.info = false
+				this.$announcer.set(this.error)
 		  }
 		  this.setPaginaCargando(false)
 		}

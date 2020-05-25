@@ -177,10 +177,12 @@ export default {
         await this.$auth.fetchUser()
         this.info = 'Los datos fueron actualizados'
         this.error = false
+        this.$announcer.set(this.info)
         setTimeout(() => this.info = false, 3000)
       } catch(error) {
         this.error = error
         this.info = false
+        this.$announcer.set(this.error)
       }
     }
   },

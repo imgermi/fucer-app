@@ -154,14 +154,17 @@ export default {
           this.error = 'Por seguridad necesitamos que vuelva a cargar los datos de su tarjeta.'
         }
       }
+      this.$announcer.set(this.titulo + '. ' + this.error)
     },
 
     async verifyCard () {
       this.titulo = 'Verificando tarjeta...'
+      this.$announcer.set(this.titulo)
       await this.authorizePayment()
       // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/webhooks/payment-status/
       if (this.payment.status !== 'authorized') {
         this.error = 'No se pudo verificar que la tarjeta sea apta para hacer suscripciones. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.'
+        this.$announcer.set(this.error)
       }else{
         await this.cancelPayment()
       }
@@ -204,7 +207,7 @@ export default {
             if (status === 200) {
               resolve(response[0])
             } else {
-              reject('Hubo un problema al intetar obtener la información del método de pago.')
+              reject('Hubo un problema al intentar obtener la información del método de pago.')
             }
           })
         }else{
@@ -223,6 +226,7 @@ export default {
 
     async replaceCards () {
       this.titulo = 'Guardando tarjeta...'
+      this.$announcer.set(this.titulo)
       await this.$axios.$post('mercadopago/update-customer-card', {
         email: this.email,
         token: this.cardToken

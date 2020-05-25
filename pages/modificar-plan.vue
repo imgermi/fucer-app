@@ -95,6 +95,7 @@ export default {
       } catch (error) {
         this.mensaje = error
       }
+      this.$announcer.set(this.mensaje)
       this.actualizandoPlan = false
     }
   }

@@ -72,6 +72,7 @@ export default {
     async activarCuenta() {
       this.setPaginaCargando(true)
       try {
+        this.$announcer.set(this.mensaje)
         let {data} = await this.$axios.$post('auth/activateAccount', {
           token: this.$route.params.token,
         })
@@ -81,7 +82,7 @@ export default {
         
         this.title = 'E-mail confirmado'
         this.mensaje = '¡Bienvenido, ' + this.$auth.user.nombre + '!<br><br> Su email ha sido confirmado.'
-
+        this.$announcer.set(this.mensaje)
       } catch(e) {
         if(e.request){
           console.log(e.request)
@@ -92,6 +93,7 @@ export default {
         }else{
           console.log(e)
         }
+        this.$announcer.set(this.mensaje)
       }
       this.setPaginaCargando(false)
     }

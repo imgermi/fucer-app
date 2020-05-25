@@ -376,6 +376,7 @@ export default {
         this.error = error.response != undefined
             ? error.response.data.error.message
             : (error.message || error)
+        this.$announcer.set(this.error)
       }
     }
   },
