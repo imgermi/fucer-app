@@ -160,7 +160,7 @@ export default {
     },
     cerrarNormativa () {
       this.mostrarCuerpo = false
-      this.$router.push({ hash: '' })
+      this.$router.replace({ hash: '' })
       this.$refs.btnLeer.focus()
     },
     ...mapActions('favoritos', [
