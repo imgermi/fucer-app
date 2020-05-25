@@ -23,7 +23,7 @@
 				>
 					Buscar
 	      </nuxt-link>
-	      <form @submit.prevent="buscar" class="form__buscar">
+	      <form @submit.prevent="buscar" class="form__buscar" aria-controls="resultado-busqueda">
 					<label for="buscar" class="form__buscar--icon"></label>
 	      	<input
 	      		v-model="busqueda"
