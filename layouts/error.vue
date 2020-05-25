@@ -31,6 +31,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
+      vm.$announcer.assertive(`${vm.title} ${vm.$announcer.options.complementRoute}`)
       vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
     })
   },
