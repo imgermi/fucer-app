@@ -4,7 +4,7 @@
 		<main id="contenido" class="band">
 			<div class="container form__container">
 
-				<h1 class="intro__heading" ref="pageFocusTarget">¿Olvidó su clave?</h1>
+				<h1 class="intro__heading">¿Olvidó su clave?</h1>
 				<h2 class="sub__heading">Ingrese su mail y le enviaremos un enlace para restaurarla</h2>
 
 				<div class="msj-error" v-if="error">
@@ -24,9 +24,10 @@
 					    v-model="email"
 					    v-validate="'required|email'"
 					    id="email"
+							ref="pageFocusTarget"
 					    :class="{'error': errors.has('email') }"
-					    placeholder="email@email.com"
-					  />
+							placeholder="email@email.com"
+						/>
 					  <span class="error" v-show="errors.has('email')">
 					    {{ errors.first('email') }}
 					  </span>
