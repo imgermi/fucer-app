@@ -56,7 +56,7 @@ export default {
 			email: '',
 			error: false,
 			info: false,
-			title: 'Ingrese su email',
+			title: 'Restaurar clave',
 		}
 	},
 	computed: {
@@ -69,6 +69,10 @@ export default {
 	},
 	beforeRouteEnter (to, from, next) {
     next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
       vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
     })
   },
@@ -97,7 +101,7 @@ export default {
 	},
 	head () {
 	  return {
-	    title: this.title,
+			title: this.title,
 	    meta: [
 	      { hid: 'description', name: 'description', content: '' }
 	    ]

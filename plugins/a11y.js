@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 // Really tell what’s going on in your application to people using screen readers.
-import VueAnnouncer from 'vue-announcer'
+import VueAnnouncer from '@vue-a11y/announcer'
 
 // Polyfill for `:focus-visible`
 import 'focus-visible'
@@ -10,10 +10,11 @@ import 'focus-visible'
 // https://www.npmjs.com/package/focus-trap-vue
 import { FocusTrap } from 'focus-trap-vue'
 
-export default function({ app: {router} }) {
+export default function() {
 	Vue.use(VueAnnouncer, {
-	  complementRoute: 'ha cargado'
-	}, router)
+	  complementRoute: 'ha cargado',
+		politeness: 'polite',
+	})
 
 	Vue.component('FocusTrap', FocusTrap)
 }
