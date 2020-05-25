@@ -3,7 +3,14 @@
     <Alerta />
   	<Top ref="pageFocusTarget" />
     <main id="contenido" class="band">
-      <div class="container">
+      <div
+        class="container"
+        id="resultado-busqueda"
+        ref="resultadoBusqueda"
+        role="region"
+        aria-live="polite"
+        tabindex="-1"
+      >
         <div v-if="!pagina.cargando">
           <p
             v-if="!$route.query.busqueda && !busqueda"
@@ -76,6 +83,16 @@ export default {
       )
       vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
     })
+  },
+  watch:{
+    'pagina.cargando': {
+      handler: function (newValue, oldValue) {
+        if (newValue === false && oldValue === true) {
+          this.$refs.resultadoBusqueda.focus()
+        }
+      },
+      deep: true
+    }
   },
   head () {
     return {
