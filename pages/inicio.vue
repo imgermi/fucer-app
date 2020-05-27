@@ -26,10 +26,10 @@
         </no-ssr>
       </div>
     </section>
-<!--     <section class="mensaje-bienvenida">
-      <p>Además del Digesto de Normas Técnico Registrales, encontrará el texto completo de sus principales Disposiciones complementarias y Circulares aclaratorias, con un breve resumen del contenido de las mismas, a las que podrá acceder mediante diferentes motores de búsqueda.</p>
-      <small>Dr. Javier Antonio Cornejo (Director de LEGISTER) y equipo de colaboradores</small>
-    </section> -->
+    <section class="mensaje-bienvenida">
+      <p>Además del Digesto de Normas Técnico Registrales, encontrará el texto completo de sus principales Disposiciones complementarias y Circulares aclaratorias, con un breve resumen del contenido de las mismas, y diversos artículos de doctrina y jurisprudencia.  A todo ello podrá acceder mediante diferentes motores de búsqueda.</p>
+      <small>Dr. Javier Antonio Cornejo (Director de FucerNet) y equipo de colaboradores</small>
+    </section>
     <br>
       <section class="band">
         <div class="container">
