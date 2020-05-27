@@ -21,7 +21,7 @@
           </div>
           <nuxt-link
             :to="{ name: 'modificar-datos' }"
-            :tag="button"
+            tag="button"
             class="rounded__btn--medium"
           >
             Modificar
@@ -37,7 +37,7 @@
             </div>
             <nuxt-link
               :to="{ name: 'modificar-tarjeta' }"
-              :tag="button"
+              tag="button"
               class="rounded__btn--medium"
             >
               Modificar
@@ -52,7 +52,7 @@
             </div>
             <nuxt-link
               :to="{ name: 'modificar-debito' }"
-              :tag="button"
+              tag="button"
               class="rounded__btn--medium"
             >
               Modificar
@@ -73,7 +73,7 @@
           <nuxt-link 
             v-if="$auth.user.suscripcion.tipo !== 'ilimitado'"
             :to="{ name: 'modificar-plan' }"
-            :tag="button"
+            tag="button"
             class="rounded__btn--medium"
           >
             Modificar plan
