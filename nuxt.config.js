@@ -21,7 +21,7 @@ module.exports = {
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon.png' },
       { rel: 'mask-icon', href: '/favicons/safari-pinned-tab.svg', color: '#5bbad5' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,700,900' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,700,900&display:swap' },
     ]
   },
 
