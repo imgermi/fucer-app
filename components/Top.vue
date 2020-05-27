@@ -109,6 +109,7 @@ export default {
   },
   methods: {
   	...mapActions([
+      'setPaginaError',
       'setPaginaCargando'
     ]),
     ...mapActions('buscar',[
@@ -117,7 +118,12 @@ export default {
     async buscar () {
     	this.setPaginaCargando(true)
     	this.$route.query.busqueda = this.busqueda
-    	await this.buscarNormativas(this.busqueda)
+    	try {
+    		await this.buscarNormativas(this.busqueda)
+    		this.setPaginaError(false)
+    	} catch(e) {
+    		this.setPaginaError(e)
+    	}
     	this.setPaginaCargando(false)
     },
     openMenu: function () {
@@ -127,6 +133,10 @@ export default {
       this.menuActivo = false
     },
     async logout () {
+    	if ( !window.navigator.onLine &&
+    		!confirm('Está sin conexión a internet y no va a poder volver a acceder hasta que vuelva la conexión ¿quiere cerrar la sesión igualmente?'))
+    		return
+
     	await this.$auth.logout()
     	this.$router.push("/")
     }

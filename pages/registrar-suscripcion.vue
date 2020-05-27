@@ -92,6 +92,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   layout: 'signup',
+  middleware: 'plan-mercadopago',
   data() {
     return {
       paymentMethodId: this.$route.query.paymentMethodId || '',
@@ -134,7 +135,7 @@ export default {
         let data = await this.$axios.$get('configuraciones')
         this.planId = data.plan_regular_id
       } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
+        this.error = e
       }
       this.setPaginaCargando(false)
     },

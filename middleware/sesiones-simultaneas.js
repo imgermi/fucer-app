@@ -12,6 +12,10 @@ export default function ({store, app, route}) {
   if (!token)
     return
 
+  // no deslogueamos elusuario si está offline
+  if (!window.navigator.onLine)
+    return
+
   // calculate timeout before token expiration (75% from expiration time)
   const tokenParsed = decodeToken.call(this, token)
   const refreshToken = tokenParsed[options.refresh_token_key]

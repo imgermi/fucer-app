@@ -49,16 +49,31 @@ export default {
     FavoriteStar
   },
   middleware: 'premium',
+  async asyncData ({app, params}) {
+    try {
+      var normativa = await app.$axios.$get('normativas/id/' + params.id)
+      normativa.url = {
+        name: 'normativa',
+        params: {
+          id: normativa.id,
+          slug: decodeURIComponent(normativa.uri)
+        }
+      }
+    } catch (e) {
+      if (!window.navigator.onLine){
+        let cache = await caches.match(`https://fucer.com.ar/app/api/normativas/id/${params.id}`)
+        if (cache) {
+          return cache.json()
+        }
+        app.router.push({name: 'offline'})
+      } else {
+        app.router.push({name: '404'})
+      }
+    }
+    return normativa
+  },
   data () {
     return {
-      id: 0,
-      titulo: '',
-      bajada: '',
-      autor: '',
-      fecha: '',
-      intro: '',
-      cuerpo: '',
-      url: '',
       mostrarCuerpo: false
     }
   },
@@ -74,29 +89,6 @@ export default {
       return indiceFavorito >= 0 ? true : false
     }
   },
-  async created () {
-    this.setPaginaCargando(true)
-    try {
-      let normativa = await this.$axios.$get('normativas/id/' + this.$route.params.id)
-      this.id = normativa.id
-      this.titulo = normativa.titulo
-      this.bajada = normativa.bajada
-      this.fecha = normativa.fecha
-      this.autor = normativa.autor
-      this.intro = normativa.intro
-      this.cuerpo = normativa.cuerpo
-      this.url = {
-        name: 'normativa',
-        params: {
-          id: normativa.id,
-          slug: decodeURIComponent(normativa.uri)
-        }
-      }
-      this.setPaginaCargando(false)
-    } catch (e) {
-      this.$router.push({name: '404'})
-    }
-  },
   head () {
     return {
       title: this.titulo,
@@ -106,7 +98,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setPaginaCargando']),
     leerNormativa () {
       this.mostrarCuerpo = !this.mostrarCuerpo
     },

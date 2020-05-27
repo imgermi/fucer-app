@@ -1,7 +1,7 @@
 <template>
   <header class="secondary-top">
     <div class="container">
-      <a herf="#" class="cancelar__btn" @click.prevent="$router.go(-1)">
+      <a href="#" class="cancelar__btn" @click.prevent="$router.go(-1)">
         <svg width="18" height="34" viewBox="0 0 18 34" fill="none">
           <path d="M16 0L0 16L16 32" transform="translate(1 1)" stroke="#95989A"/>
         </svg>

@@ -20,6 +20,7 @@
 					  <input
 					    type="password"
 					    name="password"
+					    ref="password"
 					    v-model="password"
 					    v-validate="'required'"
 					    data-vv-as="nueva clave"
@@ -35,6 +36,7 @@
 					  <input
 					    type="password"
 					    name="passwordConfirm"
+					    ref="passwordConfirm"
 					    v-model="passwordConfirm"
 					    v-validate="'required|confirmed:password'"
 					    data-vv-as="confirmación de clave"
@@ -103,8 +105,8 @@ export default {
 		    this.error = false
 		  	this.info = 'Hemos actualizado su clave. Por favor inicie sesión con sus nuevas credenciales.'
 		  	setTimeout(() => this.$router.push({'name': 'inicio'}), 4000)
-		  } catch(e) {
-		    this.error = e.response.data.error.message.replace('Bad Request:', '')
+		  } catch(error) {
+		    this.error = error
 		    this.info = false
 		  }
 		  this.setPaginaCargando(false)

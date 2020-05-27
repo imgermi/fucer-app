@@ -47,6 +47,7 @@
             <input
               type="password"
               v-model="password"
+              ref="password"
               name="password"
               v-validate="'required'"
               id="password"
@@ -64,6 +65,7 @@
             <input
               type="password"
               name="passwordRepeat"
+              ref="password-repeat"
               v-model="passwordRepeat"
               v-validate="'required|confirmed:password'"
               id="password-repeat"
@@ -135,17 +137,10 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then(() => {
-          this.$router.push({name: 'confirme-su-email'})
-        })
-        .catch(e => {
-          this.error = e.response.data.error.message.replace('Bad Request:', '')
-        })
-
+        this.$router.push({name: 'confirme-su-email'})
       } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
+        this.error = e
       }
-
       this.setPaginaCargando(false)
     }
   },

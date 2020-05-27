@@ -2,17 +2,24 @@ import moment from 'moment'
 
 export const state = () => ({
   pagina: {
+    error: false,
     cargando: false
   }
 })
 
 export const mutations = {
+  'SET_PAGINA_ERROR' (state, payload) {
+    state.pagina.error = payload
+  },
   'SET_PAGINA_CARGANDO' (state, payload) {
     state.pagina.cargando = payload
   }
 }
 
 export const actions = {
+  setPaginaError ({ commit }, cargando) {
+    commit('SET_PAGINA_ERROR', cargando)
+  },
   setPaginaCargando ({ commit }, cargando) {
     commit('SET_PAGINA_CARGANDO', cargando)
   }
@@ -63,15 +70,15 @@ export const getters = {
   usuarioPremium (state, getters, rootState) {
     return rootState.auth
       && rootState.auth.user
-      && rootState.auth.user.es_premium
-      && getters.diasFinSuscripcion > 0
+      && (rootState.auth.user.es_premium || rootState.auth.user.condicion === 'premium-incondicional')
   },
 
   estaSuscripto (state, getters, rootState) {
     return rootState.auth
       && rootState.auth.user
-      && rootState.auth.user.suscripcion.activa
-      && getters.diasFinSuscripcion
+      && ((rootState.auth.user.suscripcion.activa && getters.diasFinSuscripcion)
+        || rootState.auth.user.condicion === 'premium-incondicional'
+      )
   },
 
   mensajePlan (state, getters) {
@@ -83,9 +90,9 @@ export const getters = {
         return getters.mensajeDiasFinTrial
       }
       return getters.usuarioPremium
-        ? 'Su suscripción ya fue cancelada pero le quedan ' +
-          getters.diasFinSuscripcion +
-          ' días premium.'
+        ? (getters.diasFinSuscripcion
+          ? 'Su suscripción ya fue cancelada pero le quedan ' + getters.diasFinSuscripcion + ' días premium.'
+          : 'Su pago se está verificando, se mantendrá su suscripción solo si se confirma la operación.')
         : 'La versión de prueba ha caducado.'
     }
   }

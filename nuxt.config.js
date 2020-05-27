@@ -15,7 +15,7 @@ module.exports = {
       { rel: 'mask-icon', href: '/favicons/safari-pinned-tab.svg', color: '#5bbad5' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,700,900' },
-    ],
+    ]
   },
   css: [
     'sass/main.sass',
@@ -39,8 +39,60 @@ module.exports = {
     lang: 'es'
   },
 
+  // https://pwa.nuxtjs.org/modules/workbox.html
+  workbox: {
+    // dev: true,
+    pagesURLPattern: '/|offline',
+    runtimeCaching: [
+      {
+        urlPattern: '^https:\/\/fucer\.com\.ar\/app\/api\/.*',
+        handler: 'networkFirst',
+        strategyOptions: {
+          cacheName: 'api-cache',
+          networkTimeoutSeconds: 4,
+          cacheExpiration: {
+            maxEntries: 250,
+            maxAgeSeconds: 60 * 60 * 24 * 30,
+          },
+          cacheableResponse: { statuses: [0, 200] }
+        }
+      },{
+        urlPattern: '^https:\/\/(www\.)?fucer\.com\.ar\/app\/cms\/.*',
+        handler: 'cacheFirst',
+        strategyOptions: {
+          cacheName: 'cms-cache',
+          cacheExpiration: {
+            maxEntries: 50,
+            maxAgeSeconds: 60 * 60 * 24 * 10,
+            purgeOnQuotaError: true,
+          },
+          cacheableResponse: { statuses: [0, 200] }
+        }
+      },{
+        urlPattern: '^https:\/\/fonts\.googleapis\.com',
+        handler: 'staleWhileRevalidate',
+        strategyOptions: {
+          cacheName: 'google-fonts-stylesheets',
+        }
+      },{
+        urlPattern: '^https:\/\/fonts\.gstatic\.com',
+        handler: 'cacheFirst',
+        strategyOptions: {
+          cacheName: 'google-fonts-webfonts',
+          cacheExpiration: {
+            maxEntries: 30,
+            maxAgeSeconds: 60 * 60 * 24 * 365,
+          },
+          cacheableResponse: { statuses: [0, 200] }
+        }
+      },
+    ],
+    routingExtensions: '@/plugins/workbox-routing-extension.js',
+  },
+
   router: {
-    base: '/app/',
+    base: '/',
+    mode: 'hash',
     middleware: ['sesiones-simultaneas','auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
@@ -93,10 +145,15 @@ module.exports = {
         },
         refresh_token_key: 'refresh_token'
       }
-    }
+    },
+    plugins: [
+      '~/plugins/auth.js',
+      '~/plugins/workbox.js',
+    ]
   },
 
   plugins: [
+    '~/plugins/axios',
     '~/plugins/filtros',
     '~/plugins/vue-validate',
     '~/plugins/webp',

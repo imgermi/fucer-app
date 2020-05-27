@@ -3,9 +3,9 @@
     <SecondaryTop/>
     <section class="band">
       <div class="container">
-        <h1 class="intro__heading">Error - 404</h1>
-        <p>La página que está buscando no existe</p>
-        <nuxt-link :to="{ name: 'inicio' }" class="rounded__btn--full white">Volver a Inicio</nuxt-link>
+        <h1 class="intro__heading">Sin conexión</h1>
+        <p>Este contenido no está disponible sin conexión.</p>
+        <a @click="$router.go(-1)" class="rounded__btn--full white">Volver</a>
       </div>
     </section>
   </div>
@@ -22,11 +22,8 @@ export default {
   props: ['error'],
   data () {
     return {
-      title: 'Error - 404',
+      title: 'Sin conexión',
     }
-  },
-  created(){
-    console.log(this.error)
   },
   head () {
     return {

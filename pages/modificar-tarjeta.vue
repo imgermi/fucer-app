@@ -192,6 +192,7 @@
 import {mapActions, mapState} from 'vuex'
 
 export default {
+  middleware: 'plan-mercadopago',
   data() {
     return {
       documentTypes: [],
@@ -244,6 +245,9 @@ export default {
   },
 
   async created () {
+    if (!window.navigator.onLine) {
+      this.$router.replace({name: 404})
+    }
     this.documentTypes = await this.getDocumentTypes()
     if (this.$auth.user && this.$auth.user.customer_id) {
       await this.precargarDatos()

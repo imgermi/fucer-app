@@ -89,7 +89,7 @@ export default {
         this.error = false
         this.info = 'Los datos fueron actualizados'
       } catch(e) {
-        this.error = e.response.data.error.message.replace('Bad Request:', '')
+        this.error = e
       }
       this.setPaginaCargando(false)
     }
