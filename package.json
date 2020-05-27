@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "analyze": "nuxt build --analyze",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "cordova": "nuxt generate -c cordova.nuxt.config.js && replace '/nuxt/' 'nuxt/' dist -rv && mv dist ../app-cordova/app/www && cd ../app-cordova/app/www && cordova run android",
