@@ -167,7 +167,7 @@ module.exports = {
       options: {
         domain: 'net.fucer.com.ar',
         secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV !== 'production' ? 'None' : 'Strict'
+        samesite: process.env.NODE_ENV !== 'production' ? 'None' : 'Strict'
       }
     }
   },
@@ -188,6 +188,9 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    analyze: {
+      openAnalyzer: true
+    },
     /*
     ** Run ESLint on save
     */
