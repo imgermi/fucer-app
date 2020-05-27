@@ -7,7 +7,7 @@
       </div>
       <div class="extra">
         <small v-if="categoria" :class="`tag normativa-module__tag ${categoriaUri}`">{{ categoria }}</small>
-        <time v-if="fecha" :datetime="fecha | fecha('YYYY-MM-DD')">{{ fecha | fecha('DD/MM/YY') }}</time>
+        <time v-if="fecha" :datetime="fecha | fecha('yyyy-MM-dd')">{{ fecha | fecha('dd/MM/yyyy') }}</time>
         <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
       </div>
     </nuxt-link>
