@@ -28,7 +28,7 @@
           <div>{{ titulo }}</div>
         </h1>
         <h2>{{ bajada }}</h2>
-        <time v-if="fecha" :datetime="fecha | fecha('YYYY-MM-DD')">{{ fecha | fecha('DD/MM/YY') }}</time>
+        <time v-if="fecha" :datetime="fecha | fecha('yyyy-MM-dd')">{{ fecha | fecha('dd/MM/yyyy') }}</time>
       </div>
     </section>
     <section class="band cuerpo">

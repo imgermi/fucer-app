@@ -13,7 +13,7 @@
           <small>{{ $auth.user.email }}</small>
         </div>
         <p>Para acceder a sus 15 días gratis, tendrá que suscribirse al plan seleccionado.</p>
-        <p>No se preocupe. Cancele antes del {{ moment().add(15, 'days').format('D/M/Y') }} y <strong>no se le cobrará ningún cargo.</strong></p>
+        <p>No se preocupe. Cancele antes del {{ diasCancelar }} y <strong>no se le cobrará ningún cargo.</strong></p>
         <nuxt-link :to="{ name: 'tarjeta-de-credito' }" class="rounded__btn--full green">Crédito</nuxt-link>
 
         <nuxt-link :to="{ name: 'debito-automatico' }" class="rounded__btn--full green">Débito automático</nuxt-link>
@@ -27,7 +27,8 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
-import moment from 'moment'
+import addDays from 'date-fns/addDays'
+import format from 'date-fns/format'
 
 export default {
   layout: 'signup',
@@ -40,7 +41,8 @@ export default {
       moment: moment,
       title: 'Paso 3 - Medio de Pago',
       nroPaso: '3',
-      tituloPaso: 'Seleccione su medio de pago'
+      tituloPaso: 'Seleccione su medio de pago',
+      diasCancelar: format(addDays(new Date(), 15), 'dd/MM/yyyy')
     }
   },
   beforeRouteEnter (to, from, next) {
