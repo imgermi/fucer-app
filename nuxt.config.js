@@ -188,9 +188,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    analyze: {
-      openAnalyzer: true
-    },
     /*
     ** Run ESLint on save
     */
