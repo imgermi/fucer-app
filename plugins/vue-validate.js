@@ -15,4 +15,6 @@ Validator.extend('confirmed', confirmed);
 Validator.localize('es', veeEs);
 
 // install the plugin
-Vue.use(VeeValidate);
+Vue.use(VeeValidate, {
+  locale: 'es'
+});
