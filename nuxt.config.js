@@ -32,6 +32,16 @@ module.exports = {
   loading: { color: '#4ECDC4', height: '4px' },
 
   render: {
+    bundleRenderer: {
+      shouldPrefetch: (file, type) => {
+        if (type === 'script') {
+          if (/pages\/(inicio|buscar|normativa\/_id)/.test(file)) {
+            return true
+          }
+        }
+        return false
+      }
+    },
     csp: {
       hashAlgorithm: 'sha256',
       policies: {
