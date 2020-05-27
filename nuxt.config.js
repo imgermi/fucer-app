@@ -91,7 +91,8 @@ module.exports = {
   },
 
   router: {
-    base: '/app/',
+    base: '/',
+    mode: 'hash',
     middleware: ['sesiones-simultaneas','auth', 'init'],
     extendRoutes (routes, resolve) {
       routes.push({
