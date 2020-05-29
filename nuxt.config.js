@@ -187,7 +187,8 @@ module.exports = {
   modules: [
     '~/modules/mercadopago',
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/toast',
   ],
 
   mercadopago: {
