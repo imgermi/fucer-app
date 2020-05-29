@@ -177,9 +177,6 @@ export default {
   head () {
     return {
       title: this.titulo,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ]
     }
   },
   methods: {
