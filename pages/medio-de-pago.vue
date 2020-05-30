@@ -38,7 +38,6 @@ export default {
   middleware: 'guest',
   data() {
     return {
-      moment: moment,
       title: 'Paso 3 - Medio de Pago',
       nroPaso: '3',
       tituloPaso: 'Seleccione su medio de pago',
