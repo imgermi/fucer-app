@@ -144,35 +144,11 @@ export default {
       }
     })
   },
-  async created () {
-    this.setPaginaCargando(true)
-    try {
-      let normativa = await this.$axios.$get('normativas/id/' + this.$route.params.id)
-      this.id = normativa.id
-      this.titulo = normativa.titulo
-      this.bajada = normativa.bajada
-      this.fecha = normativa.fecha
-      this.autor = normativa.autor
-      this.categoria = normativa.categoria
-      this.categoriaUri = normativa.categoria_uri
-      this.intro = normativa.intro
-      this.cuerpo = normativa.cuerpo
-      this.url = {
-        name: 'normativa',
-        params: {
-          id: normativa.id,
-          slug: decodeURIComponent(normativa.uri)
-        }
-      }
-      this.setPaginaCargando(false)
-      this.$announcer.set(
-        `${this.titulo} ${this.$announcer.options.complementRoute}`,
-        this.$announcer.options.politeness
-      )
-    } catch (e) {
-      this.$router.push({name: '404'})
-      console.log(e)
-    }
+  created () {
+    this.$announcer.set(
+      `${this.titulo} ${this.$announcer.options.complementRoute}`,
+      this.$announcer.options.politeness
+    )
   },
   head () {
     return {
