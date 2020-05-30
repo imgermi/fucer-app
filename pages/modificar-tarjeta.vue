@@ -5,13 +5,7 @@
     		<nuxt-link :to="{ name: 'configuracion' }"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
     		<h2 ref="pageFocusTarget">Modificar tarjeta de crédito</h2>
 
-    		<div class="msj-error" v-if="error">
-    		  {{ error }}
-    		</div>
-
-    		<div class="msj-info" v-if="info">
-    		  {{ info }}
-    		</div>
+    		<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
     		<form method="post" @submit.prevent="generateCardToken" class="main__form">
           <fieldset>
@@ -190,8 +184,10 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
+  mixins: [mensaje],
   middleware: 'plan-no-ilimitado',
   data() {
     return {
@@ -203,8 +199,6 @@ export default {
       cardNumber:'',
       cardholderName:'',
       cardToken:'',
-      error: false,
-      info: false,
       title: 'Modificar datos personales'
     }
   },
@@ -363,10 +357,7 @@ export default {
           }
         })
       } catch(error) {
-        this.error = error.response != undefined
-            ? error.response.data.error.message
-            : (error.message || error)
-        this.$announcer.set(this.error)
+        this.setMensaje(error, 'error', 5000)
       }
     }
   },

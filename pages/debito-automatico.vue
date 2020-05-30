@@ -8,12 +8,7 @@
     <div class="band form__container">
       <div class="container">
 
-        <div
-          v-if="error"
-          class="msj-error"
-        >
-          {{ error }}
-        </div>
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
         <form method="post" @submit.prevent="suscribir" class="main__form">
           <fieldset>
@@ -113,15 +108,16 @@
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
+  mixins: [mensaje],
   components: {
     SecondaryTop
   },
   data() {
     return {
-      error: false,
       title: 'Paso 3 - Débito automático',
       nroPaso: '3',
       tituloPaso: 'Configure el débito automático',
@@ -179,8 +175,7 @@ export default {
           name: 'inicio'
         })
       } catch(error) {
-        this.error = error
-        this.$announcer.set(this.error)
+        this.setMensaje(error, 'error')
       }
     }
   }

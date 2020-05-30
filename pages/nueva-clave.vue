@@ -6,13 +6,7 @@
 
 				<h1 class="intro__heading" ref="pageFocusTarget">Nueva clave</h1>
 
-				<div class="msj-error" v-if="error">
-				  {{ error }}
-				</div>
-
-				<div class="msj-info" v-if="info">
-	    		  {{ info }}
-	    		</div>
+				<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
 				<form @submit.prevent="resetPassword" class="main__form">
 					<fieldset>
@@ -62,10 +56,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
 	layout: 'signup',
+	mixins: [mensaje],
 	components: {
 		SecondaryTop
 	},
@@ -74,8 +70,6 @@ export default {
 		return {
 			password: '',
 			passwordConfirm: '',
-			error: false,
-			info: false,
 			title: 'Nueva clave',
 		}
 	},
@@ -111,14 +105,10 @@ export default {
 		      token: this.$route.params.token,
 		      password: this.password,
 		    })
-		    this.error = false
-				this.info = 'Hemos actualizado su clave. Por favor inicie sesión con sus nuevas credenciales.'
-				this.$announcer.set(this.info)
+				this.setMensaje('Hemos actualizado su clave. Por favor inicie sesión con sus nuevas credenciales.', 'info')
 		  	setTimeout(() => this.$router.push({'name': 'inicio'}), 4000)
 		  } catch(e) {
-		    this.error = e
-				this.info = false
-				this.$announcer.set(this.error)
+		    this.setMensaje(e, 'error')
 		  }
 		  this.setPaginaCargando(false)
 		}

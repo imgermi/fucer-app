@@ -8,9 +8,7 @@
     <div class="band form__container">
       <div class="container">
 
-        <div class="msj-error" v-if="error">
-          {{ error }}
-        </div>
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
         <form @submit.prevent="register" class="main__form">
           <fieldset>
@@ -94,9 +92,11 @@
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
+  mixins: [mensaje],
   components: {
     SecondaryTop
   },
@@ -108,7 +108,6 @@ export default {
       email: '',
       password: '',
       passwordRepeat: '',
-      error: false,
       title: 'Registrarse',
       nroPaso: '2',
       tituloPaso: 'Cree su cuenta'
@@ -152,7 +151,7 @@ export default {
         })
         this.$router.push({name: 'confirme-su-email'})
       } catch(e) {
-        this.error = e
+        this.setMensaje(e, 'error')
       }
       this.setPaginaCargando(false)
     }

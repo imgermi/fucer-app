@@ -25,6 +25,8 @@
     	<section class="band">
     		<div class="container">
 
+    		  <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
+
           <h2>Suscripción</h2>
           <div class="msj">
             <p v-html="suscripcion.plan.estado"></p>
@@ -56,19 +58,27 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
+  mixins: [mensaje],
   middleware: 'plan-no-ilimitado',
   data () {
     return {
       title: 'Modificar Plan',
       actualizandoPlan: false,
-      mensaje: false,
     }
   },
   computed: {
     suscripcion () {
       return this.$auth.user.suscripcion;
+    }
+  },
+  watch: {
+    'suscripcion.plan.estado' (newEstado, oldEstado) {
+      if (newEstado !== oldEstado) {
+        this.$announcer.set(newEstado)
+      }
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -86,16 +96,13 @@ export default {
       try {
         if (this.suscripcion && this.suscripcion.activa) {
           await this.$axios.$delete('suscripciones')
-          this.mensaje = 'La suscripción fue cancelada'
         } else {
           await this.$axios.$patch('suscripciones', {})
-          this.mensaje = '¡La suscripción fue reactivada!'
         }
         await this.$auth.fetchUser()
       } catch (error) {
-        this.mensaje = error
+        this.setMensaje(error, 'error')
       }
-      this.$announcer.set(this.mensaje)
       this.actualizandoPlan = false
     }
   }

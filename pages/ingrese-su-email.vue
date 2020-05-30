@@ -7,9 +7,7 @@
 				<h1 class="intro__heading" ref="pageFocusTarget">¿No recibió el mail de confirmación?</h1>
 				<h2 class="sub__heading">Ingrese su email nuevamente</h2>
 
-				<div class="msj-error" v-if="error">
-				  {{ error }}
-				</div>
+				<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
 				<form @submit.prevent="resendActivationEmail" class="main__form">
 					<fieldset>
@@ -39,10 +37,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
 	layout: 'signup',
+	mixins: [mensaje],
 	components: {
 		SecondaryTop
 	},
@@ -50,7 +50,6 @@ export default {
 	data() {
 		return {
 			email: '',
-			error: false,
 			title: 'Ingrese su email',
 		}
 	},
@@ -87,8 +86,7 @@ export default {
 		    })
 		  	this.$router.push({name: 'confirme-su-email'})
 		  } catch(e) {
-				this.error = e
-				this.$announcer.set(this.error)
+				this.setMensaje(e, 'error')
 		  }
 		  this.setPaginaCargando(false)
 		}

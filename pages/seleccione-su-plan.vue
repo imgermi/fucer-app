@@ -21,9 +21,7 @@
           <li>Resúmenes introductorios y explicativos sobre material</li>
         </ul>
 
-        <div class="msj-error" v-if="error">
-          {{ error }}
-        </div>
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
         <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full green">Siguiente</nuxt-link>
       </div>
@@ -33,10 +31,12 @@
 
 <script>
 import {mapActions} from 'vuex'
+import mensaje from '~/mixins/mensaje'
 import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
   layout: 'signup',
+  mixins: [mensaje],
   components: {
     SecondaryTop
   },
@@ -44,7 +44,6 @@ export default {
   middleware: 'guest',
   data() {
     return {
-      error: false,
       title: 'Paso 1 - Seleccione su plan',
       nroPaso: '1',
       tituloPaso: 'Seleccione su plan',
@@ -74,12 +73,12 @@ export default {
     ]),
     async obtenerConfigs() {
       this.setPaginaCargando(true)
+      this.resetMensaje()
       try {
         let data = await this.$axios.$get('configuraciones')
         this.precioPlan = data.precio_regular
-        this.error = false
       } catch(e) {
-        this.error
+        this.setMensaje(e, 'error', 5000)
       }
       this.setPaginaCargando(false)
     }

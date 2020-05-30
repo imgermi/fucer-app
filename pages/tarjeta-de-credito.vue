@@ -8,9 +8,7 @@
     <div class="band form__container">
       <div class="container">
 
-        <div class="msj-error" v-if="error">
-          {{ error }}
-        </div>
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
         <form method="post" @submit.prevent="generateCardToken" class="main__form">
           <fieldset>
@@ -198,9 +196,11 @@
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
+  mixins: [mensaje],
   components: {
     SecondaryTop
   },
@@ -216,7 +216,6 @@ export default {
       cardholderName:'',
       cardToken:'',
 
-      error: false,
       title: 'Paso 3 - Tarjeta de Crédito',
       nroPaso: '3',
       tituloPaso: 'Configure su tarjeta de crédito'
@@ -373,10 +372,7 @@ export default {
           }
         })
       } catch(error) {
-        this.error = error.response != undefined
-            ? error.response.data.error.message
-            : (error.message || error)
-        this.$announcer.set(this.error)
+        this.setMensaje(error, 'error')
       }
     }
   },

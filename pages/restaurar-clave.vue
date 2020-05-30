@@ -7,13 +7,7 @@
 				<h1 class="intro__heading">¿Olvidó su clave?</h1>
 				<h2 class="sub__heading">Ingrese su mail y le enviaremos un enlace para restaurarla</h2>
 
-				<div class="msj-error" v-if="error">
-				  {{ error }}
-				</div>
-
-				<div class="msj-info" v-if="info">
-	    		  {{ info }}
-    		</div>
+				<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
 				<form @submit.prevent="sendResetPasswordEmail" class="main__form">
 					<fieldset>
@@ -45,18 +39,18 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import SecondaryTop from '~/components/SecondaryTop.vue'
+import mensaje from '~/mixins/mensaje'
 
 export default {
 	layout: 'signup',
+	mixins: [mensaje],
 	components: {
-		SecondaryTop
+		SecondaryTop,
 	},
 	auth: false,
 	data() {
 		return {
 			email: '',
-			error: false,
-			info: false,
 			title: 'Restaurar clave',
 		}
 	},
@@ -80,7 +74,7 @@ export default {
 	methods: {
 		...mapActions([
 	      'setPaginaCargando'
-	    ]),
+			]),
 		async sendResetPasswordEmail() {
 		  let valida = await this.$validator.validateAll()
 		  if (!valida) {
@@ -91,13 +85,10 @@ export default {
 		    await this.$axios.$post('auth/send-reset-password-email', {
 		      email: this.email
 		    })
-		    this.error = false
-				this.info = 'Hemos enviado un mail a su cuenta de correo electrónico para que pueda recuperar su clave.'
-				this.$announcer.set(this.info)
+				this.setMensaje('Hemos enviado un mail a su cuenta de correo electrónico para que pueda recuperar su clave.', 'info')
 		  } catch(e) {
-		    this.error = e
-				this.info = false
-				this.$announcer.set(this.error)
+				console.log(e)
+				this.setMensaje(e, 'error')
 		  }
 		  this.setPaginaCargando(false)
 		}

@@ -5,13 +5,7 @@
     		<nuxt-link :to="{ name: 'configuracion' }"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
     		<h2 ref="pageFocusTarget">Modificar débito automático</h2>
 
-    		<div class="msj-error" v-if="error">
-    		  {{ error }}
-    		</div>
-
-    		<div class="msj-info" v-if="info">
-    		  {{ info }}
-    		</div>
+    		<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
     		<form method="post" @submit.prevent="actualizarDatos" class="main__form">
           <fieldset>
@@ -117,13 +111,13 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
+  mixins: [mensaje],
   middleware: 'plan-no-ilimitado',
   data() {
     return {
-      error: false,
-      info: false,
       title: 'Modificar débito automático',
       cuit: this.$auth.user.suscripcion.metadata.cuit,
       rs: this.$auth.user.suscripcion.metadata.rs,
@@ -175,14 +169,9 @@ export default {
           }
         })
         await this.$auth.fetchUser()
-        this.info = 'Los datos fueron actualizados'
-        this.error = false
-        this.$announcer.set(this.info)
-        setTimeout(() => this.info = false, 3000)
+        this.setMensaje('Los datos fueron actualizados', 'info', 3000)
       } catch(error) {
-        this.error = error
-        this.info = false
-        this.$announcer.set(this.error)
+        this.setMensaje(error, 'error')
       }
     }
   },

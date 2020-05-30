@@ -6,9 +6,7 @@
     <div class="band form__container">
       <div class="container">
 
-        <div class="msj-error" v-if="error">
-          {{ error }}
-        </div>
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
         <form @submit.prevent="login" class="main__form">
           <fieldset>
@@ -59,9 +57,11 @@
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
+  mixins: [mensaje],
   components: {
     SecondaryTop
   },
@@ -71,7 +71,6 @@ export default {
     return {
       email: '',
       password: '',
-      error: false,
       title: 'Ingresar',
       tituloPaso: 'Ingrese a FucerNet con su email'
     }
@@ -106,6 +105,7 @@ export default {
         return
       }
       this.setPaginaCargando(true)
+      this.resetMensaje()
       let response = this.$auth.loginWith('local', {
         data: {
           username: this.email,
@@ -121,8 +121,7 @@ export default {
       })
       .catch(e => {
         console.log(e)
-        this.error = 'Revise sus credenciales por favor. Algún dato no es correcto o el usuario todavía no está activo.'
-        this.$announcer.set(this.error)
+        this.setMensaje('Revise sus credenciales por favor. Algún dato no es correcto o el usuario todavía no está activo.', 'error')
       })
       this.setPaginaCargando(false)
     }
