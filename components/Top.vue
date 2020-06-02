@@ -23,7 +23,7 @@
 				>
 					Buscar
 	      </nuxt-link>
-	      <form @submit.prevent="buscar" class="form__buscar" aria-controls="resultado-busqueda">
+	      <form @submit.prevent="$router.push({query: { busqueda }})" class="form__buscar" aria-controls="resultado-busqueda">
 					<label for="buscar" class="form__buscar--icon"></label>
 	      	<input
 	      		v-model="busqueda"
@@ -128,32 +128,24 @@ export default {
   data () {
   	return {
   		menuId: 'menu-principal',
-  		busqueda: this.$store.state.buscar.busqueda
+  		busqueda: ''
     }
   },
   computed: {
-		...mapState(['pagina','menu'])
+		...mapState(['menu']),
 	},
+	watch:{
+		'$route.query.busqueda': {
+			handler: async function(newBusqueda) {
+				this.busqueda = newBusqueda
+			},
+			immediate: true
+  	},
+  },
   methods: {
   	...mapActions([
       'setMenuActivo',
-      'setPaginaError',
-      'setPaginaCargando'
     ]),
-    ...mapActions('buscar',[
-      'buscarNormativas'
-    ]),
-    async buscar () {
-    	this.setPaginaCargando(true)
-    	this.$route.query.busqueda = this.busqueda
-    	try {
-    		await this.buscarNormativas(this.busqueda)
-    		this.setPaginaError(false)
-    	} catch(e) {
-    		this.setPaginaError(e)
-    	}
-    	this.setPaginaCargando(false)
-    },
     toggleMenu () {
 			if (this.menu.activo) {
 				this.closeMenu()
