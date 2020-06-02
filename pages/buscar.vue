@@ -13,7 +13,7 @@
       >
         <div v-if="!pagina.cargando">
           <p
-            v-if="!$route.query.busqueda && !busqueda"
+            v-if="!$route.query.busqueda"
             class="center search-alert"
           >
             Busque por <br> nombre, palabra <br> o año
@@ -72,11 +72,17 @@ export default {
     ]),
     ...mapState('buscar',[
       'normativas',
-      'busqueda'
+      {busqueda: 'busquedaGuardada'}
     ])
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
+      // Sincroniza URI con STORE
+      if (!to.query.busqueda && vm.$store.state.buscar.busqueda) {
+        vm.$router.replace({query: {busqueda: vm.$store.state.buscar.busqueda}})
+        return
+      }
+
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
@@ -85,6 +91,14 @@ export default {
     })
   },
   watch:{
+		'$route.query.busqueda': {
+			handler: async function(newBusqueda) {
+				if (newBusqueda && newBusqueda !== this.busquedaGuardada) {
+					await this.buscar(newBusqueda);
+				}
+			},
+			immediate: true
+  	},
     'pagina.cargando': {
       handler: function (newValue, oldValue) {
         if (newValue === false && oldValue === true) {
@@ -93,6 +107,25 @@ export default {
       },
       deep: true
     }
+  },
+  methods: {
+    ...mapActions([
+      'setPaginaError',
+      'setPaginaCargando'
+    ]),
+    ...mapActions('buscar',[
+      'buscarNormativas'
+    ]),
+    async buscar (busqueda) {
+    	this.setPaginaCargando(true)
+    	this.setPaginaError(false)
+    	try {
+				await this.buscarNormativas(busqueda)
+    	} catch(e) {
+    		this.setPaginaError(e)
+    	}
+    	this.setPaginaCargando(false)
+    },
   },
   head () {
     return {
