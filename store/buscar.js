@@ -5,7 +5,7 @@ export const state = () => ({
 
 export const mutations = {
   'SET_NORMATIVAS' (state, {normativas, busqueda}) {
-    state.normativas = normativas
+    state.normativas = [...normativas]
     state.busqueda = busqueda
   }
 }

@@ -4,17 +4,20 @@ export const state = () => ({
 
 export const mutations = {
   'CARGAR_FAVORITOS' (state, normativas) {
-    state.normativas = normativas
+    state.normativas = [...normativas]
   },
   'AGREGAR_FAVORITO' (state, normativa) {
-    state.normativas.push(normativa)
+    state.normativas = [...state.normativas, normativa]
   },
   'QUITAR_FAVORITO' (state, idNormativa) {
-    let indiceFavorito = state.normativas.findIndex(
+    let indice = state.normativas.findIndex(
       favorito => idNormativa === favorito.id
     )
-    if (indiceFavorito !== -1) {
-      state.normativas.splice(indiceFavorito, 1)
+    if (indice !== -1) {
+      state.normativas = [
+        ...state.normativas.slice(0, indice),
+        ...state.normativas.slice(indice + 1)
+      ]
     }
   }
 }
