@@ -17,8 +17,7 @@ export default {
     ErrorToast,
   },
   errorCaptured(error, vm, info) {
-    console.log("error intercepted");
-    console.log(error, vm, info);
+    this.$store.dispatch('setPaginaError', error.toString())
     return false; // prevent Nuxt from handling the error
   },
 }
