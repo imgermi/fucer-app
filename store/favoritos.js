@@ -4,10 +4,10 @@ export const state = () => ({
 
 export const mutations = {
   'CARGAR_FAVORITOS' (state, normativas) {
-    state.normativas = normativas
+    state.normativas = [...normativas]
   },
   'AGREGAR_FAVORITO' (state, normativa) {
-    state.normativas.push(normativa)
+    state.normativas = [...state.normativas, normativa]
   },
   'QUITAR_FAVORITO' (state, idNormativa) {
     let indiceFavorito = state.normativas.findIndex(

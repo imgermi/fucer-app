@@ -3,18 +3,18 @@ const BASE_URL = 'https://fucer.com.ar/app/api/'
 export const state = () => ({
   normativasDestacadas: [],
   normativasMasNuevas: [],
-  normativasTodas: false
+  normativasTodas: []
 })
 
 export const mutations = {
   'SET_NORMATIVAS_DESTACADAS' (state, payload) {
-    state.normativasDestacadas = payload
+    state.normativasDestacadas = [...payload]
   },
   'SET_NORMATIVAS_MAS_NUEVAS' (state, payload) {
-    state.normativasMasNuevas.push(...payload)
+    state.normativasMasNuevas = [...state.normativasMasNuevas, ...payload]
   },
   'SET_NORMATIVAS_TODAS' (state, payload) {
-    state.normativasTodas = payload
+    state.normativasTodas = [...payload]
   }
 }
 
