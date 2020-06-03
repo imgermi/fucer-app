@@ -1,3 +1,5 @@
+import normalizarNormativas from '~/utils/normalizar-normativas'
+
 const BASE_URL = 'https://fucer.com.ar/app/api/'
 
 export const state = () => ({
@@ -21,32 +23,12 @@ export const mutations = {
 export const actions = {
   async getNormativasDestacadas ({ commit }) {
     const normativas = await this.$axios.$get('normativas/destacadas/5')
-    normativas.map(item => {
-      item.url = {
-        name: 'normativa',
-        params: {
-          id: item.id,
-          slug: decodeURIComponent(item.uri)
-        }
-      }
-      return item
-    })
-    commit('SET_NORMATIVAS_DESTACADAS', normativas.reverse())
+    commit('SET_NORMATIVAS_DESTACADAS', normalizarNormativas(normativas).reverse())
   },
   async getNormativasMasNuevas ({ commit, state }, pagina = 1) {
     let total = state.normativasMasNuevas.length
     const normativas = await this.$axios.$get('normativas/ultimas/' + pagina)
-    normativas.map(item => {
-      item.url = {
-        name: 'normativa',
-        params: {
-          id: item.id,
-          slug: decodeURIComponent(item.uri)
-        }
-      }
-      return item
-    })
-    commit('SET_NORMATIVAS_MAS_NUEVAS', normativas)
+    commit('SET_NORMATIVAS_MAS_NUEVAS', normalizarNormativas(normativas))
     if (total && total === state.normativasMasNuevas.length) {
       commit('SET_NORMATIVAS_TODAS', true)
     }
