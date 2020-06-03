@@ -127,14 +127,8 @@ export default {
   },
   computed: {
     ...mapState(['pagina']),
-    enFavoritos () {
-      if (!this.$store.state.favoritos.normativas.length) {
-        return false
-      }
-      let indiceFavorito = this.$store.state.favoritos.normativas.findIndex(
-        favorito => this.id == favorito.id
-      )
-      return indiceFavorito >= 0 ? true : false
+    enFavoritos() {
+      return this.$store.getters['favoritos/enFavoritos'](this.id)
     }
   },
   beforeRouteEnter (to, from, next) {

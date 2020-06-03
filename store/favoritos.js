@@ -40,3 +40,9 @@ export const actions = {
     commit('CARGAR_FAVORITOS', normativas)
   }
 }
+
+export const getters = {
+  enFavoritos: state => id => {
+    return state.normativas.filter(item => item.id === id).length > 0
+  }
+}
