@@ -10,11 +10,14 @@ export const mutations = {
     state.normativas = [...state.normativas, normativa]
   },
   'QUITAR_FAVORITO' (state, idNormativa) {
-    let indiceFavorito = state.normativas.findIndex(
+    let indice = state.normativas.findIndex(
       favorito => idNormativa === favorito.id
     )
-    if (indiceFavorito !== -1) {
-      state.normativas.splice(indiceFavorito, 1)
+    if (indice !== -1) {
+      state.normativas = [
+        ...state.normativas.slice(0, indice),
+        ...state.normativas.slice(indice + 1)
+      ]
     }
   }
 }
