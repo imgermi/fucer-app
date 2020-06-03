@@ -79,6 +79,7 @@
 import Alerta from '~/components/Alerta.vue'
 import FavoriteStar from '~/components/FavoriteStar.vue'
 import { mapState, mapActions } from 'vuex'
+import normalizarNormativas from '~/utils/normalizar-normativas'
 
 export default {
   components: {
@@ -88,14 +89,8 @@ export default {
   middleware: 'premium',
   async asyncData ({app, params}) {
     try {
-      var normativa = await app.$axios.$get('normativas/id/' + params.id)
-      normativa.url = {
-        name: 'normativa',
-        params: {
-          id: normativa.id,
-          slug: decodeURIComponent(normativa.uri)
-        }
-      }
+      let normativa = await app.$axios.$get('normativas/id/' + params.id)
+      return normalizarNormativas([normativa])[0]
     } catch (e) {
       if (!window.navigator.onLine){
         let cache = await caches.match(`https://fucer.com.ar/app/api/normativas/id/${params.id}`)
@@ -107,7 +102,6 @@ export default {
         app.router.push({name: '404'})
       }
     }
-    return normativa
   },
   data () {
     return {

@@ -1,3 +1,5 @@
+import normalizarNormativas from '~/utils/normalizar-normativas'
+
 export default async function ({store, app, route}) {
   if (app.$auth.loggedIn) {
     let normativas = await app.$axios.$get('favoritos', {
@@ -5,16 +7,7 @@ export default async function ({store, app, route}) {
         usuario: app.$auth.user.id
       }
     })
-    normativas.map(item => {
-      item.url = {
-        name: 'normativa',
-        params: {
-          id: item.id,
-          slug: decodeURIComponent(item.uri)
-        }
-      }
-      return item
-    })
+    normativas = normalizarNormativas(normativas)
     store.dispatch('favoritos/cargarFavoritos', normativas)
 
     // Cachea recursos de favoritos

@@ -1,3 +1,5 @@
+import normalizarNormativas from '~/utils/normalizar-normativas'
+
 export const state = () => ({
   normativas: [],
   busqueda: ''
@@ -20,16 +22,9 @@ export const actions = {
         busqueda: busqueda
       }
     })
-    normativas.map(item => {
-      item.url = {
-        name: 'normativa',
-        params: {
-          id: item.id,
-          slug: decodeURIComponent(item.uri)
-        }
-      }
-      return item
+    commit('SET_NORMATIVAS', {
+      'normativas': normalizarNormativas(normativas),
+      busqueda
     })
-    commit('SET_NORMATIVAS', {normativas, busqueda})
   }
 }
