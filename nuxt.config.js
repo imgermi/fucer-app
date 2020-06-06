@@ -166,21 +166,32 @@ module.exports = {
     mode: 'hash',
     middleware: ['sesiones-simultaneas','auth'],
     extendRoutes (routes, resolve) {
-      routes.push({
-        name: 'normativa',
-        path: '/normativa/:id/:slug?',
-        component: resolve(__dirname, 'pages/normativa/_id.vue')
-      })
-      routes.push({
-        name: 'activar-cuenta',
-        path: '/activar-cuenta/:token',
-        component: resolve(__dirname, 'pages/activar-cuenta.vue')
-      })
-      routes.push({
-        name: 'nueva-clave',
-        path: '/nueva-clave/:token',
-        component: resolve(__dirname, 'pages/nueva-clave.vue')
-      })
+      routes.splice(0, routes.length,
+        ...routes.map(route => {
+          switch (route.name) {
+            case 'normativa-id':
+              return {
+                ...route,
+                name: 'normativa',
+                path: '/normativa/:id/:slug?',
+              }
+
+            case 'activar-cuenta':
+              return {
+                ...route,
+                path: '/activar-cuenta/:token',
+              }
+
+            case 'nueva-clave':
+              return {
+                ...route,
+                path: '/nueva-clave/:token',
+              }
+            default:
+              return route;
+          }
+        })
+      )
     }
   },
 
