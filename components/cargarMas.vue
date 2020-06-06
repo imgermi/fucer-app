@@ -1,11 +1,11 @@
 <template>
-	<div v-if="!normativasTodas" class="center" v-on:click="cargarMas">
+	<div v-if="!todas" class="center" v-on:click="cargarMas">
 	  <button class="rounded__btn--medium green"><span v-html="mensaje"></span></button>
 	</div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   data () {
@@ -15,14 +15,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('inicio',[
-      'normativasMasNuevas',
-      'normativasTodas'
+    ...mapState('normativas',[
+      'todas'
+    ]),
+    ...mapGetters('normativas',[
+      'recientes',
     ])
   },
   methods: {
-    ...mapActions('inicio',[
-      'getNormativasMasNuevas'
+    ...mapActions('normativas',[
+      'getRecientes'
     ]),
     async cargarMas () {
       await this.obtenerMasNormativas()
@@ -32,7 +34,7 @@ export default {
       let oldMensaje = this.mensaje
       this.mensaje = 'Cargando...'
       this.$announcer.set(this.mensaje)
-      await this.getNormativasMasNuevas(this.pagina)
+      await this.getRecientes(this.pagina)
       this.mensaje = oldMensaje
       this.$announcer.set('Normativas cargadas')
     }

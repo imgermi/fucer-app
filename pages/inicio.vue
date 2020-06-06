@@ -10,7 +10,7 @@
           <div>
             <div v-if="!cargandoCarousel">
               <carousel :autoplay="true" :perPage="1" :autoplayTimeout="5000">
-                <slide v-for="normativa in normativasDestacadas" :key="normativa.id + '-destacada'">
+                <slide v-for="normativa in destacadas" :key="normativa.id + '-destacada'">
                   <small v-if="normativa.categoria" :class="`tag ${normativa.categoria_uri}`">{{ normativa.categoria }}</small>
                   <small><nuxt-link :to="normativa.url">{{ normativa.fecha | fecha('dd/MM/yyyy')}}</nuxt-link></small>
                   <h4><nuxt-link :to="normativa.url">{{ normativa.titulo }}</nuxt-link></h4>
@@ -151,7 +151,7 @@ import Alerta from '~/components/Alerta.vue'
 //import ModuloNormativa from '~/components/ModuloNormativa.vue'
 //import cargarMas from '~/components/cargarMas.vue'
 import { Carousel, Slide } from 'vue-carousel';
-import { mapState, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   layout: 'app',
@@ -181,26 +181,26 @@ export default {
     })
   },
   async created () {
-    if (this.normativasDestacadas.length < 1) {
-      await this.getNormativasDestacadas()
+    if (this.destacadas.length < 1) {
+      await this.getDestacadas()
     }
     this.cargandoCarousel = false
 
-    if (this.normativasMasNuevas.length < 1) {
-      await this.getNormativasMasNuevas(1)
+    if (this.recientes.length < 1) {
+      await this.getRecientes(1)
     }
     this.cargandoNormativas = false
   },
   methods: {
-    ...mapActions('inicio',[
-      'getNormativasDestacadas',
-      'getNormativasMasNuevas'
+    ...mapActions('normativas',[
+      'getDestacadas',
+      'getRecientes'
     ])
   },
   computed: {
-    ...mapState('inicio',[
-      'normativasDestacadas',
-      'normativasMasNuevas'
+    ...mapGetters('normativas',[
+      'destacadas',
+      'recientes'
     ])
   },
   head () {

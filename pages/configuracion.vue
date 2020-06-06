@@ -86,7 +86,6 @@
 
 <script>
 import Top from '~/components/Top.vue'
-import {mapActions, mapState} from 'vuex'
 
 export default {
   layout: 'app',
