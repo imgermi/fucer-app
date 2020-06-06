@@ -1,5 +1,5 @@
 <template>
-  <header v-if="$auth.user.suscripcion.trial">
+  <header v-if="$auth.user && $auth.user.suscripcion.trial">
   	<div class="alerta-plan">
   		<p v-html="mensajeDiasFinTrial"></p>
   	</div>
