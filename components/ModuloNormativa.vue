@@ -33,11 +33,11 @@
     ],
     computed: {
       enFavoritos() {
-        return this.$store.getters['favoritos/enFavoritos'](this.id)
+        return this.$store.getters['normativas/enFavoritos'](this.id)
       }
     },
     methods: {
-      ...mapActions('favoritos', [
+      ...mapActions('normativas', [
         'agregarFavorito',
         'quitarFavorito'
       ]),
@@ -46,13 +46,7 @@
           await this.quitarFavorito(this.id)
           this.$announcer.set('Quitado de favoritos')
         } else {
-          await this.agregarFavorito({
-            id: this.id,
-            titulo: this.titulo,
-            bajada: this.bajada,
-            fecha: this.fecha,
-            url: this.url
-          })
+          await this.agregarFavorito(this.id)
           this.$announcer.set('Agregado a favoritos')
         }
       }

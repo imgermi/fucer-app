@@ -9,7 +9,7 @@
         <span class="small__heading">Aquí verá las normativas que marcó como favoritas</span>
         <div class="normativas-container" ref="pageFocusTarget">
           <ModuloNormativa
-            v-for="normativa in normativas"
+            v-for="normativa in favoritas"
             :key="normativa.id + '-ultima'"
             :id="normativa.id"
             :titulo="normativa.titulo"
@@ -29,7 +29,7 @@
 import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
 import ModuloNormativa from '~/components/ModuloNormativa.vue'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   layout: 'app',
@@ -45,7 +45,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('favoritos', ['normativas'])
+    ...mapGetters('normativas', ['favoritas']),
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {

@@ -19,9 +19,9 @@
             Busque por <br> nombre, palabra <br> o año
           </p>
           <div v-else>
-            <div v-if="normativas.length > 0">
+            <div v-if="busqueda.length > 0">
               <ModuloNormativa
-                v-for="normativa in normativas"
+                v-for="normativa in busqueda"
                 :key="normativa.id + '-ultima'"
                 :id="normativa.id"
                 :titulo="normativa.titulo"
@@ -51,7 +51,7 @@
 import Top from '~/components/Top.vue'
 import Alerta from '~/components/Alerta.vue'
 import ModuloNormativa from '~/components/ModuloNormativa.vue'
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   layout: 'app',
@@ -70,16 +70,18 @@ export default {
     ...mapState([
       'pagina'
     ]),
-    ...mapState('buscar',[
-      'normativas',
-      {busqueda: 'busquedaGuardada'}
+    ...mapState('normativas', [
+      'busquedaGuardada'
+    ]),
+    ...mapGetters('normativas', [
+      'busqueda'
     ])
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
       // Sincroniza URI con STORE
-      if (!to.query.busqueda && vm.$store.state.buscar.busqueda) {
-        vm.$router.replace({query: {busqueda: vm.$store.state.buscar.busqueda}})
+      if (!to.query.busqueda && vm.$store.state.normativas.busquedaGuardada) {
+        vm.$router.replace({query: {busqueda: vm.$store.state.normativas.busquedaGuardada}})
         return
       }
 
@@ -113,14 +115,11 @@ export default {
       'setPaginaError',
       'setPaginaCargando'
     ]),
-    ...mapActions('buscar',[
-      'buscarNormativas'
-    ]),
     async buscar (busqueda) {
     	this.setPaginaCargando(true)
     	this.setPaginaError(false)
     	try {
-				await this.buscarNormativas(busqueda)
+				await this.$store.dispatch('normativas/buscar', busqueda)
     	} catch(e) {
     		this.setPaginaError(e)
     	}
