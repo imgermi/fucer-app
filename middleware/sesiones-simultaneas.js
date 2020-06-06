@@ -1,6 +1,6 @@
 const strategy = 'local'
 
-export default function ({store, app, route}) {
+export default function ({ app, route}) {
   const { $axios, $auth } = app
 
   if (!$auth || !$auth.loggedIn || !$auth.strategies[strategy])

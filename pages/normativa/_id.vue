@@ -87,19 +87,19 @@ export default {
     FavoriteStar
   },
   middleware: 'premium',
-  async asyncData ({app, params}) {
+  async asyncData ({app: {router, store}, params}) {
     try {
-      let normativa = await app.$axios.$get('normativas/id/' + params.id)
-      return normalizarNormativas([normativa])[0]
+      await store.dispatch('normativas/getById', params.id)
+      return store.state.normativas.byId[params.id]
     } catch (e) {
       if (!window.navigator.onLine){
         let cache = await caches.match(`https://fucer.com.ar/app/api/normativas/id/${params.id}`)
         if (cache) {
           return cache.json()
         }
-        app.router.push({name: 'offline'})
+        router.push({name: 'offline'})
       } else {
-        app.router.push({name: '404'})
+        router.push({name: '404'})
       }
     }
   },
@@ -122,7 +122,7 @@ export default {
   computed: {
     ...mapState(['pagina']),
     enFavoritos() {
-      return this.$store.getters['favoritos/enFavoritos'](this.id)
+      return this.$store.getters['normativas/enFavoritos'](this.id)
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -152,7 +152,7 @@ export default {
       this.$router.replace({ hash: '' })
       this.$refs.btnLeer.focus()
     },
-    ...mapActions('favoritos', [
+    ...mapActions('normativas', [
       'agregarFavorito',
       'quitarFavorito'
     ]),
@@ -161,13 +161,7 @@ export default {
         await this.quitarFavorito(this.id)
         this.$announcer.set(`Quitado de favoritos`)
       } else {
-        await this.agregarFavorito({
-          id: this.id,
-          titulo: this.titulo,
-          bajada: this.bajada,
-          fecha: this.fecha,
-          url: this.url
-        })
+        await this.agregarFavorito(this.id)
         this.$announcer.set(`Agregado a favoritos`)
       }
     }

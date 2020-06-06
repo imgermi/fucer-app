@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import {mapState} from 'vuex'
 import mensaje from '~/mixins/mensaje'
 
 export default {
