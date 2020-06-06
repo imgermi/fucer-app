@@ -37,6 +37,9 @@ export const mutations = {
   'SET_BUSQUEDA'(state, payload) {
     state.busquedaGuardada = payload
   },
+  'EMPTY_FAVORITAS'(state) {
+    state.idsByFilter['favoritas'] = []
+  },
   'AGREGAR_FAVORITO'(state, payload) {
     state.idsByFilter['favoritas'] = [
       ...state.idsByFilter['favoritas'],
@@ -101,6 +104,9 @@ export const actions = {
       response: normalizarNormativas(normativas),
       filter: 'favoritas',
     })
+  },
+  emptyFavoritas({ commit }) {
+    commit('EMPTY_FAVORITAS')
   },
   async agregarFavorito({ commit }, idNormativa) {
     await this.$axios.post('favoritos', {

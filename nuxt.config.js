@@ -164,7 +164,7 @@ module.exports = {
   router: {
     base: '/',
     mode: 'hash',
-    middleware: ['sesiones-simultaneas','auth', 'init'],
+    middleware: ['sesiones-simultaneas','auth'],
     extendRoutes (routes, resolve) {
       routes.push({
         name: 'normativa',
