@@ -14,8 +14,8 @@
         <FavoriteStar
           :aria-label="(enFavoritos ? 'Quitar de' : 'Agregar a')+ ' favoritos'"
           tabindex="0"
-          @click.native="cambiarFavorito"
-          @keyup.native.enter="cambiarFavorito"
+          @click.native="toggleFavorito(id)"
+          @keyup.native.enter="toggleFavorito(id)"
           :activa="enFavoritos"
         />
       </div>
@@ -152,18 +152,8 @@ export default {
       this.$refs.btnLeer.focus()
     },
     ...mapActions('normativas', [
-      'agregarFavorito',
-      'quitarFavorito'
+      'toggleFavorito',
     ]),
-    async cambiarFavorito () {
-      if( this.enFavoritos ){
-        await this.quitarFavorito(this.id)
-        this.$announcer.set(`Quitado de favoritos`)
-      } else {
-        await this.agregarFavorito(this.id)
-        this.$announcer.set(`Agregado a favoritos`)
-      }
-    }
   },
 }
 </script>

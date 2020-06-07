@@ -109,20 +109,41 @@ export const actions = {
     commit('EMPTY_FAVORITAS')
   },
   async agregarFavorito({ commit }, idNormativa) {
-    await this.$axios.post('favoritos', {
-      usuario: this.$auth.user.id,
-      normativa: idNormativa
-    })
     commit('AGREGAR_FAVORITO', idNormativa)
-  },
-  async quitarFavorito({ commit }, idNormativa) {
-    await this.$axios.delete('favoritos', {
-      params: {
+    this.$announcer.set(`Agregado a favoritos`)
+    try {
+      await this.$axios.post('favoritos', {
         usuario: this.$auth.user.id,
         normativa: idNormativa
-      }
-    })
+      })
+    } catch(error) {
+      commit('QUITAR_FAVORITO', idNormativa)
+      this.$announcer.set(`No se pudo agregar a favoritos`)
+      throw error;
+    }
+  },
+  async quitarFavorito({ commit }, idNormativa) {
     commit('QUITAR_FAVORITO', idNormativa)
+    this.$announcer.set(`Quitado de favoritos`)
+    try {
+      await this.$axios.delete('favoritos', {
+        params: {
+          usuario: this.$auth.user.id,
+          normativa: idNormativa
+        }
+      })
+    } catch (error) {
+      commit('AGREGAR_FAVORITO', idNormativa)
+      this.$announcer.set(`No se pudo quitar de favoritos`)
+      throw error;
+    }
+  },
+  async toggleFavorito({ dispatch, getters }, idNormativa) {
+    if (getters['enFavoritos'](idNormativa)) {
+      await dispatch('quitarFavorito', idNormativa)
+    } else {
+      await dispatch('agregarFavorito', idNormativa)
+    }
   },
 }
 

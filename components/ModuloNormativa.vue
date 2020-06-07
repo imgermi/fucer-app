@@ -8,7 +8,7 @@
       <div class="extra">
         <small v-if="categoria" :class="`tag normativa-module__tag ${categoriaUri}`">{{ categoria }}</small>
         <time v-if="fecha" :datetime="fecha | fecha('yyyy-MM-dd')">{{ fecha | fecha('dd/MM/yyyy') }}</time>
-        <FavoriteStar @click.native.prevent="cambiarFavorito" :activa="enFavoritos"/>
+        <FavoriteStar @click.native.prevent="toggleFavorito(id)" :activa="enFavoritos"/>
       </div>
     </nuxt-link>
   </article>
@@ -37,19 +37,7 @@
       }
     },
     methods: {
-      ...mapActions('normativas', [
-        'agregarFavorito',
-        'quitarFavorito'
-      ]),
-      async cambiarFavorito () {
-        if( this.enFavoritos ){
-          await this.quitarFavorito(this.id)
-          this.$announcer.set('Quitado de favoritos')
-        } else {
-          await this.agregarFavorito(this.id)
-          this.$announcer.set('Agregado a favoritos')
-        }
-      }
+      ...mapActions('normativas', ['toggleFavorito'])
     }
 	}
 </script>
