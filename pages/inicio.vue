@@ -116,9 +116,9 @@
             </article>
           </div>
   <!--         <div v-if="!cargandoNormativas" class="normativas-container">
-            <template v-if="normativasMasNuevas.length > 0">
+            <template v-if="recientes.length > 0">
               <ModuloNormativa
-                v-for="normativa in normativasMasNuevas"
+                v-for="normativa in recientes"
                 :key="normativa.id + '-ultima'"
                 :id="normativa.id"
                 :titulo="normativa.titulo"
@@ -185,7 +185,7 @@ export default {
     this.cargandoCarousel = false
 
     if (this.recientes.length < 1) {
-      await this.getRecientes(1)
+      // await this.getRecientes(1)
     }
     this.cargandoNormativas = false
   },
