@@ -42,6 +42,7 @@
               type="text"
               id="cardExpirationMonth"
               data-vv-name="cardExpirationMonth"
+              v-model="cardExpirationMonth"
               ref="cardExpirationMonth"
               v-validate="'required'"
               data-vv-as="mes de vencimiento"
@@ -67,6 +68,7 @@
               type="text"
               id="cardExpirationYear"
               data-vv-name="cardExpirationYear"
+              v-model="cardExpirationYear"
               ref="cardExpirationYear"
               v-validate="'required'"
               data-vv-as="año de vencimiento"
@@ -91,6 +93,7 @@
             <input
               type="text"
               data-vv-name="securityCode"
+              v-model="securityCode"
               id="securityCode"
               data-checkout="securityCode"
               :class="{'error': errors.has('codigo') }"
@@ -135,6 +138,7 @@
               <select
                 id="docType"
                 data-vv-name="docType"
+                v-model="docType"
                 ref="docType"
                 data-checkout="docType"
                 v-validate="'required'"
@@ -157,6 +161,7 @@
             <input
               type="text"
               data-vv-name="docNumber"
+              v-model="docNumber"
               ref="docNumber"
               v-validate="'required'"
               data-vv-as="número de documento"
@@ -170,7 +175,7 @@
             </span>
           </fieldset>
 
-          <input v-model="paymentMethodInfo.id" type="hidden" name="paymentMethodId" />
+          <input v-model="paymentMethodId" type="hidden" name="paymentMethodId" />
           <input v-model="cardToken" type="hidden" name="token" />
 
           <button type="submit" class="rounded__btn--full green">
@@ -208,13 +213,17 @@ export default {
   data() {
     return {
       documentTypes: [],
-      paymentMethodInfo: {
-        id: '',
-        settings: []
-      },
+      paymentMethodId: '',
+      paymentMethodSettings: [],
+
       cardNumber:'',
       cardholderName:'',
       cardToken:'',
+      cardExpirationMonth: '',
+      cardExpirationYear: '',
+      docType: '',
+      docNumber: '',
+      securityCode: '',
 
       title: 'Paso 3 - Tarjeta de Crédito',
       nroPaso: '3',
@@ -230,11 +239,10 @@ export default {
       return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
     },
     bin () {
-      // First six digits of the card
       return this.cardNumber.replace(/[ .-]/g, '').slice(0, 6)
     },
     isSecurityCodeRequired () {
-      let founded = this.paymentMethodInfo.settings.find(config => {
+      let founded = this.paymentMethodSettings.find(config => {
         return this.bin.match(config.bin.pattern) != null && config.security_code.length == 0
       })
       return founded === undefined ? true : false
@@ -248,7 +256,13 @@ export default {
         if(!newBin){
           return
         }
-        this.paymentMethodInfo = await this.guessingPaymentMethod(newBin)
+        try {
+          let {id, settings} = await this.guessingPaymentMethod(newBin)
+          this.paymentMethodId = id
+          this.paymentMethodSettings = settings
+        } catch(e){
+          console.log(e)
+        }
       }
     }
   },
@@ -267,8 +281,13 @@ export default {
     this.$refs.cardNumber.focus()
   },
 
+  async asyncData ({ app:{ $api }}) {
+    return {
+      documentTypes: await $api.mercadopago.getIdentificationTypes()
+    }
+  },
+
   async created () {
-    this.documentTypes = await this.getDocumentTypes()
     if (this.$auth.user && this.$auth.user.suscripcion.metadata.customer_id) {
       await this.precargarDatos()
     }
@@ -293,63 +312,25 @@ export default {
         return
       }
 
-      this.$refs.cardExpirationMonth.value = card.expiration_month
-      this.$refs.cardExpirationYear.value = card.expiration_year
-      this.$refs.docNumber.value = card.cardholder.identification.number
-      this.$refs.docType.value = card.cardholder.identification.type
+      this.cardExpirationMonth = card.expiration_month
+      this.cardExpirationYear = card.expiration_year
+      this.docNumber = card.cardholder.identification.number
+      this.docType = card.cardholder.identification.type
       this.cardholderName = card.cardholder.name
     },
 
-    // https://www.mercadopago.com.ar/developers/en/tools/sdk/client/javascript#get-doc-types
-    async getDocumentTypes () {
-      if (!process.browser) {
-        return []
-      }
-      return new Promise((resolve, reject) => {
-        this.$mercadopago.getIdentificationTypes((status, response) => {
-          if (status === 200) {
-            resolve(response)
-          } else {
-            reject('An error ocurred when trying to get the identification types.')
-          }
-        })
-      })
-    },
-
-    // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/payment-methods/
     async guessingPaymentMethod (bin) {
-      return new Promise((resolve, reject) => {
-        if (bin.length >= 6) {
-          this.$mercadopago.getPaymentMethod({
-            "bin": bin
-          },(status, response) => {
-            if (status === 200) {
-              resolve(response[0])
-            } else {
-              reject('No se pudo obtener la información del método de pago.')
-            }
-          })
-        }else{
-          reject('El bin no es válido.', bin)
-        }
-      })
-    },
-
-    // Creates a card_token, which is the secure representation of the card
-    async createToken (form) {
-
-      this.$mercadopago.clearSession()
-
-      return new Promise((resolve, reject) => {
-        this.$mercadopago.createToken(form, (status, response) => {
-          if (status === 200 || status === 201) {
-            resolve(response.id)
-          } else {
-            let message = this.$mercadopago.helpers.getMessage('card-token-creation', response)
-            reject(message)
-          }
+      try {
+        let paymentMethods = await this.$api.mercadopago.getPaymentMethods({
+          bin
         })
-      })
+        if(!paymentMethods[0]){
+          throw new Error('No se encontró el método de pago.')
+        }
+        return paymentMethods[0]
+      } catch(e){
+        console.log(e)
+      }
     },
 
     async generateCardToken (event) {
@@ -359,19 +340,31 @@ export default {
       }
 
       try {
-        let form = event.target
-        this.cardToken = await this.createToken(form)
-        if (!this.cardToken) {
+        let cardToken = await this.$api.mercadopago.createToken()
+        if(cardToken){
+          cardToken = await this.$api.mercadopago.updateToken(
+            cardToken.id, {
+              card_number: this.cardNumber.replace(/[ .-]/g, ''),
+              security_code: this.securityCode,
+              expiration_month: this.cardExpirationMonth,
+              expiration_year: this.cardExpirationYear,
+              cardholder_name: this.cardholderName,
+              cardholder_id_type: this.docType,
+              cardholder_id_number: this.docNumber,
+          })
+        }
+        if (!cardToken) {
           throw new Error('Hubo un problema, por favor vuelva a intentalo.')
         }
         this.$router.push({
           name: 'registrar-suscripcion',
           query: {
-            token: this.cardToken,
-            paymentMethodId: this.paymentMethodInfo.id,
+            token: cardToken.id,
+            paymentMethodId: this.paymentMethodId,
           }
         })
       } catch(error) {
+        console.log(error)
         this.setMensaje(error, 'error')
       }
     }

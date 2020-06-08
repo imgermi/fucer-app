@@ -183,37 +183,20 @@ export default {
 
     // Obtiene el monto mínimo para hacer una autorización
     async getMinAllowedAmount (paymentMethodId) {
-      let paymentMethod = await this.getPaymentMethod(paymentMethodId)
-      if (!paymentMethod) {
-        throw new Error('El identificador del método de pago no es válido.')
-      }
-      if (paymentMethod.deferred_capture == 'unsupported') {
-        throw new Error('La tarjeta ingresada no soporta pagos diferidos. Para suscribirse es necesario usar una tarjeta de crédito.')
-      }
-      return paymentMethod.min_allowed_amount
-    },
-
-    // SDK: https://www.mercadopago.com.ar/developers/en/tools/sdk/client/javascript#get-pm-info
-    // API: https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/payment-methods/
-    async getPaymentMethod(paymentMethodId) {
-      if (!process.browser) {
-        return
-      }
-      return new Promise((resolve, reject) => {
-        if (paymentMethodId) {
-          this.$mercadopago.getPaymentMethod({
-            payment_method_id: paymentMethodId
-          },(status, response) => {
-            if (status === 200) {
-              resolve(response[0])
-            } else {
-              reject('Hubo un problema al intentar obtener la información del método de pago.')
-            }
-          })
-        }else{
-          reject('El identificador del método de pago no es válido.', paymentMethodId)
+      try {
+        let paymentMethods = await this.$api.mercadopago.getPaymentMethods({
+          id: paymentMethodId
+        })
+        if(!paymentMethods[0]){
+          throw new Error('No se encontró el método de pago.')
         }
-      })
+        if (paymentMethods[0].deferred_capture == 'unsupported') {
+          throw new Error('La tarjeta ingresada no soporta pagos diferidos. Para suscribirse es necesario usar una tarjeta de crédito.')
+        }
+        return paymentMethods[0].payer_costs[0].min_allowed_amount
+      } catch(e){
+        console.log(e)
+      }
     },
 
     async cancelPayment () {
