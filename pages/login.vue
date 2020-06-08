@@ -118,8 +118,7 @@ export default {
           : 'medio-de-pago';
         this.$router.push({ name: redirectTo })
       } catch(e) {
-        console.log(e)
-        this.setMensaje('Revise sus credenciales por favor. Algún dato no es correcto o el usuario todavía no está activo.', 'error')
+        this.setMensaje(e, 'error')
       }
       this.setPaginaCargando(false)
     }
