@@ -1,7 +1,11 @@
 <template>
-  <div class="seleccione-su-plan">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
-    <section class="band">
+  <main id="contenido" class="seleccione-su-plan">
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
+    <div class="band">
       <div class="container">
         <div class="plan__titulo"><span>Premium</span></div>
         <span
@@ -17,22 +21,22 @@
           <li>Resúmenes introductorios y explicativos sobre material</li>
         </ul>
 
-        <div class="msj-error" v-if="error">
-          {{ error }}
-        </div>
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
-        <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full blue">Siguiente</nuxt-link>
+        <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full green">Siguiente</nuxt-link>
       </div>
-    </section>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
 import {mapActions} from 'vuex'
+import mensaje from '~/mixins/mensaje'
 import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
   layout: 'signup',
+  mixins: [mensaje],
   components: {
     SecondaryTop
   },
@@ -40,7 +44,6 @@ export default {
   middleware: 'guest',
   data() {
     return {
-      error: false,
       title: 'Paso 1 - Seleccione su plan',
       nroPaso: '1',
       tituloPaso: 'Seleccione su plan',
@@ -50,10 +53,16 @@ export default {
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
   },
   async created () {
     await this.obtenerConfigs()
@@ -64,12 +73,12 @@ export default {
     ]),
     async obtenerConfigs() {
       this.setPaginaCargando(true)
+      this.resetMensaje()
       try {
         let data = await this.$axios.$get('configuraciones')
         this.precioPlan = data.precio_regular
-        this.error = false
       } catch(e) {
-        this.error
+        this.setMensaje(e, 'error', 5000)
       }
       this.setPaginaCargando(false)
     }

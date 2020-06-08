@@ -1,15 +1,15 @@
 <template>
   <div class="confirme-su-email">
     <SecondaryTop/>
-    <section class="band">
+    <main id="contenido" class="band">
       <div class="container">
-        <h1 class="intro__heading">Suscripción en revisión</h1>
+        <h1 class="intro__heading" ref="pageFocusTarget">Suscripción en revisión</h1>
         <h2 class="sub__heading">{{ mensaje }}</h2>
-        <nuxt-link :to="{name: 'modificar-tarjeta'}" class="rounded__btn--medium blue">
+        <nuxt-link :to="{name: 'modificar-tarjeta'}" class="rounded__btn--medium green">
           Cambiar tarjeta
         </nuxt-link>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
     SecondaryTop
   },
   auth: false,
-  middleware: 'plan-mercadopago',
+  middleware: 'plan-no-ilimitado',
   data() {
     return {
       title: 'Estado de suscripción',
@@ -37,17 +37,18 @@ export default {
   },
   computed: {
     mensaje () {
-      return this.mensajes[this.$store.state.auth.user.suscripcion.estado_invoice]
+      return this.mensajes[this.$store.state.auth.user.suscripcion.metadata.estado_invoice]
     }
   },
-  head () {
-    return {
-      title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
-    }
-  }
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
 }
 </script>
 

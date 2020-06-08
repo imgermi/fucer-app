@@ -5,7 +5,7 @@
       <div class="container">
         <h1 class="intro__heading">Sin conexión</h1>
         <p>Este contenido no está disponible sin conexión.</p>
-        <a @click="$router.go(-1)" class="rounded__btn--full white">Volver</a>
+        <a @click="$router.go(-1)" @keyup.enter="$router.go(-1)" class="rounded__btn--full white">Volver</a>
       </div>
     </section>
   </div>
@@ -28,9 +28,6 @@ export default {
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
       bodyAttrs: {
           class: 'bg__gradient'
       }

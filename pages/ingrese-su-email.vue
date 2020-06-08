@@ -1,15 +1,13 @@
 <template>
 	<div class="ingresar-mail">
 		<SecondaryTop />
-		<section class="band">
+		<main id="contenido" class="band">
 			<div class="container form__container">
 
-				<h1 class="intro__heading">¿No recibió el mail de confirmación?</h1>
+				<h1 class="intro__heading" ref="pageFocusTarget">¿No recibió el mail de confirmación?</h1>
 				<h2 class="sub__heading">Ingrese su email nuevamente</h2>
 
-				<div class="msj-error" v-if="error">
-				  {{ error }}
-				</div>
+				<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
 				<form @submit.prevent="resendActivationEmail" class="main__form">
 					<fieldset>
@@ -27,22 +25,24 @@
 					    {{ errors.first('email') }}
 					  </span>
 					</fieldset>
-					<button type="submit" class="rounded__btn--full blue">
+					<button type="submit" class="rounded__btn--full green">
 					  {{ txtBtnSubmit}}
 					</button>
 				</form>
 
 			</div>
-		</section>
+		</main>
 	</div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
 	layout: 'signup',
+	mixins: [mensaje],
 	components: {
 		SecondaryTop
 	},
@@ -50,7 +50,6 @@ export default {
 	data() {
 		return {
 			email: '',
-			error: false,
 			title: 'Ingrese su email',
 		}
 	},
@@ -62,6 +61,15 @@ export default {
 	    return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
 	  }
 	},
+	beforeRouteEnter (to, from, next) {
+    next(vm => {
+			vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
 	methods: {
 		...mapActions([
 	      'setPaginaCargando'
@@ -77,8 +85,8 @@ export default {
 		      email: this.email
 		    })
 		  	this.$router.push({name: 'confirme-su-email'})
-		  } catch(error) {
-		    this.error = error
+		  } catch(e) {
+				this.setMensaje(e, 'error')
 		  }
 		  this.setPaginaCargando(false)
 		}
@@ -86,9 +94,6 @@ export default {
 	head () {
 	  return {
 	    title: this.title,
-	    meta: [
-	      { hid: 'description', name: 'description', content: '' }
-	    ]
 	  }
 	},
 }

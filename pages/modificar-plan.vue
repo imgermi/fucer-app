@@ -6,196 +6,103 @@
   		</div>
   	</header>
 
-  	<section class="band">
-  		<div class="container">
-  			<div class="datos__plan">
-  			  <h2>Mi plan</h2>
-  			  <div
-            v-if="estaSuscripto || !estaSuscripto && esTrial"
-            class="datos__plan--dato"
-          >
-  			    <span>{{ esTrial ? 'Versión de prueba' : 'Plan premium'  }}</span>
-  			    <small>${{ esTrial ? 0 : planPrecio }}</small>
+    <main id="contenido">
+    	<section class="band">
+    		<div class="container">
+    			<div class="datos__plan">
+    			  <h2 ref="pageFocusTarget">Mi plan</h2>
+    			  <div
+              v-if="suscripcion.premium"
+              class="datos__plan--dato"
+            >
+    			    <span>{{ suscripcion.plan.descripcion }}</span>
+    			    <small>{{ suscripcion.activa ? '$'+suscripcion.plan.valor : '' }}</small>
+            </div>
+    			</div>
+    		</div>
+    	</section>
+
+    	<section class="band">
+    		<div class="container">
+
+    		  <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
+
+          <h2>Suscripción</h2>
+          <div class="msj">
+            <p v-html="suscripcion.plan.estado"></p>
           </div>
-          <p v-html="mensajePlan"></p>
-  			</div>
-  		</div>
-  	</section>
+          <br>
 
-  	<section class="band">
-  		<div class="container">
-
-        <h2>Suscripción</h2>
-        <div class="msj">
-          {{ estaSuscripto
-            ? 'Su suscripción está activa. En '
-              + diasFinSuscripcion
-              + ' '
-              + (diasFinSuscripcion > 1 ? 'días' : 'dia')
-              +' va debitarse un nuevo pago.'
-            : 'Su suscripción fue cancelada. No va a recibir nuevos cargos en su tarjeta.'
-          }}
-        </div>
-        <br>
-
-        <div class="msj-error" v-if="mensaje">
-          {{ mensaje }}
-        </div>
-
-  			<div class="datos__plan--dato seleccionar">
-  			  <span>Plan Premium</span>
-  			  <small>${{ planPrecio }} mensuales</small>
-  			  <button class="rounded__btn--medium" @click="changeSubscriptionStatus">
-            {{ actualizandoPlan
-              ? 'Cargando...'
-              : (estaSuscripto
-                  ? 'Cancelar suscripción'
-                  : 'Suscríbase'
-              )
-            }}
-          </button>
-  			</div>
-  		</div>
-  	</section>
+    			<div class="datos__plan--dato seleccionar">
+    			  <span>Plan Premium</span>
+    			  <small>${{ suscripcion.plan.valor }} mensuales</small>
+    			  <button
+              class="rounded__btn--medium"
+              @click="modificarSuscripcion"
+              @keyup.enter="modificarSuscripcion"
+            >
+              {{ actualizandoPlan
+                ? 'Cargando...'
+                : (suscripcion.activa
+                    ? 'Cancelar suscripción'
+                    : 'Suscríbase'
+                )
+              }}
+            </button>
+    			</div>
+    		</div>
+    	</section>
+    </main>
   </div>
 </template>
 
 <script>
-import {mapActions, mapState, mapGetters} from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
-  middleware: 'plan-mercadopago',
+  mixins: [mensaje],
+  middleware: 'plan-no-ilimitado',
   data () {
     return {
       title: 'Modificar Plan',
       actualizandoPlan: false,
-      planPrecio: 0,
-      mensaje: false,
-      subscription: null
     }
-  },
-  async created () {
-    await this.obtenerConfigs()
   },
   computed: {
-    ...mapState(['pagina']),
-    ...mapGetters([
-      'estaSuscripto',
-      'esTrial',
-      'mensajeDiasFinTrial',
-      'diasFinSuscripcion',
-      'usuarioPremium',
-      'mensajePlan'
-    ])
+    suscripcion () {
+      return this.$auth.user.suscripcion;
+    }
   },
-  methods: {
-    ...mapActions([
-      'setPaginaCargando'
-    ]),
-    async obtenerConfigs() {
-      this.setPaginaCargando(true)
-      try {
-        let data = await this.$axios.$get('configuraciones')
-        this.planPrecio = data.precio_regular
-      } catch(e) {
-        this.mensaje = e
-      }
-      this.setPaginaCargando(false)
-    },
-    async changeSubscriptionStatus () {
-      this.actualizandoPlan = true
-      try {
-        // TODO: Puede haber más estados
-        let token = ''
-        await this.getSubscription()
-        if (!this.subscription){
-          this.actualizandoPlan = false
-          return
-        }
-        if(this.subscription.status === 'authorized') {
-          token = await this.pauseSubscription()
-
-        } else if(this.subscription.status === 'paused') {
-          token = await this.reactivateSubscription()
-        }
-
-        if (!token) {
-          this.mensaje = 'Hubo un problema. Vuelva a intentarlo por favor.'
-          this.actualizandoPlan = false
-          return
-        }
-
-        // Actualizo el token de seguridad
-        this.$auth.setToken('local', 'Bearer ' + token)
-        await this.$auth.fetchUser()
-      } catch (error) {
-        this.mensaje = error.response != undefined
-            ? error.response.data.error.message.replace('Bad Request:', '')
-            : (error.message || error)
-      }
-      this.actualizandoPlan = false
-    },
-    async getSubscription () {
-      try {
-        this.subscription = await this.$axios.$get(
-          'mercadopago/get-subscription', {
-            params: {
-              subscription_id: this.$auth.user.suscripcion.id
-            }
-          }
-        )
-        if (!this.subscription) {
-          this.mensaje = 'No se pudo encontrar la suscripción registrada en Mercado Pago.'
-        }
-      } catch(error) {
-        this.mensaje = error.response != undefined
-          ? error.response.data.error.message.replace('Bad Request:', '')
-          : (error.message || error)
-      }
-    },
-    async pauseSubscription () {
-      try {
-        let token = await this.$axios.$put(
-          'mercadopago/pause-subscription', {
-            subscription_id: this.subscription.id
-          }
-        )
-        if (!this.subscription) {
-          this.mensaje = 'No se pudo encontrar la suscripción registrada en Mercado Pago.'
-        }
-        this.mensaje = 'La suscripción fue cancelada.'
-        return token
-      } catch(error) {
-        this.mensaje = error.response != undefined
-          ? error.response.data.error.message.replace('Bad Request:', '')
-          : (error.message || error)
-      }
-    },
-    async reactivateSubscription () {
-      try {
-        let token = await this.$axios.$put(
-          'mercadopago/reactivate-subscription', {
-            subscription_id: this.subscription.id
-          }
-        )
-        if (!this.subscription) {
-          this.mensaje = 'No se pudo encontrar la suscripción registrada en Mercado Pago.'
-        }
-        this.mensaje = '¡La suscripción fue reactivada!'
-        return token
-      } catch(error) {
-        this.mensaje = error.response != undefined
-          ? error.response.data.error.message.replace('Bad Request:', '')
-          : (error.message || error)
+  watch: {
+    'suscripcion.plan.estado' (newEstado, oldEstado) {
+      if (newEstado !== oldEstado) {
+        this.$announcer.set(newEstado)
       }
     }
   },
-  head () {
-    return {
-      title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ]
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
+  methods: {
+    async modificarSuscripcion () {
+      this.actualizandoPlan = true
+      try {
+        if (this.suscripcion && this.suscripcion.activa) {
+          await this.$axios.$delete('suscripciones')
+        } else {
+          await this.$axios.$patch('suscripciones', {})
+        }
+        await this.$auth.fetchUser()
+      } catch (error) {
+        this.setMensaje(error, 'error')
+      }
+      this.actualizandoPlan = false
     }
   }
 }

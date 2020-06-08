@@ -1,12 +1,14 @@
 <template>
-  <div class="registro">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
-    <section class="band form__container">
+  <main id="contenido" class="registro">
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
+    <div class="band form__container">
       <div class="container">
 
-        <div class="msj-error" v-if="error">
-          {{ error }}
-        </div>
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
         <form @submit.prevent="register" class="main__form">
           <fieldset>
@@ -78,21 +80,23 @@
             </span>
           </fieldset>
 
-          <button type="submit" class="rounded__btn--full blue">
+          <button type="submit" class="rounded__btn--full green">
             {{ txtBtnSubmit}}
           </button>
         </form>
       </div>
-    </section>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
+  mixins: [mensaje],
   components: {
     SecondaryTop
   },
@@ -104,7 +108,6 @@ export default {
       email: '',
       password: '',
       passwordRepeat: '',
-      error: false,
       title: 'Registrarse',
       nroPaso: '2',
       tituloPaso: 'Cree su cuenta'
@@ -117,6 +120,15 @@ export default {
     txtBtnSubmit () {
       return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
   },
   mounted() {
     this.$refs.nombre.focus()
@@ -139,7 +151,7 @@ export default {
         })
         this.$router.push({name: 'confirme-su-email'})
       } catch(e) {
-        this.error = e
+        this.setMensaje(e, 'error')
       }
       this.setPaginaCargando(false)
     }
@@ -147,9 +159,6 @@ export default {
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ]
     }
   },
 }

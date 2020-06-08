@@ -1,9 +1,11 @@
 <template>
   <div class="error">
+    <vue-announcer />
+    <skip-links />
     <SecondaryTop/>
     <section class="band">
       <div class="container">
-        <h1 class="intro__heading">Error - 404</h1>
+        <h1 ref="pageFocusTarget" class="intro__heading">Error - 404</h1>
         <p>La página que está buscando no existe</p>
         <nuxt-link :to="{ name: 'inicio' }" class="rounded__btn--full white">Volver a Inicio</nuxt-link>
       </div>
@@ -14,31 +16,33 @@
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
+import SkipLinks from '~/components/SkipLinks.vue'
 
 export default {
   components: {
-  	SecondaryTop
+    SecondaryTop,
+    SkipLinks
   },
   props: ['error'],
   data () {
     return {
-      title: 'Error - 404',
+      title: 'Error - Página no encontrada',
     }
   },
-  created(){
-    console.log(this.error)
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.assertive(`${vm.title} ${vm.$announcer.options.complementRoute}`)
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
   },
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
       bodyAttrs: {
           class: 'bg__gradient'
       }
     }
-  }
+  },
 }
 </script>
 

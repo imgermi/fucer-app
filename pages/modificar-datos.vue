@@ -1,17 +1,11 @@
 <template>
   <div class="modificar-datos">
-    <section class="band">
+    <main id="contenido" class="band">
     	<div class="container">
     		<nuxt-link :to="{ name: 'configuracion' }"><img src="~/assets/img/arrow-left.svg" alt="Volver" class="arrow-left"></nuxt-link>
-    		<h2>Modificar datos personales</h2>
+    		<h2 ref="pageFocusTarget">Modificar datos personales</h2>
 
-    		<div class="msj-error" v-if="error">
-    		  {{ error }}
-    		</div>
-
-    		<div class="msj-info" v-if="info">
-    		  {{ info }}
-    		</div>
+    		<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
     		<form @submit.prevent="actualizarDatos" class="main__form">
     			<fieldset>
@@ -45,33 +39,43 @@
     			<button type="submit" class="rounded__btn--medium">{{ pagina.cargando ? 'Cargando..' : 'Guardar cambios' }}</button>
     		</form>
     	</div>
-    </section>
+    </main>
   </div>
 </template>
 
 <script>
 import {mapActions, mapState} from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
+	mixins: [mensaje],
 	data () {
 	  return {
 	    title: 'Modificar Datos Personales',
 	    nombre: this.$auth.user.nombre,
 	    email: this.$auth.user.email,
 	    password: '',
-	    error: '',
-	    info: '',
 	  }
 	},
 	computed: {
 		...mapState(['pagina'])
 	},
+	beforeRouteEnter (to, from, next) {
+    next(vm => {
+			vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
 	methods: {
     ...mapActions([
       'setPaginaCargando'
     ]),
     async actualizarDatos() {
       this.setPaginaCargando(true)
+      this.resetMensaje()
       try {
       	let datos = {
       		nombre: this.nombre,
@@ -86,10 +90,9 @@ export default {
         this.$auth.setToken('local', 'Bearer ' + data.token)
         await this.$auth.fetchUser()
 
-        this.error = false
-        this.info = 'Los datos fueron actualizados'
+				this.setMensaje('Los datos fueron actualizados', 'info', 3000)
       } catch(e) {
-        this.error = e
+				this.setMensaje(e, 'error')
       }
       this.setPaginaCargando(false)
     }
@@ -97,9 +100,6 @@ export default {
 	head () {
 	  return {
 	    title: this.title,
-	    meta: [
-	      { hid: 'description', name: 'description', content: '' }
-	    ]
 	  }
 	}
 }

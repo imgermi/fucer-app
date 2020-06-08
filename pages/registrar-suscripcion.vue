@@ -57,16 +57,18 @@
         </nuxt-link>
       </div>
     </section>
-    <section class="band">
+    <main id="contenido" class="band">
       <div class="container">
-        <h1 class="intro__heading"><span v-html="titulo"></span></h1>
+        <h1 class="intro__heading" ref="pageFocusTarget">
+          <span v-html="titulo"></span>
+        </h1>
         <p v-if="mensaje">{{ mensaje }}</p>
         <p v-if="error" style="color: red;">{{ error }}</p>
         <br>
 
-        <div v-if="$auth.user && $auth.user.suscripcion && $auth.user.suscripcion.id">
+        <div v-if="$auth.user.suscripcion.activa">
           <nuxt-link
-            class="rounded__btn--full blue"
+            class="rounded__btn--full green"
             :to="{ name: 'inicio' }"
           >
             Comenzar
@@ -76,14 +78,15 @@
           <a
             v-if="error"
             href="#"
-            class="rounded__btn--full blue"
+            class="rounded__btn--full green"
             @click.prevent="$router.go(-1)"
+            @keyup.enter.prevent="$router.go(-1)"
           >
             Volver
           </a>
         </div>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 
@@ -92,14 +95,14 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   layout: 'signup',
-  middleware: 'plan-mercadopago',
+  mixins: ['mensaje'],
+  middleware: 'plan-no-ilimitado',
   data() {
     return {
       paymentMethodId: this.$route.query.paymentMethodId || '',
       cardToken: this.$route.query.token || '',
       payment: null,
-
-      planId: '',
+      customer: null,
 
       titulo: '',
       mensaje: '',
@@ -113,15 +116,24 @@ export default {
       'pagina'
     ]),
     paymentId () {
-      return (this.payment && this.payment.id) ? this.payment.id : 0
+      return this.payment && this.payment.id
     },
     email () {
       return this.$auth.user.email
     }
   },
 
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
+
   async created () {
-    await this.obtenerConfigs()
     await this.processCardAndCreateCustomer()
   },
 
@@ -129,16 +141,6 @@ export default {
     ...mapActions([
       'setPaginaCargando'
     ]),
-    async obtenerConfigs() {
-      this.setPaginaCargando(true)
-      try {
-        let data = await this.$axios.$get('configuraciones')
-        this.planId = data.plan_regular_id
-      } catch(e) {
-        this.error = e
-      }
-      this.setPaginaCargando(false)
-    },
     async processCardAndCreateCustomer () {
       try {
         await this.verifyCard()
@@ -147,6 +149,7 @@ export default {
 
         this.titulo = '¡Bienvenido/a, ' + this.$auth.user.nombre + '!'
         this.mensaje += 'Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. A partir de ahora forma parte de Legister. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.'
+        this.$announcer.set(this.titulo +' '+ this.mensaje)
       } catch(error) {
         this.titulo = 'Hubo un problema'
         this.error = error.response != undefined
@@ -156,15 +159,18 @@ export default {
         if (this.error.indexOf('Invalid card_token_id')!==-1) {
           this.error = 'Por seguridad necesitamos que vuelva a cargar los datos de su tarjeta.'
         }
+        this.$announcer.set(this.titulo +'. '+ this.error)
       }
     },
 
     async verifyCard () {
       this.titulo = 'Verificando tarjeta...'
+      this.$announcer.set(this.titulo)
       await this.authorizePayment()
       // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/webhooks/payment-status/
       if (this.payment.status !== 'authorized') {
         this.error = 'No se pudo verificar que la tarjeta sea apta para hacer suscripciones. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.'
+        this.$announcer.set(this.error)
       }else{
         await this.cancelPayment()
       }
@@ -183,37 +189,20 @@ export default {
 
     // Obtiene el monto mínimo para hacer una autorización
     async getMinAllowedAmount (paymentMethodId) {
-      let paymentMethod = await this.getPaymentMethod(paymentMethodId)
-      if (!paymentMethod) {
-        throw new Error('El identificador del método de pago no es válido.')
-      }
-      if (paymentMethod.deferred_capture == 'unsupported') {
-        throw new Error('La tarjeta ingresada no soporta pagos diferidos. Para suscribirse es necesario usar una tarjeta de crédito.')
-      }
-      return paymentMethod.min_allowed_amount
-    },
-
-    // SDK: https://www.mercadopago.com.ar/developers/en/tools/sdk/client/javascript#get-pm-info
-    // API: https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/payment-methods/
-    async getPaymentMethod(paymentMethodId) {
-      if (!process.browser) {
-        return
-      }
-      return new Promise((resolve, reject) => {
-        if (paymentMethodId) {
-          this.$mercadopago.getPaymentMethod({
-            payment_method_id: paymentMethodId
-          },(status, response) => {
-            if (status === 200) {
-              resolve(response[0])
-            } else {
-              reject('Hubo un problema al intetar obtener la información del método de pago.')
-            }
-          })
-        }else{
-          reject('El identificador del método de pago no es válido.', paymentMethodId)
+     try {
+        let paymentMethods = await this.$api.mercadopago.getPaymentMethods({
+          id: paymentMethodId
+        })
+        if(!paymentMethods[0]){
+          throw new Error('No se encontró el método de pago.')
         }
-      })
+        if (paymentMethods[0].deferred_capture == 'unsupported') {
+          throw new Error('La tarjeta ingresada no soporta pagos diferidos. Para suscribirse es necesario usar una tarjeta de crédito.')
+        }
+        return paymentMethods[0].payer_costs[0].min_allowed_amount
+      } catch(e){
+        console.log(e)
+      }
     },
 
     async cancelPayment () {
@@ -226,46 +215,50 @@ export default {
 
     async createNewCustomer () {
       this.titulo = 'Guardando tarjeta...'
-      let token = await this.$axios.$post('mercadopago/create-customer', {
+      this.$announcer.set(this.titulo)
+      this.customer = await this.$axios.$post('mercadopago/create-customer', {
         email: this.email,
         token: this.cardToken
       })
-
-      // Actualizo el token de seguridad
-      this.$auth.setToken('local', 'Bearer ' + token)
-      await this.$auth.fetchUser()
     },
 
     async subscribe () {
       this.titulo = 'Creando nueva suscripción...'
+      this.$announcer.set(this.titulo)
+
+      // Compruebo que el usuaio no tenga ya una suscripción
       if(this.$auth.user && this.$auth.user.suscripcion.id){
-        this.subscription = await this.$axios.$get('mercadopago/get-subscription', {
-          params: {
-            subscription_id: this.$auth.user.suscripcion.id
+        try {
+          let subscription = await this.$axios.$get('mercadopago/get-subscription', {
+            params: {
+              subscription_id: this.$auth.user.suscripcion.id
+            }
+          })
+          if(subscription){
+            return
           }
-        })
-        if(this.subscription){
-          return
-        }
+        } catch(e) {}
       }
-      let token = await this.$axios.$post(
-        'mercadopago/subscribe-customer', {
-          plan_id: this.planId,
-          customer_id: this.$auth.user.customer_id
-        }
-      )
-      // Actualizo el token de seguridad
-      this.$auth.setToken('local', 'Bearer ' + token)
-      await this.$auth.fetchUser()
+
+      try {
+        let token = await this.$axios.$post(
+          'mercadopago/subscribe-customer', {
+            customer_id: this.customer.id
+          }
+        )
+        // Actualizo el token de seguridad
+        this.$auth.setToken('local', 'Bearer ' + token)
+        await this.$auth.fetchUser()
+      } catch(e) {
+        console.log(e)
+        this.setMensaje('NO se pudo actualizar la suscripción. Vuelva a ingresar los datos de su tarjeta por favor.', 'error')
+      }
+      
     }
   },
-
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ]
     }
   },
 }

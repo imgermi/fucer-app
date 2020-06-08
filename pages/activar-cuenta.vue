@@ -1,22 +1,26 @@
 <template>
-  <div class="mail-confirmado">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
-    <section class="band">
+  <main id="contenido" class="mail-confirmado">
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
+    <div class="band">
       <div class="container">
         <h1>
           <span v-html="mensaje"></span>
         </h1>
         <div v-if="!pagina.cargando">
           <nuxt-link
-            class="rounded__btn--full blue"
+            class="rounded__btn--full green"
             :to="{ name: 'medio-de-pago' }"
           >
             Siguiente
           </nuxt-link>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -47,6 +51,17 @@ export default {
   validate ({ params }) {
     return /^[0-9a-z]{32}$/.test(params.token)
   },
+
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
+
   created () {
     this.activarCuenta()
   },
@@ -57,6 +72,7 @@ export default {
     async activarCuenta() {
       this.setPaginaCargando(true)
       try {
+        this.$announcer.set(this.mensaje)
         let {data} = await this.$axios.$post('auth/activateAccount', {
           token: this.$route.params.token,
         })
@@ -66,8 +82,10 @@ export default {
 
         this.title = 'E-mail confirmado'
         this.mensaje = '¡Bienvenido, ' + this.$auth.user.nombre + '!<br><br> Su email ha sido confirmado.'
+        this.$announcer.set(this.mensaje)
       } catch(e) {
         this.mensaje = e
+        this.$announcer.set(this.mensaje)
       }
       this.setPaginaCargando(false)
     }
@@ -75,9 +93,6 @@ export default {
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ]
     }
   }
 }

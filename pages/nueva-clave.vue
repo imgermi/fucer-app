@@ -1,18 +1,12 @@
 <template>
 	<div class="restaurar-clave">
 		<SecondaryTop />
-		<section class="band">
+		<main id="contenido" class="band">
 			<div class="container form__container">
 
-				<h1 class="intro__heading">Nueva clave</h1>
+				<h1 class="intro__heading" ref="pageFocusTarget">Nueva clave</h1>
 
-				<div class="msj-error" v-if="error">
-				  {{ error }}
-				</div>
-
-				<div class="msj-info" v-if="info">
-	    		  {{ info }}
-	    		</div>
+				<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
 				<form @submit.prevent="resetPassword" class="main__form">
 					<fieldset>
@@ -47,7 +41,7 @@
 					    {{ errors.first('passwordConfirm') }}
 					  </span>
 					</fieldset>
-					<button type="submit" class="rounded__btn--full blue">
+					<button type="submit" class="rounded__btn--full green">
 					  {{ txtBtnSubmit}}
 					</button>
 				</form>
@@ -56,16 +50,18 @@
 				<p class="signup__agregados">¿Tiene problemas? <nuxt-link :to="{ name: 'restaurar-clave' }">Solicite nuevamente un cambio de clave</nuxt-link>.</p>
 
 			</div>
-		</section>
+		</main>
 	</div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
 	layout: 'signup',
+	mixins: [mensaje],
 	components: {
 		SecondaryTop
 	},
@@ -74,8 +70,6 @@ export default {
 		return {
 			password: '',
 			passwordConfirm: '',
-			error: false,
-			info: false,
 			title: 'Nueva clave',
 		}
 	},
@@ -87,6 +81,15 @@ export default {
 	    return this.pagina.cargando ? 'Cargando...' : 'Guardar'
 	  }
 	},
+	beforeRouteEnter (to, from, next) {
+    next(vm => {
+			vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
 	methods: {
 		...mapActions([
 	      'setPaginaCargando'
@@ -102,12 +105,10 @@ export default {
 		      token: this.$route.params.token,
 		      password: this.password,
 		    })
-		    this.error = false
-		  	this.info = 'Hemos actualizado su clave. Por favor inicie sesión con sus nuevas credenciales.'
+				this.setMensaje('Hemos actualizado su clave. Por favor inicie sesión con sus nuevas credenciales.', 'info')
 		  	setTimeout(() => this.$router.push({'name': 'inicio'}), 4000)
-		  } catch(error) {
-		    this.error = error
-		    this.info = false
+		  } catch(e) {
+		    this.setMensaje(e, 'error')
 		  }
 		  this.setPaginaCargando(false)
 		}
@@ -115,9 +116,6 @@ export default {
 	head () {
 	  return {
 	    title: this.title,
-	    meta: [
-	      { hid: 'description', name: 'description', content: '' }
-	    ]
 	  }
 	},
 }

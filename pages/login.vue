@@ -1,12 +1,12 @@
 <template>
-  <div class="login">
-    <SecondaryTop :tituloPaso="tituloPaso"/>
-    <section class="band form__container">
+  <main id="contenido" class="login">
+    <SecondaryTop
+      :tituloPaso="tituloPaso"
+    />
+    <div class="band form__container">
       <div class="container">
 
-        <div class="msj-error" v-if="error">
-          {{ error }}
-        </div>
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
         <form @submit.prevent="login" class="main__form">
           <fieldset>
@@ -16,7 +16,7 @@
               name="email"
               v-model="email"
               id="email"
-              ref="email"
+              ref="pageFocusTarget"
               v-validate="'required'"
               :class="{'error': errors.has('email') }"
               placeholder="Email"
@@ -42,24 +42,26 @@
               {{ errors.first('password') }}
             </span>
           </fieldset>
-          <button type="submit" class="rounded__btn--full blue">
+          <button type="submit" class="rounded__btn--full green">
             {{ txtBtnIngresar}}
           </button>
         </form>
         <br>
-        <p class="signup__agregados">¿Olvidó su clave? <nuxt-link :to="{ name: 'restaurar-clave' }">Haga click aquí</nuxt-link>.</p>
-        <p class="signup__agregados">¿Registró su usuario pero no recibió el mail para activarlo? <nuxt-link :to="{ name: 'ingrese-su-email' }">Envíelo de nuevo</nuxt-link>.</p>
-      </div>
-    </section>
-  </div>
+        <p class="signup__agregados"><nuxt-link :to="{ name: 'restaurar-clave' }">¿Olvidó su clave? <b>Haga click aquí</b></nuxt-link>.</p>
+        <p class="signup__agregados"><nuxt-link :to="{ name: 'ingrese-su-email' }">¿Registró su usuario pero no recibió el mail para activarlo? <b>Envíelo de nuevo</b></nuxt-link>.</p>
+      </div></div>
+    
+  </main>
 </template>
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
 import { mapState, mapActions } from 'vuex'
+import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
+  mixins: [mensaje],
   components: {
     SecondaryTop
   },
@@ -69,9 +71,8 @@ export default {
     return {
       email: '',
       password: '',
-      error: false,
       title: 'Ingresar',
-      tituloPaso: 'Ingrese a Legister con su email'
+      tituloPaso: 'Ingrese a FucerNet con su email'
     }
   },
   computed: {
@@ -82,8 +83,17 @@ export default {
       return this.pagina.cargando ? 'Cargando...' : 'Ingresar'
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
   mounted() {
-    this.$refs.email.focus()
+    this.$refs.pageFocusTarget.focus()
   },
   methods: {
      ...mapActions([
@@ -95,31 +105,27 @@ export default {
         return
       }
       this.setPaginaCargando(true)
-      let response = this.$auth.loginWith('local', {
-        data: {
-          username: this.email,
-          password: this.password
-        }
-      })
-      .then(() => {
-        if (this.$store.getters.usuarioPremium) {
-          this.$router.push({name: 'inicio'})
-        } else {
-          this.$router.push({name: 'medio-de-pago'})
-        }
-      })
-      .catch(error => {
-        this.error = error
-      })
+      this.resetMensaje()
+      try {
+        await this.$auth.loginWith('local', {
+          data: {
+            username: this.email,
+            password: this.password
+          }
+        })
+        const redirectTo = this.$auth.user.suscripcion.premium
+          ? 'inicio'
+          : 'medio-de-pago';
+        this.$router.push({ name: redirectTo })
+      } catch(e) {
+        this.setMensaje(e, 'error')
+      }
       this.setPaginaCargando(false)
     }
   },
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
     }
   },
 }

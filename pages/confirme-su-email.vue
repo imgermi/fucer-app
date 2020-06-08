@@ -1,14 +1,18 @@
 <template>
-  <div class="confirme-su-email">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
-    <section class="band">
+  <main id="contenido" class="confirme-su-email">
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
+    <div class="band">
       <div class="container">
         <h1 class="intro__heading">Confirme su email</h1>
         <h2 class="sub__heading">¡Gracias por registrarse! Hemos enviado un correo de confirmación a su cuenta de email.</h2>
         <p class="signup__agregados">¿No ha recibido el mail? <nuxt-link :to="{ name: 'ingrese-su-email' }">Ingréselo de nuevo</nuxt-link></p>
       </div>
-    </section>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -27,12 +31,18 @@ export default {
       tituloPaso: 'Cree su cuenta'
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
     }
   }
 }

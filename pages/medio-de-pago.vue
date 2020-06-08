@@ -1,7 +1,11 @@
 <template>
-  <div class="medio-de-pago">
-    <SecondaryTop :nroPaso="nroPaso" :tituloPaso="tituloPaso"/>
-    <section class="band">
+  <main id="contenido" class="medio-de-pago">
+    <SecondaryTop
+      :nroPaso="nroPaso"
+      :tituloPaso="tituloPaso"
+      ref="pageFocusTarget"
+    />
+    <div class="band">
       <div class="container">
         <div v-if="$auth.loggedIn" class="user">
           <span>Sus datos personales</span>
@@ -9,40 +13,49 @@
           <small>{{ $auth.user.email }}</small>
         </div>
         <p>Para acceder a sus 15 días gratis, tendrá que suscribirse al plan seleccionado.</p>
-        <p>No se preocupe. Cancele antes del {{ moment().add(15, 'days').format('D/M/Y') }} y <strong>no se le cobrará ningún cargo.</strong></p>
-        <nuxt-link :to="{ name: 'tarjeta-de-credito' }" class="rounded__btn--full blue">Agregar tarjeta de crédito</nuxt-link>
+        <p>No se preocupe. Cancele antes del {{ diasCancelar }} y <strong>no se le cobrará ningún cargo.</strong></p>
+        <nuxt-link :to="{ name: 'tarjeta-de-credito' }" class="rounded__btn--full green">Crédito</nuxt-link>
+
+        <nuxt-link :to="{ name: 'debito-automatico' }" class="rounded__btn--full green">Débito automático</nuxt-link>
         <div v-if="$auth.loggedIn">
-          <span class="signup__agregados">¿Quiere iniciar con otra cuenta? <a @click="logout()">Cerrar Sesión</a></span>
+          <span class="signup__agregados">¿Quiere iniciar con otra cuenta? <a @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a></span>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
 import SecondaryTop from '~/components/SecondaryTop.vue'
-import moment from 'moment'
+import addDays from 'date-fns/addDays'
+import format from 'date-fns/format'
 
 export default {
   layout: 'signup',
   components: {
     SecondaryTop
   },
-  middleware: 'plan-mercadopago',
+  middleware: 'guest',
   data() {
     return {
-      moment: moment,
       title: 'Paso 3 - Medio de Pago',
       nroPaso: '3',
-      tituloPaso: 'Seleccione su medio de pago'
+      tituloPaso: 'Seleccione su medio de pago',
+      diasCancelar: format(addDays(new Date(), 15), 'dd/MM/yyyy')
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
   },
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
     }
   },
   methods: {

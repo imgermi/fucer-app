@@ -1,13 +1,13 @@
 <template>
   <div class="bienvenido">
     <SecondaryTop/>
-    <section class="band">
+    <main id="contenido" class="band">
       <div class="container">
-        <h1>Contenido no disponible</h1>
+        <h1 ref="pageFocusTarget">Contenido no disponible</h1>
         <p>Lo sentimos, este contenido solo está disponible para los usuarios premium.</p>
         <nuxt-link :to="{ name: 'modificar-plan' }" class="rounded__btn--full white">Actualizar plan</nuxt-link>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 
@@ -23,12 +23,18 @@ export default {
       title: 'Contenido no disponible'
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
+  },
   head () {
     return {
       title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ],
       bodyAttrs: {
           class: 'bg__gradient'
       }

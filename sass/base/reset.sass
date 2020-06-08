@@ -12,7 +12,8 @@
 
 .bg__gradient
 	// background: -webkit-gradient(linear, left top, left bottom, from($fucerBlue), to($lightBlue)) fixed
-	background: linear-gradient(to top, #a2b6df 0%, #0c3483 100%, #a2b6df 100%, #6b8cce 100%) fixed
+	// background: linear-gradient(to top, #a2b6df 0%, #0c3483 100%, #a2b6df 100%, #6b8cce 100%) fixed
+	background: #204A42
 
 body.bg__gradient
 	min-height: 100vh
@@ -97,6 +98,10 @@ input
 		background: #224B8E
 		border: 0
 		color: #eee
+	&.green
+		background: #204A42
+		border: 0
+		color: #eee
 
 .rounded__btn--medium
 	border-radius: 30px
@@ -116,6 +121,13 @@ input
 		transform: translateY(2px)
 	&.blue
 		background: $fucerBlue
+		color: #eee
+		span a
+			color: #eee
+			font-weight: 900
+	&.green
+		background: #204A42
+		border: 0
 		color: #eee
 		span a
 			color: #eee

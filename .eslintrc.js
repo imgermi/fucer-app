@@ -11,11 +11,21 @@ module.exports = {
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
     'plugin:vue/essential',
+    'plugin:vue-a11y/recommended',
   ],
-  // required to lint *.vue files
   plugins: [
-    'vue'
+    // required to lint *.vue files
+    'vue',
+    'vue-a11y',
   ],
-  // add your custom rules here
-  rules: {}
+  rules: {
+    // https://github.com/maranran/eslint-plugin-vue-a11y/issues/15#issuecomment-507698383
+    "vue-a11y/label-has-for": [ 2, {
+      "components": [ "label" ],
+      "required": {
+        "some": [ "nesting", "id" ]
+      },
+      "allowChildren": false
+    }]
+  }
 }

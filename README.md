@@ -23,3 +23,6 @@ $ npm run cordova
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
 [Weland Agency](https://weland.com.ar/en/).
+
+### Pruebas
+https://github.com/garris/BackstopJS

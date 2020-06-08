@@ -1,10 +1,12 @@
 <template>
   <div class="configuracion">
-  	<Top :title="title" />
-    <section class="band datos">
+  	<Top
+      :title="title"
+    />
+    <main id="contenido" class="band datos">
       <div class="container">
         <div class="datos__personales">
-          <h2>Datos personales</h2>
+          <h2 ref="pageFocusTarget">Datos personales</h2>
           <div class="datos__personales--dato">
             <p>Nombre</p>
             <span>{{ $auth.user.nombre }}</span>
@@ -17,126 +19,98 @@
             <p>Contraseña</p>
             <span>*******</span>
           </div>
-          <nuxt-link :to="{ name: 'modificar-datos' }">
-            <button class="rounded__btn--medium">
-              Modificar
-            </button>
+          <nuxt-link
+            :to="{ name: 'modificar-datos' }"
+            tag="button"
+            class="rounded__btn--medium"
+          >
+            Modificar
           </nuxt-link>
         </div>
 
-        <div
-          v-if="$auth.user.condicion !== 'premium-incondicional'"
-          class="datos__personales"
-        >
-          <h2>Tarjeta de crédito</h2>
-          <div class="datos__personales--dato">
-            <p>Número</p>
-            <span>{{ tarjeta }}</span>
-          </div>
-          <nuxt-link :to="{ name: 'modificar-tarjeta' }">
-            <button class="rounded__btn--medium">
+        <div class="datos__personales">
+          <template v-if="$auth.user.suscripcion.tipo === 'mercadopago'">
+            <h2>Tarjeta de crédito</h2>
+            <div class="datos__personales--dato">
+              <p>Número</p>
+              <span>{{ metadata.tarjeta }}</span>
+            </div>
+            <nuxt-link
+              :to="{ name: 'modificar-tarjeta' }"
+              tag="button"
+              class="rounded__btn--medium"
+            >
               Modificar
-            </button>
-          </nuxt-link>
+            </nuxt-link>
+          </template>
+
+          <template v-if="$auth.user.suscripcion.tipo === 'debito'">
+            <h2>Débito automático</h2>
+            <div class="datos__personales--dato">
+              <p>CBU</p>
+              <span>{{ metadata.cbu }}</span>
+            </div>
+            <nuxt-link
+              :to="{ name: 'modificar-debito' }"
+              tag="button"
+              class="rounded__btn--medium"
+            >
+              Modificar
+            </nuxt-link>
+          </template>
         </div>
 
-        <template v-if="$auth.user.condicion === 'premium-incondicional'">
+        <template>
           <div class="datos__plan">
             <h2>Mi plan</h2>
             <div class="datos__plan--dato">
-              <span>Plan ilimitado</span>
-              <small>$ 0</small>
+              <span>{{ $auth.user.suscripcion.plan.descripcion }}</span>
+              <small>{{ $auth.user.suscripcion.activa ? '$'+$auth.user.suscripcion.plan.valor : '' }}</small>
             </div>
-          </div>
-        </template>
-        <template v-else>
-          <div class="datos__plan">
-            <h2>Mi plan</h2>
-            <div
-              v-if="estaSuscripto || !estaSuscripto && esTrial"
-              class="datos__plan--dato"
-            >
-              <span>{{ esTrial ? 'Versión de prueba' : 'Plan mensual'  }}</span>
-              <small>${{ esTrial ? 0 : precioPlan }}</small>
-            </div>
-            <p v-html="mensajePlan"></p>
+            <p v-html="$auth.user.suscripcion.plan.estado"></p>
           </div>
           <br>
-          <nuxt-link :to="{ name: 'modificar-plan' }">
-            <button class="rounded__btn--medium">Modificar plan</button>
+          <nuxt-link 
+            v-if="$auth.user.suscripcion.tipo !== 'ilimitado'"
+            :to="{ name: 'modificar-plan' }"
+            tag="button"
+            class="rounded__btn--medium"
+          >
+            Modificar plan
           </nuxt-link>
         </template>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 
 <script>
 import Top from '~/components/Top.vue'
-import {mapActions, mapState, mapGetters} from 'vuex'
 
 export default {
   layout: 'app',
   components: {
     Top
   },
+  computed: {
+    metadata () {
+      return this.$auth.user.suscripcion.metadata
+    }
+  },
   data () {
     return {
       title: 'Configuración',
-      tarjeta: '**** **** **** ****',
-      precioPlan: false
     }
   },
-  async created () {
-    this.setPaginaCargando(true)
-    try {
-      await this.obtenerConfigs()
-    } catch(e) {
-      this.error = e
-    }
-    this.setPaginaCargando(false)
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+    })
   },
-  computed: {
-    ...mapState(['pagina']),
-    ...mapGetters([
-      'esTrial',
-      'estaSuscripto',
-      'mensajePlan'
-    ])
-  },
-  methods: {
-    ...mapActions([
-      'setPaginaCargando'
-    ]),
-    async obtenerConfigs() {
-      let data = await this.$axios.$get('configuraciones')
-      this.precioPlan = data.precio_regular
-
-      if(this.$auth.user.condicion !== 'premium-incondicional'){
-        let customer = await this.$axios.$get('mercadopago/get-customer-by-id', {
-          params: {
-            id: this.$auth.user.customer_id
-          }
-        })
-        if(!customer.default_card){
-          return
-        }
-        let card = customer.cards.find(card => card.id === customer.default_card)
-        if(! card){
-          return
-        }
-        this.tarjeta = '**** **** **** ' + card.last_four_digits
-      }
-    }
-  },
-  head () {
-    return {
-      title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ]
-    }
-  }
 }
 </script>
 

@@ -1,13 +1,16 @@
 <template>
   <article class="normativa-module">
-    <div class="main">
-    	<h4><nuxt-link :to="url">{{ titulo }}</nuxt-link></h4>
-    	<p><nuxt-link :to="url">{{ bajada }}</nuxt-link></p>
-    </div>
-    <div class="extra">
-    	<small><nuxt-link :to="url">{{ fecha | fecha('DD/MM/YY') }}</nuxt-link></small>
-      <FavoriteStar @click.native="cambiarFavorito" :activa="enFavoritos"/>
-    </div>
+    <nuxt-link :to="url">
+      <div class="main">
+        <h4>{{ titulo }}</h4>
+        <p>{{ bajada }}</p>
+      </div>
+      <div class="extra">
+        <small v-if="categoria" :class="`tag normativa-module__tag ${categoriaUri}`">{{ categoria }}</small>
+        <time v-if="fecha" :datetime="fecha | fecha('yyyy-MM-dd')">{{ fecha | fecha('dd/MM/yyyy') }}</time>
+        <FavoriteStar @click.native.prevent="toggleFavorito(id)" :activa="enFavoritos"/>
+      </div>
+    </nuxt-link>
   </article>
 </template>
 
@@ -23,38 +26,18 @@
       'id',
       'titulo',
       'bajada',
+      'categoria',
+      'categoriaUri',
       'fecha',
       'url'
     ],
     computed: {
-      enFavoritos () {
-        if (!this.$store.state.favoritos.normativas.length) {
-          return false
-        }
-        let indiceFavorito = this.$store.state.favoritos.normativas.findIndex(
-          favorito => this.id == favorito.id
-        )
-        return indiceFavorito >= 0 ? true : false
+      enFavoritos() {
+        return this.$store.getters['normativas/enFavoritos'](this.id)
       }
     },
     methods: {
-      ...mapActions('favoritos', [
-        'agregarFavorito',
-        'quitarFavorito'
-      ]),
-      async cambiarFavorito () {
-        if( this.enFavoritos ){
-          await this.quitarFavorito(this.id)
-        } else {
-          await this.agregarFavorito({
-            id: this.id,
-            titulo: this.titulo,
-            bajada: this.bajada,
-            fecha: this.fecha,
-            url: this.url
-          })
-        }
-      }
+      ...mapActions('normativas', ['toggleFavorito'])
     }
 	}
 </script>
