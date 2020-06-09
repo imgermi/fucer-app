@@ -4,7 +4,8 @@
   from = "/api/*"
   to = "https://net.fucer.com.ar/:splat"
   status = 200
-  
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
