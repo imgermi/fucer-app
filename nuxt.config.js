@@ -202,17 +202,22 @@ module.exports = {
   ],
 
   axios: {
-    baseURL: 'https://net.fucer.com.ar/api/'
+    prefix: '/api/',
+    proxy: true,
+  },
+
+  proxy: {
+    '/api/': 'https://net.fucer.com.ar',
   },
 
   auth: {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'https://net.fucer.com.ar/api/auth/login', method: 'post', propertyName: 'token' },
-          logout: { url: 'https://net.fucer.com.ar/api/auth/logout', method: 'post' },
-          user: { url: 'https://net.fucer.com.ar/api/auth/user', method: 'get', propertyName: 'user' },
-          refreshToken: { url: 'https://net.fucer.com.ar/api/auth/refresh-token', method: 'get', propertyName: 'token' }
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/user', method: 'get', propertyName: 'user' },
+          refreshToken: { url: '/auth/refresh-token', method: 'get', propertyName: 'token' }
         },
         redirect: {
           login: '/login',
