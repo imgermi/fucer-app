@@ -202,7 +202,8 @@ module.exports = {
   ],
 
   axios: {
-    proxy: true
+    prefix: '/api/',
+    proxy: true,
   },
 
   proxy: {
@@ -213,10 +214,10 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' },
-          refreshToken: { url: '/api/auth/refresh-token', method: 'get', propertyName: 'token' }
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/user', method: 'get', propertyName: 'user' },
+          refreshToken: { url: '/auth/refresh-token', method: 'get', propertyName: 'token' }
         },
         redirect: {
           login: '/login',
