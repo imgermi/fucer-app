@@ -5,7 +5,7 @@
         <header>
           <div class="container">
             <nuxt-link :to="{ name: 'index' }" class="logo logotop">
-              <img src="~/assets/img/logo-fucernet.svg" alt="">
+              <img width="147" height="27" src="~/assets/img/logo-fucernet.svg" alt="Fucer Net"/>
             </nuxt-link>
           </div>
         </header>
