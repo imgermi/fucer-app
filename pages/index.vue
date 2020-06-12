@@ -112,7 +112,7 @@ export default {
   auth: false,
   data () {
     return {
-      title: 'Index',
+      title: 'La normativa registral, en una base de datos única en el país',
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -128,7 +128,7 @@ export default {
     return {
       title: this.title,
       meta: [
-        { hid: 'description', name: 'description', content: '' }
+        { hid: 'description', name: 'description', content: 'FucerNet es una herramienta digital en la que encontrará el texto completo de las principales Disposiciones complementarias y Circulares aclaratorias del Digesto, con un breve resumen del contenido de las mismas, y diversos artículos de doctrina y jurisprudencia.' }
       ]
     }
   },
