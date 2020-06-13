@@ -1,8 +1,8 @@
 {
-  "name": "legister",
+  "name": "FucerNet",
   "version": "1.0.0",
   "description": "Consulte el contenido de la normativa aplicable a la registración de automotores",
-  "author": "Juan Germano + Andres Dameson",
+  "author": "Fucer",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -22,7 +22,6 @@
     "@nuxtjs/auth": "~4.9.1",
     "@nuxtjs/axios": "~5.10.3",
     "@nuxtjs/proxy": "^2.0.0",
-    "@nuxtjs/pwa": "^3.0.0-beta.20",
     "@nuxtjs/toast": "^3.3.0",
     "@sentry/browser": "^5.15.5",
     "@sentry/integrations": "^5.15.5",
@@ -39,6 +38,7 @@
     "vue-webp-plugin": "~1.0.2"
   },
   "devDependencies": {
+    "@nuxtjs/pwa": "^3.0.0-beta.20",
     "babel-eslint": "~10.1.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.11.0",
