@@ -92,9 +92,10 @@ export default {
       return store.state.normativas.byId[params.id]
     } catch (e) {
       if (!window.navigator.onLine){
-        let cache = await caches.match(`https://fucer.com.ar/app/api/normativas/id/${params.id}`)
-        if (cache) {
-          return cache.json()
+        const cache = await caches.open('fucer-api')
+        const match = cache.match(`/api/normativas/id/${params.id}`) 
+        if (match) {
+          return match.json()
         }
         router.push({name: 'offline'})
       } else {

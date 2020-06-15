@@ -60,6 +60,7 @@ module.exports = {
         ],
         'connect-src': [
           "'self'",
+          'https://*.ingest.sentry.io',
           'https://events.mercadopago.com',
           'https://api.mercadopago.com',
           'https://content.mercadopago.com',
@@ -106,12 +107,11 @@ module.exports = {
     // https://pwa.nuxtjs.org/modules/workbox.html
     workbox: {
       pagesURLPattern: '/|offline',
-      runtimeCaching: [
-        {
-          urlPattern: '^https:\/\/fucer\.com\.ar\/app\/api\/.*',
+      runtimeCaching: [{
+          urlPattern: '^\/api\/.*',
           handler: 'networkFirst',
           strategyOptions: {
-            cacheName: 'api-cache',
+            cacheName: 'fucer-api',
             networkTimeoutSeconds: 4,
             cacheExpiration: {
               maxEntries: 250,
@@ -120,10 +120,10 @@ module.exports = {
             cacheableResponse: { statuses: [0, 200] }
           }
         },{
-          urlPattern: '^https:\/\/(www\.)?fucer\.com\.ar\/app\/cms\/.*',
+          urlPattern: '^https:\/\/((www\.)?fucer\.com\.ar\/app|net\.fucer\.com\.ar)\/cms\/.*',
           handler: 'cacheFirst',
           strategyOptions: {
-            cacheName: 'cms-cache',
+            cacheName: 'fucer-cms',
             cacheExpiration: {
               maxEntries: 50,
               maxAgeSeconds: 60 * 60 * 24 * 10,
@@ -156,7 +156,7 @@ module.exports = {
 
   router: {
     base: '/',
-    mode: 'hash',
+    mode: 'history',
     middleware: ['sesiones-simultaneas','auth'],
     extendRoutes (routes, resolve) {
       routes.splice(0, routes.length,
