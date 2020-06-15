@@ -1,6 +1,6 @@
 { 
-  "name": "Legister", 
-  "short_name": "Legister", 
+  "name": "FucerNet", 
+  "short_name": "FucerNet", 
   "start_url": "/", 
   "display": "standalone", 
   "icons": [{ 
