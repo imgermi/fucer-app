@@ -22,6 +22,7 @@
             Acceder a mi cuenta
           </nuxt-link>
         </div>
+        <p>-Dr. Javier Antonio Cornejo (Director de FucerNet) y equipo de colaboradores-</p>
         <img src="~/assets/img/landing/fucernet-mobile-desktop.png" alt="Capturas de pantallas de laptop y celular">
       </div>
     </section>
