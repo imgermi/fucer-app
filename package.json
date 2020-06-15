@@ -57,6 +57,7 @@
     "sass-loader": "~8.0.2",
     "scss-loader": " *",
     "vue-axe": "^2.1.0",
-    "vue-eslint-parser": "^7.1.0"
+    "vue-eslint-parser": "^7.1.0",
+    "workbox-build": "^5.1.3"
   }
 }

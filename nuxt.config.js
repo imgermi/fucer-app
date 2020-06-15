@@ -188,8 +188,12 @@ module.exports = {
     }
   },
 
-  modules: [
+  buildModules: [
+    '~/modules/pwa-extension.js',
     '@nuxtjs/pwa',
+  ],
+
+  modules: [
     '@nuxtjs/auth',
     '@nuxtjs/axios',
     '@nuxtjs/toast',
