@@ -61,7 +61,7 @@
         </article>
         <article class="faq-item">
           <h4>¿Es seguro poner mi tarjeta de crédito en FucerNet?</h4>
-          <p>Todos los pagos son procesados y administrados por Mercado Pago, una de las plataformas de pagos más seguras y populares del país. La información de la tarjeta de crédito que usted agrega en FucerNet es 100% procesada por Mercado Pago, Fucer intervenimos en el medio. Es decir, no tenemos acceso a la información de su tarjeta de crédito. Adicionalmente, Mercado Pago tiene como requisito que las aplicaciones que utilicen sus servicios cuenten con un certificado de conexión segura SSL. Cuando ingrese a FucerNet desde un navegador, a la izquierda de la URL (net.fucer.com.ar) va a visualizar un candado que indica que la conexión al sitio es segura.</p>
+          <p>Todos los pagos son procesados y administrados por Mercado Pago, una de las plataformas de pagos más seguras y populares del país. La información de la tarjeta de crédito que usted agrega en FucerNet es 100% procesada por Mercado Pago, desde Fucer no intervenimos en el proceso. Es decir, no tenemos acceso a la información de su tarjeta de crédito. Adicionalmente, Mercado Pago tiene como requisito que las aplicaciones que utilicen sus servicios cuenten con un certificado de conexión segura SSL. Cuando ingrese a FucerNet desde un navegador, a la izquierda de la URL (net.fucer.com.ar) va a visualizar un candado que indica que la conexión al sitio es segura.</p>
         </article>
       </div>
     </section>
