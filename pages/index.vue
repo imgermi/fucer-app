@@ -12,7 +12,7 @@
     </header>
     <section class="hero">
       <div class="container">
-        <h1>La normativa registral, en una base de datos única en el país</h1>
+        <h1 ref="pageFocusTarget">La normativa registral, en una base de datos única en el país</h1>
         <h2>FucerNet es una herramienta digital en la que encontrará, además del Digesto de Normas Técnico Registrales, el texto completo de sus principales Disposiciones complementarias y Circulares aclaratorias, con un breve resumen del contenido de las mismas, y diversos artículos de doctrina y jurisprudencia.</h2>
         <div class="hero-cta">
           <nuxt-link :to="{name: 'seleccione-su-plan'}" class="index-btn green">
