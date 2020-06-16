@@ -106,22 +106,21 @@ export default {
         return
       }
       this.setPaginaCargando(true)
-      let response = this.$auth.loginWith('local', {
-        data: {
-          username: this.email,
-          password: this.password
-        }
-      })
-      .then(() => {
+      try {
+        let response = await this.$auth.loginWith('local', {
+          data: {
+            username: this.email,
+            password: this.password
+          }
+        })
         if (!this.$auth.user.suscripcion.premium) {
           this.$router.push({name: 'medio-de-pago'})
         }
-      })
-      .catch(e => {
+      } catch(e) {
         console.log(e)
         this.error = 'Revise sus credenciales por favor. Algún dato no es correcto o el usuario todavía no está activo.'
         this.$announcer.set(this.error)
-      })
+      }
       this.setPaginaCargando(false)
     }
   },

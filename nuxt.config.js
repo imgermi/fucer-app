@@ -156,6 +156,7 @@ module.exports = {
   },
 
   auth: {
+    plugins: ['~/plugins/auth.js'],
     strategies: {
       local: {
         endpoints: {
@@ -163,17 +164,16 @@ module.exports = {
           logout: { url: 'https://net.fucer.com.ar/api/auth/logout', method: 'post' },
           user: { url: 'https://net.fucer.com.ar/api/auth/user', method: 'get', propertyName: 'user' },
           refreshToken: { url: 'https://net.fucer.com.ar/api/auth/refresh-token', method: 'get', propertyName: 'token' }
-        }
+        },
+        refresh_token_key: 'refresh_token'
       }
     },
-    rewriteRedirects: true,
     redirect: {
       login: '/login',
       logout: '/',
       callback: '/login',
       home: '/inicio'
     },
-    refresh_token_key: 'refresh_token',
     cookie: {
       options: {
         domain: 'net.fucer.com.ar',
