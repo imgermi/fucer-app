@@ -209,6 +209,7 @@ module.exports = {
   },
 
   auth: {
+    plugins: ['~/plugins/auth.js'],
     strategies: {
       local: {
         endpoints: {
@@ -217,14 +218,14 @@ module.exports = {
           user: { url: '/auth/user', method: 'get', propertyName: 'user' },
           refreshToken: { url: '/auth/refresh-token', method: 'get', propertyName: 'token' }
         },
-        redirect: {
-          login: '/login',
-          logout: '/',
-          callback: '/login',
-          user: '/'
-        },
         refresh_token_key: 'refresh_token'
       }
+    },
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/inicio'
     },
     cookie: {
       options: {

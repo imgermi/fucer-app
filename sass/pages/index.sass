@@ -1,33 +1,193 @@
 // main: ../main.sass
 
-.index
-	.columns
-		display: flex
-		@media(max-width: 991px)
-			display: block
-		> div
-			width: 50%
-			@media(max-width: 991px)
-				width: 100%
-		&__img
-			display: none
-			@media(min-width: 990px)
-				background-image: url('~assets/img/home.jpg')
-				background-size: cover
-				background-position: center center
-				min-height: 100vh
-				-webkit-appearance: none
-				box-shadow: inset 0 0 0 9000px rgba(32, 74, 66, 0.7)
-				display: block
-		&__text
-			@media(min-width: 992px)
-				padding: 20px 50px
-	.band
-		padding-top: 50px
-		.rounded__btn--full
-			margin-bottom: 25px
+ @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap')
 
-#__layout > .signup .columns__text .band
-	@media(min-width: 992px)
-		text-align: left
-		max-width: 100%
+.index
+	font-family: 'Lora', serif
+	.container, .container-bg
+		margin-left: auto
+		margin-right: auto
+		padding: 0 15px
+	.container-bg
+		max-width: 1100px
+	.container
+		max-width: 720px
+	.index-btn
+		font-size: 16px
+		font-weight: 700
+		display: inline-block
+		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15)
+		padding: 10px 40px
+		border-radius: 6px
+		transition: all 200ms ease-in
+		&:hover
+			transform: translateY(-1px)
+			opacity: 0.8
+		&:active
+			transform: translateY(1px)
+			opacity: 1
+		&.green
+			background: #204A42
+			color: #fff
+		&.green-light
+			background: #E0EFEC
+			color: #204A42
+		&.smaller
+			padding: 7px 30px
+			border-radius: 100px
+	h3
+		font-weight: bold
+		font-size: 24px
+		line-height: 135%
+		margin-bottom: 35px
+		color: #131313
+		@media(min-width: 480px)
+			font-size: 28px
+	header
+		padding: 40px 0
+		.container-bg
+			display: flex
+			justify-content: space-between
+			align-items: center
+	.hero
+		text-align: center
+		padding-top: 25px
+		padding-bottom: 100px
+		@media(min-width: 480px)
+			padding-top: 50px
+		h1
+			font-size: 30px
+			line-height: 135%
+			color: #131313
+			margin-bottom: 15px
+			@media(min-width: 480px)
+				font-size: 40px
+		h2
+			font-size: 17px
+			line-height: 150%
+			color: #616161
+			margin-bottom: 30px
+			font-weight: 400
+			@media(min-width: 480px)
+				font-size: 18px
+		&-cta
+			margin-bottom: 50px
+			@media(min-width: 480px)
+				display: flex
+				align-items: center
+				justify-content: center
+			a
+				margin: 7.5px 0
+				@media(min-width: 480px)
+					margin: 0 7.5px
+		p
+			font-size: 16px
+			line-height: 140%
+			font-style: italic
+			margin-bottom: 30px
+		img
+			width: 100%
+			display: block
+			margin: 0
+	.features
+		text-align: center
+		padding-bottom: 100px
+		&-list
+			max-width: 565px
+			margin: auto
+			font-size: 0
+			article
+				background: #ECF5F4
+				border-radius: 5px
+				font-size: 16px
+				font-weight: bold
+				color: #204A42
+				margin: 7.5px 0
+				padding: 25px 20px
+				width: 100%
+				@media(min-width: 480px)
+					width: calc(50% - 15px)
+					display: inline-block
+					margin: 7.5px
+					padding: 50px 40px
+					font-size: 20px
+	.faq
+		padding: 100px 0 80px
+		background: #ECF5F4
+		h3
+			margin-bottom: 50px
+		&-item
+			margin-bottom: 35px
+			h4
+				font-weight: bold
+				color: #131313
+				font-size: 20px
+				margin-bottom: 15px
+				line-height: 135%
+			p
+				font-size: 16px
+				line-height: 150%
+				margin-bottom: 15px
+				color: #131313
+	.footer
+		padding: 100px 0
+		&-cta
+			padding-bottom: 70px
+			position: relative
+			&:after
+				content: ''
+				display: block
+				width: 100%
+				height: 10px
+				background: #ECF5F4
+				border-radius: 100px
+				position: absolute
+				bottom: 0
+				left: 0
+			h2
+				font-size: 30px
+				margin-bottom: 15px
+				line-height: 135%
+				@media(min-width: 480px)
+					font-size: 36px
+			p
+				color: #616161
+				font-size: 18px
+				line-height: 150%
+				margin-bottom: 30px
+		&-info
+			padding-top: 70px
+			@media(min-width: 768px)
+				display: flex
+				justify-content: space-between
+				align-items: flex-start
+			img
+				width: 110px
+			span
+				display: block
+				padding-top: 10px
+				font-size: 16px
+				line-height: 140%
+				color: #616161
+				@media(min-width: 480px)
+					max-width: 250px
+			&_menu
+				padding-top: 35px
+				@media(min-width: 768px)
+					padding-top: 0
+					display: flex
+				ul:first-of-type
+					@media(min-width: 768px)
+						margin-right: 40px
+				li
+					a
+						color: #131313
+						margin-bottom: 10px
+						display: block
+						transition: all 200ms ease-in
+						&:hover
+							color: #616161
+							text-decoration: underline
+
+
+
