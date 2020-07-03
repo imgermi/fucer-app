@@ -105,7 +105,53 @@ module.exports = {
     icons: {},
   
     // https://pwa.nuxtjs.org/modules/workbox.html
-    workbox: false,
+    workbox: {
+      pagesURLPattern: '/|offline',
+      runtimeCaching: [{
+          urlPattern: '^\/api\/.*',
+          handler: 'networkFirst',
+          strategyOptions: {
+            cacheName: 'fucer-api',
+            networkTimeoutSeconds: 4,
+            cacheExpiration: {
+              maxEntries: 250,
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheableResponse: { statuses: [0, 200] }
+          }
+        },{
+          urlPattern: '^https:\/\/((www\.)?fucer\.com\.ar\/app|net\.fucer\.com\.ar)\/cms\/.*',
+          handler: 'cacheFirst',
+          strategyOptions: {
+            cacheName: 'fucer-cms',
+            cacheExpiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 60 * 60 * 24 * 10,
+              purgeOnQuotaError: true,
+            },
+            cacheableResponse: { statuses: [0, 200] }
+          }
+        },{
+          urlPattern: '^https:\/\/fonts\.googleapis\.com',
+          handler: 'staleWhileRevalidate',
+          strategyOptions: {
+            cacheName: 'google-fonts-stylesheets',
+          }
+        },{
+          urlPattern: '^https:\/\/fonts\.gstatic\.com',
+          handler: 'cacheFirst',
+          strategyOptions: {
+            cacheName: 'google-fonts-webfonts',
+            cacheExpiration: {
+              maxEntries: 30,
+              maxAgeSeconds: 60 * 60 * 24 * 365,
+            },
+            cacheableResponse: { statuses: [0, 200] }
+          }
+        },
+      ],
+      routingExtensions: '@/plugins/workbox-routing-extension.js',
+    },
   },
 
   router: {
@@ -143,7 +189,7 @@ module.exports = {
   },
 
   buildModules: [
-    // '~/modules/pwa-extension.js',
+    '~/modules/pwa-extension.js',
     '@nuxtjs/pwa',
   ],
 
