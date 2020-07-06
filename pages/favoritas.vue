@@ -1,21 +1,27 @@
 <template>
   <div class="favoritas">
-    <Alerta/>
-  	<Top
+    <Alerta />
+    <Top
       :title="title"
     />
-    <main id="contenido" class="band">
+    <main
+      id="contenido"
+      class="band"
+    >
       <div class="container">
         <span class="small__heading">Aquí verá las normativas que marcó como favoritas</span>
-        <div class="normativas-container" ref="pageFocusTarget">
+        <div
+          ref="pageFocusTarget"
+          class="normativas-container"
+        >
           <ModuloNormativa
             v-for="normativa in favoritas"
-            :key="normativa.id + '-ultima'"
             :id="normativa.id"
+            :key="normativa.id + '-ultima'"
             :titulo="normativa.titulo"
             :bajada="normativa.bajada"
             :categoria="normativa.categoria"
-            :categoriaUri="normativa.categoria_uri"
+            :categoria-uri="normativa.categoria_uri"
             :fecha="normativa.fecha"
             :url="normativa.url"
           />

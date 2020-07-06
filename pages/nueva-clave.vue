@@ -1,57 +1,82 @@
 <template>
-	<div class="restaurar-clave">
-		<SecondaryTop />
-		<main id="contenido" class="band">
-			<div class="container form__container">
+  <div class="restaurar-clave">
+    <SecondaryTop />
+    <main
+      id="contenido"
+      class="band"
+    >
+      <div class="container form__container">
+        <h1
+          ref="pageFocusTarget"
+          class="intro__heading"
+        >
+          Nueva clave
+        </h1>
 
-				<h1 class="intro__heading" ref="pageFocusTarget">Nueva clave</h1>
+        <mensaje
+          :tipo="mensajeTipo"
+          :texto="mensajeTexto"
+        />
 
-				<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
+        <form
+          class="main__form"
+          @submit.prevent="resetPassword"
+        >
+          <fieldset>
+            <label for="password">Ingrese su nueva clave</label>
+            <input
+              id="password"
+              ref="password"
+              v-model="password"
+              v-validate="'required'"
+              type="password"
+              name="password"
+              data-vv-as="nueva clave"
+              :class="{'error': errors.has('password') }"
+            >
+            <span
+              v-show="errors.has('password')"
+              class="error"
+            >
+              {{ errors.first('password') }}
+            </span>
+          </fieldset>
+          <fieldset>
+            <label for="passwordConfirm">Confirme su nueva clave</label>
+            <input
+              id="passwordConfirm"
+              ref="passwordConfirm"
+              v-model="passwordConfirm"
+              v-validate="'required|confirmed:password'"
+              type="password"
+              name="passwordConfirm"
+              data-vv-as="confirmación de clave"
+              :class="{'error': errors.has('passwordConfirm') }"
+            >
+            <span
+              v-show="errors.has('passwordConfirm')"
+              class="error"
+            >
+              {{ errors.first('passwordConfirm') }}
+            </span>
+          </fieldset>
+          <button
+            type="submit"
+            class="rounded__btn--full green"
+          >
+            {{ txtBtnSubmit }}
+          </button>
+        </form>
 
-				<form @submit.prevent="resetPassword" class="main__form">
-					<fieldset>
-					  <label for="password">Ingrese su nueva clave</label>
-					  <input
-					    type="password"
-					    name="password"
-					    ref="password"
-					    v-model="password"
-					    v-validate="'required'"
-					    data-vv-as="nueva clave"
-					    id="password"
-					    :class="{'error': errors.has('password') }"
-					  />
-					  <span class="error" v-show="errors.has('password')">
-					    {{ errors.first('password') }}
-					  </span>
-					</fieldset>
-					<fieldset>
-					  <label for="passwordConfirm">Confirme su nueva clave</label>
-					  <input
-					    type="password"
-					    name="passwordConfirm"
-					    ref="passwordConfirm"
-					    v-model="passwordConfirm"
-					    v-validate="'required|confirmed:password'"
-					    data-vv-as="confirmación de clave"
-					    id="passwordConfirm"
-					    :class="{'error': errors.has('passwordConfirm') }"
-					  />
-					  <span class="error" v-show="errors.has('passwordConfirm')">
-					    {{ errors.first('passwordConfirm') }}
-					  </span>
-					</fieldset>
-					<button type="submit" class="rounded__btn--full green">
-					  {{ txtBtnSubmit}}
-					</button>
-				</form>
-
-				<br>
-				<p class="signup__agregados">¿Tiene problemas? <nuxt-link :to="{ name: 'restaurar-clave' }">Solicite nuevamente un cambio de clave</nuxt-link>.</p>
-
-			</div>
-		</main>
-	</div>
+        <br>
+        <p class="signup__agregados">
+          ¿Tiene problemas? <nuxt-link :to="{ name: 'restaurar-clave' }">
+            Solicite nuevamente un cambio de clave
+          </nuxt-link>.
+        </p>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -61,10 +86,10 @@ import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
 	layout: 'signup',
-	mixins: [mensaje],
 	components: {
 		SecondaryTop
 	},
+	mixins: [mensaje],
 	auth: false,
 	data() {
 		return {

@@ -1,42 +1,49 @@
 <template>
   <div class="modificar-plan">
-  	<header>
-  		<div class="container">
-  			<nuxt-link :to="{ name: 'configuracion' }">Cancelar</nuxt-link>
-  		</div>
-  	</header>
+    <header>
+      <div class="container">
+        <nuxt-link :to="{ name: 'configuracion' }">
+          Cancelar
+        </nuxt-link>
+      </div>
+    </header>
 
     <main id="contenido">
-    	<section class="band">
-    		<div class="container">
-    			<div class="datos__plan">
-    			  <h2 ref="pageFocusTarget">Mi plan</h2>
-    			  <div
+      <section class="band">
+        <div class="container">
+          <div class="datos__plan">
+            <h2 ref="pageFocusTarget">
+              Mi plan
+            </h2>
+            <div
               v-if="suscripcion.premium"
               class="datos__plan--dato"
             >
-    			    <span>{{ suscripcion.plan.descripcion }}</span>
-    			    <small>{{ suscripcion.activa ? '$'+suscripcion.plan.valor : '' }}</small>
+              <span>{{ suscripcion.plan.descripcion }}</span>
+              <small>{{ suscripcion.activa ? '$'+suscripcion.plan.valor : '' }}</small>
             </div>
-    			</div>
-    		</div>
-    	</section>
+          </div>
+        </div>
+      </section>
 
-    	<section class="band">
-    		<div class="container">
-
-    		  <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
+      <section class="band">
+        <div class="container">
+          <mensaje
+            :tipo="mensajeTipo"
+            :texto="mensajeTexto"
+          />
 
           <h2>Suscripción</h2>
           <div class="msj">
-            <p v-html="suscripcion.plan.estado"></p>
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <p v-html="suscripcion.plan.estado" />
           </div>
           <br>
 
-    			<div class="datos__plan--dato seleccionar">
-    			  <span>Plan Premium</span>
-    			  <small>${{ suscripcion.plan.valor }} mensuales</small>
-    			  <button
+          <div class="datos__plan--dato seleccionar">
+            <span>Plan Premium</span>
+            <small>${{ suscripcion.plan.valor }} mensuales</small>
+            <button
               class="rounded__btn--medium"
               @click="modificarSuscripcion"
               @keyup.enter="modificarSuscripcion"
@@ -44,14 +51,14 @@
               {{ actualizandoPlan
                 ? 'Cargando...'
                 : (suscripcion.activa
-                    ? 'Cancelar suscripción'
-                    : 'Suscríbase'
+                  ? 'Cancelar suscripción'
+                  : 'Suscríbase'
                 )
               }}
             </button>
-    			</div>
-    		</div>
-    	</section>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </template>

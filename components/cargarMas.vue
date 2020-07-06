@@ -1,7 +1,15 @@
 <template>
-	<div v-if="!todas" class="center" v-on:click="cargarMas">
-	  <button class="rounded__btn--medium green"><span v-html="mensaje"></span></button>
-	</div>
+  <div
+    v-if="!todas"
+    class="center"
+    @click="cargarMas"
+    @keyup.enter="cargarMas"
+  >
+    <button class="rounded__btn--medium green">
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <span v-html="mensaje" />
+    </button>
+  </div>
 </template>
 
 <script>

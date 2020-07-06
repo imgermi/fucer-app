@@ -1,7 +1,7 @@
 <template>
   <div class="signup">
-  	<vue-announcer />
-  	<error-toast />
+    <vue-announcer />
+    <error-toast />
     <nuxt />
   </div>
 </template>

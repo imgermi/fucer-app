@@ -1,38 +1,58 @@
 <template>
-	<div class="ingresar-mail">
-		<SecondaryTop />
-		<main id="contenido" class="band">
-			<div class="container form__container">
+  <div class="ingresar-mail">
+    <SecondaryTop />
+    <main
+      id="contenido"
+      class="band"
+    >
+      <div class="container form__container">
+        <h1
+          ref="pageFocusTarget"
+          class="intro__heading"
+        >
+          ¿No recibió el mail de confirmación?
+        </h1>
+        <h2 class="sub__heading">
+          Ingrese su email nuevamente
+        </h2>
 
-				<h1 class="intro__heading" ref="pageFocusTarget">¿No recibió el mail de confirmación?</h1>
-				<h2 class="sub__heading">Ingrese su email nuevamente</h2>
+        <mensaje
+          :tipo="mensajeTipo"
+          :texto="mensajeTexto"
+        />
 
-				<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
-
-				<form @submit.prevent="resendActivationEmail" class="main__form">
-					<fieldset>
-					  <label for="email">Ingrese su email</label>
-					  <input
-					    type="email"
-					    name="email"
-					    v-model="email"
-					    v-validate="'required|email'"
-					    id="email"
-					    :class="{'error': errors.has('email') }"
-					    placeholder="email@email.com"
-					  />
-					  <span class="error" v-show="errors.has('email')">
-					    {{ errors.first('email') }}
-					  </span>
-					</fieldset>
-					<button type="submit" class="rounded__btn--full green">
-					  {{ txtBtnSubmit}}
-					</button>
-				</form>
-
-			</div>
-		</main>
-	</div>
+        <form
+          class="main__form"
+          @submit.prevent="resendActivationEmail"
+        >
+          <fieldset>
+            <label for="email">Ingrese su email</label>
+            <input
+              id="email"
+              v-model="email"
+              v-validate="'required|email'"
+              type="email"
+              name="email"
+              :class="{'error': errors.has('email') }"
+              placeholder="email@email.com"
+            >
+            <span
+              v-show="errors.has('email')"
+              class="error"
+            >
+              {{ errors.first('email') }}
+            </span>
+          </fieldset>
+          <button
+            type="submit"
+            class="rounded__btn--full green"
+          >
+            {{ txtBtnSubmit }}
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -42,10 +62,10 @@ import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
 	layout: 'signup',
-	mixins: [mensaje],
 	components: {
 		SecondaryTop
 	},
+	mixins: [mensaje],
 	auth: false,
 	data() {
 		return {

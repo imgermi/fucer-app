@@ -1,39 +1,56 @@
 <template>
-	<div class="restaurar-clave">
-		<SecondaryTop />
-		<main id="contenido" class="band">
-			<div class="container form__container">
+  <div class="restaurar-clave">
+    <SecondaryTop />
+    <main
+      id="contenido"
+      class="band"
+    >
+      <div class="container form__container">
+        <h1 class="intro__heading">
+          ¿Olvidó su clave?
+        </h1>
+        <h2 class="sub__heading">
+          Ingrese su mail y le enviaremos un enlace para restaurarla
+        </h2>
 
-				<h1 class="intro__heading">¿Olvidó su clave?</h1>
-				<h2 class="sub__heading">Ingrese su mail y le enviaremos un enlace para restaurarla</h2>
+        <mensaje
+          :tipo="mensajeTipo"
+          :texto="mensajeTexto"
+        />
 
-				<mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
-
-				<form @submit.prevent="sendResetPasswordEmail" class="main__form">
-					<fieldset>
-					  <label for="email">Ingrese su email</label>
-					  <input
-					    type="email"
-					    name="email"
-					    v-model="email"
-					    v-validate="'required|email'"
-					    id="email"
-							ref="pageFocusTarget"
-					    :class="{'error': errors.has('email') }"
-							placeholder="email@email.com"
-						/>
-					  <span class="error" v-show="errors.has('email')">
-					    {{ errors.first('email') }}
-					  </span>
-					</fieldset>
-					<button type="submit" class="rounded__btn--full green">
-					  {{ txtBtnSubmit}}
-					</button>
-				</form>
-
-			</div>
-		</main>
-	</div>
+        <form
+          class="main__form"
+          @submit.prevent="sendResetPasswordEmail"
+        >
+          <fieldset>
+            <label for="email">Ingrese su email</label>
+            <input
+              id="email"
+              ref="pageFocusTarget"
+              v-model="email"
+              v-validate="'required|email'"
+              type="email"
+              name="email"
+              :class="{'error': errors.has('email') }"
+              placeholder="email@email.com"
+            >
+            <span
+              v-show="errors.has('email')"
+              class="error"
+            >
+              {{ errors.first('email') }}
+            </span>
+          </fieldset>
+          <button
+            type="submit"
+            class="rounded__btn--full green"
+          >
+            {{ txtBtnSubmit }}
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -43,10 +60,10 @@ import mensaje from '~/mixins/mensaje'
 
 export default {
 	layout: 'signup',
-	mixins: [mensaje],
 	components: {
 		SecondaryTop,
 	},
+	mixins: [mensaje],
 	auth: false,
 	data() {
 		return {

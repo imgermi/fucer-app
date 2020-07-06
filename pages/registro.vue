@@ -1,30 +1,42 @@
 <template>
-  <main id="contenido" class="registro">
+  <main
+    id="contenido"
+    class="registro"
+  >
     <SecondaryTop
-      :nroPaso="nroPaso"
-      :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
+      :nro-paso="nroPaso"
+      :titulo-paso="tituloPaso"
     />
     <div class="band form__container">
       <div class="container">
+        <mensaje
+          :tipo="mensajeTipo"
+          :texto="mensajeTexto"
+          data-cy="error-form"
+        />
 
-        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" data-cy="error-form"/>
-
-        <form @submit.prevent="register" class="main__form">
+        <form
+          class="main__form"
+          @submit.prevent="register"
+        >
           <fieldset>
             <label for="nombre">¿Cúal es su nombre?</label>
             <input
-              type="text"
-              v-model="nombre"
-              name="nombre"
-              data-cy="nombre"
-              v-validate="'required'"
               id="nombre"
               ref="nombre"
+              v-model="nombre"
+              v-validate="'required'"
+              type="text"
+              name="nombre"
+              data-cy="nombre"
               :class="{'error': errors.has('nombre') }"
               placeholder="Nombre completo"
-            />
-            <span class="error" v-show="errors.has('nombre')">
+            >
+            <span
+              v-show="errors.has('nombre')"
+              class="error"
+            >
               {{ errors.first('nombre') }}
             </span>
           </fieldset>
@@ -32,16 +44,19 @@
           <fieldset>
             <label for="email">¿Cúal es su email?</label>
             <input
+              id="email"
+              v-model="email"
+              v-validate="'required|email'"
               type="email"
               name="email"
               data-cy="email"
-              v-model="email"
-              v-validate="'required|email'"
-              id="email"
               :class="{'error': errors.has('email') }"
               placeholder="Email"
-            />
-            <span class="error" v-show="errors.has('email')">
+            >
+            <span
+              v-show="errors.has('email')"
+              class="error"
+            >
               {{ errors.first('email') }}
             </span>
           </fieldset>
@@ -49,18 +64,21 @@
           <fieldset>
             <label for="password">Ingrese una contraseña</label>
             <input
-              type="password"
-              v-model="password"
+              id="password"
               ref="password"
+              v-model="password"
+              v-validate="'required'"
+              type="password"
               name="password"
               data-cy="password"
-              v-validate="'required'"
-              id="password"
               data-vv-as="contraseña"
               :class="{'error': errors.has('password') }"
               placeholder="Contraseña"
-            />
-            <span class="error" v-show="errors.has('password')">
+            >
+            <span
+              v-show="errors.has('password')"
+              class="error"
+            >
               {{ errors.first('password') }}
             </span>
           </fieldset>
@@ -68,24 +86,31 @@
           <fieldset>
             <label for="password-repeat">Repita la contraseña</label>
             <input
-              type="password"
-              name="passwordRepeat"
-              data-cy="password-repeat"
+              id="password-repeat"
               ref="password-repeat"
               v-model="passwordRepeat"
               v-validate="'required|confirmed:password'"
-              id="password-repeat"
+              type="password"
+              name="passwordRepeat"
+              data-cy="password-repeat"
               data-vv-as="contraseña repetida"
               :class="{'error': errors.has('password') }"
               placeholder="Contraseña"
-            />
-            <span class="error" v-show="errors.has('passwordRepeat')">
+            >
+            <span
+              v-show="errors.has('passwordRepeat')"
+              class="error"
+            >
               {{ errors.first('passwordRepeat') }}
             </span>
           </fieldset>
 
-          <button type="submit" data-cy="submit" class="rounded__btn--full green">
-            {{ txtBtnSubmit}}
+          <button
+            type="submit"
+            data-cy="submit"
+            class="rounded__btn--full green"
+          >
+            {{ txtBtnSubmit }}
           </button>
         </form>
       </div>
@@ -100,10 +125,10 @@ import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
-  mixins: [mensaje],
   components: {
     SecondaryTop
   },
+  mixins: [mensaje],
   auth: false,
   middleware: 'guest',
   data() {

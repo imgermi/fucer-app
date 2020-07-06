@@ -1,12 +1,15 @@
 <template>
   <div class="buscar">
     <Alerta />
-  	<Top ref="pageFocusTarget" />
-    <main id="contenido" class="band">
+    <Top ref="pageFocusTarget" />
+    <main
+      id="contenido"
+      class="band"
+    >
       <div
-        class="container"
         id="resultado-busqueda"
         ref="resultadoBusqueda"
+        class="container"
         role="region"
         aria-live="polite"
         tabindex="-1"
@@ -22,18 +25,20 @@
             <div v-if="busqueda.length > 0">
               <ModuloNormativa
                 v-for="normativa in busqueda"
-                :key="normativa.id + '-ultima'"
                 :id="normativa.id"
+                :key="normativa.id + '-ultima'"
                 :titulo="normativa.titulo"
                 :categoria="normativa.categoria"
-                :categoriaUri="normativa.categoria_uri"
+                :categoria-uri="normativa.categoria_uri"
                 :bajada="normativa.bajada"
                 :fecha="normativa.fecha"
                 :url="normativa.url"
               />
             </div>
             <div v-else>
-              <p class="center search-alert">No se <br> encontraron <br> resultados</p>
+              <p class="center search-alert">
+                No se <br> encontraron <br> resultados
+              </p>
             </div>
           </div>
         </div>

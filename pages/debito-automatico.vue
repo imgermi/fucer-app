@@ -1,29 +1,41 @@
 <template>
-  <main id="contenido" class="registro">
+  <main
+    id="contenido"
+    class="registro"
+  >
     <SecondaryTop
-      :nroPaso="nroPaso"
-      :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
+      :nro-paso="nroPaso"
+      :titulo-paso="tituloPaso"
     />
     <div class="band form__container">
       <div class="container">
+        <mensaje
+          :tipo="mensajeTipo"
+          :texto="mensajeTexto"
+        />
 
-        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
-
-        <form method="post" @submit.prevent="suscribir" class="main__form">
+        <form
+          method="post"
+          class="main__form"
+          @submit.prevent="suscribir"
+        >
           <fieldset>
             <label for="cbu">CBU</label>
             <input
-              type="text"
-              v-model.lazy="cbu"
               id="cbu"
               ref="cbu"
-              name="cbu"
+              v-model.lazy="cbu"
               v-validate="'required'"
+              type="text"
+              name="cbu"
               data-vv-as="CBU"
               :class="{'error': errors.has('cbu') }"
-            />
-            <span class="error" v-show="errors.has('cbu')">
+            >
+            <span
+              v-show="errors.has('cbu')"
+              class="error"
+            >
               {{ errors.first('cbu') }}
             </span>
           </fieldset>
@@ -31,16 +43,19 @@
           <fieldset>
             <label for="cuit">CUIT</label>
             <input
-              type="text"
-              v-model.lazy="cuit"
               id="cuit"
               ref="cuit"
-              name="cuit"
+              v-model.lazy="cuit"
               v-validate="'required'"
+              type="text"
+              name="cuit"
               data-vv-as="CUIT"
               :class="{'error': errors.has('cuit') }"
-            />
-            <span class="error" v-show="errors.has('cuit')">
+            >
+            <span
+              v-show="errors.has('cuit')"
+              class="error"
+            >
               {{ errors.first('cuit') }}
             </span>
           </fieldset>
@@ -48,16 +63,19 @@
           <fieldset>
             <label for="rs">Código RS</label>
             <input
-              type="text"
-              v-model.lazy="rs"
               id="rs"
               ref="rs"
-              name="rs"
+              v-model.lazy="rs"
               v-validate="'required'"
+              type="text"
+              name="rs"
               data-vv-as="Código RS"
               :class="{'error': errors.has('rs') }"
-            />
-            <span class="error" v-show="errors.has('rs')">
+            >
+            <span
+              v-show="errors.has('rs')"
+              class="error"
+            >
               {{ errors.first('rs') }}
             </span>
           </fieldset>
@@ -65,16 +83,19 @@
           <fieldset>
             <label for="nombre">Nombre</label>
             <input
-              type="text"
-              v-model.lazy="nombre"
               id="nombre"
               ref="nombre"
+              v-model.lazy="nombre"
+              v-validate="'required'"
+              type="text"
               name="nombre"
               data-vv-as="Nombre"
-              v-validate="'required'"
               :class="{'error': errors.has('nombre') }"
-            />
-            <span class="error" v-show="errors.has('nombre')">
+            >
+            <span
+              v-show="errors.has('nombre')"
+              class="error"
+            >
               {{ errors.first('nombre') }}
             </span>
           </fieldset>
@@ -82,22 +103,28 @@
           <fieldset>
             <label for="apellido">Apellido</label>
             <input
-              type="text"
-              v-model.lazy="apellido"
               id="apellido"
               ref="apellido"
+              v-model.lazy="apellido"
+              v-validate="'required'"
+              type="text"
               name="apellido"
               data-vv-as="Apellido"
-              v-validate="'required'"
               :class="{'error': errors.has('apellido') }"
-            />
-            <span class="error" v-show="errors.has('apellido')">
+            >
+            <span
+              v-show="errors.has('apellido')"
+              class="error"
+            >
               {{ errors.first('apellido') }}
             </span>
           </fieldset>
 
-          <button type="submit" class="rounded__btn--full blue">
-            {{ txtBtnSubmit}}
+          <button
+            type="submit"
+            class="rounded__btn--full blue"
+          >
+            {{ txtBtnSubmit }}
           </button>
         </form>
       </div>
@@ -112,10 +139,10 @@ import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
-  mixins: [mensaje],
   components: {
     SecondaryTop
   },
+  mixins: [mensaje],
   data() {
     return {
       title: 'Paso 3 - Débito automático',

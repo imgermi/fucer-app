@@ -3,9 +3,9 @@
     <li>
       <a
         href="#menu-principal"
+        class="screen-reader-shortcut"
         @click="navegarAMenu"
         @keyup.enter="navegarAMenu"
-        class="screen-reader-shortcut"
       >
         Saltar a navegación principal
       </a>

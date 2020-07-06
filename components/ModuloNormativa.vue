@@ -6,9 +6,18 @@
         <p>{{ bajada }}</p>
       </div>
       <div class="extra">
-        <small v-if="categoria" :class="`tag normativa-module__tag ${categoriaUri}`">{{ categoria }}</small>
-        <time v-if="fecha" :datetime="fecha | fecha('yyyy-MM-dd')">{{ fecha | fecha('dd/MM/yyyy') }}</time>
-        <FavoriteStar @click.native.prevent="toggleFavorito(id)" :activa="enFavoritos"/>
+        <small
+          v-if="categoria"
+          :class="`tag normativa-module__tag ${categoriaUri}`"
+        >{{ categoria }}</small>
+        <time
+          v-if="fecha"
+          :datetime="fecha | fecha('yyyy-MM-dd')"
+        >{{ fecha | fecha('dd/MM/yyyy') }}</time>
+        <FavoriteStar
+          :activa="enFavoritos"
+          @click.native.prevent="toggleFavorito(id)"
+        />
       </div>
     </nuxt-link>
   </article>
@@ -22,15 +31,36 @@
 		components: {
 			FavoriteStar
 		},
-    props: [
-      'id',
-      'titulo',
-      'bajada',
-      'categoria',
-      'categoriaUri',
-      'fecha',
-      'url'
-    ],
+    props: {
+      id: {
+        type: Number,
+        required: true,
+      },
+      titulo: {
+        type: String,
+        required: true,
+      },
+      bajada: {
+        type: String,
+        required: true,
+      },
+      categoria: {
+        type: String,
+        default: '',
+      },
+      categoriaUri: {
+        type: String,
+        default: '',
+      },
+      fecha: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
     computed: {
       enFavoritos() {
         return this.$store.getters['normativas/enFavoritos'](this.id)

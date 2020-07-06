@@ -1,11 +1,24 @@
 <template>
   <div class="confirme-su-email">
-    <SecondaryTop/>
-    <main id="contenido" class="band">
+    <SecondaryTop />
+    <main
+      id="contenido"
+      class="band"
+    >
       <div class="container">
-        <h1 class="intro__heading" ref="pageFocusTarget">Suscripción en revisión</h1>
-        <h2 class="sub__heading">{{ mensaje }}</h2>
-        <nuxt-link :to="{name: 'modificar-tarjeta'}" class="rounded__btn--medium green">
+        <h1
+          ref="pageFocusTarget"
+          class="intro__heading"
+        >
+          Suscripción en revisión
+        </h1>
+        <h2 class="sub__heading">
+          {{ mensaje }}
+        </h2>
+        <nuxt-link
+          :to="{name: 'modificar-tarjeta'}"
+          class="rounded__btn--medium green"
+        >
           Cambiar tarjeta
         </nuxt-link>
       </div>

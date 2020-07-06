@@ -1,8 +1,8 @@
 <template>
   <div class="app">
-  	<vue-announcer />
-  	<skip-links />
-  	<error-toast />
+    <vue-announcer />
+    <skip-links />
+    <error-toast />
     <nuxt />
   </div>
 </template>

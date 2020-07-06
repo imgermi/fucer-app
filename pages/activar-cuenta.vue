@@ -1,14 +1,18 @@
 <template>
-  <main id="contenido" class="mail-confirmado">
+  <main
+    id="contenido"
+    class="mail-confirmado"
+  >
     <SecondaryTop
-      :nroPaso="nroPaso"
-      :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
+      :nro-paso="nroPaso"
+      :titulo-paso="tituloPaso"
     />
     <div class="band">
       <div class="container">
         <h1>
-          <span v-html="mensaje"></span>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <span v-html="mensaje" />
         </h1>
         <div v-if="!pagina.cargando">
           <nuxt-link

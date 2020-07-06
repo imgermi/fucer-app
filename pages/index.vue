@@ -3,27 +3,44 @@
     <header>
       <div class="container-bg">
         <a href="/">
-          <img src="~/assets/img/landing/fucernet-icon.svg" alt="FucerNet">
+          <img
+            src="~/assets/img/landing/fucernet-icon.svg"
+            alt="FucerNet"
+          >
         </a>
-        <nuxt-link :to="{name: 'login'}" class="index-btn green-light smaller">
+        <nuxt-link
+          :to="{name: 'login'}"
+          class="index-btn green-light smaller"
+        >
           Ingresar
         </nuxt-link>
       </div>
     </header>
     <section class="hero">
       <div class="container">
-        <h1 ref="pageFocusTarget">La normativa registral, en una base de datos única en el país</h1>
+        <h1 ref="pageFocusTarget">
+          La normativa registral, en una base de datos única en el país
+        </h1>
         <h2>FucerNet es una herramienta digital en la que encontrará, además del Digesto de Normas Técnico Registrales, el texto completo de sus principales Disposiciones complementarias y Circulares aclaratorias, con un breve resumen del contenido de las mismas, y diversos artículos de doctrina y jurisprudencia.</h2>
         <div class="hero-cta">
-          <nuxt-link :to="{name: 'seleccione-su-plan'}" class="index-btn green">
+          <nuxt-link
+            :to="{name: 'seleccione-su-plan'}"
+            class="index-btn green"
+          >
             Probar 15 días
           </nuxt-link>
-          <nuxt-link :to="{name: 'login'}" class="index-btn green-light">
+          <nuxt-link
+            :to="{name: 'login'}"
+            class="index-btn green-light"
+          >
             Acceder a mi cuenta
           </nuxt-link>
         </div>
         <p>-Dr. Javier Antonio Cornejo (Director de FucerNet) y equipo de colaboradores-</p>
-        <img src="~/assets/img/landing/fucernet-mobile-desktop.png" alt="Capturas de pantallas de laptop y celular">
+        <img
+          src="~/assets/img/landing/fucernet-mobile-desktop.png"
+          alt="Capturas de pantallas de laptop y celular"
+        >
       </div>
     </section>
     <section class="features">
@@ -70,13 +87,19 @@
         <div class="footer-cta">
           <h2>Acceda a FucerNet de forma gratuita durante 15 días</h2>
           <p>Nuestro plan mensual tiene un costo de $750 (a partir del 1/7/20) y puede cancelarlo en cualquier momento.</p>
-          <nuxt-link :to="{name: 'seleccione-su-plan'}" class="index-btn green">
+          <nuxt-link
+            :to="{name: 'seleccione-su-plan'}"
+            class="index-btn green"
+          >
             Probar 15 días
           </nuxt-link>
         </div>
         <div class="footer-info">
           <div>
-            <img src="~/assets/img/logo-fucernet.svg" alt="FucerNet">
+            <img
+              src="~/assets/img/logo-fucernet.svg"
+              alt="FucerNet"
+            >
             <span>2020 - Fundación Centro de Estudios Registrales</span>
           </div>
           <div class="footer-info_menu">
@@ -94,10 +117,16 @@
             </ul>
             <ul>
               <li>
-                <a href="mailto:soporte@fucer.com.ar" target="_blank">soporte@fucer.com.ar</a>
+                <a
+                  href="mailto:soporte@fucer.com.ar"
+                  target="_blank"
+                >soporte@fucer.com.ar</a>
               </li>
               <li>
-                <a href="https://fucer.com.ar" target="_blank">fucer.com.ar</a>
+                <a
+                  href="https://fucer.com.ar"
+                  target="_blank"
+                >fucer.com.ar</a>
               </li>
             </ul>
           </div>

@@ -1,10 +1,10 @@
 <template>
-	<div
-		v-if="textoNormalizado"
-		:class="clase"
-	>
-		{{ prefijo }}{{ textoNormalizado }}
-	</div>
+  <div
+    v-if="textoNormalizado"
+    :class="clase"
+  >
+    {{ prefijo }}{{ textoNormalizado }}
+  </div>
 </template>
 
 <script>

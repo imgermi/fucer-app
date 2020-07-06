@@ -1,12 +1,17 @@
 <template>
   <div class="configuracion">
-  	<Top
+    <Top
       :title="title"
     />
-    <main id="contenido" class="band datos">
+    <main
+      id="contenido"
+      class="band datos"
+    >
       <div class="container">
         <div class="datos__personales">
-          <h2 ref="pageFocusTarget">Datos personales</h2>
+          <h2 ref="pageFocusTarget">
+            Datos personales
+          </h2>
           <div class="datos__personales--dato">
             <p>Nombre</p>
             <span>{{ $auth.user.nombre }}</span>
@@ -67,7 +72,8 @@
               <span>{{ $auth.user.suscripcion.plan.descripcion }}</span>
               <small>{{ $auth.user.suscripcion.activa ? '$'+$auth.user.suscripcion.plan.valor : '' }}</small>
             </div>
-            <p v-html="$auth.user.suscripcion.plan.estado"></p>
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <p v-html="$auth.user.suscripcion.plan.estado" />
           </div>
           <br>
           <nuxt-link 
@@ -92,14 +98,14 @@ export default {
   components: {
     Top
   },
-  computed: {
-    metadata () {
-      return this.$auth.user.suscripcion.metadata
-    }
-  },
   data () {
     return {
       title: 'Configuración',
+    }
+  },
+  computed: {
+    metadata () {
+      return this.$auth.user.suscripcion.metadata
     }
   },
   beforeRouteEnter (to, from, next) {

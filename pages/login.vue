@@ -1,58 +1,86 @@
 <template>
-  <main id="contenido" class="login">
+  <main
+    id="contenido"
+    class="login"
+  >
     <SecondaryTop
-      :tituloPaso="tituloPaso"
+      :titulo-paso="tituloPaso"
     />
     <div class="band form__container">
       <div class="container">
+        <mensaje
+          :tipo="mensajeTipo"
+          :texto="mensajeTexto"
+          data-cy="error-form"
+        />
 
-        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" data-cy="error-form"/>
-
-        <form @submit.prevent="login" class="main__form">
+        <form
+          class="main__form"
+          @submit.prevent="login"
+        >
           <fieldset>
             <label for="email">¿Cúal es su email?</label>
             <input
+              id="email"
+              ref="pageFocusTarget"
+              v-model="email"
+              v-validate="'required'"
               type="email"
               name="email"
-              v-model="email"
-              id="email"
               data-cy="email"
-              ref="pageFocusTarget"
-              v-validate="'required'"
               :class="{'error': errors.has('email') }"
               placeholder="Email"
-            />
-            <span class="error" data-cy="error-email" v-show="errors.has('email')">
+            >
+            <span
+              v-show="errors.has('email')"
+              class="error"
+              data-cy="error-email"
+            >
               {{ errors.first('email') }}
             </span>
-
           </fieldset>
           <fieldset>
             <label for="password">¿Cúal es su contraseña?</label>
             <input
+              id="password"
+              v-model="password"
+              v-validate="'required'"
               type="password"
               name="password"
-              v-model="password"
-              id="password"
               data-cy="password"
-              v-validate="'required'"
               :class="{'error': errors.has('password') }"
               data-vv-as="contraseña"
               placeholder="Contraseña"
-            />
-            <span class="error" data-cy="error-password" v-show="errors.has('password')">
+            >
+            <span
+              v-show="errors.has('password')"
+              class="error"
+              data-cy="error-password"
+            >
               {{ errors.first('password') }}
             </span>
           </fieldset>
-          <button type="submit" data-cy="submit" class="rounded__btn--full green">
-            {{ txtBtnIngresar}}
+          <button
+            type="submit"
+            data-cy="submit"
+            class="rounded__btn--full green"
+          >
+            {{ txtBtnIngresar }}
           </button>
         </form>
         <br>
-        <p class="signup__agregados"><nuxt-link :to="{ name: 'restaurar-clave' }">¿Olvidó su clave? <b>Haga click aquí</b></nuxt-link>.</p>
-        <p class="signup__agregados"><nuxt-link :to="{ name: 'ingrese-su-email' }">¿Registró su usuario pero no recibió el mail para activarlo? <b>Envíelo de nuevo</b></nuxt-link>.</p>
-      </div></div>
-    
+        <p class="signup__agregados">
+          <nuxt-link :to="{ name: 'restaurar-clave' }">
+            ¿Olvidó su clave? <b>Haga click aquí</b>
+          </nuxt-link>.
+        </p>
+        <p class="signup__agregados">
+          <nuxt-link :to="{ name: 'ingrese-su-email' }">
+            ¿Registró su usuario pero no recibió el mail para activarlo? <b>Envíelo de nuevo</b>
+          </nuxt-link>.
+        </p>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -63,10 +91,10 @@ import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
-  mixins: [mensaje],
   components: {
     SecondaryTop
   },
+  mixins: [mensaje],
   auth: false,
   middleware: 'guest',
   data() {

@@ -1,56 +1,73 @@
 <template>
   <div class="normativa">
     <Alerta />
-    <nav id="menu-principal" class="goBack__header">
+    <nav
+      id="menu-principal"
+      class="goBack__header"
+    >
       <div class="container">
         <a
           href="#"
+          class="volver-btn"
           @click.prevent="$router.go(-1)"
           @keyup.enter.prevent="$router.go(-1)"
-          class="volver-btn"
-        ><img src="~/assets/img/arrow-left.svg" alt="" class="arrow-left">
+        ><img
+           src="~/assets/img/arrow-left.svg"
+           alt=""
+           class="arrow-left"
+         >
           <span>Volver</span>
         </a>
         <FavoriteStar
           :aria-label="(enFavoritos ? 'Quitar de' : 'Agregar a')+ ' favoritos'"
           tabindex="0"
+          :activa="enFavoritos"
           @click.native="toggleFavorito(id)"
           @keyup.native.enter="toggleFavorito(id)"
-          :activa="enFavoritos"
         />
       </div>
     </nav>
     <main id="contenido">
-    <section class="top">
-      <div class="container">
-        <h1 ref="pageFocusTarget">
-          <small v-if="categoria" :class="`tag normativa__tag ${categoriaUri}`">{{ categoria }}</small>
-          <div>{{ titulo }}</div>
-        </h1>
-        <h2>{{ bajada }}</h2>
-        <time v-if="fecha" :datetime="fecha | fecha('yyyy-MM-dd')">{{ fecha | fecha('dd/MM/yyyy') }}</time>
-      </div>
-    </section>
-    <section class="band cuerpo">
+      <section class="top">
+        <div class="container">
+          <h1 ref="pageFocusTarget">
+            <small
+              v-if="categoria"
+              :class="`tag normativa__tag ${categoriaUri}`"
+            >{{ categoria }}</small>
+            <div>{{ titulo }}</div>
+          </h1>
+          <h2>{{ bajada }}</h2>
+          <time
+            v-if="fecha"
+            :datetime="fecha | fecha('yyyy-MM-dd')"
+          >{{ fecha | fecha('dd/MM/yyyy') }}</time>
+        </div>
+      </section>
+      <section class="band cuerpo">
         <div class="container">
           <div v-if="!pagina.cargando">
             <h6>Introducción</h6>
             <span v-if="autor">Por {{ autor }}</span>
-            <div v-if="intro" v-html="intro"></div>
+            <template v-if="intro">
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div v-html="intro" />
+            </template>
             <a
+              ref="btnLeer"
               href="#contenido-normativa"
               class="rounded__btn--medium green"
-              ref="btnLeer"
-              @click="leerNormativa"
-              @keyup.enter="leerNormativa"
+              @click.prevent="leerNormativa"
+              @keyup.enter.prevent="leerNormativa"
             >Leer</a>
-            <div id="contenido-normativa" :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
+            <div
+              id="contenido-normativa"
+              :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')"
+            >
               <focus-trap
                 :active="mostrarCuerpo"
                 :initial-focus="() => $refs.btnCerrar"
-                :returnFocusOnDeactivate="false"
-                v-on:activate="leerNormativa"
-                v-on:deactivate="cerrarNormativa"
+                :return-focus-on-deactivate="false"
               >
                 <div>
                   <button
@@ -58,10 +75,13 @@
                     class="cerrar"
                     @click="cerrarNormativa"
                     @keyup.enter="cerrarNormativa"
-                  >Cerrar</button>
+                  >
+                    Cerrar
+                  </button>
                   <h1>{{ titulo }}</h1>
                   <h2>{{ bajada }}</h2>
-                  <div v-html="cuerpo"></div>
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <div v-html="cuerpo" />
                 </div>
               </focus-trap>
             </div>
@@ -138,23 +158,28 @@ export default {
       this.$announcer.options.politeness
     )
   },
-  head () {
-    return {
-      title: this.titulo,
-    }
-  },
   methods: {
     leerNormativa () {
       this.mostrarCuerpo = true
+      if (!this.$route.hash) {
+        this.$router.replace({hash: '#contenido-normativa'})
+      }
     },
     cerrarNormativa () {
       this.mostrarCuerpo = false
-      this.$router.replace({ hash: '' })
+      if (this.$route.hash) {
+        this.$router.replace({ hash: '' })
+      }
       this.$refs.btnLeer.focus()
     },
     ...mapActions('normativas', [
       'toggleFavorito',
     ]),
+  },
+  head () {
+    return {
+      title: this.titulo,
+    }
   },
 }
 </script>

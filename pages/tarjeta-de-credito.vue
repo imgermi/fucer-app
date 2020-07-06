@@ -1,26 +1,36 @@
 <template>
-  <main id="contenido" class="registro">
+  <main
+    id="contenido"
+    class="registro"
+  >
     <SecondaryTop
-      :nroPaso="nroPaso"
-      :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
+      :nro-paso="nroPaso"
+      :titulo-paso="tituloPaso"
     />
     <div class="band form__container">
       <div class="container">
+        <mensaje
+          :tipo="mensajeTipo"
+          :texto="mensajeTexto"
+        />
 
-        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
-
-        <form method="post" @submit.prevent="generateCardToken" class="main__form">
+        <form
+          method="post"
+          class="main__form"
+          @submit.prevent="generateCardToken"
+        >
           <fieldset>
             <label for="cardNumber">Número de la tarjeta</label>
-            <input type="text"
+            <input
+              id="cardNumber"
+              ref="cardNumber"
               v-model.lazy="cardNumber"
               v-validate="'required'"
+              type="text"
               data-vv-as="número de la tarjeta"
               :class="{'error': errors.has('cardNumber') }"
               data-vv-name="cardNumber"
-              ref="cardNumber"
-              id="cardNumber"
               placeholder="0000 0000 0000 0000"
               data-checkout="cardNumber"
               onselectstart="return false"
@@ -30,8 +40,11 @@
               onDrag="return false"
               onDrop="return false"
               autocomplete="off"
-            />
-            <span class="error" v-show="errors.has('cardNumber')">
+            >
+            <span
+              v-show="errors.has('cardNumber')"
+              class="error"
+            >
               {{ errors.first('cardNumber') }}
             </span>
           </fieldset>
@@ -39,12 +52,12 @@
           <fieldset>
             <label for="cardExpirationMonth">Mes de vencimiento</label>
             <input
-              type="text"
               id="cardExpirationMonth"
-              data-vv-name="cardExpirationMonth"
-              v-model="cardExpirationMonth"
               ref="cardExpirationMonth"
+              v-model="cardExpirationMonth"
               v-validate="'required'"
+              type="text"
+              data-vv-name="cardExpirationMonth"
               data-vv-as="mes de vencimiento"
               data-checkout="cardExpirationMonth"
               :class="{'error': errors.has('cardExpirationMonth') }"
@@ -55,9 +68,12 @@
               onCut="return false"
               onDrag="return false"
               onDrop="return false"
-              autocomplete=off
-            />
-            <span class="error" v-show="errors.has('cardExpirationMonth')">
+              autocomplete="off"
+            >
+            <span
+              v-show="errors.has('cardExpirationMonth')"
+              class="error"
+            >
               {{ errors.first('cardExpirationMonth') }}
             </span>
           </fieldset>
@@ -65,12 +81,12 @@
           <fieldset>
             <label for="cardExpirationYear">Año de vencimiento</label>
             <input
-              type="text"
               id="cardExpirationYear"
-              data-vv-name="cardExpirationYear"
-              v-model="cardExpirationYear"
               ref="cardExpirationYear"
+              v-model="cardExpirationYear"
               v-validate="'required'"
+              type="text"
+              data-vv-name="cardExpirationYear"
               data-vv-as="año de vencimiento"
               data-checkout="cardExpirationYear"
               :class="{'error': errors.has('cardExpirationYear') }"
@@ -81,9 +97,12 @@
               onCut="return false"
               onDrag="return false"
               onDrop="return false"
-              autocomplete=off
-            />
-            <span class="error" v-show="errors.has('cardExpirationYear')">
+              autocomplete="off"
+            >
+            <span
+              v-show="errors.has('cardExpirationYear')"
+              class="error"
+            >
               {{ errors.first('cardExpirationYear') }}
             </span>
           </fieldset>
@@ -91,13 +110,13 @@
           <fieldset v-show="isSecurityCodeRequired">
             <label for="securityCode">Código de seguridad</label>
             <input
+              id="securityCode"
+              v-model="securityCode"
+              v-validate="isSecurityCodeRequired ? 'required' : ''"
               type="text"
               data-vv-name="securityCode"
-              v-model="securityCode"
-              id="securityCode"
               data-checkout="securityCode"
               :class="{'error': errors.has('codigo') }"
-              v-validate="isSecurityCodeRequired ? 'required' : ''"
               data-vv-as="código de seguridad"
               placeholder="123"
               onselectstart="return false"
@@ -107,8 +126,11 @@
               onDrag="return false"
               onDrop="return false"
               autocomplete="off"
-            />
-            <span class="error" v-show="errors.has('securityCode')">
+            >
+            <span
+              v-show="errors.has('securityCode')"
+              class="error"
+            >
               {{ errors.first('securityCode') }}
             </span>
           </fieldset>
@@ -116,18 +138,21 @@
           <fieldset>
             <label for="cardholderName">Nombre impreso en tarjeta</label>
             <input
-              type="text"
-              v-model="cardholderName"
-              data-vv-name="cardholderName"
-              v-validate="'required'"
-              data-vv-as="nombre impreso en tarjeta"
               id="cardholderName"
               ref="cardholderName"
+              v-model="cardholderName"
+              v-validate="'required'"
+              type="text"
+              data-vv-name="cardholderName"
+              data-vv-as="nombre impreso en tarjeta"
               :class="{'error': errors.has('cardholderName') }"
               placeholder="Juan Miguel Fernández"
               data-checkout="cardholderName"
-            />
-            <span class="error" v-show="errors.has('cardholderName')">
+            >
+            <span
+              v-show="errors.has('cardholderName')"
+              class="error"
+            >
               {{ errors.first('cardholderName') }}
             </span>
           </fieldset>
@@ -137,21 +162,29 @@
             <div class="styled-select">
               <select
                 id="docType"
-                data-vv-name="docType"
-                v-model="docType"
                 ref="docType"
-                data-checkout="docType"
+                v-model="docType"
                 v-validate="'required'"
+                data-vv-name="docType"
+                data-checkout="docType"
                 data-vv-as="tipo de documento"
                 :class="{'error': errors.has('docType') }"
               >
-                <option value="">Seleccione una opción</option>
-                <option v-for="docType in documentTypes" :key="docType.id">
-                  {{ docType.name }}
+                <option value="">
+                  Seleccione una opción
+                </option>
+                <option
+                  v-for="documentType in documentTypes"
+                  :key="documentType.id"
+                >
+                  {{ documentType.name }}
                 </option>
               </select>
             </div>
-            <span class="error" v-show="errors.has('docType')">
+            <span
+              v-show="errors.has('docType')"
+              class="error"
+            >
               {{ errors.first('docType') }}
             </span>
           </fieldset>
@@ -159,27 +192,41 @@
           <fieldset>
             <label for="docNumber">Número de documento</label>
             <input
+              id="docNumber"
+              ref="docNumber"
+              v-model="docNumber"
+              v-validate="'required'"
               type="text"
               data-vv-name="docNumber"
-              v-model="docNumber"
-              ref="docNumber"
-              v-validate="'required'"
               data-vv-as="número de documento"
-              id="docNumber"
               data-checkout="docNumber"
               :class="{'error': errors.has('docNumber') }"
               placeholder="39917586"
-            />
-            <span class="error" v-show="errors.has('docNumber')">
+            >
+            <span
+              v-show="errors.has('docNumber')"
+              class="error"
+            >
               {{ errors.first('docNumber') }}
             </span>
           </fieldset>
 
-          <input v-model="paymentMethodId" type="hidden" name="paymentMethodId" />
-          <input v-model="cardToken" type="hidden" name="token" />
+          <input
+            v-model="paymentMethodId"
+            type="hidden"
+            name="paymentMethodId"
+          >
+          <input
+            v-model="cardToken"
+            type="hidden"
+            name="token"
+          >
 
-          <button type="submit" class="rounded__btn--full green">
-            {{ txtBtnSubmit}}
+          <button
+            type="submit"
+            class="rounded__btn--full green"
+          >
+            {{ txtBtnSubmit }}
           </button>
 
           <span class="alert-mercadopago">El pago lo va a procesar Mercado Pago</span>
@@ -205,11 +252,18 @@ import mensaje from '~/mixins/mensaje'
 
 export default {
   layout: 'signup',
-  mixins: [mensaje],
   components: {
     SecondaryTop
   },
+  mixins: [mensaje],
   middleware: 'plan-no-ilimitado',
+  
+  async asyncData ({ app:{ $api }}) {
+    return {
+      documentTypes: await $api.mercadopago.getIdentificationTypes()
+    }
+  },
+
   data() {
     return {
       documentTypes: [],
@@ -279,12 +333,6 @@ export default {
 
   mounted() {
     this.$refs.cardNumber.focus()
-  },
-
-  async asyncData ({ app:{ $api }}) {
-    return {
-      documentTypes: await $api.mercadopago.getIdentificationTypes()
-    }
   },
 
   async created () {

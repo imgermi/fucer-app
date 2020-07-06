@@ -1,13 +1,18 @@
 <template>
-  <main id="contenido" class="seleccione-su-plan">
+  <main
+    id="contenido"
+    class="seleccione-su-plan"
+  >
     <SecondaryTop
-      :nroPaso="nroPaso"
-      :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
+      :nro-paso="nroPaso"
+      :titulo-paso="tituloPaso"
     />
     <div class="band">
       <div class="container">
-        <div class="plan__titulo"><span>Premium</span></div>
+        <div class="plan__titulo">
+          <span>Premium</span>
+        </div>
         <span
           v-if="precioPlan"
           class="plan__precio"
@@ -21,9 +26,17 @@
           <li>Resúmenes introductorios y explicativos sobre material</li>
         </ul>
 
-        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
+        <mensaje
+          :tipo="mensajeTipo"
+          :texto="mensajeTexto"
+        />
 
-        <nuxt-link :to="{ name: 'registro' }" class="rounded__btn--full green">Siguiente</nuxt-link>
+        <nuxt-link
+          :to="{ name: 'registro' }"
+          class="rounded__btn--full green"
+        >
+          Siguiente
+        </nuxt-link>
       </div>
     </div>
   </main>
@@ -36,10 +49,10 @@ import SecondaryTop from '~/components/SecondaryTop.vue'
 
 export default {
   layout: 'signup',
-  mixins: [mensaje],
   components: {
     SecondaryTop
   },
+  mixins: [mensaje],
   auth: false,
   middleware: 'guest',
   data() {
@@ -49,20 +62,6 @@ export default {
       tituloPaso: 'Seleccione su plan',
       precioPlan: false
     }
-  },
-  head () {
-    return {
-      title: this.title,
-    }
-  },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.$announcer.set(
-        `${vm.title} ${vm.$announcer.options.complementRoute}`,
-        vm.$announcer.options.politeness
-      )
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
-    })
   },
   async created () {
     await this.obtenerConfigs()
@@ -82,7 +81,21 @@ export default {
       }
       this.setPaginaCargando(false)
     }
-  }
+  },
+  head () {
+    return {
+      title: this.title,
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$announcer.set(
+        `${vm.title} ${vm.$announcer.options.complementRoute}`,
+        vm.$announcer.options.politeness
+      )
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
+    })
+  },
 }
 </script>
 

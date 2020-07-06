@@ -1,24 +1,43 @@
 <template>
-  <main id="contenido" class="medio-de-pago">
+  <main
+    id="contenido"
+    class="medio-de-pago"
+  >
     <SecondaryTop
-      :nroPaso="nroPaso"
-      :tituloPaso="tituloPaso"
       ref="pageFocusTarget"
+      :nro-paso="nroPaso"
+      :titulo-paso="tituloPaso"
     />
     <div class="band">
       <div class="container">
-        <div v-if="$auth.loggedIn" class="user">
+        <div
+          v-if="$auth.loggedIn"
+          class="user"
+        >
           <span>Sus datos personales</span>
           <small>{{ $auth.user.nombre }}</small>
           <small>{{ $auth.user.email }}</small>
         </div>
         <p>Para acceder a sus 15 días gratis, tendrá que suscribirse al plan seleccionado.</p>
         <p>No se preocupe. Cancele antes del {{ diasCancelar }} y <strong>no se le cobrará ningún cargo.</strong></p>
-        <nuxt-link :to="{ name: 'tarjeta-de-credito' }" class="rounded__btn--full green">Crédito</nuxt-link>
+        <nuxt-link
+          :to="{ name: 'tarjeta-de-credito' }"
+          class="rounded__btn--full green"
+        >
+          Crédito
+        </nuxt-link>
 
-        <nuxt-link :to="{ name: 'debito-automatico' }" class="rounded__btn--full green">Débito automático</nuxt-link>
+        <nuxt-link
+          :to="{ name: 'debito-automatico' }"
+          class="rounded__btn--full green"
+        >
+          Débito automático
+        </nuxt-link>
         <div v-if="$auth.loggedIn">
-          <span class="signup__agregados">¿Quiere iniciar con otra cuenta? <a @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a></span>
+          <span class="signup__agregados">¿Quiere iniciar con otra cuenta? <a
+            @click="logout()"
+            @keyup.enter="logout()"
+          >Cerrar Sesión</a></span>
         </div>
       </div>
     </div>
@@ -53,11 +72,6 @@ export default {
       vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
     })
   },
-  head () {
-    return {
-      title: this.title,
-    }
-  },
   methods: {
     async logout () {
       if ( !window.navigator.onLine &&
@@ -65,6 +79,11 @@ export default {
         return
       await this.$auth.logout()
       this.$router.push("/")
+    }
+  },
+  head () {
+    return {
+      title: this.title,
     }
   }
 }

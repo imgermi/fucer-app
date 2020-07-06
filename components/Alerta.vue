@@ -1,8 +1,9 @@
 <template>
   <header v-if="$auth.user && $auth.user.suscripcion.trial">
-  	<div class="alerta-plan">
-  		<p v-html="mensajeDiasFinTrial"></p>
-  	</div>
+    <div class="alerta-plan">
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <p v-html="mensajeDiasFinTrial" />
+    </div>
   </header>
 </template>
 
