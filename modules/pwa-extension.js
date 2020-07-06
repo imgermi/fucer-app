@@ -2,6 +2,7 @@ const path = require('path')
 const { injectManifest } = require('workbox-build')
 
 export default function nuxtWorkboxExtension() {
+  if (this.options.dev) return;
   this.nuxt.hook('build:before', async (nuxt) => {
     let cachingExtensions = nuxt.options.pwa.workbox.cachingExtensions || []
     cachingExtensions = Array.isArray(cachingExtensions) ? cachingExtensions : [cachingExtensions]
