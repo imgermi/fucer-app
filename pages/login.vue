@@ -6,7 +6,7 @@
     <div class="band form__container">
       <div class="container">
 
-        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" data-cy="error-form"/>
 
         <form @submit.prevent="login" class="main__form">
           <fieldset>
@@ -16,12 +16,13 @@
               name="email"
               v-model="email"
               id="email"
+              data-cy="email"
               ref="pageFocusTarget"
               v-validate="'required'"
               :class="{'error': errors.has('email') }"
               placeholder="Email"
             />
-            <span class="error" v-show="errors.has('email')">
+            <span class="error" data-cy="error-email" v-show="errors.has('email')">
               {{ errors.first('email') }}
             </span>
 
@@ -33,16 +34,17 @@
               name="password"
               v-model="password"
               id="password"
+              data-cy="password"
               v-validate="'required'"
               :class="{'error': errors.has('password') }"
               data-vv-as="contraseña"
               placeholder="Contraseña"
             />
-            <span class="error" v-show="errors.has('password')">
+            <span class="error" data-cy="error-password" v-show="errors.has('password')">
               {{ errors.first('password') }}
             </span>
           </fieldset>
-          <button type="submit" class="rounded__btn--full green">
+          <button type="submit" data-cy="submit" class="rounded__btn--full green">
             {{ txtBtnIngresar}}
           </button>
         </form>

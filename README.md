@@ -20,9 +20,16 @@ $ npm run cordova
 
 ```
 
+
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
 [Weland Agency](https://weland.com.ar/en/).
 
-### Pruebas
+## Pruebas
+### Cypress
+Para un primer uso creá un archivo cypress.env.json en base a  cypress.env.sample.json y configurá tu usuario de prueba. Tiene que ser un usuario con acceso a la app.
+
+Corré `npm run cypress:open` para correr las pruebas.
+
+### BackstopJS
 https://github.com/garris/BackstopJS
