@@ -8,7 +8,7 @@
     <div class="band form__container">
       <div class="container">
 
-        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" data-cy="error-form"/>
 
         <form @submit.prevent="register" class="main__form">
           <fieldset>
@@ -17,6 +17,7 @@
               type="text"
               v-model="nombre"
               name="nombre"
+              data-cy="nombre"
               v-validate="'required'"
               id="nombre"
               ref="nombre"
@@ -33,6 +34,7 @@
             <input
               type="email"
               name="email"
+              data-cy="email"
               v-model="email"
               v-validate="'required|email'"
               id="email"
@@ -51,6 +53,7 @@
               v-model="password"
               ref="password"
               name="password"
+              data-cy="password"
               v-validate="'required'"
               id="password"
               data-vv-as="contraseña"
@@ -67,6 +70,7 @@
             <input
               type="password"
               name="passwordRepeat"
+              data-cy="password-repeat"
               ref="password-repeat"
               v-model="passwordRepeat"
               v-validate="'required|confirmed:password'"
@@ -80,7 +84,7 @@
             </span>
           </fieldset>
 
-          <button type="submit" class="rounded__btn--full green">
+          <button type="submit" data-cy="submit" class="rounded__btn--full green">
             {{ txtBtnSubmit}}
           </button>
         </form>
