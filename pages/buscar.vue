@@ -13,9 +13,8 @@
       >
         <div v-if="!pagina.cargando">
           <p v-if="!$route.query.busqueda" class="center search-alert">
-            Busque por <br />
-            nombre, palabra <br />
-            o año
+            Busque por
+            <br />nombre, palabra <br />o año
           </p>
           <div v-else>
             <div v-if="busqueda.length > 0">
@@ -33,9 +32,8 @@
             </div>
             <div v-else>
               <p class="center search-alert">
-                No se <br />
-                encontraron <br />
-                resultados
+                No se
+                <br />encontraron <br />resultados
               </p>
             </div>
           </div>

@@ -1,3 +1,4 @@
+/* eslint sonarjs/no-duplicate-string: 0 */
 describe("Inicio de sesión", function () {
   before(function () {
     cy.viewport("iphone-x");

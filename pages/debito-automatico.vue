@@ -22,9 +22,9 @@
               data-vv-as="CBU"
               :class="{ error: errors.has('cbu') }"
             />
-            <span v-show="errors.has('cbu')" class="error">{{
-              errors.first("cbu")
-            }}</span>
+            <span v-show="errors.has('cbu')" class="error">
+              {{ errors.first("cbu") }}
+            </span>
           </fieldset>
 
           <fieldset>
@@ -39,9 +39,9 @@
               data-vv-as="CUIT"
               :class="{ error: errors.has('cuit') }"
             />
-            <span v-show="errors.has('cuit')" class="error">{{
-              errors.first("cuit")
-            }}</span>
+            <span v-show="errors.has('cuit')" class="error">
+              {{ errors.first("cuit") }}
+            </span>
           </fieldset>
 
           <fieldset>
@@ -56,9 +56,9 @@
               data-vv-as="Código RS"
               :class="{ error: errors.has('rs') }"
             />
-            <span v-show="errors.has('rs')" class="error">{{
-              errors.first("rs")
-            }}</span>
+            <span v-show="errors.has('rs')" class="error">
+              {{ errors.first("rs") }}
+            </span>
           </fieldset>
 
           <fieldset>
@@ -73,9 +73,9 @@
               data-vv-as="Nombre"
               :class="{ error: errors.has('nombre') }"
             />
-            <span v-show="errors.has('nombre')" class="error">{{
-              errors.first("nombre")
-            }}</span>
+            <span v-show="errors.has('nombre')" class="error">
+              {{ errors.first("nombre") }}
+            </span>
           </fieldset>
 
           <fieldset>
@@ -90,9 +90,9 @@
               data-vv-as="Apellido"
               :class="{ error: errors.has('apellido') }"
             />
-            <span v-show="errors.has('apellido')" class="error">{{
-              errors.first("apellido")
-            }}</span>
+            <span v-show="errors.has('apellido')" class="error">
+              {{ errors.first("apellido") }}
+            </span>
           </fieldset>
 
           <button type="submit" class="rounded__btn--full blue">

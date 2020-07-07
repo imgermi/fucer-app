@@ -9,7 +9,9 @@
             class="arrow-left"
           />
         </nuxt-link>
-        <h2 ref="pageFocusTarget">Modificar tarjeta de crédito</h2>
+        <h2 ref="pageFocusTarget">
+          Modificar tarjeta de crédito
+        </h2>
 
         <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
@@ -148,12 +150,15 @@
                 data-vv-as="tipo de documento"
                 :class="{ error: errors.has('docType') }"
               >
-                <option value>Seleccione una opción</option>
+                <option value>
+                  Seleccione una opción
+                </option>
                 <option
                   v-for="documentType in documentTypes"
                   :key="documentType.id"
-                  >{{ documentType.name }}</option
                 >
+                  {{ documentType.name }}
+                </option>
               </select>
             </div>
             <span v-show="errors.has('docType')" class="error">

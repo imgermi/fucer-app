@@ -65,11 +65,13 @@
             <h2>Mi plan</h2>
             <div class="datos__plan--dato">
               <span>{{ $auth.user.suscripcion.plan.descripcion }}</span>
-              <small>{{
-                $auth.user.suscripcion.activa
-                  ? "$" + $auth.user.suscripcion.plan.valor
-                  : ""
-              }}</small>
+              <small>
+                {{
+                  $auth.user.suscripcion.activa
+                    ? "$" + $auth.user.suscripcion.plan.valor
+                    : ""
+                }}
+              </small>
             </div>
             <!-- eslint-disable-next-line vue/no-v-html -->
             <p v-html="$auth.user.suscripcion.plan.estado" />

@@ -6,15 +6,12 @@
         <h1 ref="pageFocusTarget" class="intro__heading">
           Suscripción en revisión
         </h1>
-        <h2 class="sub__heading">
-          {{ mensaje }}
-        </h2>
+        <h2 class="sub__heading">{{ mensaje }}</h2>
         <nuxt-link
           :to="{ name: 'modificar-tarjeta' }"
           class="rounded__btn--medium green"
+          >Cambiar tarjeta</nuxt-link
         >
-          Cambiar tarjeta
-        </nuxt-link>
       </div>
     </main>
   </div>

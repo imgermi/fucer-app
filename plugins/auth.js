@@ -7,7 +7,9 @@ export default async function ({ store, app }) {
 
   app.$auth.logout = (...args) => {
     const _ = oldLogout(...args);
-    _.then(() => app.$auth.redirect("logout"));
+    _.then(() => app.$auth.redirect("logout")).catch((err) =>
+      window.Sentry.captureException(err)
+    );
     return _;
   };
   app.$auth.login = (...args) => {
@@ -16,8 +18,8 @@ export default async function ({ store, app }) {
 
     const _ = oldLogin(...args);
     _.then(() => {
-      app.$auth.redirect("home");
-    });
+      return app.$auth.redirect("home");
+    }).catch((err) => window.Sentry.captureException(err));
     return _;
   };
 
@@ -35,8 +37,14 @@ export default async function ({ store, app }) {
           urlsAPI = [...urlsAPI, `/api/normativas/id/${item.url.params.id}`];
           urlsCMS = [...urlsCMS, ...item.recursos];
         });
-        window.caches.open("fucer-cms").then((cache) => cache.addAll(urlsCMS));
-        window.caches.open("fucer-api").then((cache) => cache.addAll(urlsAPI));
+        window.caches
+          .open("fucer-cms")
+          .then((cache) => cache.addAll(urlsCMS))
+          .catch((err) => window.Sentry.captureException(err));
+        window.caches
+          .open("fucer-api")
+          .then((cache) => cache.addAll(urlsAPI))
+          .catch((err) => window.Sentry.captureException(err));
 
         // Al desloguearse
       } else {

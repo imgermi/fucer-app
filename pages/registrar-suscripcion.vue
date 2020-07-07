@@ -317,14 +317,18 @@
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="titulo" />
         </h1>
-        <p v-if="mensaje">{{ mensaje }}</p>
-        <p v-if="error" style="color: red;">{{ error }}</p>
+        <p v-if="mensaje">
+          {{ mensaje }}
+        </p>
+        <p v-if="error" style="color: red;">
+          {{ error }}
+        </p>
         <br />
 
         <div v-if="$auth.user.suscripcion.activa">
-          <nuxt-link class="rounded__btn--full green" :to="{ name: 'inicio' }"
-            >Comenzar</nuxt-link
-          >
+          <nuxt-link class="rounded__btn--full green" :to="{ name: 'inicio' }">
+            Comenzar
+          </nuxt-link>
         </div>
         <div v-else>
           <a

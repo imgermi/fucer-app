@@ -26,13 +26,15 @@ export default {
   render: {
     bundleRenderer: {
       shouldPrefetch: (file, type) => {
-        if (type === "script") {
-          if (/pages\/(inicio|buscar|normativa\/_id)/.test(file)) {
-            return true;
-          }
+        if (
+          type === "script" &&
+          /pages\/(inicio|buscar|normativa\/_id)/.test(file)
+        ) {
+          return true;
         }
         return false;
       },
+    },
     csp: {
       hashAlgorithm: "sha256",
       policies: {
@@ -41,7 +43,7 @@ export default {
         "style-src": [
           "'self'",
           "https://fonts.googleapis.com",
-          "https://fonts.gstatic.com"
+          "https://fonts.gstatic.com",
         ],
         "img-src": ["'self'"],
         "font-src": ["https://fonts.gstatic.com"],
@@ -50,9 +52,8 @@ export default {
         "object-src": ["'none'"],
         "frame-ancestors": ["'none'"],
         "form-action": ["'self'"],
-        "base-uri": ["'none'"]
-      }
-    }
+        "base-uri": ["'none'"],
+      },
     },
   },
 

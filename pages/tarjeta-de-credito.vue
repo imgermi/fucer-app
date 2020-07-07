@@ -35,9 +35,9 @@
               ondrop="return false"
               autocomplete="off"
             />
-            <span v-show="errors.has('cardNumber')" class="error">
-              {{ errors.first("cardNumber") }}
-            </span>
+            <span v-show="errors.has('cardNumber')" class="error">{{
+              errors.first("cardNumber")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -61,9 +61,9 @@
               ondrop="return false"
               autocomplete="off"
             />
-            <span v-show="errors.has('cardExpirationMonth')" class="error">
-              {{ errors.first("cardExpirationMonth") }}
-            </span>
+            <span v-show="errors.has('cardExpirationMonth')" class="error">{{
+              errors.first("cardExpirationMonth")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -87,9 +87,9 @@
               ondrop="return false"
               autocomplete="off"
             />
-            <span v-show="errors.has('cardExpirationYear')" class="error">
-              {{ errors.first("cardExpirationYear") }}
-            </span>
+            <span v-show="errors.has('cardExpirationYear')" class="error">{{
+              errors.first("cardExpirationYear")
+            }}</span>
           </fieldset>
 
           <fieldset v-show="isSecurityCodeRequired">
@@ -112,9 +112,9 @@
               ondrop="return false"
               autocomplete="off"
             />
-            <span v-show="errors.has('securityCode')" class="error">
-              {{ errors.first("securityCode") }}
-            </span>
+            <span v-show="errors.has('securityCode')" class="error">{{
+              errors.first("securityCode")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -131,9 +131,9 @@
               placeholder="Juan Miguel Fernández"
               data-checkout="cardholderName"
             />
-            <span v-show="errors.has('cardholderName')" class="error">
-              {{ errors.first("cardholderName") }}
-            </span>
+            <span v-show="errors.has('cardholderName')" class="error">{{
+              errors.first("cardholderName")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -149,17 +149,20 @@
                 data-vv-as="tipo de documento"
                 :class="{ error: errors.has('docType') }"
               >
-                <option value>Seleccione una opción</option>
+                <option value>
+                  Seleccione una opción
+                </option>
                 <option
                   v-for="documentType in documentTypes"
                   :key="documentType.id"
-                  >{{ documentType.name }}</option
                 >
+                  {{ documentType.name }}
+                </option>
               </select>
             </div>
-            <span v-show="errors.has('docType')" class="error">
-              {{ errors.first("docType") }}
-            </span>
+            <span v-show="errors.has('docType')" class="error">{{
+              errors.first("docType")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -176,9 +179,9 @@
               :class="{ error: errors.has('docNumber') }"
               placeholder="39917586"
             />
-            <span v-show="errors.has('docNumber')" class="error">
-              {{ errors.first("docNumber") }}
-            </span>
+            <span v-show="errors.has('docNumber')" class="error">{{
+              errors.first("docNumber")
+            }}</span>
           </fieldset>
 
           <input

@@ -1,3 +1,5 @@
+/* eslint promise/catch-or-return: 0 */
+/* eslint promise/always-return: 0 */
 Cypress.Commands.add("login", () => {
   cy.request({
     method: "POST",
@@ -9,11 +11,6 @@ Cypress.Commands.add("login", () => {
   })
     .its("body")
     .then((body) => {
-      cy.window().then((window) => {
-        window.localStorage.setItem(
-          "auth._token.local",
-          "Bearer " + body.token
-        );
-      });
+      window.localStorage.setItem("auth._token.local", "Bearer " + body.token);
     });
 });
