@@ -15,7 +15,17 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-module.exports = () => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+module.exports = (on) => {
+  on("task", {
+    log(message) {
+      console.log(message);
+      return null;
+    },
+  });
+  on("task", {
+    table(message) {
+      console.table(message);
+      return null;
+    },
+  });
 };

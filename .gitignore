@@ -20,4 +20,6 @@ backstop_data/bitmaps_test/*
 backstop_data/html_report/*
 
 # Cypress
-cypress.env.json 
+cypress.env.json
+cypress/screenshots/
+cypress/videos/
