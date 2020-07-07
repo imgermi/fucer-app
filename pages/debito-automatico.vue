@@ -1,8 +1,5 @@
 <template>
-  <main
-    id="contenido"
-    class="registro"
-  >
+  <main id="contenido" class="registro">
     <SecondaryTop
       ref="pageFocusTarget"
       :nro-paso="nroPaso"
@@ -10,16 +7,9 @@
     />
     <div class="band form__container">
       <div class="container">
-        <mensaje
-          :tipo="mensajeTipo"
-          :texto="mensajeTexto"
-        />
+        <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
-        <form
-          method="post"
-          class="main__form"
-          @submit.prevent="suscribir"
-        >
+        <form method="post" class="main__form" @submit.prevent="suscribir">
           <fieldset>
             <label for="cbu">CBU</label>
             <input
@@ -30,14 +20,11 @@
               type="text"
               name="cbu"
               data-vv-as="CBU"
-              :class="{'error': errors.has('cbu') }"
-            >
-            <span
-              v-show="errors.has('cbu')"
-              class="error"
-            >
-              {{ errors.first('cbu') }}
-            </span>
+              :class="{ error: errors.has('cbu') }"
+            />
+            <span v-show="errors.has('cbu')" class="error">{{
+              errors.first("cbu")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -50,14 +37,11 @@
               type="text"
               name="cuit"
               data-vv-as="CUIT"
-              :class="{'error': errors.has('cuit') }"
-            >
-            <span
-              v-show="errors.has('cuit')"
-              class="error"
-            >
-              {{ errors.first('cuit') }}
-            </span>
+              :class="{ error: errors.has('cuit') }"
+            />
+            <span v-show="errors.has('cuit')" class="error">{{
+              errors.first("cuit")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -70,14 +54,11 @@
               type="text"
               name="rs"
               data-vv-as="Código RS"
-              :class="{'error': errors.has('rs') }"
-            >
-            <span
-              v-show="errors.has('rs')"
-              class="error"
-            >
-              {{ errors.first('rs') }}
-            </span>
+              :class="{ error: errors.has('rs') }"
+            />
+            <span v-show="errors.has('rs')" class="error">{{
+              errors.first("rs")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -90,14 +71,11 @@
               type="text"
               name="nombre"
               data-vv-as="Nombre"
-              :class="{'error': errors.has('nombre') }"
-            >
-            <span
-              v-show="errors.has('nombre')"
-              class="error"
-            >
-              {{ errors.first('nombre') }}
-            </span>
+              :class="{ error: errors.has('nombre') }"
+            />
+            <span v-show="errors.has('nombre')" class="error">{{
+              errors.first("nombre")
+            }}</span>
           </fieldset>
 
           <fieldset>
@@ -110,20 +88,14 @@
               type="text"
               name="apellido"
               data-vv-as="Apellido"
-              :class="{'error': errors.has('apellido') }"
-            >
-            <span
-              v-show="errors.has('apellido')"
-              class="error"
-            >
-              {{ errors.first('apellido') }}
-            </span>
+              :class="{ error: errors.has('apellido') }"
+            />
+            <span v-show="errors.has('apellido')" class="error">{{
+              errors.first("apellido")
+            }}</span>
           </fieldset>
 
-          <button
-            type="submit"
-            class="rounded__btn--full blue"
-          >
+          <button type="submit" class="rounded__btn--full blue">
             {{ txtBtnSubmit }}
           </button>
         </form>
@@ -133,78 +105,74 @@
 </template>
 
 <script>
-import SecondaryTop from '~/components/SecondaryTop.vue'
-import { mapState, mapActions } from 'vuex'
-import mensaje from '~/mixins/mensaje'
+import SecondaryTop from "~/components/SecondaryTop.vue";
+import { mapState, mapActions } from "vuex";
+import mensaje from "~/mixins/mensaje";
 
 export default {
-  layout: 'signup',
+  layout: "signup",
   components: {
-    SecondaryTop
+    SecondaryTop,
   },
   mixins: [mensaje],
   data() {
     return {
-      title: 'Paso 3 - Débito automático',
-      nroPaso: '3',
-      tituloPaso: 'Configure el débito automático',
-      cuit: '',
-      rs: '',
-      cbu: '',
-      nombre: '',
-      apellido: '',
-    }
+      title: "Paso 3 - Débito automático",
+      nroPaso: "3",
+      tituloPaso: "Configure el débito automático",
+      cuit: "",
+      rs: "",
+      cbu: "",
+      nombre: "",
+      apellido: "",
+    };
   },
 
   computed: {
-    ...mapState([
-      'pagina'
-    ]),
-    txtBtnSubmit () {
-      return this.pagina.cargando ? 'Cargando...' : 'Siguiente'
+    ...mapState(["pagina"]),
+    txtBtnSubmit() {
+      return this.pagina.cargando ? "Cargando..." : "Siguiente";
     },
   },
 
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
-      )
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
-    })
+      );
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el);
+    });
   },
 
   methods: {
-    ...mapActions([
-      'setPaginaCargando'
-    ]),
+    ...mapActions(["setPaginaCargando"]),
 
-    async suscribir (event) {
-      let valida = await this.$validator.validateAll()
+    async suscribir() {
+      let valida = await this.$validator.validateAll();
       if (!valida) {
-        return
+        return;
       }
 
       try {
-        await this.$axios.$post('suscripciones', {
-          tipo: 'debito',
+        await this.$axios.$post("suscripciones", {
+          tipo: "debito",
           datos: {
             cuit: this.cuit,
             rs: this.rs,
             cbu: this.cbu,
             nombre: this.nombre,
             apellido: this.apellido,
-          }
-        })
-        await this.$auth.fetchUser()
+          },
+        });
+        await this.$auth.fetchUser();
         this.$router.push({
-          name: 'inicio'
-        })
-      } catch(error) {
-        this.setMensaje(error, 'error')
+          name: "inicio",
+        });
+      } catch (error) {
+        this.setMensaje(error, "error");
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

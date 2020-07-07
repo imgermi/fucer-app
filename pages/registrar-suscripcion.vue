@@ -2,15 +2,9 @@
   <div class="bienvenido">
     <section>
       <div class="container">
-        <nuxt-link
-          :to="{ name: 'inicio' }"
-          class="logo logotop"
-        >
+        <nuxt-link :to="{ name: 'inicio' }" class="logo logotop">
           <svg viewBox="20 -119 60 59.533">
-            <g
-              id="Logo"
-              transform="translate(20.1 -119)"
-            >
+            <g id="Logo" transform="translate(20.1 -119)">
               <g
                 id="Group_1"
                 data-name="Group 1"
@@ -233,11 +227,7 @@
                   transform="translate(-124.988 -43.5)"
                 />
               </g>
-              <g
-                id="Group_3"
-                data-name="Group 3"
-                transform="translate(9.38 0)"
-              >
+              <g id="Group_3" data-name="Group 3" transform="translate(9.38 0)">
                 <path
                   id="Path_31"
                   data-name="Path 31"
@@ -321,36 +311,20 @@
         </nuxt-link>
       </div>
     </section>
-    <main
-      id="contenido"
-      class="band"
-    >
+    <main id="contenido" class="band">
       <div class="container">
-        <h1
-          ref="pageFocusTarget"
-          class="intro__heading"
-        >
+        <h1 ref="pageFocusTarget" class="intro__heading">
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="titulo" />
         </h1>
-        <p v-if="mensaje">
-          {{ mensaje }}
-        </p>
-        <p
-          v-if="error"
-          style="color: red;"
-        >
-          {{ error }}
-        </p>
-        <br>
+        <p v-if="mensaje">{{ mensaje }}</p>
+        <p v-if="error" style="color: red;">{{ error }}</p>
+        <br />
 
         <div v-if="$auth.user.suscripcion.activa">
-          <nuxt-link
-            class="rounded__btn--full green"
-            :to="{ name: 'inicio' }"
+          <nuxt-link class="rounded__btn--full green" :to="{ name: 'inicio' }"
+            >Comenzar</nuxt-link
           >
-            Comenzar
-          </nuxt-link>
         </div>
         <div v-else>
           <a
@@ -359,9 +333,8 @@
             class="rounded__btn--full green"
             @click.prevent="$router.go(-1)"
             @keyup.enter.prevent="$router.go(-1)"
+            >Volver</a
           >
-            Volver
-          </a>
         </div>
       </div>
     </main>
@@ -369,175 +342,184 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
 export default {
-  layout: 'signup',
-  mixins: ['mensaje'],
-  middleware: 'plan-no-ilimitado',
+  layout: "signup",
+  mixins: ["mensaje"],
+  middleware: "plan-no-ilimitado",
   data() {
     return {
-      paymentMethodId: this.$route.query.paymentMethodId || '',
-      cardToken: this.$route.query.token || '',
+      paymentMethodId: this.$route.query.paymentMethodId || "",
+      cardToken: this.$route.query.token || "",
       payment: null,
       customer: null,
 
-      titulo: '',
-      mensaje: '',
+      titulo: "",
+      mensaje: "",
       error: false,
-      title: 'Registrar suscripción',
-    }
+      title: "Registrar suscripción",
+    };
   },
 
   computed: {
-    ...mapState([
-      'pagina'
-    ]),
-    paymentId () {
-      return this.payment && this.payment.id
+    ...mapState(["pagina"]),
+    paymentId() {
+      return this.payment && this.payment.id;
     },
-    email () {
-      return this.$auth.user.email
-    }
+    email() {
+      return this.$auth.user.email;
+    },
   },
 
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
-      )
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
-    })
+      );
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget);
+    });
   },
 
-  async created () {
-    await this.processCardAndCreateCustomer()
+  async created() {
+    await this.processCardAndCreateCustomer();
   },
 
   methods: {
-    ...mapActions([
-      'setPaginaCargando'
-    ]),
-    async processCardAndCreateCustomer () {
+    ...mapActions(["setPaginaCargando"]),
+    async processCardAndCreateCustomer() {
       try {
-        await this.verifyCard()
-        await this.createNewCustomer()
-        await this.subscribe()
+        await this.verifyCard();
+        await this.createNewCustomer();
+        await this.subscribe();
 
-        this.titulo = '¡Bienvenido/a, ' + this.$auth.user.nombre + '!'
-        this.mensaje += 'Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.'
-        this.$announcer.set(this.titulo +' '+ this.mensaje)
-      } catch(error) {
-        this.titulo = 'Hubo un problema'
-        this.error = error.response != undefined
+        this.titulo = "¡Bienvenido/a, " + this.$auth.user.nombre + "!";
+        this.mensaje +=
+          "Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.";
+        this.$announcer.set(this.titulo + " " + this.mensaje);
+      } catch (error) {
+        this.titulo = "Hubo un problema";
+        this.error =
+          error.response != undefined
             ? error.response.data.error.message
-            : (error.message || error)
+            : error.message || error;
         // TODO: Mover esto al backend
-        if (this.error.indexOf('Invalid card_token_id')!==-1) {
-          this.error = 'Por seguridad necesitamos que vuelva a cargar los datos de su tarjeta.'
+        if (this.error.indexOf("Invalid card_token_id") !== -1) {
+          this.error =
+            "Por seguridad necesitamos que vuelva a cargar los datos de su tarjeta.";
         }
-        this.$announcer.set(this.titulo +'. '+ this.error)
+        this.$announcer.set(this.titulo + ". " + this.error);
       }
     },
 
-    async verifyCard () {
-      this.titulo = 'Verificando tarjeta...'
-      this.$announcer.set(this.titulo)
-      await this.authorizePayment()
+    async verifyCard() {
+      this.titulo = "Verificando tarjeta...";
+      this.$announcer.set(this.titulo);
+      await this.authorizePayment();
       // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/webhooks/payment-status/
-      if (this.payment.status !== 'authorized') {
-        this.error = 'No se pudo verificar que la tarjeta sea apta para hacer suscripciones. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.'
-        this.$announcer.set(this.error)
-      }else{
-        await this.cancelPayment()
+      if (this.payment.status !== "authorized") {
+        this.error =
+          "No se pudo verificar que la tarjeta sea apta para hacer suscripciones. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.";
+        this.$announcer.set(this.error);
+      } else {
+        await this.cancelPayment();
       }
     },
 
-    async authorizePayment () {
-      let minAllowedAmount = await this.getMinAllowedAmount(this.paymentMethodId)
+    async authorizePayment() {
+      let minAllowedAmount = await this.getMinAllowedAmount(
+        this.paymentMethodId
+      );
       this.payment = await this.$axios.$post(
-        'mercadopago/create-payment-authorization', {
+        "mercadopago/create-payment-authorization",
+        {
           transaction_amount: minAllowedAmount,
           card_token: this.cardToken,
           payment_method_id: this.paymentMethodId,
-          email: this.email
-      })
+          email: this.email,
+        }
+      );
     },
 
     // Obtiene el monto mínimo para hacer una autorización
-    async getMinAllowedAmount (paymentMethodId) {
-     try {
+    async getMinAllowedAmount(paymentMethodId) {
+      try {
         let paymentMethods = await this.$api.mercadopago.getPaymentMethods({
-          id: paymentMethodId
-        })
-        if(!paymentMethods[0]){
-          throw new Error('No se encontró el método de pago.')
+          id: paymentMethodId,
+        });
+        if (!paymentMethods[0]) {
+          throw new Error("No se encontró el método de pago.");
         }
-        if (paymentMethods[0].deferred_capture == 'unsupported') {
-          throw new Error('La tarjeta ingresada no soporta pagos diferidos. Para suscribirse es necesario usar una tarjeta de crédito.')
+        if (paymentMethods[0].deferred_capture == "unsupported") {
+          throw new Error(
+            "La tarjeta ingresada no soporta pagos diferidos. Para suscribirse es necesario usar una tarjeta de crédito."
+          );
         }
-        return paymentMethods[0].payer_costs[0].min_allowed_amount
-      } catch(e){
-        console.log(e)
+        return paymentMethods[0].payer_costs[0].min_allowed_amount;
+      } catch (e) {
+        console.log(e);
       }
     },
 
-    async cancelPayment () {
-      await this.$axios.$put(
-        'mercadopago/cancel-payment-authorization', {
-          payment_id: this.paymentId,
-      })
-      this.payment.status = 'cancelled'
+    async cancelPayment() {
+      await this.$axios.$put("mercadopago/cancel-payment-authorization", {
+        payment_id: this.paymentId,
+      });
+      this.payment.status = "cancelled";
     },
 
-    async createNewCustomer () {
-      this.titulo = 'Guardando tarjeta...'
-      this.$announcer.set(this.titulo)
-      this.customer = await this.$axios.$post('mercadopago/create-customer', {
+    async createNewCustomer() {
+      this.titulo = "Guardando tarjeta...";
+      this.$announcer.set(this.titulo);
+      this.customer = await this.$axios.$post("mercadopago/create-customer", {
         email: this.email,
-        token: this.cardToken
-      })
+        token: this.cardToken,
+      });
     },
 
-    async subscribe () {
-      this.titulo = 'Creando nueva suscripción...'
-      this.$announcer.set(this.titulo)
+    async subscribe() {
+      this.titulo = "Creando nueva suscripción...";
+      this.$announcer.set(this.titulo);
 
       // Compruebo que el usuaio no tenga ya una suscripción
-      if(this.$auth.user && this.$auth.user.suscripcion.id){
+      if (this.$auth.user && this.$auth.user.suscripcion.id) {
         try {
-          let subscription = await this.$axios.$get('mercadopago/get-subscription', {
-            params: {
-              subscription_id: this.$auth.user.suscripcion.id
+          let subscription = await this.$axios.$get(
+            "mercadopago/get-subscription",
+            {
+              params: {
+                subscription_id: this.$auth.user.suscripcion.id,
+              },
             }
-          })
-          if(subscription){
-            return
+          );
+          if (subscription) {
+            return;
           }
-        } catch(e) {}
+          // eslint-disable-next-line no-empty
+        } catch (e) {}
       }
 
       try {
-        let token = await this.$axios.$post(
-          'mercadopago/subscribe-customer', {
-            customer_id: this.customer.id
-          }
-        )
+        let token = await this.$axios.$post("mercadopago/subscribe-customer", {
+          customer_id: this.customer.id,
+        });
         // Actualizo el token de seguridad
-        this.$auth.setToken('local', 'Bearer ' + token)
-        await this.$auth.fetchUser()
-      } catch(e) {
-        console.log(e)
-        this.setMensaje('NO se pudo actualizar la suscripción. Vuelva a ingresar los datos de su tarjeta por favor.', 'error')
+        this.$auth.setToken("local", "Bearer " + token);
+        await this.$auth.fetchUser();
+      } catch (e) {
+        console.log(e);
+        this.setMensaje(
+          "NO se pudo actualizar la suscripción. Vuelva a ingresar los datos de su tarjeta por favor.",
+          "error"
+        );
       }
-      
-    }
+    },
   },
-  head () {
+  head() {
     return {
       title: this.title,
-    }
+    };
   },
-}
+};
 </script>

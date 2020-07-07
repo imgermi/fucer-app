@@ -1,4 +1,4 @@
-import Mensaje from '~/components/Mensaje.vue'
+import Mensaje from "~/components/Mensaje.vue";
 
 export default {
   components: {
@@ -6,26 +6,26 @@ export default {
   },
   data() {
     return {
-      mensajeTexto: '',
-      mensajeTipo: '',
+      mensajeTexto: "",
+      mensajeTipo: "",
       mensajeTimer: null,
-    }
+    };
   },
   methods: {
-    setMensaje(texto = '', tipo = 'info', resetTimeout = 0) {
-      this.mensajeTipo = tipo
-      this.mensajeTexto = texto
+    setMensaje(texto = "", tipo = "info", resetTimeout = 0) {
+      this.mensajeTipo = tipo;
+      this.mensajeTexto = texto;
       if (this.mensajeTimer) {
-        clearTimeout(this.mensajeTimer)
+        clearTimeout(this.mensajeTimer);
       }
       if (resetTimeout) {
         this.mensajeTimer = setTimeout(() => {
-          this.resetMensaje()
+          this.resetMensaje();
         }, resetTimeout);
       }
     },
     resetMensaje() {
-      this.mensajeTexto = ''
+      this.mensajeTexto = "";
     },
-  }
-}
+  },
+};

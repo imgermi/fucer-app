@@ -1,8 +1,5 @@
 <template>
-  <main
-    id="contenido"
-    class="confirme-su-email"
-  >
+  <main id="contenido" class="confirme-su-email">
     <SecondaryTop
       ref="pageFocusTarget"
       :nro-paso="nroPaso"
@@ -14,10 +11,12 @@
           Confirme su email
         </h1>
         <h2 class="sub__heading">
-          ¡Gracias por registrarse! Hemos enviado un correo de confirmación a su cuenta de email.
+          ¡Gracias por registrarse! Hemos enviado un correo de confirmación a su
+          cuenta de email.
         </h2>
         <p class="signup__agregados">
-          ¿No ha recibido el mail? <nuxt-link :to="{ name: 'ingrese-su-email' }">
+          ¿No ha recibido el mail?
+          <nuxt-link :to="{ name: 'ingrese-su-email' }">
             Ingréselo de nuevo
           </nuxt-link>
         </p>
@@ -27,36 +26,38 @@
 </template>
 
 <script>
-import SecondaryTop from '~/components/SecondaryTop.vue'
+import SecondaryTop from "~/components/SecondaryTop.vue";
 
 export default {
-  layout: 'signup',
+  layout: "signup",
   components: {
-    SecondaryTop
+    SecondaryTop,
   },
   auth: false,
   data() {
     return {
-      title: 'Confirme su email',
-      nroPaso: '2',
-      tituloPaso: 'Cree su cuenta'
-    }
+      title: "Confirme su email",
+      nroPaso: "2",
+      tituloPaso: "Cree su cuenta",
+    };
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
-      )
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
-    })
+      );
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el);
+    });
   },
-  head () {
+  head() {
     return {
       title: this.title,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
-<style lang="sass">@import 'sass/pages/confirme-su-email.sass'</style>
+<style lang="sass">
+@import 'sass/pages/confirme-su-email.sass'
+</style>

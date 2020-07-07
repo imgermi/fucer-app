@@ -16,8 +16,8 @@ sftp-config.json
 sw.*
 
 # Backstop
-backstop_data/html_report/
-bitmaps_test/
+backstop_data/bitmaps_test/*
+backstop_data/html_report/*
 
 # Cypress
 cypress.env.json 

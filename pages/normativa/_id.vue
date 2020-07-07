@@ -1,25 +1,18 @@
 <template>
   <div class="normativa">
     <Alerta />
-    <nav
-      id="menu-principal"
-      class="goBack__header"
-    >
+    <nav id="menu-principal" class="goBack__header">
       <div class="container">
         <a
           href="#"
           class="volver-btn"
           @click.prevent="$router.go(-1)"
           @keyup.enter.prevent="$router.go(-1)"
-        ><img
-           src="~/assets/img/arrow-left.svg"
-           alt=""
-           class="arrow-left"
-         >
+          ><img src="~/assets/img/arrow-left.svg" alt="" class="arrow-left" />
           <span>Volver</span>
         </a>
         <FavoriteStar
-          :aria-label="(enFavoritos ? 'Quitar de' : 'Agregar a')+ ' favoritos'"
+          :aria-label="(enFavoritos ? 'Quitar de' : 'Agregar a') + ' favoritos'"
           tabindex="0"
           :activa="enFavoritos"
           @click.native="toggleFavorito(id)"
@@ -34,14 +27,14 @@
             <small
               v-if="categoria"
               :class="`tag normativa__tag ${categoriaUri}`"
-            >{{ categoria }}</small>
+              >{{ categoria }}</small
+            >
             <div>{{ titulo }}</div>
           </h1>
           <h2>{{ bajada }}</h2>
-          <time
-            v-if="fecha"
-            :datetime="fecha | fecha('yyyy-MM-dd')"
-          >{{ fecha | fecha('dd/MM/yyyy') }}</time>
+          <time v-if="fecha" :datetime="fecha | fecha('yyyy-MM-dd')">{{
+            fecha | fecha("dd/MM/yyyy")
+          }}</time>
         </div>
       </section>
       <section class="band cuerpo">
@@ -59,7 +52,8 @@
               class="rounded__btn--medium green"
               @click.prevent="leerNormativa"
               @keyup.enter.prevent="leerNormativa"
-            >Leer</a>
+              >Leer</a
+            >
             <div
               id="contenido-normativa"
               :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')"
@@ -96,92 +90,92 @@
 </template>
 
 <script>
-import Alerta from '~/components/Alerta.vue'
-import FavoriteStar from '~/components/FavoriteStar.vue'
-import { mapState, mapActions } from 'vuex'
+import Alerta from "~/components/Alerta.vue";
+import FavoriteStar from "~/components/FavoriteStar.vue";
+import { mapState, mapActions } from "vuex";
 
 export default {
   components: {
     Alerta,
-    FavoriteStar
+    FavoriteStar,
   },
-  middleware: 'premium',
-  async asyncData ({app: {router, store}, params}) {
+  middleware: "premium",
+  async asyncData({ app: { router, store }, params }) {
     try {
-      await store.dispatch('normativas/getById', params.id)
-      return store.state.normativas.byId[params.id]
+      await store.dispatch("normativas/getById", params.id);
+      return store.state.normativas.byId[params.id];
     } catch (e) {
-      if (!window.navigator.onLine){
-        const cache = await caches.open('fucer-api')
-        const match = cache.match(`/api/normativas/id/${params.id}`) 
+      if (!window.navigator.onLine) {
+        const cache = await caches.open("fucer-api");
+        const match = cache.match(`/api/normativas/id/${params.id}`);
         if (match) {
-          return match.json()
+          return match.json();
         }
-        router.push({name: 'offline'})
+        router.push({ name: "offline" });
       } else {
-        router.push({name: '404'})
+        router.push({ name: "404" });
       }
     }
   },
-  data () {
+  data() {
     return {
       id: 0,
-      title: '',
-      titulo: '',
-      bajada: '',
-      autor: '',
-      categoria: '',
-      categoriaUri: '',
-      fecha: '',
-      intro: '',
-      cuerpo: '',
-      url: '',
-      mostrarCuerpo: false
-    }
+      title: "",
+      titulo: "",
+      bajada: "",
+      autor: "",
+      categoria: "",
+      categoriaUri: "",
+      fecha: "",
+      intro: "",
+      cuerpo: "",
+      url: "",
+      mostrarCuerpo: false,
+    };
   },
   computed: {
-    ...mapState(['pagina']),
+    ...mapState(["pagina"]),
     enFavoritos() {
-      return this.$store.getters['normativas/enFavoritos'](this.id)
-    }
+      return this.$store.getters["normativas/enFavoritos"](this.id);
+    },
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      if(to.name !== from.name){
-        vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (to.name !== from.name) {
+        vm.$utils.moveFocus(vm.$refs.pageFocusTarget);
       }
-    })
+    });
   },
-  created () {
+  created() {
     this.$announcer.set(
       `${this.titulo} ${this.$announcer.options.complementRoute}`,
       this.$announcer.options.politeness
-    )
+    );
   },
   methods: {
-    leerNormativa () {
-      this.mostrarCuerpo = true
+    leerNormativa() {
+      this.mostrarCuerpo = true;
       if (!this.$route.hash) {
-        this.$router.replace({hash: '#contenido-normativa'})
+        this.$router.replace({ hash: "#contenido-normativa" });
       }
     },
-    cerrarNormativa () {
-      this.mostrarCuerpo = false
+    cerrarNormativa() {
+      this.mostrarCuerpo = false;
       if (this.$route.hash) {
-        this.$router.replace({ hash: '' })
+        this.$router.replace({ hash: "" });
       }
-      this.$refs.btnLeer.focus()
+      this.$refs.btnLeer.focus();
     },
-    ...mapActions('normativas', [
-      'toggleFavorito',
-    ]),
+    ...mapActions("normativas", ["toggleFavorito"]),
   },
-  head () {
+  head() {
     return {
       title: this.titulo,
-    }
+    };
   },
-}
+};
 </script>
 
-<style lang="sass">@import 'sass/pages/normativa.sass'</style>
+<style lang="sass">
+@import 'sass/pages/normativa.sass'
+</style>

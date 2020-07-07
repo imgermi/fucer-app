@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require("fs");
 
 module.exports = async (page, scenario) => {
   let cookies = [];
@@ -10,8 +10,8 @@ module.exports = async (page, scenario) => {
   }
 
   // MUNGE COOKIE DOMAIN
-  cookies = cookies.map(cookie => {
-    cookie.url = 'https://' + cookie.domain;
+  cookies = cookies.map((cookie) => {
+    cookie.url = "https://" + cookie.domain;
     delete cookie.domain;
     return cookie;
   });
@@ -25,5 +25,5 @@ module.exports = async (page, scenario) => {
     );
   };
   await setCookies();
-  console.log('Cookie state restored with:', JSON.stringify(cookies, null, 2));
+  console.log("Cookie state restored with:", JSON.stringify(cookies, null, 2));
 };

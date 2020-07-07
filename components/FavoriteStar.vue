@@ -17,10 +17,12 @@ export default {
   props: {
     activa: {
       type: Boolean,
-      default: false
-    }
-  }
-}
+      default: false,
+    },
+  },
+};
 </script>
 
-<style lang="sass">@import 'sass/components/favorite-star.sass'</style>
+<style lang="sass">
+@import 'sass/components/favorite-star.sass'
+</style>

@@ -1,12 +1,7 @@
 <template>
   <div class="configuracion">
-    <Top
-      :title="title"
-    />
-    <main
-      id="contenido"
-      class="band datos"
-    >
+    <Top :title="title" />
+    <main id="contenido" class="band datos">
       <div class="container">
         <div class="datos__personales">
           <h2 ref="pageFocusTarget">
@@ -70,13 +65,17 @@
             <h2>Mi plan</h2>
             <div class="datos__plan--dato">
               <span>{{ $auth.user.suscripcion.plan.descripcion }}</span>
-              <small>{{ $auth.user.suscripcion.activa ? '$'+$auth.user.suscripcion.plan.valor : '' }}</small>
+              <small>{{
+                $auth.user.suscripcion.activa
+                  ? "$" + $auth.user.suscripcion.plan.valor
+                  : ""
+              }}</small>
             </div>
             <!-- eslint-disable-next-line vue/no-v-html -->
             <p v-html="$auth.user.suscripcion.plan.estado" />
           </div>
-          <br>
-          <nuxt-link 
+          <br />
+          <nuxt-link
             v-if="$auth.user.suscripcion.tipo !== 'ilimitado'"
             :to="{ name: 'modificar-plan' }"
             tag="button"
@@ -91,33 +90,35 @@
 </template>
 
 <script>
-import Top from '~/components/Top.vue'
+import Top from "~/components/Top.vue";
 
 export default {
-  layout: 'app',
+  layout: "app",
   components: {
-    Top
+    Top,
   },
-  data () {
+  data() {
     return {
-      title: 'Configuración',
-    }
+      title: "Configuración",
+    };
   },
   computed: {
-    metadata () {
-      return this.$auth.user.suscripcion.metadata
-    }
+    metadata() {
+      return this.$auth.user.suscripcion.metadata;
+    },
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
-      )
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
-    })
+      );
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget);
+    });
   },
-}
+};
 </script>
 
-<style lang="sass">@import 'sass/pages/configuracion.sass'</style>
+<style lang="sass">
+@import 'sass/pages/configuracion.sass'
+</style>

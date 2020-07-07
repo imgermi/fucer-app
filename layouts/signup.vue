@@ -1,23 +1,25 @@
 <template>
   <div class="signup">
     <vue-announcer />
-    <error-toast />
+    <ErrorToast />
     <nuxt />
   </div>
 </template>
 
 <script>
-import ErrorToast from '~/components/ErrorToast.vue'
+import ErrorToast from "~/components/ErrorToast.vue";
 
 export default {
   components: {
     ErrorToast,
   },
-  errorCaptured(error, vm, info) {
-    this.$store.dispatch('setPaginaError', error.toString())
+  errorCaptured(error) {
+    this.$store.dispatch("setPaginaError", error.toString());
     return false; // prevent Nuxt from handling the error
   },
-}
+};
 </script>
 
-<style lang="sass">@import 'sass/layouts/signup.sass'</style>
+<style lang="sass">
+@import 'sass/layouts/signup.sass'
+</style>

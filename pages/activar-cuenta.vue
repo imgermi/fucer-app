@@ -1,8 +1,5 @@
 <template>
-  <main
-    id="contenido"
-    class="mail-confirmado"
-  >
+  <main id="contenido" class="mail-confirmado">
     <SecondaryTop
       ref="pageFocusTarget"
       :nro-paso="nroPaso"
@@ -28,78 +25,79 @@
 </template>
 
 <script>
-import SecondaryTop from '~/components/SecondaryTop.vue'
-import { mapState, mapActions } from 'vuex'
+import SecondaryTop from "~/components/SecondaryTop.vue";
+import { mapState, mapActions } from "vuex";
 
 export default {
-  layout: 'signup',
+  layout: "signup",
   components: {
-    SecondaryTop
+    SecondaryTop,
   },
   auth: false,
   data() {
     return {
-      title: 'Activar cuenta',
-      nroPaso: '2',
-      tituloPaso: 'Cree su cuenta',
-      mensaje: 'Procesando...'
-    }
+      title: "Activar cuenta",
+      nroPaso: "2",
+      tituloPaso: "Cree su cuenta",
+      mensaje: "Procesando...",
+    };
   },
   computed: {
-    ...mapState([
-      'pagina'
-    ])
+    ...mapState(["pagina"]),
   },
 
   // Reviso que esté el token en la URL
-  validate ({ params }) {
-    return /^[0-9a-z]{32}$/.test(params.token)
+  validate({ params }) {
+    return /^[0-9a-z]{32}$/.test(params.token);
   },
 
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
-      )
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el)
-    })
+      );
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el);
+    });
   },
 
-  created () {
-    this.activarCuenta()
+  created() {
+    this.activarCuenta();
   },
   methods: {
-    ...mapActions([
-      'setPaginaCargando'
-    ]),
+    ...mapActions(["setPaginaCargando"]),
     async activarCuenta() {
-      this.setPaginaCargando(true)
+      this.setPaginaCargando(true);
       try {
-        this.$announcer.set(this.mensaje)
-        let {data} = await this.$axios.$post('auth/activateAccount', {
+        this.$announcer.set(this.mensaje);
+        let { data } = await this.$axios.$post("auth/activateAccount", {
           token: this.$route.params.token,
-        })
+        });
 
-        this.$auth.setToken('local', 'Bearer ' + data.token)
-        await this.$auth.fetchUser()
+        this.$auth.setToken("local", "Bearer " + data.token);
+        await this.$auth.fetchUser();
 
-        this.title = 'E-mail confirmado'
-        this.mensaje = '¡Bienvenido, ' + this.$auth.user.nombre + '!<br><br> Su email ha sido confirmado.'
-        this.$announcer.set(this.mensaje)
-      } catch(e) {
-        this.mensaje = e
-        this.$announcer.set(this.mensaje)
+        this.title = "E-mail confirmado";
+        this.mensaje =
+          "¡Bienvenido, " +
+          this.$auth.user.nombre +
+          "!<br><br> Su email ha sido confirmado.";
+        this.$announcer.set(this.mensaje);
+      } catch (e) {
+        this.mensaje = e;
+        this.$announcer.set(this.mensaje);
       }
-      this.setPaginaCargando(false)
-    }
+      this.setPaginaCargando(false);
+    },
   },
-  head () {
+  head() {
     return {
       title: this.title,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
-<style lang="sass">@import 'sass/pages/bienvenido.sass'</style>
+<style lang="sass">
+@import 'sass/pages/bienvenido.sass'
+</style>

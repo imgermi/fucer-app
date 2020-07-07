@@ -1,5 +1,5 @@
-import mercadopagoRepository from '~/api/mercadopago'
+import mercadopagoRepository from "~/api/mercadopago";
 
-export default $axios => ({
-  mercadopago: mercadopagoRepository($axios)
-})
+export default ($axios) => ({
+  mercadopago: mercadopagoRepository($axios),
+});

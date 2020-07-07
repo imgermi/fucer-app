@@ -1,4 +1,4 @@
-import createRepository from '~/api'
+import createRepository from "~/api";
 export default ({ $axios }, inject) => {
-	inject('api', createRepository($axios));
-}
+  inject("api", createRepository($axios));
+};

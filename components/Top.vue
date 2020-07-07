@@ -28,12 +28,9 @@
         <form
           class="form__buscar"
           aria-controls="resultado-busqueda"
-          @submit.prevent="$router.push({query: { busqueda }})"
+          @submit.prevent="$router.push({ query: { busqueda } })"
         >
-          <label
-            for="buscar"
-            class="form__buscar--icon"
-          />
+          <label for="buscar" class="form__buscar--icon" />
           <input
             id="buscar"
             v-model="busqueda"
@@ -41,7 +38,7 @@
             name="buscar"
             aria-label="Buscar en FucerNet"
             placeholder="Buscar en FucerNet"
-          >
+          />
         </form>
       </div>
     </header>
@@ -50,11 +47,7 @@
       aria-label="Navegación principal"
       :class="'main__nav--container' + (menu.activo ? ' active' : '')"
     >
-      <div
-        class="overlay"
-        @click="closeMenu"
-        @keyup.enter="closeMenu"
-      />
+      <div class="overlay" @click="closeMenu" @keyup.enter="closeMenu" />
       <focus-trap
         :active="menu.activo"
         :initial-focus="() => $refs.mainMenuInitialFocus.$el"
@@ -63,10 +56,7 @@
         @deactivate="closeMenu"
       >
         <div class="main__nav">
-          <div
-            v-if="$auth.loggedIn"
-            class="user__info"
-          >
+          <div v-if="$auth.loggedIn" class="user__info">
             <span>{{ $auth.user.nombre }}</span>
             <small>{{ $auth.user.email }}</small>
           </div>
@@ -92,7 +82,8 @@
               <a
                 href="https://www.dnrpa.gov.ar/Digesto-Automotor/digesto.php"
                 target="_blank"
-              >Digesto</a>
+                >Digesto</a
+              >
             </li>
             <li>
               <nuxt-link
@@ -119,11 +110,9 @@
               </nuxt-link>
             </li>
             <li v-if="$auth.loggedIn">
-              <a
-                href="#"
-                @click="logout()"
-                @keyup.enter="logout()"
-              >Cerrar Sesión</a>
+              <a href="#" @click="logout()" @keyup.enter="logout()"
+                >Cerrar Sesión</a
+              >
             </li>
           </ul>
           <button
@@ -134,11 +123,7 @@
             Cerrar menú
           </button>
           <span class="logo">
-            <img
-              src="~/assets/img/logo-fucernet.svg"
-              alt=""
-              width="100"
-            >		
+            <img src="~/assets/img/logo-fucernet.svg" alt="" width="100" />
           </span>
         </div>
       </focus-trap>
@@ -146,65 +131,68 @@
   </div>
 </template>
 
-
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 
 export default {
   props: {
     title: {
       type: String,
-      default: '',
-    }
+      default: "",
+    },
   },
-  data () {
-  	return {
-  		menuId: 'menu-principal',
-  		busqueda: ''
-    }
+  data() {
+    return {
+      menuId: "menu-principal",
+      busqueda: "",
+    };
   },
   computed: {
-		...mapState(['menu']),
-	},
-	watch:{
-		'$route.query.busqueda': {
-			handler: async function(newBusqueda) {
-				this.busqueda = newBusqueda
-			},
-			immediate: true
-  	},
+    ...mapState(["menu"]),
+  },
+  watch: {
+    "$route.query.busqueda": {
+      handler: async function (newBusqueda) {
+        this.busqueda = newBusqueda;
+      },
+      immediate: true,
+    },
   },
   methods: {
-  	...mapActions([
-      'setMenuActivo',
-    ]),
-    toggleMenu () {
-			if (this.menu.activo) {
-				this.closeMenu()
-			} else {
-				this.openMenu()
-			}
-		},
-		openMenu () {
-			this.setMenuActivo(true)
-			this.$refs.mainMenuInitialFocus.$el.focus()
+    ...mapActions(["setMenuActivo"]),
+    toggleMenu() {
+      if (this.menu.activo) {
+        this.closeMenu();
+      } else {
+        this.openMenu();
+      }
     },
-    closeMenu () {
-			this.setMenuActivo(false)
-			if ('#menu-principal' === this.$route.hash) {
-				this.$router.push({ hash: '' })
-			}
+    openMenu() {
+      this.setMenuActivo(true);
+      this.$refs.mainMenuInitialFocus.$el.focus();
     },
-    async logout () {
-    	if ( !window.navigator.onLine &&
-    		!confirm('Está sin conexión a internet y no va a poder volver a acceder hasta que vuelva la conexión ¿quiere cerrar la sesión igualmente?'))
-    		return
+    closeMenu() {
+      this.setMenuActivo(false);
+      if ("#menu-principal" === this.$route.hash) {
+        this.$router.push({ hash: "" });
+      }
+    },
+    async logout() {
+      if (
+        !window.navigator.onLine &&
+        !confirm(
+          "Está sin conexión a internet y no va a poder volver a acceder hasta que vuelva la conexión ¿quiere cerrar la sesión igualmente?"
+        )
+      )
+        return;
 
-			await this.$auth.logout()
-    	this.$router.push("/")
-    }
-  }
-}
+      await this.$auth.logout();
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 
-<style lang="sass">@import 'sass/components/top.sass'</style>
+<style lang="sass">
+@import 'sass/components/top.sass'
+</style>

@@ -1,19 +1,13 @@
 <template>
   <div class="favoritas">
     <Alerta />
-    <Top
-      :title="title"
-    />
-    <main
-      id="contenido"
-      class="band"
-    >
+    <Top :title="title" />
+    <main id="contenido" class="band">
       <div class="container">
-        <span class="small__heading">Aquí verá las normativas que marcó como favoritas</span>
-        <div
-          ref="pageFocusTarget"
-          class="normativas-container"
+        <span class="small__heading"
+          >Aquí verá las normativas que marcó como favoritas</span
         >
+        <div ref="pageFocusTarget" class="normativas-container">
           <ModuloNormativa
             v-for="normativa in favoritas"
             :id="normativa.id"
@@ -32,42 +26,44 @@
 </template>
 
 <script>
-import Top from '~/components/Top.vue'
-import Alerta from '~/components/Alerta.vue'
-import ModuloNormativa from '~/components/ModuloNormativa.vue'
-import { mapGetters } from 'vuex'
+import Top from "~/components/Top.vue";
+import Alerta from "~/components/Alerta.vue";
+import ModuloNormativa from "~/components/ModuloNormativa.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  layout: 'app',
+  layout: "app",
   components: {
     Top,
     Alerta,
-    ModuloNormativa
+    ModuloNormativa,
   },
-  middleware: 'premium',
-  data () {
+  middleware: "premium",
+  data() {
     return {
-      title: 'Favoritas'
-    }
+      title: "Favoritas",
+    };
   },
   computed: {
-    ...mapGetters('normativas', ['favoritas']),
+    ...mapGetters("normativas", ["favoritas"]),
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
-      )
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget)
-    })
+      );
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget);
+    });
   },
-  head () {
+  head() {
     return {
       title: this.title,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
-<style lang="sass">@import 'sass/pages/favoritas.sass'</style>
+<style lang="sass">
+@import 'sass/pages/favoritas.sass'
+</style>
