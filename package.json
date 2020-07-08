@@ -13,15 +13,19 @@
     "cordova": "nuxt generate -c cordova.nuxt.config.js && replace '/nuxt/' 'nuxt/' dist -rv && mv dist ../app-cordova/app/www && cd ../app-cordova/app/www && cordova run android",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --ignore-pattern 'backstop_data/engine_scripts/*' --ignore-pattern 'package-lock.json' .",
     "lint:fix": "eslint --ext .js,.vue,.json --ignore-path .gitignore --ignore-pattern 'backstop_data/engine_scripts/*' --ignore-pattern 'package-lock.json' . --fix",
-    "precommit": "npm run lint",
     "heroku-postbuild": "npm run build",
     "test": "npm run cy:run",
     "cy:run": "cypress run --browser chrome",
     "cy:open": "cypress open --browser chrome",
     "backstop:test": "backstop test --docker",
     "backstop:reference": "backstop reference --docker",
-    "backstop:approve": "backstop approve"
+    "backstop:approve": "backstop approve",
+    "precommit-msg": "echo 'Haciendo comprobaciones antes del commit...' && exit 0"
   },
+  "precommit": [
+    "precommit-msg",
+    "lint"
+  ],
   "dependencies": {
     "@nuxtjs/auth": "~4.9.1",
     "@nuxtjs/axios": "^5.11.0",
@@ -66,6 +70,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "eslint-plugin-vue-a11y": "0.0.31",
     "node-sass": "^4.14.1",
+    "pre-commit": "^1.2.2",
     "prettier": "^2.0.5",
     "replace": "^1.2.0",
     "sass-loader": "^9.0.1",
