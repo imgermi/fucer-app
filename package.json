@@ -16,8 +16,8 @@
     "precommit": "npm run lint",
     "heroku-postbuild": "npm run build",
     "test": "npm run cy:run",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
+    "cy:run": "cypress run --browser chrome",
+    "cy:open": "cypress open --browser chrome",
     "backstop:test": "backstop test --docker",
     "backstop:reference": "backstop reference --docker",
     "backstop:approve": "backstop approve"
@@ -46,6 +46,7 @@
     "axe-core": "3.5.3",
     "babel-eslint": "^10.1.0",
     "cypress": "^4.9.0",
+    "cypress-audit": "^0.2.1",
     "cypress-axe": "^0.8.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.11.0",

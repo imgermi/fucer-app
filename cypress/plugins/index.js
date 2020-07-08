@@ -12,17 +12,22 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+const { lighthouse, prepareAudit } = require("cypress-audit");
+
 /**
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on) => {
+  on("before:browser:launch", (browser = {}, launchOptions) => {
+    prepareAudit(launchOptions);
+  });
+
   on("task", {
+    lighthouse: lighthouse(),
     log(message) {
       console.log(message);
       return null;
     },
-  });
-  on("task", {
     table(message) {
       console.table(message);
       return null;

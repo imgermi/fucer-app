@@ -14,3 +14,5 @@ Cypress.Commands.add("login", () => {
       window.localStorage.setItem("auth._token.local", "Bearer " + body.token);
     });
 });
+
+import "cypress-audit/commands";
