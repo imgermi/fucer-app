@@ -76,7 +76,6 @@
 								Buscar
 							</nuxt-link>
 						</li>
-						<li><a href="https://www.dnrpa.gov.ar/Digesto-Automotor/digesto.php" target="_blank">Digesto</a></li>
 						<li>
 							<nuxt-link
 								:tag="$route.name === 'favoritas' ? 'span' : 'a'"
@@ -85,6 +84,14 @@
 								Favoritas
 							</nuxt-link>
 						</li>
+						<li>
+							<nuxt-link
+								:tag="$route.name === 'suplemento' ? 'span' : 'a'"
+								:to="{ name: 'suplemento' }"
+							>
+								Suplemento Registral
+							</nuxt-link>
+						</li>						
 						<li>
 							<nuxt-link
 								:tag="$route.name === 'configuracion' ? 'span' : 'a'"
@@ -101,6 +108,7 @@
 								Ayuda
 							</nuxt-link>
 						</li>
+						<li><a href="https://www.dnrpa.gov.ar/Digesto-Automotor/digesto.php" target="_blank">Digesto</a></li>
 						<li v-if="$auth.loggedIn">
 							<a href="#" @click="logout()" @keyup.enter="logout()">Cerrar Sesión</a>
 						</li>
