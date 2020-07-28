@@ -45,20 +45,15 @@
           </fieldset>
 
           <fieldset>
-            <label for="rs">Código RS</label>
+            <label for="rs">Código RS (si lo hubiera)</label>
             <input
               id="rs"
               ref="rs"
               v-model.lazy="rs"
-              v-validate="'required'"
               type="text"
               name="rs"
-              data-vv-as="Código RS"
               :class="{ error: errors.has('rs') }"
             />
-            <span v-show="errors.has('rs')" class="error">
-              {{ errors.first("rs") }}
-            </span>
           </fieldset>
 
           <fieldset>
@@ -95,7 +90,7 @@
             </span>
           </fieldset>
 
-          <button type="submit" class="rounded__btn--full blue">
+          <button type="submit" class="rounded__btn--full green">
             {{ txtBtnSubmit }}
           </button>
         </form>
