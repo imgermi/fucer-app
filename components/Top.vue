@@ -110,7 +110,7 @@
               </nuxt-link>
             </li>
             <li v-if="$auth.loggedIn">
-              <a href="#" @click="logout()" @keyup.enter="logout()"
+              <a href="#" @click="logout" @keyup.enter="logout"
                 >Cerrar Sesión</a
               >
             </li>
