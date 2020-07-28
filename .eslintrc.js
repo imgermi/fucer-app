@@ -20,9 +20,8 @@ module.exports = {
     "plugin:json/recommended",
     "plugin:promise/recommended",
     "plugin:sonarjs/recommended",
-    "plugin:prettier/recommended",
-    "prettier/standard",
     "prettier/vue",
+    "plugin:prettier/recommended",
   ],
   plugins: [
     "sonarjs",
