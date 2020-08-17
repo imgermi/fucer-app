@@ -44,5 +44,5 @@ export default async function ({ store , app }) {
     } else {
       store.dispatch('normativas/emptyFavoritas')
     }
-  })
+  }, {immediate: true})
 }
