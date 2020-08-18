@@ -37,13 +37,12 @@
             <h6>Introducción</h6>
             <span v-if="autor">Por {{ autor }}</span>
             <div v-if="intro" v-html="intro"></div>
-            <a
-              href="#contenido-normativa"
+            <button
               class="rounded__btn--medium green"
               ref="btnLeer"
               @click="leerNormativa"
               @keyup.enter="leerNormativa"
-            >Leer</a>
+            >Leer</button>
             <div id="contenido-normativa" :class="'cuerpo__principal' + (mostrarCuerpo ? ' active' : '')">
               <focus-trap
                 :active="mostrarCuerpo"
@@ -144,8 +143,9 @@ export default {
     }
   },
   methods: {
-    leerNormativa () {
+    leerNormativa (e) {
       this.mostrarCuerpo = true
+      this.$router.push({hash: 'contenido-normativa'})
     },
     cerrarNormativa () {
       this.mostrarCuerpo = false
