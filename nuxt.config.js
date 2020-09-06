@@ -204,7 +204,8 @@ module.exports = {
     '~/plugins/utils',
     { src: '~/plugins/a11y', ssr: false },
     // { src: '~/plugins/axe', ssr: false },
-    { src: '~plugins/actualizar-datos-usuario', ssr: false }
+    { src: '~plugins/actualizar-datos-usuario', ssr: false },
+    '~/plugins/mixpanel',
   ],
 
   /*
