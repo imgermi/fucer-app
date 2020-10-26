@@ -2,6 +2,10 @@ module.exports = {
 
   mode: 'spa',
 
+  components: true,
+
+  modern: true,
+
   /*
   ** Headers of the page
   */
@@ -14,7 +18,7 @@ module.exports = {
       { name: 'msapplication-TileColor', content: '#2b5797' },
     ],
     link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap' },
+      { rel: 'prefetch', href: 'https://api-js.mixpanel.com' },
     ]
   },
 
@@ -88,6 +92,16 @@ module.exports = {
     }
   },
 
+  // https://developers.google.com/fonts/docs/css2#quickstart_guides
+  webfontloader: {
+    google: {
+      families: [
+        'Lora:400,700?display:swap',
+        'Lato:400,700,900?display:swap'
+      ]
+    }
+  },
+
   pwa: {
     // https://pwa.nuxtjs.org/modules/manifest.html
     manifest: {
@@ -105,7 +119,7 @@ module.exports = {
     icons: {},
   
     // https://pwa.nuxtjs.org/modules/workbox.html
-    workbox: false,
+    workbox: true,
   },
 
   router: {
@@ -150,7 +164,7 @@ module.exports = {
   modules: [
     '@nuxtjs/auth',
     '@nuxtjs/axios',
-    '@nuxtjs/toast',
+    'nuxt-webfontloader',
   ],
 
   axios: {
@@ -197,12 +211,11 @@ module.exports = {
   plugins: [
     '~/plugins/axios',
     '~/plugins/api',
+    '~/plugins/a11y',
     '~/plugins/filtros',
     '~/plugins/vue-validate',
-    '~/plugins/webp',
     '~/plugins/sentry',
     '~/plugins/utils',
-    { src: '~/plugins/a11y', ssr: false },
     // { src: '~/plugins/axe', ssr: false },
     { src: '~plugins/actualizar-datos-usuario', ssr: false },
     '~/plugins/mixpanel',

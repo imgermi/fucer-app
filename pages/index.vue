@@ -3,7 +3,7 @@
     <header>
       <div class="container-bg">
         <a href="/">
-          <img src="~/assets/img/landing/fucernet-icon.svg" alt="FucerNet">
+          <img width="50" height="50" src="~/assets/img/landing/fucernet-icon.svg" alt="FucerNet">
         </a>
         <nuxt-link :to="{name: 'login'}" class="index-btn green-light smaller">
           Ingresar
@@ -23,7 +23,7 @@
           </nuxt-link>
         </div>
         <p>-Dr. Javier Antonio Cornejo (Director de FucerNet) y equipo de colaboradores-</p>
-        <img src="~/assets/img/landing/fucernet-mobile-desktop.png" alt="Capturas de pantallas de laptop y celular">
+        <img width="690" height="439" src="~/assets/img/landing/fucernet-mobile-desktop.png" alt="Capturas de pantallas de laptop y celular">
       </div>
     </section>
     <section class="features">
@@ -76,7 +76,7 @@
         </div>
         <div class="footer-info">
           <div>
-            <img src="~/assets/img/logo-fucernet.svg" alt="FucerNet">
+            <img width="110" height="20" src="~/assets/img/logo-fucernet.svg" alt="FucerNet">
             <span>2020 - Fundación Centro de Estudios Registrales</span>
           </div>
           <div class="footer-info_menu">
