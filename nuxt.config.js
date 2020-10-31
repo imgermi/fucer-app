@@ -1,6 +1,8 @@
 module.exports = {
 
-  mode: 'spa',
+  ssr: false,
+  
+  target: 'static' ,
 
   components: true,
 
@@ -18,7 +20,10 @@ module.exports = {
       { name: 'msapplication-TileColor', content: '#2b5797' },
     ],
     link: [
-      { rel: 'prefetch', href: 'https://api-js.mixpanel.com' },
+      { rel: 'preconnect', href: 'https://api-js.mixpanel.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://cdn.jsdelivr.net' },
     ]
   },
 
@@ -29,16 +34,6 @@ module.exports = {
   loading: { color: '#4ECDC4', height: '4px' },
 
   render: {
-    bundleRenderer: {
-      shouldPrefetch: (file, type) => {
-        if (type === 'script') {
-          if (/pages\/(inicio|buscar|normativa\/_id)/.test(file)) {
-            return true
-          }
-        }
-        return false
-      }
-    },
     csp: {
       hashAlgorithm: 'sha256',
       policies: {
@@ -92,12 +87,16 @@ module.exports = {
     }
   },
 
-  // https://developers.google.com/fonts/docs/css2#quickstart_guides
+  // https://github.com/Developmint/nuxt-webfontloader
   webfontloader: {
-    google: {
+    custom: {
       families: [
-        'Lora:400,700?display:swap',
-        'Lato:400,700,900?display:swap'
+        'Lora:n4,n7',
+        'Lato:n4,n7,n9'
+      ],
+      urls: [
+        'https://fonts.googleapis.com/css?family=Lora:400,700&display=swap',
+        'https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap'
       ]
     }
   },
@@ -168,12 +167,7 @@ module.exports = {
   ],
 
   axios: {
-    prefix: '/api/',
-    proxy: true,
-  },
-
-  proxy: {
-    '/api/': 'https://net.fucer.com.ar',
+    baseURL: 'https://net.fucer.com.ar/api/',
   },
 
   auth: {
@@ -225,6 +219,16 @@ module.exports = {
   ** Build configuration
   */
   build: {
+
+    // https://develop365.gitlab.io/nuxtjs-2.8.X-doc/en/api/configuration-build/#extractcss
+    extractCSS: true,
+
+    splitChunks: {
+      layouts: true,
+      pages: true,
+      commons: true
+    },
+
     /*
     ** Run ESLint on save
     */

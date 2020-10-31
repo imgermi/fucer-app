@@ -76,7 +76,7 @@
         </div>
         <div class="footer-info">
           <div>
-            <img width="110" height="20" src="~/assets/img/logo-fucernet.svg" alt="FucerNet">
+            <img width="110" height="20" loading="lazy" src="~/assets/img/logo-fucernet.svg" alt="FucerNet">
             <span>2020 - Fundación Centro de Estudios Registrales</span>
           </div>
           <div class="footer-info_menu">
