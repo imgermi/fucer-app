@@ -3,7 +3,7 @@
     <header>
       <div class="container-bg">
         <a href="/">
-          <img src="~/assets/img/landing/fucernet-icon.svg" alt="FucerNet" />
+          <img width="50" height="50" src="~/assets/img/landing/fucernet-icon.svg" alt="FucerNet">
         </a>
         <nuxt-link
           :to="{ name: 'login' }"
@@ -46,47 +46,19 @@
             alt="Capturas de pantallas de laptop y celular"
           />
         </div>
-      </section>
-      <section class="features">
-        <div class="container">
-          <h3>¿Qué puedo encontrar en FucerNet?</h3>
-          <div class="features-list">
-            <article>
-              <p>Circulares</p>
-            </article>
-            <article>
-              <p>Disposiciones</p>
-            </article>
-            <article>
-              <p>Doctrina</p>
-            </article>
-            <article>
-              <p>Jurisprudencia</p>
-            </article>
-          </div>
-        </div>
-      </section>
-      <section class="faq">
-        <div class="container">
-          <h3>Preguntas frecuentes</h3>
-          <article class="faq-item">
-            <h4>¿Puedo usar FucerNet desde mi tablet o celular?</h4>
-            <p>
-              Si, FucerNet funciona en cualquier dispositivo. Además, puede
-              instalarla en su celular o tablet por única vez y ejecutarla en
-              pantalla completa desde un lanzador, como cualquier otra
-              aplicación.
-            </p>
-            <p>
-              Abra FucerNet desde su tablet o celular ingresando a
-              net.fucer.com.ar. Luego, localice en su navegador el ícono de
-              "compartir”. Haga click en el mismo y seleccione la opción
-              "Agregar a Inicio”.
-            </p>
-            <p>
-              Un ícono de FucerNet va a apararecer en el inicio de su
-              dispositivo y podrá abrirla desde ahí.
-            </p>
+        <p>-Dr. Javier Antonio Cornejo (Director de FucerNet) y equipo de colaboradores-</p>
+        <img width="690" height="439" src="~/assets/img/landing/fucernet-mobile-desktop.png" alt="Capturas de pantallas de laptop y celular">
+      </div>
+    </section>
+    <section class="features">
+      <div class="container">
+        <h3>¿Qué puedo encontrar en FucerNet?</h3>
+        <div class="features-list">
+          <article>
+            <p>Circulares</p>
+          </article>
+          <article>
+            <p>Disposiciones</p>
           </article>
           <article class="faq-item">
             <h4>¿Cómo puedo abonar FucerNet?</h4>
@@ -134,7 +106,7 @@
         </div>
         <div class="footer-info">
           <div>
-            <img src="~/assets/img/logo-fucernet.svg" alt="FucerNet" />
+            <img width="110" height="20" loading="lazy" src="~/assets/img/logo-fucernet.svg" alt="FucerNet">
             <span>2020 - Fundación Centro de Estudios Registrales</span>
           </div>
           <div class="footer-info_menu">

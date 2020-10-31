@@ -1,20 +1,18 @@
 <template>
   <div>
-    <vue-announcer />
-    <SkipLinks />
-    <ErrorToast />
+  	<vue-announcer />
+  	<skip-links />
+  	<lazy-error-toast />
     <nuxt />
   </div>
 </template>
 
 <script>
-import SkipLinks from "~/components/SkipLinks.vue";
-import ErrorToast from "~/components/ErrorToast.vue";
+import SkipLinks from '~/components/SkipLinks.vue'
 
 export default {
   components: {
     SkipLinks,
-    ErrorToast,
   },
   errorCaptured(error) {
     this.$store.dispatch("setPaginaError", error.toString());

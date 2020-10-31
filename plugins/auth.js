@@ -51,5 +51,5 @@ export default async function ({ store, app }) {
         store.dispatch("normativas/emptyFavoritas");
       }
     }
-  );
+  }, {immediate: true})
 }
