@@ -7,9 +7,7 @@
     />
     <div class="band">
       <div class="container">
-        <h1 class="intro__heading">
-          Confirme su email
-        </h1>
+        <h1 class="intro__heading">Confirme su email</h1>
         <h2 class="sub__heading">
           ¡Gracias por registrarse! Hemos enviado un correo de confirmación a su
           cuenta de email.

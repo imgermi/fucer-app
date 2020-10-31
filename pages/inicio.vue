@@ -5,9 +5,7 @@
     <main id="contenido">
       <section class="carousel__container bg__gradient">
         <div class="container">
-          <h2 ref="pageFocusTarget">
-            Novedades
-          </h2>
+          <h2 ref="pageFocusTarget">Novedades</h2>
           <div>
             <div v-if="!cargandoCarousel">
               <Carousel :autoplay="true" :per-page="1" :autoplay-timeout="5000">
@@ -41,9 +39,7 @@
                 </Slide>
               </Carousel>
             </div>
-            <div v-else>
-              Cargando...
-            </div>
+            <div v-else>Cargando...</div>
           </div>
         </div>
       </section>

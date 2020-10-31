@@ -3,9 +3,7 @@
     <SecondaryTop />
     <main id="contenido" class="band">
       <div class="container">
-        <h1 ref="pageFocusTarget">
-          Contenido no disponible
-        </h1>
+        <h1 ref="pageFocusTarget">Contenido no disponible</h1>
         <p>
           Lo sentimos, este contenido solo está disponible para los usuarios
           premium.

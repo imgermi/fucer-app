@@ -6,9 +6,7 @@
         <h1 ref="pageFocusTarget" class="intro__heading">
           ¿No recibió el mail de confirmación?
         </h1>
-        <h2 class="sub__heading">
-          Ingrese su email nuevamente
-        </h2>
+        <h2 class="sub__heading">Ingrese su email nuevamente</h2>
 
         <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 

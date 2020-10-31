@@ -3,9 +3,7 @@
     <SecondaryTop />
     <main id="contenido" class="band">
       <div class="container form__container">
-        <h1 ref="pageFocusTarget" class="intro__heading">
-          Nueva clave
-        </h1>
+        <h1 ref="pageFocusTarget" class="intro__heading">Nueva clave</h1>
 
         <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 

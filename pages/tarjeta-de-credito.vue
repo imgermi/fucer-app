@@ -149,9 +149,7 @@
                 data-vv-as="tipo de documento"
                 :class="{ error: errors.has('docType') }"
               >
-                <option value>
-                  Seleccione una opción
-                </option>
+                <option value>Seleccione una opción</option>
                 <option
                   v-for="documentType in documentTypes"
                   :key="documentType.id"
@@ -200,12 +198,12 @@
           >
 
           <div class="signup__agregados">
-            <p style="margin-top: 10px; font-size: 14px;">
+            <p style="margin-top: 10px; font-size: 14px">
               ¿Está teniendo problemas?
               <a href="javascript:location.reload()">Recargue esta vista</a> y
               pruebe de nuevo.
             </p>
-            <p style="margin-top: 10px; font-size: 14px;">
+            <p style="margin-top: 10px; font-size: 14px">
               Antes de cobrar el plan, vamos a verificar que su tarjeta
               funcione. Por eso, cobraremos un monto mínimo que será reintegrado
               al instante.

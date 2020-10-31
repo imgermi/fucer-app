@@ -80,9 +80,7 @@
               </focus-trap>
             </div>
           </div>
-          <div v-else>
-            Cargando...
-          </div>
+          <div v-else>Cargando...</div>
         </div>
       </section>
     </main>

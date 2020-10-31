@@ -39,9 +39,7 @@
           </div>
         </div>
         <div v-else>
-          <div class="center">
-            Cargando...
-          </div>
+          <div class="center">Cargando...</div>
         </div>
       </div>
     </main>
@@ -108,19 +106,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      'setPaginaError',
-      'setPaginaCargando'
-    ]),
-    async buscar (busqueda) {
-    	this.setPaginaCargando(true)
-    	this.setPaginaError(false)
-    	try {
-        await this.$store.dispatch('normativas/buscar', busqueda)
-    	} catch(e) {
-    		this.setPaginaError(e)
-    	}
-    	this.setPaginaCargando(false)
+    ...mapActions(["setPaginaError", "setPaginaCargando"]),
+    async buscar(busqueda) {
+      this.setPaginaCargando(true);
+      this.setPaginaError(false);
+      try {
+        await this.$store.dispatch("normativas/buscar", busqueda);
+      } catch (e) {
+        this.setPaginaError(e);
+      }
+      this.setPaginaCargando(false);
     },
   },
   head() {

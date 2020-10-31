@@ -4,9 +4,7 @@
     <main id="contenido" class="band datos">
       <div class="container">
         <div class="datos__personales">
-          <h2 ref="pageFocusTarget">
-            Datos personales
-          </h2>
+          <h2 ref="pageFocusTarget">Datos personales</h2>
           <div class="datos__personales--dato">
             <p>Nombre</p>
             <span>{{ $auth.user.nombre }}</span>

@@ -1,15 +1,15 @@
 <template>
   <div class="signup">
-  	<vue-announcer />
-  	<lazy-error-toast />
+    <vue-announcer />
+    <lazy-error-toast />
     <nuxt />
   </div>
 </template>
 
 <script>
 export default {
-  errorCaptured(error, vm, info) {
-    this.$store.dispatch('setPaginaError', error.toString())
+  errorCaptured(error) {
+    this.$store.dispatch("setPaginaError", error.toString());
     return false; // prevent Nuxt from handling the error
   },
 };

@@ -320,7 +320,7 @@
         <p v-if="mensaje">
           {{ mensaje }}
         </p>
-        <p v-if="error" style="color: red;">
+        <p v-if="error" style="color: red">
           {{ error }}
         </p>
         <br />

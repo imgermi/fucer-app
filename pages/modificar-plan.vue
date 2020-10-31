@@ -2,9 +2,7 @@
   <div class="modificar-plan">
     <header>
       <div class="container">
-        <nuxt-link :to="{ name: 'configuracion' }">
-          Cancelar
-        </nuxt-link>
+        <nuxt-link :to="{ name: 'configuracion' }"> Cancelar </nuxt-link>
       </div>
     </header>
 
@@ -12,9 +10,7 @@
       <section class="band">
         <div class="container">
           <div class="datos__plan">
-            <h2 ref="pageFocusTarget">
-              Mi plan
-            </h2>
+            <h2 ref="pageFocusTarget">Mi plan</h2>
             <div v-if="suscripcion.premium" class="datos__plan--dato">
               <span>{{ suscripcion.plan.descripcion }}</span>
               <small>{{

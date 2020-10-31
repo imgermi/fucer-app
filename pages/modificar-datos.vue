@@ -9,9 +9,7 @@
             class="arrow-left"
           />
         </nuxt-link>
-        <h2 ref="pageFocusTarget">
-          Modificar datos personales
-        </h2>
+        <h2 ref="pageFocusTarget">Modificar datos personales</h2>
 
         <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 

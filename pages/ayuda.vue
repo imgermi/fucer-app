@@ -4,9 +4,7 @@
     <Top :title="title" />
     <main id="contenido" class="band">
       <div class="container">
-        <h1 ref="pageFocusTarget" tabindex="0">
-          ¿Necesita ayuda?
-        </h1>
+        <h1 ref="pageFocusTarget" tabindex="0">¿Necesita ayuda?</h1>
         <h2>Comuníquese con nosotros</h2>
         <p>
           Estamos trabajando permanentemente sobre la app para mejorarla. Si

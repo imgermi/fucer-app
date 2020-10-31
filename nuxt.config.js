@@ -1,8 +1,7 @@
-module.exports = {
-
+export default {
   ssr: false,
-  
-  target: 'static' ,
+
+  target: "static",
 
   components: true,
 
@@ -18,11 +17,12 @@ module.exports = {
     },
     meta: [{ name: "msapplication-TileColor", content: "#2b5797" }],
     link: [
-      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
-      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-      { rel: 'preconnect', href: 'https://api-js.mixpanel.com' },
-      { rel: 'preconnect', href: 'https://cdn.jsdelivr.net' },
-    ]
+      /* eslint-disable-next-line sonarjs/no-duplicate-string */
+      { rel: "preconnect", href: "https://fonts.gstatic.com" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://api-js.mixpanel.com" },
+      { rel: "preconnect", href: "https://cdn.jsdelivr.net" },
+    ],
   },
 
   css: ["sass/main.sass"],
@@ -55,15 +55,12 @@ module.exports = {
   // https://github.com/Developmint/nuxt-webfontloader
   webfontloader: {
     custom: {
-      families: [
-        'Lora:n4,n7',
-        'Lato:n4,n7,n9'
-      ],
+      families: ["Lora:n4,n7", "Lato:n4,n7,n9"],
       urls: [
-        'https://fonts.googleapis.com/css?family=Lora:400,700&display=swap',
-        'https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap'
-      ]
-    }
+        "https://fonts.googleapis.com/css?family=Lora:400,700&display=swap",
+        "https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap",
+      ],
+    },
   },
 
   pwa: {
@@ -175,14 +172,10 @@ module.exports = {
 
   buildModules: ["~/modules/pwa-extension.js", "@nuxtjs/pwa"],
 
-  modules: [
-    '@nuxtjs/auth',
-    '@nuxtjs/axios',
-    'nuxt-webfontloader',
-  ],
+  modules: ["@nuxtjs/auth", "@nuxtjs/axios", "nuxt-webfontloader"],
 
   axios: {
-    baseURL: 'https://net.fucer.com.ar/api/',
+    baseURL: "https://net.fucer.com.ar/api/",
   },
 
   auth: {
@@ -218,23 +211,22 @@ module.exports = {
   },
 
   plugins: [
-    '~/plugins/axios',
-    '~/plugins/api',
-    '~/plugins/a11y',
-    '~/plugins/filtros',
-    '~/plugins/vue-validate',
-    '~/plugins/sentry',
-    '~/plugins/utils',
+    "~/plugins/axios",
+    "~/plugins/api",
+    "~/plugins/a11y",
+    "~/plugins/filtros",
+    "~/plugins/vue-validate",
+    "~/plugins/sentry",
+    "~/plugins/utils",
     // { src: '~/plugins/axe', ssr: false },
-    { src: '~plugins/actualizar-datos-usuario', ssr: false },
-    '~/plugins/mixpanel',
+    { src: "~plugins/actualizar-datos-usuario", ssr: false },
+    "~/plugins/mixpanel",
   ],
 
   /*
    ** Build configuration
    */
   build: {
-
     // // https://develop365.gitlab.io/nuxtjs-2.8.X-doc/en/api/configuration-build/#extractcss
     // extractCSS: true,
 

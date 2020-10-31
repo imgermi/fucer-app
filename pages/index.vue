@@ -3,7 +3,12 @@
     <header>
       <div class="container-bg">
         <a href="/">
-          <img width="50" height="50" src="~/assets/img/landing/fucernet-icon.svg" alt="FucerNet">
+          <img
+            width="50"
+            height="50"
+            src="~/assets/img/landing/fucernet-icon.svg"
+            alt="FucerNet"
+          />
         </a>
         <nuxt-link
           :to="{ name: 'login' }"
@@ -46,46 +51,54 @@
             alt="Capturas de pantallas de laptop y celular"
           />
         </div>
-        <p>-Dr. Javier Antonio Cornejo (Director de FucerNet) y equipo de colaboradores-</p>
-        <img width="690" height="439" src="~/assets/img/landing/fucernet-mobile-desktop.png" alt="Capturas de pantallas de laptop y celular">
-      </div>
-    </section>
-    <section class="features">
-      <div class="container">
-        <h3>¿Qué puedo encontrar en FucerNet?</h3>
-        <div class="features-list">
-          <article>
-            <p>Circulares</p>
-          </article>
-          <article>
-            <p>Disposiciones</p>
-          </article>
-          <article class="faq-item">
-            <h4>¿Cómo puedo abonar FucerNet?</h4>
-            <p>
-              FucerNet cuenta con dos medios de pago. Uno de ellos es una
-              tarjeta de crédito, a la cual la aplicación le cobrará de manera
-              mensual y automática el monto de la suscripción (de la misma forma
-              que servicios como Netflix o Spotify).
-            </p>
-            <p>Además puede abonar FucerNet vía cobro por débito (CBU).</p>
-          </article>
-          <article class="faq-item">
-            <h4>¿Es seguro poner mi tarjeta de crédito en FucerNet?</h4>
-            <p>
-              Todos los pagos son procesados y administrados por Mercado Pago,
-              una de las plataformas de pagos más seguras y populares del país.
-              La información de la tarjeta de crédito que usted agrega en
-              FucerNet es 100% procesada por Mercado Pago, desde Fucer no
-              intervenimos en el proceso. Es decir, no tenemos acceso a la
-              información de su tarjeta de crédito. Adicionalmente, Mercado Pago
-              tiene como requisito que las aplicaciones que utilicen sus
-              servicios cuenten con un certificado de conexión segura SSL.
-              Cuando ingrese a FucerNet desde un navegador, a la izquierda de la
-              URL (net.fucer.com.ar) va a visualizar un candado que indica que
-              la conexión al sitio es segura.
-            </p>
-          </article>
+        <p>
+          -Dr. Javier Antonio Cornejo (Director de FucerNet) y equipo de
+          colaboradores-
+        </p>
+        <img
+          width="690"
+          height="439"
+          src="~/assets/img/landing/fucernet-mobile-desktop.png"
+          alt="Capturas de pantallas de laptop y celular"
+        />
+      </section>
+      <section class="features">
+        <div class="container">
+          <h3>¿Qué puedo encontrar en FucerNet?</h3>
+          <div class="features-list">
+            <article>
+              <p>Circulares</p>
+            </article>
+            <article>
+              <p>Disposiciones</p>
+            </article>
+            <article class="faq-item">
+              <h4>¿Cómo puedo abonar FucerNet?</h4>
+              <p>
+                FucerNet cuenta con dos medios de pago. Uno de ellos es una
+                tarjeta de crédito, a la cual la aplicación le cobrará de manera
+                mensual y automática el monto de la suscripción (de la misma
+                forma que servicios como Netflix o Spotify).
+              </p>
+              <p>Además puede abonar FucerNet vía cobro por débito (CBU).</p>
+            </article>
+            <article class="faq-item">
+              <h4>¿Es seguro poner mi tarjeta de crédito en FucerNet?</h4>
+              <p>
+                Todos los pagos son procesados y administrados por Mercado Pago,
+                una de las plataformas de pagos más seguras y populares del
+                país. La información de la tarjeta de crédito que usted agrega
+                en FucerNet es 100% procesada por Mercado Pago, desde Fucer no
+                intervenimos en el proceso. Es decir, no tenemos acceso a la
+                información de su tarjeta de crédito. Adicionalmente, Mercado
+                Pago tiene como requisito que las aplicaciones que utilicen sus
+                servicios cuenten con un certificado de conexión segura SSL.
+                Cuando ingrese a FucerNet desde un navegador, a la izquierda de
+                la URL (net.fucer.com.ar) va a visualizar un candado que indica
+                que la conexión al sitio es segura.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
     </main>
@@ -106,7 +119,13 @@
         </div>
         <div class="footer-info">
           <div>
-            <img width="110" height="20" loading="lazy" src="~/assets/img/logo-fucernet.svg" alt="FucerNet">
+            <img
+              width="110"
+              height="20"
+              loading="lazy"
+              src="~/assets/img/logo-fucernet.svg"
+              alt="FucerNet"
+            />
             <span>2020 - Fundación Centro de Estudios Registrales</span>
           </div>
           <div class="footer-info_menu">

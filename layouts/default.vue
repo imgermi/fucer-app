@@ -1,14 +1,14 @@
 <template>
   <div>
-  	<vue-announcer />
-  	<skip-links />
-  	<lazy-error-toast />
+    <vue-announcer />
+    <SkipLinks />
+    <lazy-error-toast />
     <nuxt />
   </div>
 </template>
 
 <script>
-import SkipLinks from '~/components/SkipLinks.vue'
+import SkipLinks from "~/components/SkipLinks.vue";
 
 export default {
   components: {

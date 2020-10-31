@@ -9,9 +9,7 @@
             class="arrow-left"
           />
         </nuxt-link>
-        <h2 ref="pageFocusTarget">
-          Modificar tarjeta de crédito
-        </h2>
+        <h2 ref="pageFocusTarget">Modificar tarjeta de crédito</h2>
 
         <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
@@ -150,9 +148,7 @@
                 data-vv-as="tipo de documento"
                 :class="{ error: errors.has('docType') }"
               >
-                <option value>
-                  Seleccione una opción
-                </option>
+                <option value>Seleccione una opción</option>
                 <option
                   v-for="documentType in documentTypes"
                   :key="documentType.id"
@@ -195,12 +191,12 @@
           </button>
 
           <div>
-            <p style="margin-top: 20px; font-size: 14px;">
+            <p style="margin-top: 20px; font-size: 14px">
               ¿Estás teniendo problemas?
               <a href="javascript:location.reload()">Recargá esta vista</a> y
               probá de nuevo.
             </p>
-            <p style="margin-top: 20px; font-size: 14px;">
+            <p style="margin-top: 20px; font-size: 14px">
               Antes de guardar la nueva tarjeta vamos a verificar que funcione.
               Por eso, cobraremos un monto mínimo que será reintegrado al
               instante.
