@@ -20,9 +20,9 @@ module.exports = {
       { name: 'msapplication-TileColor', content: '#2b5797' },
     ],
     link: [
-      { rel: 'preconnect', href: 'https://api-js.mixpanel.com' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://api-js.mixpanel.com' },
       { rel: 'preconnect', href: 'https://cdn.jsdelivr.net' },
     ]
   },
@@ -220,14 +220,8 @@ module.exports = {
   */
   build: {
 
-    // https://develop365.gitlab.io/nuxtjs-2.8.X-doc/en/api/configuration-build/#extractcss
-    extractCSS: true,
-
-    splitChunks: {
-      layouts: true,
-      pages: true,
-      commons: true
-    },
+    // // https://develop365.gitlab.io/nuxtjs-2.8.X-doc/en/api/configuration-build/#extractcss
+    // extractCSS: true,
 
     /*
     ** Run ESLint on save
