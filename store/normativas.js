@@ -110,7 +110,7 @@ export const actions = {
   },
   async agregarFavorito({ commit }, idNormativa) {
     commit("AGREGAR_FAVORITO", idNormativa);
-    this.$announcer.set(`Agregado a favoritos`);
+    if (process.client) this.$announcer.set(`Agregado a favoritos`);
     try {
       await this.$axios.post("favoritos", {
         usuario: this.$auth.user.id,
@@ -118,13 +118,13 @@ export const actions = {
       });
     } catch (error) {
       commit("QUITAR_FAVORITO", idNormativa);
-      this.$announcer.set(`No se pudo agregar a favoritos`);
+      if (process.client) this.$announcer.set(`No se pudo agregar a favoritos`);
       throw error;
     }
   },
   async quitarFavorito({ commit }, idNormativa) {
     commit("QUITAR_FAVORITO", idNormativa);
-    this.$announcer.set(`Quitado de favoritos`);
+    if (process.client) this.$announcer.set(`Quitado de favoritos`);
     try {
       await this.$axios.delete("favoritos", {
         params: {

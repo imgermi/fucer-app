@@ -8,8 +8,14 @@
           <h2 ref="pageFocusTarget">Novedades</h2>
           <div>
             <div v-if="!cargandoCarousel">
-              <Carousel :autoplay="true" :per-page="1" :autoplay-timeout="5000">
-                <Slide
+              <Component
+                :is="carousel"
+                :autoplay="true"
+                :per-page="1"
+                :autoplay-timeout="5000"
+              >
+                <Component
+                  :is="slide"
                   v-for="normativa in destacadas"
                   :key="normativa.id + '-destacada'"
                 >
@@ -36,8 +42,8 @@
                   <nuxt-link :to="normativa.url" class="rounded__btn--medium">
                     Ver más
                   </nuxt-link>
-                </Slide>
-              </Carousel>
+                </Component>
+              </Component>
             </div>
             <div v-else>Cargando...</div>
           </div>
@@ -237,7 +243,6 @@ import Top from "~/components/Top.vue";
 import Alerta from "~/components/Alerta.vue";
 //import ModuloNormativa from '~/components/ModuloNormativa.vue'
 //import cargarMas from '~/components/cargarMas.vue'
-import { Carousel, Slide } from "vue-carousel";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -247,8 +252,6 @@ export default {
     Alerta,
     //cargarMas,
     //ModuloNormativa,
-    Carousel,
-    Slide,
   },
   middleware: "premium",
   data() {
@@ -256,10 +259,13 @@ export default {
       title: "Inicio",
       cargandoCarousel: true,
       cargandoNormativas: true,
+      carousel: null,
+      slide: null,
     };
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
@@ -274,8 +280,14 @@ export default {
     if (this.destacadas.length < 1) {
       await this.getDestacadas();
     }
-    this.cargandoCarousel = false;
-
+    if (process.client) {
+      const { Carousel, Slide } = await import(
+        /* webpackChunkName: "vue-carousel" */ "vue-carousel"
+      );
+      this.carousel = Carousel;
+      this.slide = Slide;
+      this.cargandoCarousel = false;
+    }
     if (this.recientes.length < 1) {
       // await this.getRecientes(1)
     }

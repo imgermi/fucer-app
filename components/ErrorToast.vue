@@ -12,6 +12,10 @@ export default {
   },
   created() {
     this.unsubscribe = this.$store.subscribe(async (mutation, state) => {
+      if (!process.client) {
+        console.log(state.pagina.error);
+        return;
+      }
       if ("SET_PAGINA_ERROR" === mutation.type) {
         if (state.pagina.error) {
           const Toasted = await import(
@@ -25,7 +29,7 @@ export default {
             duration: 5000,
             keepOnHover: true,
           });
-          this.$announcer.set(state.pagina.error);
+          if (process.client) this.$announcer.set(state.pagina.error);
         } else {
           if (this.toast) {
             this.toast.goAway();

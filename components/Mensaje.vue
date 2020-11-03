@@ -38,6 +38,7 @@ export default {
   },
   watch: {
     texto(newtexto, oldtexto) {
+      if (!process.client) return;
       if (newtexto && newtexto !== oldtexto) {
         this.$announcer.set(newtexto);
       }

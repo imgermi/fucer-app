@@ -278,6 +278,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
@@ -291,6 +292,7 @@ export default {
   },
 
   async created() {
+    if (!process.client) return;
     if (this.$nuxt.isOffline) {
       this.$router.replace({ name: 404 });
     }

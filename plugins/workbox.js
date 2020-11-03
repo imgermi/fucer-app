@@ -1,4 +1,4 @@
-if ("serviceWorker" in navigator) {
+if (process.client && "serviceWorker" in navigator) {
   navigator.serviceWorker
     .getRegistrations()
     .then((registrations) => {

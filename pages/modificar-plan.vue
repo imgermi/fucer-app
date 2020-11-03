@@ -74,6 +74,7 @@ export default {
   },
   watch: {
     "suscripcion.plan.estado"(newEstado, oldEstado) {
+      if (!process.client) return;
       if (newEstado !== oldEstado) {
         this.$announcer.set(newEstado);
       }
@@ -81,6 +82,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness

@@ -3,14 +3,20 @@ const strategy = "local";
 export default async function ({ app, route }) {
   const { $axios, $auth } = app;
 
-  if (!$auth || !$auth.loggedIn || !$auth.strategies[strategy]) return;
+  if (
+    !process.client ||
+    !$auth ||
+    !$auth.loggedIn ||
+    !$auth.strategies[strategy]
+  )
+    return;
 
   const options = $auth.strategies.local.options;
   let token = $auth.getToken(strategy);
 
   if (!token) return;
 
-  // no deslogueamos elusuario si está offline
+  // no deslogueamos el usuario si está offline
   if (!window.navigator.onLine) return;
 
   // calculate timeout before token expiration (75% from expiration time)

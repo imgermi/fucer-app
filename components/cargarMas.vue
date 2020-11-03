@@ -30,10 +30,10 @@ export default {
       this.pagina++;
       let oldMensaje = this.mensaje;
       this.mensaje = "Cargando...";
-      this.$announcer.set(this.mensaje);
+      if (process.client) this.$announcer.set(this.mensaje);
       await this.getRecientes(this.pagina);
       this.mensaje = oldMensaje;
-      this.$announcer.set("Normativas cargadas");
+      if (process.client) this.$announcer.set("Normativas cargadas");
     },
   },
 };

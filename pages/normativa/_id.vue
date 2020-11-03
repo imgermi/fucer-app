@@ -145,6 +145,7 @@ export default {
     });
   },
   created() {
+    if (!process.client) return;
     this.$announcer.set(
       `${this.titulo} ${this.$announcer.options.complementRoute}`,
       this.$announcer.options.politeness

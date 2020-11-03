@@ -1,6 +1,6 @@
 <template>
   <div class="error">
-    <vue-announcer />
+    <client-only><vue-announcer /></client-only>
     <SkipLinks />
     <SecondaryTop />
     <section class="band">
@@ -31,6 +31,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       vm.$announcer.assertive(
         `${vm.title} ${vm.$announcer.options.complementRoute}`
       );

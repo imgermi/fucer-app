@@ -1,4 +1,5 @@
 export default function ({ app }) {
+  if (!process.client) return;
   window.onNuxtReady(() => {
     // Actualiza los datos del usuario cada 30 min
     setTimeout(() => {

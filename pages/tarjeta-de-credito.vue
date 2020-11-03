@@ -294,6 +294,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
@@ -307,7 +308,10 @@ export default {
   },
 
   async created() {
-    if (this.$auth.user && this.$auth.user.suscripcion.metadata.customer_id) {
+    if (
+      this.$auth.loggedIn &&
+      this.$auth.user.suscripcion.metadata.customer_id
+    ) {
       await this.precargarDatos();
     }
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="signup">
-    <vue-announcer />
+    <client-only><vue-announcer /></client-only>
     <lazy-error-toast />
     <nuxt />
   </div>

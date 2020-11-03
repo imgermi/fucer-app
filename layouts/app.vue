@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <vue-announcer />
+    <client-only><vue-announcer /></client-only>
     <SkipLinks />
     <lazy-error-toast />
     <nuxt />

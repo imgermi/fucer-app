@@ -378,6 +378,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
@@ -387,6 +388,7 @@ export default {
   },
 
   async created() {
+    if (!process.client) return;
     await this.processCardAndCreateCustomer();
   },
 
@@ -401,7 +403,8 @@ export default {
         this.titulo = "¡Bienvenido/a, " + this.$auth.user.nombre + "!";
         this.mensaje +=
           "Su tarjeta fue guardada y ya puede acceder a sus 15 días gratis. Recuerde que no le cobraremos ningún cargo hasta dentro de 15 días.";
-        this.$announcer.set(this.titulo + " " + this.mensaje);
+        if (process.client)
+          this.$announcer.set(this.titulo + " " + this.mensaje);
       } catch (error) {
         this.titulo = "Hubo un problema";
         this.error =
@@ -413,19 +416,20 @@ export default {
           this.error =
             "Por seguridad necesitamos que vuelva a cargar los datos de su tarjeta.";
         }
-        this.$announcer.set(this.titulo + ". " + this.error);
+        if (process.client)
+          this.$announcer.set(this.titulo + ". " + this.error);
       }
     },
 
     async verifyCard() {
       this.titulo = "Verificando tarjeta...";
-      this.$announcer.set(this.titulo);
+      if (process.client) this.$announcer.set(this.titulo);
       await this.authorizePayment();
       // https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/webhooks/payment-status/
       if (this.payment.status !== "authorized") {
         this.error =
           "No se pudo verificar que la tarjeta sea apta para hacer suscripciones. No podemos asegurarle que al vencer el plazo no pierda el acceso al contenido.";
-        this.$announcer.set(this.error);
+        if (process.client) this.$announcer.set(this.error);
       } else {
         await this.cancelPayment();
       }
@@ -475,7 +479,7 @@ export default {
 
     async createNewCustomer() {
       this.titulo = "Guardando tarjeta...";
-      this.$announcer.set(this.titulo);
+      if (process.client) this.$announcer.set(this.titulo);
       this.customer = await this.$axios.$post("mercadopago/create-customer", {
         email: this.email,
         token: this.cardToken,
@@ -484,7 +488,7 @@ export default {
 
     async subscribe() {
       this.titulo = "Creando nueva suscripción...";
-      this.$announcer.set(this.titulo);
+      if (process.client) this.$announcer.set(this.titulo);
 
       // Compruebo que el usuaio no tenga ya una suscripción
       if (this.$auth.user && this.$auth.user.suscripcion.id) {

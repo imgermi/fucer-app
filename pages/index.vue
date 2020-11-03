@@ -47,20 +47,12 @@
             colaboradores-
           </p>
           <img
+            width="690"
+            height="439"
             src="~/assets/img/landing/fucernet-mobile-desktop.png"
             alt="Capturas de pantallas de laptop y celular"
           />
         </div>
-        <p>
-          -Dr. Javier Antonio Cornejo (Director de FucerNet) y equipo de
-          colaboradores-
-        </p>
-        <img
-          width="690"
-          height="439"
-          src="~/assets/img/landing/fucernet-mobile-desktop.png"
-          alt="Capturas de pantallas de laptop y celular"
-        />
       </section>
       <section class="features">
         <div class="container">
@@ -162,32 +154,15 @@
 export default {
   layout: "signup",
   auth: false,
-  data() {
-    return {
-      title: "La normativa registral, en una base de datos única en el país",
-    };
-  },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
       );
       vm.$utils.moveFocus(vm.$refs.pageFocusTarget);
     });
-  },
-  head() {
-    return {
-      title: this.title,
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content:
-            "FucerNet es una herramienta digital en la que encontrará el texto completo de las principales Disposiciones complementarias y Circulares aclaratorias del Digesto, con un breve resumen del contenido de las mismas, y diversos artículos de doctrina y jurisprudencia.",
-        },
-      ],
-    };
   },
 };
 </script>

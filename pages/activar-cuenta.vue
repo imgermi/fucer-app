@@ -53,6 +53,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       vm.$announcer.set(
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
@@ -62,6 +63,7 @@ export default {
   },
 
   created() {
+    if (!process.client) return;
     this.activarCuenta();
   },
   methods: {
@@ -69,7 +71,7 @@ export default {
     async activarCuenta() {
       this.setPaginaCargando(true);
       try {
-        this.$announcer.set(this.mensaje);
+        if (process.client) this.$announcer.set(this.mensaje);
         let { data } = await this.$axios.$post("auth/activateAccount", {
           token: this.$route.params.token,
         });
@@ -82,10 +84,10 @@ export default {
           "¡Bienvenido, " +
           this.$auth.user.nombre +
           "!<br><br> Su email ha sido confirmado.";
-        this.$announcer.set(this.mensaje);
+        if (process.client) this.$announcer.set(this.mensaje);
       } catch (e) {
         this.mensaje = e;
-        this.$announcer.set(this.mensaje);
+        if (process.client) this.$announcer.set(this.mensaje);
       }
       this.setPaginaCargando(false);
     },

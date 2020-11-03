@@ -11,11 +11,20 @@ export default {
    ** Headers of the page
    */
   head: {
+    title: "La normativa registral, en una base de datos única en el país",
     titleTemplate: "%s | FucerNet",
     htmlAttrs: {
       lang: "es",
     },
-    meta: [{ name: "msapplication-TileColor", content: "#2b5797" }],
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "FucerNet es una herramienta digital en la que encontrará el texto completo de las principales Disposiciones complementarias y Circulares aclaratorias del Digesto, con un breve resumen del contenido de las mismas, y diversos artículos de doctrina y jurisprudencia.",
+      },
+      { name: "msapplication-TileColor", content: "#2b5797" },
+    ],
     link: [
       /* eslint-disable-next-line sonarjs/no-duplicate-string */
       { rel: "preconnect", href: "https://fonts.gstatic.com" },
@@ -28,29 +37,6 @@ export default {
   css: ["sass/main.sass"],
 
   loading: { color: "#4ECDC4", height: "4px" },
-
-  render: {
-    csp: {
-      hashAlgorithm: "sha256",
-      policies: {
-        "default-src": ["'none'"],
-        "script-src": ["'self'"],
-        "style-src": [
-          "'self'",
-          "https://fonts.googleapis.com",
-          "https://fonts.gstatic.com",
-        ],
-        "img-src": ["'self'"],
-        "font-src": ["https://fonts.gstatic.com"],
-        "connect-src": ["'self'", "https://*.ingest.sentry.io"],
-        "media-src": ["'none'"],
-        "object-src": ["'none'"],
-        "frame-ancestors": ["'none'"],
-        "form-action": ["'self'"],
-        "base-uri": ["'none'"],
-      },
-    },
-  },
 
   // https://github.com/Developmint/nuxt-webfontloader
   webfontloader: {
@@ -170,7 +156,10 @@ export default {
     },
   },
 
-  buildModules: ["~/modules/pwa-extension.js", "@nuxtjs/pwa"],
+  buildModules: [
+    // "~/modules/pwa-extension.js",
+    "@nuxtjs/pwa",
+  ],
 
   modules: ["@nuxtjs/auth", "@nuxtjs/axios", "nuxt-webfontloader"],
 
@@ -213,13 +202,14 @@ export default {
   plugins: [
     "~/plugins/axios",
     "~/plugins/api",
-    "~/plugins/a11y",
+    "~/plugins/focus",
+    { src: "~/plugins/announcer", mode: "client" },
     "~/plugins/filtros",
     "~/plugins/vue-validate",
     "~/plugins/sentry",
-    "~/plugins/utils",
-    // { src: '~/plugins/axe', ssr: false },
-    { src: "~plugins/actualizar-datos-usuario", ssr: false },
+    { src: "~/plugins/utils", mode: "client" },
+    // { src: "~/plugins/axe", mode: "client" },
+    "~plugins/actualizar-datos-usuario",
     "~/plugins/mixpanel",
   ],
 
@@ -227,9 +217,7 @@ export default {
    ** Build configuration
    */
   build: {
-    // // https://develop365.gitlab.io/nuxtjs-2.8.X-doc/en/api/configuration-build/#extractcss
-    // extractCSS: true,
-
+    transpile: ["vee-validate"],
     /*
      ** Run ESLint on save
      */
