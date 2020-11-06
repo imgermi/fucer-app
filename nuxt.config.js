@@ -7,6 +7,11 @@ export default {
 
   modern: true,
 
+  generate: {
+    exclude: ["normativa/_id"],
+    fallback: true,
+  },
+
   /*
    ** Headers of the page
    */

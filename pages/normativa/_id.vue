@@ -99,6 +99,7 @@ export default {
   },
   middleware: "premium",
   async asyncData({ app: { router, store }, params }) {
+    if (!params.id) return;
     try {
       await store.dispatch("normativas/getById", params.id);
       return store.state.normativas.byId[params.id];
