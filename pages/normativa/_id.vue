@@ -15,8 +15,8 @@
           :aria-label="(enFavoritos ? 'Quitar de' : 'Agregar a') + ' favoritos'"
           tabindex="0"
           :activa="enFavoritos"
-          @click.native="toggleFavorito(id)"
-          @keyup.native.enter="toggleFavorito(id)"
+          @click.native="toggleFavorito(normativa.id)"
+          @keyup.native.enter="toggleFavorito(normativa.id)"
         />
       </div>
     </nav>
@@ -25,26 +25,28 @@
         <div class="container">
           <h1 ref="pageFocusTarget">
             <small
-              v-if="categoria"
-              :class="`tag normativa__tag ${categoriaUri}`"
-              >{{ categoria }}</small
+              v-if="normativa.categoria"
+              :class="`tag normativa__tag ${normativa.categoriaUri}`"
+              >{{ normativa.categoria }}</small
             >
-            <div>{{ titulo }}</div>
+            <div>{{ normativa.titulo }}</div>
           </h1>
-          <h2>{{ bajada }}</h2>
-          <time v-if="fecha" :datetime="fecha | fecha('yyyy-MM-dd')">{{
-            fecha | fecha("dd/MM/yyyy")
-          }}</time>
+          <h2>{{ normativa.bajada }}</h2>
+          <time
+            v-if="normativa.fecha"
+            :datetime="normativa.fecha | fecha('yyyy-MM-dd')"
+            >{{ normativa.fecha | fecha("dd/MM/yyyy") }}</time
+          >
         </div>
       </section>
       <section class="band cuerpo">
         <div class="container">
           <div v-if="!pagina.cargando">
             <h6>Introducción</h6>
-            <span v-if="autor">Por {{ autor }}</span>
-            <template v-if="intro">
+            <span v-if="normativa.autor">Por {{ normativa.autor }}</span>
+            <template v-if="normativa.intro">
               <!-- eslint-disable-next-line vue/no-v-html -->
-              <div v-html="intro" />
+              <div v-html="normativa.intro" />
             </template>
             <a
               ref="btnLeer"
@@ -72,10 +74,10 @@
                   >
                     Cerrar
                   </button>
-                  <h1>{{ titulo }}</h1>
-                  <h2>{{ bajada }}</h2>
+                  <h1>{{ normativa.titulo }}</h1>
+                  <h2>{{ normativa.bajada }}</h2>
                   <!-- eslint-disable-next-line vue/no-v-html -->
-                  <div v-html="cuerpo" />
+                  <div v-html="normativa.cuerpo" />
                 </div>
               </focus-trap>
             </div>
@@ -98,44 +100,47 @@ export default {
     FavoriteStar,
   },
   middleware: "premium",
-  async asyncData({ app: { router, store }, params }) {
-    if (!params.id) return;
+  async fetch() {
+    if (!this.$route.params.id) return;
     try {
-      await store.dispatch("normativas/getById", params.id);
-      return store.state.normativas.byId[params.id];
+      await this.$store.dispatch("normativas/getById", this.$route.params.id);
+      this.normativa = this.$store.state.normativas.byId[this.$route.params.id];
     } catch (e) {
       if (process.client && !window.navigator.onLine) {
         const cache = await caches.open("fucer-api");
-        const match = cache.match(`/api/normativas/id/${params.id}`);
+        const match = cache.match(
+          `/api/normativas/id/${this.$route.params.id}`
+        );
         if (match) {
-          return match.json();
+          this.normativa = match.json();
         }
-        router.push({ name: "offline" });
+        this.$router.push({ name: "offline" });
       } else {
-        router.push({ name: "404" });
+        this.$router.push({ name: "404" });
       }
     }
   },
   data() {
     return {
-      id: 0,
-      title: "",
-      titulo: "",
-      bajada: "",
-      autor: "",
-      categoria: "",
-      categoriaUri: "",
-      fecha: "",
-      intro: "",
-      cuerpo: "",
-      url: "",
       mostrarCuerpo: false,
+      normativa: {
+        id: 0,
+        titulo: "",
+        bajada: "",
+        autor: "",
+        categoria: "",
+        categoriaUri: "",
+        fecha: "",
+        intro: "",
+        cuerpo: "",
+        url: "",
+      },
     };
   },
   computed: {
     ...mapState(["pagina"]),
     enFavoritos() {
-      return this.$store.getters["normativas/enFavoritos"](this.id);
+      return this.$store.getters["normativas/enFavoritos"](this.normativa.id);
     },
   },
   beforeRouteEnter(to, from, next) {
@@ -149,7 +154,7 @@ export default {
   created() {
     if (!process.client) return;
     this.$announcer.set(
-      `${this.titulo} ${this.$announcer.options.complementRoute}`,
+      `${this.normativa.titulo} ${this.$announcer.options.complementRoute}`,
       this.$announcer.options.politeness
     );
   },
@@ -171,7 +176,7 @@ export default {
   },
   head() {
     return {
-      title: this.titulo,
+      title: this.normativa.titulo,
     };
   },
 };

@@ -8,8 +8,7 @@ export default {
   modern: true,
 
   generate: {
-    exclude: ["normativa/_id"],
-    fallback: true,
+    devtools: true,
   },
 
   /*
