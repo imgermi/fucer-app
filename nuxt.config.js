@@ -164,7 +164,9 @@ export default {
   modules: ["@nuxtjs/auth", "@nuxtjs/axios", "nuxt-webfontloader"],
 
   axios: {
-    baseURL: "https://net.fucer.com.ar/api/",
+    baseURL: `${
+      process.env.DEPLOY_PRIME_URL || "https://net.fucer.com.ar"
+    }/api/`,
   },
 
   auth: {
