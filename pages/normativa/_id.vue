@@ -102,23 +102,7 @@ export default {
   middleware: "premium",
   async fetch() {
     if (!this.$route.params.id) return;
-    try {
-      await this.$store.dispatch("normativas/getById", this.$route.params.id);
-      this.normativa = this.$store.state.normativas.byId[this.$route.params.id];
-    } catch (e) {
-      if (process.client && !window.navigator.onLine) {
-        const cache = await caches.open("fucer-api");
-        const match = cache.match(
-          `/api/normativas/id/${this.$route.params.id}`
-        );
-        if (match) {
-          this.normativa = match.json();
-        }
-        this.$router.push({ name: "offline" });
-      } else {
-        this.$router.push({ name: "404" });
-      }
-    }
+    await this.fetchNormativa();
   },
   data() {
     return {
@@ -151,14 +135,37 @@ export default {
       }
     });
   },
-  created() {
+  async created() {
     if (!process.client) return;
+    await this.fetchNormativa();
     this.$announcer.set(
       `${this.normativa.titulo} ${this.$announcer.options.complementRoute}`,
       this.$announcer.options.politeness
     );
   },
   methods: {
+    async fetchNormativa() {
+      try {
+        await this.$store.dispatch("normativas/getById", this.$route.params.id);
+        this.normativa = this.$store.state.normativas.byId[
+          this.$route.params.id
+        ];
+      } catch (e) {
+        console.log(e);
+        if (process.client && !window.navigator.onLine) {
+          const cache = await caches.open("fucer-api");
+          const match = cache.match(
+            `/api/normativas/id/${this.$route.params.id}`
+          );
+          if (match) {
+            this.normativa = match.json();
+          }
+          this.$router.push({ name: "offline" });
+        } else {
+          this.$router.push({ name: "404" });
+        }
+      }
+    },
     leerNormativa() {
       this.mostrarCuerpo = true;
       if (!this.$route.hash) {

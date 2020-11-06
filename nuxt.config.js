@@ -197,7 +197,9 @@ export default {
     },
     cookie: {
       options: {
-        domain: process.env.DOMAIN || "net.fucer.com.ar",
+        domain: process.env.DEPLOY_PRIME_URL
+          ? process.env.DEPLOY_PRIME_URL.replace("https://", "")
+          : "net.fucer.com.ar",
         secure: process.env.NODE_ENV === "production",
         samesite: process.env.NODE_ENV !== "production" ? "None" : "Strict",
       },
@@ -223,6 +225,8 @@ export default {
    ** Build configuration
    */
   build: {
+    devtools: true,
+
     transpile: ["vee-validate"],
     /*
      ** Run ESLint on save
