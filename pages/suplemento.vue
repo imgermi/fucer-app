@@ -7,7 +7,13 @@
         <div class="normativas-container">
           <article class="normativa-module">
             <div class="main">
-              <h4 ref="pageFocusTarget"><a href="https://mailchi.mp/7b2d16ad0e57/suplemento-registral-fucernet-1423553" target="_blank">Suplemento Registral Nro. 5</a></h4>
+              <h4 ref="pageFocusTarget">
+                <a
+                  href="https://mailchi.mp/7b2d16ad0e57/suplemento-registral-fucernet-1423553"
+                  target="_blank"
+                  >Suplemento Registral Nro. 5</a
+                >
+              </h4>
               <!-- <p><a href="">bajada</a></p> -->
             </div>
             <div class="extra">
@@ -84,18 +90,18 @@
 import Top from "~/components/Top.vue";
 import Alerta from "~/components/Alerta.vue";
 
-	export default {
-    layout: 'app',
-    auth: false,
-		components: {
-		  Top,
-		  Alerta
-		},
-		data () {
-		  return {
-		    title: 'Suplemento Registral'
-		  }
-		},
+export default {
+  layout: "app",
+  auth: false,
+  components: {
+    Top,
+    Alerta,
+  },
+  data() {
+    return {
+      title: "Suplemento Registral",
+    };
+  },
 
   beforeRouteEnter(to, from, next) {
     next((vm) => {

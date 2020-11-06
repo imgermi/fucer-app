@@ -48,7 +48,7 @@ export default {
 
   // Reviso que esté el token en la URL
   validate({ params }) {
-    return /^[0-9a-z]{32}$/.test(params.token);
+    return process.client ? /^[0-9a-z]{32}$/.test(params.token) : true;
   },
 
   beforeRouteEnter(to, from, next) {

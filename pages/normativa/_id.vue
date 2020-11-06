@@ -103,7 +103,7 @@ export default {
       await store.dispatch("normativas/getById", params.id);
       return store.state.normativas.byId[params.id];
     } catch (e) {
-      if (!window.navigator.onLine) {
+      if (process.client && !window.navigator.onLine) {
         const cache = await caches.open("fucer-api");
         const match = cache.match(`/api/normativas/id/${params.id}`);
         if (match) {
@@ -139,6 +139,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      if (!process.client) return;
       if (to.name !== from.name) {
         vm.$utils.moveFocus(vm.$refs.pageFocusTarget);
       }

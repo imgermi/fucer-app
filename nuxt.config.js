@@ -1,5 +1,5 @@
 export default {
-  ssr: false,
+  ssr: true,
 
   target: "static",
 
@@ -191,7 +191,7 @@ export default {
     },
     cookie: {
       options: {
-        domain: "net.fucer.com.ar",
+        domain: process.env.DOMAIN || "net.fucer.com.ar",
         secure: process.env.NODE_ENV === "production",
         samesite: process.env.NODE_ENV !== "production" ? "None" : "Strict",
       },

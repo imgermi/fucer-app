@@ -43,6 +43,7 @@ export default {
   },
   computed: {
     mensaje() {
+      if (!this.$store.state.auth.user) return;
       return this.mensajes[
         this.$store.state.auth.user.suscripcion.metadata.estado_invoice
       ];

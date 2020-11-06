@@ -26,6 +26,7 @@ import Alerta from "~/components/Alerta.vue";
 
 export default {
   layout: "app",
+  auth: false,
   components: {
     Top,
     Alerta,
