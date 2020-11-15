@@ -74,7 +74,7 @@ export default {
       pagesURLPattern: "/|offline",
       runtimeCaching: [
         {
-          urlPattern: "^/api/.*",
+          urlPattern: "(?!/api/auth/.*)(^/api/.*)",
           handler: "networkFirst",
           strategyOptions: {
             cacheName: "fucer-api",
