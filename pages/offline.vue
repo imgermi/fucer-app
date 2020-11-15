@@ -23,6 +23,7 @@ export default {
   components: {
     SecondaryTop,
   },
+  auth: false,
   data() {
     return {
       title: "Sin conexión",

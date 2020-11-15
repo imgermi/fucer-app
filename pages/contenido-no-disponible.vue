@@ -26,6 +26,7 @@ export default {
   components: {
     SecondaryTop,
   },
+  auth: false,
   data() {
     return {
       title: "Contenido no disponible",

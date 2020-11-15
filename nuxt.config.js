@@ -8,6 +8,7 @@ export default {
   modern: true,
 
   generate: {
+    fallback: "404.html",
     devtools: true,
   },
 
