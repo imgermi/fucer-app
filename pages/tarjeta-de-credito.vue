@@ -228,11 +228,10 @@ export default {
   mixins: [mensaje],
   middleware: "plan-no-ilimitado",
 
-  async asyncData({ app: { $api } }) {
-    return {
-      documentTypes: await $api.mercadopago.getIdentificationTypes(),
-    };
+  async fetch() {
+    this.documentTypes = await this.$api.mercadopago.getIdentificationTypes();
   },
+  fetchOnServer: false,
 
   data() {
     return {
