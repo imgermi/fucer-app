@@ -150,6 +150,7 @@ export default {
         return;
       }
 
+      this.setPaginaCargando(true);
       try {
         await this.$axios.$post("suscripciones", {
           tipo: "debito",
@@ -162,11 +163,13 @@ export default {
           },
         });
         await this.$auth.fetchUser();
-        this.$router.push({
+        await this.$router.push({
           name: "inicio",
         });
+        this.setPaginaCargando(false);
       } catch (error) {
         this.setMensaje(error, "error");
+        this.setPaginaCargando(false);
       }
     },
   },
