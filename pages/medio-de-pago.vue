@@ -24,7 +24,7 @@
           :to="{ name: 'tarjeta-de-credito' }"
           class="rounded__btn--full green"
         >
-          Crédito
+          Tarjeta de Crédito
         </nuxt-link>
 
         <nuxt-link
