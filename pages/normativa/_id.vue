@@ -6,8 +6,8 @@
         <a
           href="#"
           class="volver-btn"
-          @click.prevent="$router.go(-1)"
-          @keyup.enter.prevent="$router.go(-1)"
+          @click.prevent="volver"
+          @keyup.enter.prevent="volver"
           ><img src="~/assets/img/arrow-left.svg" alt="" class="arrow-left" />
           <span>Volver</span>
         </a>
@@ -106,6 +106,7 @@ export default {
   },
   data() {
     return {
+      fromRoute: null,
       mostrarCuerpo: false,
       normativa: {
         id: 0,
@@ -130,6 +131,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       if (!process.client) return;
+      vm.fromRoute = from;
       if (to.name !== from.name) {
         vm.$utils.moveFocus(vm.$refs.pageFocusTarget);
       }
@@ -178,6 +180,15 @@ export default {
         this.$router.replace({ hash: "" });
       }
       this.$refs.btnLeer.focus();
+    },
+    volver() {
+      if (!this.fromRoute.name) {
+        this.$router.push({
+          name: "inicio",
+        });
+      } else {
+        this.$router.back();
+      }
     },
     ...mapActions("normativas", ["toggleFavorito"]),
   },
