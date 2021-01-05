@@ -14,7 +14,12 @@
         <div v-if="!pagina.cargando">
           <nuxt-link
             class="rounded__btn--full green"
-            :to="{ name: 'medio-de-pago' }"
+            :to="{
+              name: 'login',
+              query: {
+                redirect: 'medio-de-pago',
+              },
+            }"
           >
             Siguiente
           </nuxt-link>
@@ -76,6 +81,7 @@ export default {
           token: this.$route.params.token,
         });
 
+        // Loggea automáticamente al usuario
         this.$auth.setToken("local", "Bearer " + data.token);
         await this.$auth.fetchUser();
 

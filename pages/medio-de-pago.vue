@@ -54,7 +54,6 @@ export default {
   components: {
     SecondaryTop,
   },
-  middleware: "guest",
   data() {
     return {
       title: "Paso 3 - Medio de Pago",

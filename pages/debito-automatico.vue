@@ -10,85 +10,97 @@
         <mensaje :tipo="mensajeTipo" :texto="mensajeTexto" />
 
         <form method="post" class="main__form" @submit.prevent="suscribir">
-          <fieldset>
-            <label for="cbu">CBU</label>
-            <input
-              id="cbu"
-              ref="cbu"
-              v-model.lazy="cbu"
-              v-validate="'required'"
-              type="text"
-              name="cbu"
-              data-vv-as="CBU"
-              :class="{ error: errors.has('cbu') }"
-            />
-            <span v-show="errors.has('cbu')" class="error">
-              {{ errors.first("cbu") }}
-            </span>
-          </fieldset>
+          <template v-if="completado">
+            <p>
+              ¡Hola, {{ this.$auth.user.nombre }}! Ya puede acceder a sus 15
+              días de prueba. Recuerde que no le cobraremos ningún cargo hasta
+              dentro de 15 días. Si desea cancelar la suscripción antes del
+              primer pago, puede hacerlo desde Configuración.
+            </p>
+            <br /><br />
+          </template>
 
-          <fieldset>
-            <label for="cuit">CUIT</label>
-            <input
-              id="cuit"
-              ref="cuit"
-              v-model.lazy="cuit"
-              v-validate="'required'"
-              type="text"
-              name="cuit"
-              data-vv-as="CUIT"
-              :class="{ error: errors.has('cuit') }"
-            />
-            <span v-show="errors.has('cuit')" class="error">
-              {{ errors.first("cuit") }}
-            </span>
-          </fieldset>
+          <template v-else>
+            <fieldset>
+              <label for="cbu">CBU</label>
+              <input
+                id="cbu"
+                ref="cbu"
+                v-model.lazy="cbu"
+                v-validate="'required'"
+                type="text"
+                name="cbu"
+                data-vv-as="CBU"
+                :class="{ error: errors.has('cbu') }"
+              />
+              <span v-show="errors.has('cbu')" class="error">
+                {{ errors.first("cbu") }}
+              </span>
+            </fieldset>
 
-          <fieldset>
-            <label for="rs">Código RS (si lo hubiera)</label>
-            <input
-              id="rs"
-              ref="rs"
-              v-model.lazy="rs"
-              type="text"
-              name="rs"
-              :class="{ error: errors.has('rs') }"
-            />
-          </fieldset>
+            <fieldset>
+              <label for="cuit">CUIT</label>
+              <input
+                id="cuit"
+                ref="cuit"
+                v-model.lazy="cuit"
+                v-validate="'required'"
+                type="text"
+                name="cuit"
+                data-vv-as="CUIT"
+                :class="{ error: errors.has('cuit') }"
+              />
+              <span v-show="errors.has('cuit')" class="error">
+                {{ errors.first("cuit") }}
+              </span>
+            </fieldset>
 
-          <fieldset>
-            <label for="nombre">Nombre</label>
-            <input
-              id="nombre"
-              ref="nombre"
-              v-model.lazy="nombre"
-              v-validate="'required'"
-              type="text"
-              name="nombre"
-              data-vv-as="Nombre"
-              :class="{ error: errors.has('nombre') }"
-            />
-            <span v-show="errors.has('nombre')" class="error">
-              {{ errors.first("nombre") }}
-            </span>
-          </fieldset>
+            <fieldset>
+              <label for="rs">Código RS (si lo hubiera)</label>
+              <input
+                id="rs"
+                ref="rs"
+                v-model.lazy="rs"
+                type="text"
+                name="rs"
+                :class="{ error: errors.has('rs') }"
+              />
+            </fieldset>
 
-          <fieldset>
-            <label for="apellido">Apellido</label>
-            <input
-              id="apellido"
-              ref="apellido"
-              v-model.lazy="apellido"
-              v-validate="'required'"
-              type="text"
-              name="apellido"
-              data-vv-as="Apellido"
-              :class="{ error: errors.has('apellido') }"
-            />
-            <span v-show="errors.has('apellido')" class="error">
-              {{ errors.first("apellido") }}
-            </span>
-          </fieldset>
+            <fieldset>
+              <label for="nombre">Nombre</label>
+              <input
+                id="nombre"
+                ref="nombre"
+                v-model.lazy="nombre"
+                v-validate="'required'"
+                type="text"
+                name="nombre"
+                data-vv-as="Nombre"
+                :class="{ error: errors.has('nombre') }"
+              />
+              <span v-show="errors.has('nombre')" class="error">
+                {{ errors.first("nombre") }}
+              </span>
+            </fieldset>
+
+            <fieldset>
+              <label for="apellido">Apellido</label>
+              <input
+                id="apellido"
+                ref="apellido"
+                v-model.lazy="apellido"
+                v-validate="'required'"
+                type="text"
+                name="apellido"
+                data-vv-as="Apellido"
+                :class="{ error: errors.has('apellido') }"
+              />
+              <span v-show="errors.has('apellido')" class="error">
+                {{ errors.first("apellido") }}
+              </span>
+            </fieldset>
+          </template>
 
           <button type="submit" class="rounded__btn--full green">
             {{ txtBtnSubmit }}
@@ -120,12 +132,16 @@ export default {
       cbu: "",
       nombre: "",
       apellido: "",
+      completado: false,
     };
   },
 
   computed: {
     ...mapState(["pagina"]),
     txtBtnSubmit() {
+      if (this.completado) {
+        return "Continuar";
+      }
       return this.pagina.cargando ? "Cargando..." : "Siguiente";
     },
   },
@@ -145,6 +161,12 @@ export default {
     ...mapActions(["setPaginaCargando"]),
 
     async suscribir() {
+      if (this.completado) {
+        await this.$router.push({
+          name: "inicio",
+        });
+      }
+
       let valida = await this.$validator.validateAll();
       if (!valida) {
         return;
@@ -163,10 +185,8 @@ export default {
           },
         });
         await this.$auth.fetchUser();
-        await this.$router.push({
-          name: "inicio",
-        });
         this.setPaginaCargando(false);
+        this.completado = true;
       } catch (error) {
         this.setMensaje(error, "error");
         this.setPaginaCargando(false);
