@@ -1,5 +1,5 @@
 <template>
-  <main id="contenido" class="registro">
+  <main id="contenido" class="registro tarjeta-de-credito">
     <SecondaryTop
       ref="pageFocusTarget"
       :nro-paso="nroPaso"
@@ -14,13 +14,13 @@
           class="main__form"
           @submit.prevent="generateCardToken"
         >
-          <fieldset>
+          <fieldset ref="cardNumber">
             <label for="cardNumber">Número de la tarjeta</label>
-            <input
+            <TheMask
               id="cardNumber"
-              ref="cardNumber"
               v-model.lazy="cardNumber"
               v-validate="'required'"
+              mask="####-####-####-####"
               type="text"
               data-vv-as="número de la tarjeta"
               :class="{ error: errors.has('cardNumber') }"
@@ -40,82 +40,94 @@
             }}</span>
           </fieldset>
 
-          <fieldset>
-            <label for="cardExpirationMonth">Mes de vencimiento</label>
-            <input
-              id="cardExpirationMonth"
-              ref="cardExpirationMonth"
-              v-model="cardExpirationMonth"
-              v-validate="'required'"
-              type="text"
-              data-vv-name="cardExpirationMonth"
-              data-vv-as="mes de vencimiento"
-              data-checkout="cardExpirationMonth"
-              :class="{ error: errors.has('cardExpirationMonth') }"
-              placeholder="12"
-              onselectstart="return false"
-              onpaste="return false"
-              oncopy="return false"
-              oncut="return false"
-              ondrag="return false"
-              ondrop="return false"
-              autocomplete="off"
-            />
-            <span v-show="errors.has('cardExpirationMonth')" class="error">{{
-              errors.first("cardExpirationMonth")
-            }}</span>
-          </fieldset>
+          <div class="dos-columnas">
+            <fieldset>
+              <label for="cardExpiration">Fecha de vencimiento</label>
+              <TheMask
+                id="cardExpiration"
+                ref="cardExpiration"
+                v-model="cardExpiration"
+                v-validate="'required'"
+                mask="##/####"
+                type="text"
+                data-vv-name="cardExpiration"
+                data-vv-as="fecha de vencimiento"
+                data-checkout="cardExpiration"
+                :class="{
+                  error:
+                    errors.has('cardExpirationMonth') ||
+                    errors.has('cardExpirationYear'),
+                }"
+                placeholder="12/2020"
+                onselectstart="return false"
+                onpaste="return false"
+                oncopy="return false"
+                oncut="return false"
+                ondrag="return false"
+                ondrop="return false"
+                autocomplete="off"
+              />
+              <span
+                v-show="
+                  errors.has('cardExpirationMonth') ||
+                  errors.has('cardExpirationYear')
+                "
+                class="error"
+                >{{
+                  errors.first("cardExpirationMonth") ||
+                  errors.first("cardExpirationYear")
+                }}</span
+              >
 
-          <fieldset>
-            <label for="cardExpirationYear">Año de vencimiento</label>
-            <input
-              id="cardExpirationYear"
-              ref="cardExpirationYear"
-              v-model="cardExpirationYear"
-              v-validate="'required'"
-              type="text"
-              data-vv-name="cardExpirationYear"
-              data-vv-as="año de vencimiento"
-              data-checkout="cardExpirationYear"
-              :class="{ error: errors.has('cardExpirationYear') }"
-              placeholder="2020"
-              onselectstart="return false"
-              onpaste="return false"
-              oncopy="return false"
-              oncut="return false"
-              ondrag="return false"
-              ondrop="return false"
-              autocomplete="off"
-            />
-            <span v-show="errors.has('cardExpirationYear')" class="error">{{
-              errors.first("cardExpirationYear")
-            }}</span>
-          </fieldset>
+              <input
+                id="cardExpirationMonth"
+                ref="cardExpirationMonth"
+                v-model="cardExpirationMonth"
+                v-validate="'required'"
+                type="hidden"
+                data-vv-name="cardExpirationMonth"
+                data-vv-as="mes de vencimiento"
+                data-checkout="cardExpirationMonth"
+              />
 
-          <fieldset v-show="isSecurityCodeRequired">
-            <label for="securityCode">Código de seguridad</label>
-            <input
-              id="securityCode"
-              v-model="securityCode"
-              v-validate="isSecurityCodeRequired ? 'required' : ''"
-              type="text"
-              data-vv-name="securityCode"
-              data-checkout="securityCode"
-              :class="{ error: errors.has('codigo') }"
-              data-vv-as="código de seguridad"
-              placeholder="123"
-              onselectstart="return false"
-              onpaste="return false"
-              oncopy="return false"
-              oncut="return false"
-              ondrag="return false"
-              ondrop="return false"
-              autocomplete="off"
-            />
-            <span v-show="errors.has('securityCode')" class="error">{{
-              errors.first("securityCode")
-            }}</span>
-          </fieldset>
+              <input
+                id="cardExpirationYear"
+                ref="cardExpirationYear"
+                v-model="cardExpirationYear"
+                v-validate="'required'"
+                type="hidden"
+                data-vv-name="cardExpirationYear"
+                data-vv-as="año de vencimiento"
+                data-checkout="cardExpirationYear"
+                autocomplete="off"
+              />
+            </fieldset>
+
+            <fieldset v-show="isSecurityCodeRequired">
+              <label for="securityCode">Código de seguridad</label>
+              <input
+                id="securityCode"
+                v-model="securityCode"
+                v-validate="isSecurityCodeRequired ? 'required' : ''"
+                type="text"
+                data-vv-name="securityCode"
+                data-checkout="securityCode"
+                :class="{ error: errors.has('codigo') }"
+                data-vv-as="código de seguridad"
+                placeholder="123"
+                onselectstart="return false"
+                onpaste="return false"
+                oncopy="return false"
+                oncut="return false"
+                ondrag="return false"
+                ondrop="return false"
+                autocomplete="off"
+              />
+              <span v-show="errors.has('securityCode')" class="error">{{
+                errors.first("securityCode")
+              }}</span>
+            </fieldset>
+          </div>
 
           <fieldset>
             <label for="cardholderName">Nombre impreso en tarjeta</label>
@@ -217,6 +229,7 @@
 
 <script>
 import SecondaryTop from "~/components/SecondaryTop.vue";
+import { TheMask } from "vue-the-mask";
 import { mapState, mapActions } from "vuex";
 import mensaje from "~/mixins/mensaje";
 
@@ -224,6 +237,7 @@ export default {
   layout: "signup",
   components: {
     SecondaryTop,
+    TheMask,
   },
   mixins: [mensaje],
   middleware: "plan-no-ilimitado",
@@ -256,11 +270,21 @@ export default {
 
   computed: {
     ...mapState(["pagina"]),
+    cardExpiration: {
+      set(value) {
+        this.cardExpirationMonth = value.slice(0, 2);
+        this.cardExpirationYear = value.slice(2);
+      },
+      get() {
+        return this.cardExpirationMonth + "/" + this.cardExpirationYear;
+      },
+    },
     txtBtnSubmit() {
       return this.pagina.cargando ? "Cargando..." : "Siguiente";
     },
     bin() {
-      return this.cardNumber.replace(/[ .-]/g, "").slice(0, 6);
+      var bin = this.cardNumber.replace(/[ .-]/g, "").slice(0, 6);
+      return bin.length === 6 ? bin : "";
     },
     isSecurityCodeRequired() {
       let founded = this.paymentMethodSettings.find((config) => {
@@ -281,9 +305,12 @@ export default {
           return;
         }
         try {
-          let { id, settings } = await this.guessingPaymentMethod(newBin);
-          this.paymentMethodId = id;
-          this.paymentMethodSettings = settings;
+          const data = await this.guessingPaymentMethod(newBin);
+          if (!data) {
+            return;
+          }
+          this.paymentMethodId = data.id;
+          this.paymentMethodSettings = data.settings;
         } catch (e) {
           console.log(e);
         }
@@ -398,3 +425,7 @@ export default {
   },
 };
 </script>
+
+<style lang="sass">
+@import 'sass/pages/tarjeta-de-credito.sass'
+</style>

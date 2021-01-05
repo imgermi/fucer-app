@@ -37,12 +37,13 @@
     "focus-trap": "^5.1.0",
     "focus-trap-vue": "0.0.6",
     "focus-visible": "^5.1.0",
-    "nuxt": "^2.14.7",
     "mixpanel-browser": "^2.39.0",
+    "nuxt": "^2.14.7",
     "nuxt-webfontloader": "^1.1.0",
     "vee-validate": "^2.2.15",
     "vue": "^2.6.12",
     "vue-carousel": "~0.18.0",
+    "vue-the-mask": "^0.11.1",
     "vue-toasted": "^1.1.28"
   },
   "devDependencies": {
