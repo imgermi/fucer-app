@@ -44,7 +44,7 @@
             </article>
             <article class="normativa-module">
               <div class="main">
-                <h4><a href="https://www.argentina.gob.ar/sites/default/files/regimen_juridico_del_automotor.pdf" target="_blank">Régimen Jurídico del Automotor</a></h4>
+                <h4><a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/35000-39999/38822/texact.htm" target="_blank">Régimen Jurídico del Automotor</a></h4>
                 <!-- <p><a href="">bajada</a></p> -->
               </div>
               <div class="extra">
@@ -62,16 +62,7 @@
             </article>
             <article class="normativa-module">
               <div class="main">
-                <h4><a href="http://www.dnrpa.gov.ar/rinof/rinof.htm" target="_blank">RINOF - Reglamento Interno de Normas Orgánico Funcionales</a></h4>
-                <!-- <p><a href="">bajada</a></p> -->
-              </div>
-              <div class="extra">
-                <small><a>Enlace externo</a></small>
-              </div>
-            </article>
-            <article class="normativa-module">
-              <div class="main">
-                <h4><a href="http://www.dnrpa.gov.ar/portal_dnrpa/regimen_juridico/urinof2.php" target="_blank">RINOF - Reglamento Interno de Normas Orgánico Funcionales y Disposiciones Modificatorias</a></h4>
+                <h4><a href="https://drive.google.com/file/d/1inIpNzJuv3W1KT709H03_oPnPAnEH0tw/view?usp=sharing" target="_blank">RINOF - Reglamento Interno de Normas Orgánico Funcionales</a></h4>
                 <!-- <p><a href="">bajada</a></p> -->
               </div>
               <div class="extra">
