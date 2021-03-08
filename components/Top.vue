@@ -91,6 +91,14 @@
 							>
 								Suplemento Registral
 							</nuxt-link>
+						</li>
+						<li>
+							<nuxt-link
+								:tag="$route.name === 'separata' ? 'span' : 'a'"
+								:to="{ name: 'separata' }"
+							>
+								Separata Anual de Normas
+							</nuxt-link>
 						</li>						
 						<li>
 							<nuxt-link
