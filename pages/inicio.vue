@@ -89,7 +89,7 @@
             </article>
             <article class="normativa-module">
               <div class="main">
-                <h4><a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/235000-239999/235975/norma.htm" target="_blank">Código Civil y Comercial de la Nación</a></h4>
+                <h4><a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/235000-239999/235975/texact.htm#23" target="_blank">Código Civil y Comercial de la Nación</a></h4>
                 <!-- <p><a href="">bajada</a></p> -->
               </div>
               <div class="extra">
