@@ -9,6 +9,15 @@
         <div class="normativas-container">
           <article class="normativa-module">
             <div class="main">
+              <h4 ref="pageFocusTarget"><a href="https://mailchi.mp/a908bab1e358/suplemento-registral-fucernet-5527737" target="_blank">Suplemento Registral Nro. 12 </a></h4>
+              <!-- <p><a href="">bajada</a></p> -->
+            </div>
+            <div class="extra">
+              <small><a>Mayo 2021</a></small>
+            </div>
+          </article>           
+          <article class="normativa-module">
+            <div class="main">
               <h4 ref="pageFocusTarget"><a href="https://mailchi.mp/2097e02114c3/suplemento-registral-fucernet-11" target="_blank">Suplemento Registral Nro. 11</a></h4>
               <!-- <p><a href="">bajada</a></p> -->
             </div>
