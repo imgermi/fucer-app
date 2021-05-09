@@ -109,7 +109,7 @@
             }}</span>
           </fieldset>
 
-          <button type="submit" class="rounded__btn--full blue">
+          <button type="submit" class="rounded__btn--full green">
             {{ txtBtnSubmit }}
           </button>
         </form>
@@ -150,7 +150,7 @@ export default {
         `${vm.title} ${vm.$announcer.options.complementRoute}`,
         vm.$announcer.options.politeness
       );
-      vm.$utils.moveFocus(vm.$refs.pageFocusTarget.$el);
+      vm.$utils.moveFocus(vm.$refs.pageFocusTarget);
     });
   },
 
